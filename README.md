@@ -17,7 +17,7 @@ Diablo was developed on Windows 95 using Visual C++ 4.20 and later 5.10 and 6 fo
 Once compiled, the Devilution binary will serve as a replacement for `Diablo.exe`. The following files from the original game patched to 1.09(b) need to be present: `DIABDAT.MPQ`, `DiabloUI.dll`, `SmackW32.dll`, `Standard.snp`, and `Storm.dll`.
 
 # Credits
-- All credits goes to the team at [diasurgical's devilution](https://github.com/diasurgical/devilution). I'm just a guy who plays around with the result of their hard work..
+- All credits goes to the team at [diasurgical's devilution](https://github.com/diasurgical/devilution). I'm just a guy who plays around with the result of their hard work.
 
 # Legal
 Devilution is released to the Public Domain. The documentation and function provided by Devilution may only be utilized with assets provided by ownership of Diablo.
