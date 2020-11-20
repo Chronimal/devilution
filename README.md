@@ -4,7 +4,7 @@ Diablo devolved - magic behind the 1996 computer game
 **Note**, Devilution requires an original copy of `diabdat.mpq`. None of the Diablo 1 game assets are provided by this project. To get a legitimate copy of the game assets, please refer to the [GoG release of Diablo 1](https://www.gog.com/game/diablo).
 
 # Introduction
-This version of Devilution started out as a fork of [diasurgical's devilution](https://github.com/diasurgical/devilution). My intention was to just do some debugging to see how one of my favorite games of all time internally works. Unfortunately, I ran into some issues when migrating the projects to Visual Studio 2019 and before I knew it I completely restructured the source code layout.
+This version of Devilution started out as a fork of [diasurgical's devilution](https://github.com/diasurgical/devilution). My intention was to just do some debugging to see how one of my favorite games of all time internally works. Unfortunately, I ran into some issues when migrating the projects to Visual Studio 2019 and before I knew it, I completely restructured the source code layout.
 Given the fact the restructuring touched pretty much every file in the code base it is almost impossible to merge my changes back into [diasurgical's devilution](https://github.com/diasurgical/devilution) and so after issuing a huge PR accidentally to `upstream` I decided to "un-fork" this repo and continue it as a standalone project.
  
 # Compiling
