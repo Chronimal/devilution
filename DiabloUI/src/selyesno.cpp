@@ -8,7 +8,7 @@ int __fastcall SelYesNo_YesNoDialog(HWND hWnd, char* dialogstr, char* hero, int 
     yesno_remove_focus = nofocus;
     yesno_is_popup = 0;
     YesNoFunc = 0;
-    return SDlgDialogBoxParam(ghUiInst, "SELYESNO_DIALOG", (int)hWnd, SelYesNo_WndProc, 0);
+    return SDlgDialogBoxParam(ghUiInst, "SELYESNO_DIALOG", hWnd, SelYesNo_WndProc, 0);
 }
 // 1002A500: using guessed type int yesno_remove_focus;
 // 1002A508: using guessed type int (*YesNoFunc)(void);
@@ -159,7 +159,7 @@ void __fastcall SelYesNo_LoadSelYN_GFX(HWND hWnd)
         Focus_LoadSpinner("ui_art\\focus.pcx");
     else
         Focus_ResetSpinToZero();
-    SDlgSetTimer((int)hWnd, 1, 55, 0);
+    SDlgSetTimer(hWnd, 1, 55, 0);
     local_DoUiWndProc2(hWnd, (DWORD*)yesno_msgtbl1);
 }
 // 1002A500: using guessed type int yesno_remove_focus;
@@ -171,7 +171,7 @@ void __fastcall SelYesNo_DoSelectYesNo(HWND hWnd, int option)
     HWND v4; // eax
 
     TitleSnd_PlaySelectSound();
-    SDlgKillTimer((int)hWnd, 1);
+    SDlgKillTimer(hWnd, 1);
     if (option == 2)
     {
         if (!YesNoFunc)
@@ -196,7 +196,7 @@ int __fastcall SelYesNo_SelOkDialog(HWND hWnd, char* dialogstr, char* hero, int 
     yesno_remove_focus = nofocus;
     yesno_is_popup = 0;
     YesNoFunc = 0;
-    return SDlgDialogBoxParam(ghUiInst, "SELOK_DIALOG", (int)hWnd, SelYesNo_WndProc, 0);
+    return SDlgDialogBoxParam(ghUiInst, "SELOK_DIALOG", hWnd, SelYesNo_WndProc, 0);
 }
 // 1002A500: using guessed type int yesno_remove_focus;
 // 1002A508: using guessed type int (*YesNoFunc)(void);
@@ -213,7 +213,7 @@ int __fastcall SelYesNo_SpawnErrDialog(HWND hWnd, int string_rsrc, int is_popup)
     yesno_hero_name = 0;
     yesno_dialog_string = Buffer;
     YesNoFunc = 0;
-    return SDlgDialogBoxParam(ghUiInst, "SPAWNERR_DIALOG", (int)hWnd, SelYesNo_WndProc, 0);
+    return SDlgDialogBoxParam(ghUiInst, "SPAWNERR_DIALOG", hWnd, SelYesNo_WndProc, 0);
 }
 // 1002A500: using guessed type int yesno_remove_focus;
 // 1002A508: using guessed type int (*YesNoFunc)(void);

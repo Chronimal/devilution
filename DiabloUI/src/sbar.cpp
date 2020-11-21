@@ -122,7 +122,7 @@ void __fastcall Sbar_DrawScrollBar(HWND hWnd, int nIDDlgItem, int width, int hei
                     SrcBuffer.bottom = *(DWORD*)(v5 + 24) - 1;
                     SBltROP3Tiled(
                         *(void**)(v5 + 4), &DstRect, *(POINT**)(v5 + 8), *(DWORD*)(v5 + 16), &SrcBuffer,
-                        *(RECT**)(v5 + 20), 0, 0, 0, 0xCC0020u);
+                        *(RECT**)(v5 + 20), 0, 0, 0, SRCCOPY);
                     if (*(DWORD*)(v5 + 28))
                     {
                         if (width <= 1)
@@ -131,15 +131,15 @@ void __fastcall Sbar_DrawScrollBar(HWND hWnd, int nIDDlgItem, int width, int hei
                             v8 = height * (*(DWORD*)(v5 + 12) - *(DWORD*)(v5 + 36) - 44) / (width - 1) + 22;
                         SBltROP3(
                             (void*)(v8 * *(DWORD*)(v5 + 8) + *(DWORD*)(v5 + 4) + 3), *(void**)(v5 + 28), 18,
-                            *(DWORD*)(v5 + 36), *(DWORD*)(v5 + 8), *(DWORD*)(v5 + 32), 0, 0xCC0020u);
+                            *(DWORD*)(v5 + 36), *(DWORD*)(v5 + 8), *(DWORD*)(v5 + 32), 0, SRCCOPY);
                         SBltROP3(
                             *(void**)(v5 + 4),
                             (void*)(*(DWORD*)(v5 + 40) + 22 * (~*(BYTE*)v5 & 1) * *(DWORD*)(v5 + 44)),
-                            *(DWORD*)(v5 + 8), 22, *(DWORD*)(v5 + 8), *(DWORD*)(v5 + 44), 0, 0xCC0020u);
+                            *(DWORD*)(v5 + 8), 22, *(DWORD*)(v5 + 8), *(DWORD*)(v5 + 44), 0, SRCCOPY);
                         SBltROP3(
                             (void*)(*(DWORD*)(v5 + 4) + *(DWORD*)(v5 + 8) * (*(DWORD*)(v5 + 12) - 22)),
                             (void*)(*(DWORD*)(v5 + 40) + 22 * ((~*(BYTE*)v5 & 4 | 8u) >> 2) * *(DWORD*)(v5 + 44)),
-                            *(DWORD*)(v5 + 8), 22, *(DWORD*)(v5 + 8), *(DWORD*)(v5 + 44), 0, 0xCC0020u);
+                            *(DWORD*)(v5 + 8), 22, *(DWORD*)(v5 + 8), *(DWORD*)(v5 + 44), 0, SRCCOPY);
                         InvalidateRect(hWnda, 0, 0);
                     }
                 }

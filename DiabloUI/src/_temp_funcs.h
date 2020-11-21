@@ -247,8 +247,8 @@ BOOL __cdecl Fade_CheckRange5();
 void __cdecl Fade_Range5SetZero();
 void __fastcall Fade_NoInputAndArt(HWND hWnd, BOOL bShowCurs);
 void __fastcall Fade_SetInputWindow(HWND hWnd);
-void __fastcall Fade_SetFadeTimer(int nTime);
-void __stdcall Fade_TimerFunctionDlg(int a1, int a2, int a3, int a4);
+void __fastcall Fade_SetFadeTimer(HWND hWnd);
+void __stdcall Fade_TimerFunctionDlg(HWND hWnd, int a2, int a3, int a4);
 void __cdecl j_Fade_cpp_init();
 void __cdecl Fade_cpp_init();
 
@@ -264,7 +264,7 @@ void __cdecl j_Focus_cpp_init();
 void __cdecl Focus_cpp_init();
 void __fastcall Focus_LoadSpinner(const char* pszFileName);
 void __fastcall Focus_SetFocusTimer(HWND hWnd, const char* pszFileName);
-void __stdcall Focus_SetFocusAndBlit(int hWnd, int a2, int a3, int a4);
+void __stdcall Focus_SetFocusAndBlit(HWND hWnd, int a2, int a3, int a4);
 void __fastcall Focus_KillFocusTimer(HWND hWnd);
 
 void __cdecl local_InitUiPalette();
@@ -625,7 +625,7 @@ void __fastcall Title_FreeTransMem(HWND hWnd);
 void __fastcall Title_SetTitleBMP(HWND hWnd);
 void __fastcall Title_LoadTitleImage(HWND hWnd, const char* pszFileName);
 void __fastcall Title_LoadImgSetTimer(HWND hWnd, const char* pszFileName);
-void __stdcall Title_BlitTitleBufFnc(int hWnd, int a2, int a3, int a4);
+void __stdcall Title_BlitTitleBufFnc(HWND hWnd, int a2, int a3, int a4);
 void __cdecl j_Title_cpp_init();
 void __cdecl Title_cpp_init();
 void __fastcall Title_KillTitleTimer(HWND hWnd);

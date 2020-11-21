@@ -3,7 +3,7 @@
 // ref: 0x10004054
 BOOL __stdcall UiCopyProtError(int* pdwResult)
 {
-    int v1;           // eax
+    HWND v1;           // eax
     int v2;           // eax
     char Buffer[128]; // [esp+0h] [ebp-80h]
 
@@ -11,7 +11,7 @@ BOOL __stdcall UiCopyProtError(int* pdwResult)
         LoadStringA(ghUiInst, 0x3Fu, Buffer, 127);
     else
         LoadStringA(ghUiInst, 0x1Bu, Buffer, 127);
-    v1 = (int)SDrawGetFrameWindow(NULL);
+    v1 = SDrawGetFrameWindow(NULL);
     v2 = SDlgDialogBoxParam(ghUiInst, "OKCANCEL_DIALOG", v1, CopyProt_WndProc, (int)Buffer);
     if (pdwResult)
         *pdwResult = v2;

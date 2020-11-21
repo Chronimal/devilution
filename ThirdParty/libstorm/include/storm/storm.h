@@ -1314,13 +1314,13 @@ extern "C"
     void __stdcall SDlgEndPaint(HWND hWnd, char* a2);
     void __stdcall SDlgSetSystemCursor(BYTE* a1, BYTE* a2, int* a3, int a4);
     void __stdcall SDlgSetCursor(HWND hWnd, HCURSOR a2, int a3, int* a4);
-    BOOL __stdcall SDlgSetTimer(int a1, int a2, int a3, void(__stdcall* a4)(int, int, int, int));
-    BOOL __stdcall SDlgKillTimer(int a1, int a2);
+    BOOL __stdcall SDlgSetTimer(HWND hWnd, int a2, int a3, void(__stdcall* a4)(HWND, int, int, int));
+    BOOL __stdcall SDlgKillTimer(HWND hWnd, int a2);
     BOOL __stdcall SDlgDrawBitmap(HWND hWnd, int a2, int a3, int a4, int a5, int a6, int a7);
     BOOL __stdcall SDlgDialogBoxParam(
         HINSTANCE hInst,
         const char* szDialog,
-        int hWnd,
+        HWND hWnd,
         WNDPROC func,
         int selhero_is_good);
     BOOL __stdcall SGdiTextOut(void* pBuffer, int x, int y, int mask, char* str, int len);

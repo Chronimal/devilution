@@ -77,7 +77,7 @@ BOOL __stdcall UiCreateGameCallback(int a1, int a2, int a3, int a4, int a5, int 
     cr8_dword_10029640 = a5;
     cr8_dword_1002963C = a4;
     cr8game_playerID = (int*)a6;
-    v6 = SDlgDialogBoxParam(ghUiInst, "DIALOG_CREATE_GAME", *(DWORD*)(a4 + 8), cr8game_WndProc, 0);
+    v6 = SDlgDialogBoxParam(ghUiInst, "DIALOG_CREATE_GAME", *(HWND*)(a4 + 8), cr8game_WndProc, 0);
     return v6 != -1 ? v6 : 0;
 }
 // 10029630: using guessed type int cr8_playercount;
@@ -303,7 +303,7 @@ void __fastcall cr8game_DoAROP3Blit(HWND hWnd, int frame, int size)
         {
             SBltROP3(
                 (void*)*v5, &cr8_diffbtns_ptr[cr8diffbtns_size[0] * v5[2] * (size + 2 * frame)], v5[1], v5[2], v5[1],
-                cr8diffbtns_size[0], 0, 0xCC0020u);
+                cr8diffbtns_size[0], 0, SRCCOPY);
             InvalidateRect(hWnd, 0, 0);
         }
     }

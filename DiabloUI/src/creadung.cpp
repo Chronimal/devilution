@@ -133,7 +133,7 @@ void __fastcall CreaDung_LoadDungGFX(HWND hWnd)
         Focus_LoadSpinner("ui_art\\focus16.pcx");
     else
         Focus_ResetSpinToZero();
-    SDlgSetTimer((int)hWnd, 1, 55, 0);
+    SDlgSetTimer(hWnd, 1, 55, 0);
     v2 = local_AllocWndLongData();
     if (v2)
     {
@@ -153,7 +153,7 @@ void __fastcall CreaDung_LoadDungGFX(HWND hWnd)
 void __fastcall CreaDung_PlaySndAndKill(HWND hWnd, int a2)
 {
     TitleSnd_PlaySelectSound();
-    SDlgKillTimer((int)hWnd, 1);
+    SDlgKillTimer(hWnd, 1);
     SDlgEndDialog(hWnd, (HANDLE)a2);
 }
 
@@ -284,7 +284,7 @@ BOOL __fastcall CreaDung_SelDungDiff(int a1, int a2, int a3, int a4, int a5, int
     crea_somegamestruct = (DWORD*)a2;
     creadung_gamename = (char*)a8;
     v8 = SelHero_GetHeroIsGood();
-    result = SDlgDialogBoxParam(ghUiInst, "SELDIFF_DIALOG", *(DWORD*)(a4 + 8), CreaDung_WndProc, v8);
+    result = SDlgDialogBoxParam(ghUiInst, "SELDIFF_DIALOG", *(HWND*)(a4 + 8), CreaDung_WndProc, v8);
     if (result != 1)
     {
         SErrSetLastError(creadung_lasterror);

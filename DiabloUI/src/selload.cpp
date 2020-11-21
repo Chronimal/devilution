@@ -107,7 +107,7 @@ void __fastcall SelLoad_LoadFocusAndMsg(HWND hWnd)
     Doom_ParseWndProcs(hWnd, selload_msgtbl2, AF_BIG, 0);
     Doom_ParseWndProcs(hWnd, selload_msgtbl3, AF_MED, 1);
     Focus_LoadSpinner("ui_art\\focus16.pcx");
-    SDlgSetTimer((int)hWnd, 1, 55, 0);
+    SDlgSetTimer(hWnd, 1, 55, 0);
 }
 
 // ref: 0x1000E3E2
@@ -118,7 +118,7 @@ void __fastcall SelLoad_SelectSndLoad(HWND hWnd, int a2)
 
     v2 = a2;
     TitleSnd_PlaySelectSound();
-    SDlgKillTimer((int)hWnd, 1);
+    SDlgKillTimer(hWnd, 1);
     if (v2 == 1)
     {
         v4 = GetFocus();

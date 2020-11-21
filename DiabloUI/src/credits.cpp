@@ -11,9 +11,9 @@ void __cdecl credits_cpp_init()
 // ref: 0x100052A2
 BOOL __stdcall UiCreditsDialog(int a1)
 {
-    int v1; // eax
+    HWND v1; // eax
 
-    v1 = (int)SDrawGetFrameWindow(NULL);
+    v1 = SDrawGetFrameWindow(NULL);
     SDlgDialogBoxParam(ghUiInst, "CREDITS_DIALOG", v1, credits_WndProc, 25);
     return 1;
 }
@@ -38,7 +38,9 @@ LRESULT __stdcall credits_WndProc(HWND hWnd, UINT Msg, WPARAM wParam, LPARAM lPa
             if (Msg == 2024)
             {
                 if (!Fade_CheckRange5())
-                    Fade_SetFadeTimer((int)hWnd);
+                {
+                    Fade_SetFadeTimer(hWnd);
+                }
                 return 0;
             }
             return (LRESULT)SDlgDefDialogProc(hWnd, Msg, (HDC)wParam, (HWND)lParam);
@@ -127,7 +129,7 @@ void __fastcall credits_LoadImgCreditTxt(HWND hWnd, LPARAM lParam)
         v2 = 1000 / lParam;
     else
         v2 = 50;
-    SDlgSetTimer((int)hWnd, 1, v2, 0);
+    SDlgSetTimer(hWnd, 1, v2, 0);
     v3 = FindResourceA(ghUiInst, "IDR_CREDITS", "TEXT_FILES");
     credittext_rsrc = LoadResource(ghUiInst, v3);
     v4 = FindResourceA(ghUiInst, "IDR_CREDITS", "TEXT_FILES");
@@ -172,7 +174,7 @@ void __fastcall credits_CalcPosROP3(HWND hWnd)
     ScreenToClient(hWnd, (LPPOINT)&Rect.right);
     SBltROP3(
         (char*)credit_back_img + 30 * credit_horz_pos, (void*)(Rect.left + *v2 + Rect.top * v2[1]), credit_horz_pos,
-        Rect.bottom - Rect.top, credit_horz_pos, v2[1], 0, 0xCC0020u);
+        Rect.bottom - Rect.top, credit_horz_pos, v2[1], 0, SRCCOPY);
     --credit_vertical_pos2;
     credits_PrintCredLines(hWnd);
     InvalidateRect(hWnda, 0, 0);

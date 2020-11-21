@@ -3,9 +3,9 @@
 // ref: 0x100063B3
 BOOL __stdcall UiBetaDisclaimer(int a1)
 {
-    int v1; // eax
+    HWND v1; // eax
 
-    v1 = (int)SDrawGetFrameWindow(NULL);
+    v1 = SDrawGetFrameWindow(NULL);
     SDlgDialogBoxParam(ghUiInst, "DISCLAIMER_DIALOG", v1, disclaim_WndProc, a1);
     return 1;
 }
@@ -28,7 +28,7 @@ LRESULT __stdcall disclaim_WndProc(HWND hWnd, UINT Msg, WPARAM wParam, LPARAM lP
             else if (Msg == 2024)
             {
                 if (!Fade_CheckRange5())
-                    Fade_SetFadeTimer((int)hWnd);
+                    Fade_SetFadeTimer(hWnd);
                 return 0;
             }
             return (LRESULT)SDlgDefDialogProc(hWnd, Msg, (HDC)wParam, (HWND)lParam);

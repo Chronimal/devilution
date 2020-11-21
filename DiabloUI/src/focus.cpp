@@ -43,13 +43,13 @@ void __fastcall Focus_BlitSpinner(HWND hWnd1, HWND hWnd2)
             ScreenToClient((HWND)v9, (LPPOINT)&Rect.right);
             SBltROP3(
                 *(void**)v3, (void*)(Rect.left + *v2 + Rect.top * v2[1]), focus_spin_width, *(DWORD*)(v3 + 8),
-                *(DWORD*)(v3 + 4), v2[1], 0, 0xCC0020u);
+                *(DWORD*)(v3 + 4), v2[1], 0, SRCCOPY);
             v5 = v2[1];
             v7 = *v2 + Rect.top * v5;
             v9 = *(char**)(v3 + 4);
             SBltROP3(
                 &v9[*(DWORD*)v3 - focus_spin_width], &v9[v7 - focus_spin_width + Rect.left], focus_spin_width,
-                *(DWORD*)(v3 + 8), (int)v9, v5, 0, 0xCC0020u);
+                *(DWORD*)(v3 + 8), (int)v9, v5, 0, SRCCOPY);
             Focus_CenterSpinFromSide(hWnd2);
         }
     }
@@ -215,21 +215,21 @@ void __fastcall Focus_LoadSpinner(const char* pszFileName)
 void __fastcall Focus_SetFocusTimer(HWND hWnd, const char* pszFileName)
 {
     Focus_LoadSpinner(pszFileName);
-    SDlgSetTimer((int)hWnd, 1, 55, Focus_SetFocusAndBlit);
+    SDlgSetTimer(hWnd, 1, 55, Focus_SetFocusAndBlit);
 }
 
 // ref: 0x10007804
-void __stdcall Focus_SetFocusAndBlit(int hWnd, int a2, int a3, int a4)
+void __stdcall Focus_SetFocusAndBlit(HWND hWnd, int a2, int a3, int a4)
 {
     HWND v1; // eax
 
     v1 = GetFocus();
-    Focus_DoBlitSpinIncFrame((HWND)hWnd, v1);
+    Focus_DoBlitSpinIncFrame(hWnd, v1);
 }
 
 // ref: 0x10007818
 void __fastcall Focus_KillFocusTimer(HWND hWnd)
 {
-    SDlgKillTimer((int)hWnd, 1);
+    SDlgKillTimer(hWnd, 1);
     Focus_DeleteSpinners();
 }

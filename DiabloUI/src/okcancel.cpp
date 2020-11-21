@@ -233,7 +233,7 @@ void __fastcall OkCancel_DoOkDialog(HWND hWnd, char* str, int a3)
     a5[0] = 0;
     a5[4] = 0;
     a5[3] = a3;
-    SDlgDialogBoxParam(ghUiInst, "OK_DIALOG", (int)hWnd, OkCancel_WndProc, (int)a5);
+    SDlgDialogBoxParam(ghUiInst, "OK_DIALOG", hWnd, OkCancel_WndProc, (int)a5);
 }
 
 // ref: 0x10009342
@@ -261,7 +261,7 @@ void __stdcall UiMessageBoxCallback(HWND hWnd, char* lpText, LPCSTR lpCaption, U
     a5[2] = 0;
     while (1)
     {
-        v14 = (char*)SDlgDialogBoxParam(ghUiInst, &szDialog[32 * v4], (int)hWnd, OkCancel_WndProc, (int)a5);
+        v14 = (char*)SDlgDialogBoxParam(ghUiInst, &szDialog[32 * v4], hWnd, OkCancel_WndProc, (int)a5);
         if (v14 != (char*)0xFF000000)
             break;
         v4 = a5[2] + 1;
@@ -291,7 +291,7 @@ void __stdcall UiMessageBoxCallback(HWND hWnd, char* lpText, LPCSTR lpCaption, U
             }
             *v8 = 0;
             a5[1] = (int)location;
-            v14 = (char*)SDlgDialogBoxParam(ghUiInst, szDialog, (int)hWnd, OkCancel_WndProc, (int)a5);
+            v14 = (char*)SDlgDialogBoxParam(ghUiInst, szDialog, hWnd, OkCancel_WndProc, (int)a5);
             SMemFree(location, "C:\\Src\\Diablo\\DiabloUI\\OkCancel.cpp", 416, 0);
             if (v14 == (char*)0xFF000000)
                 MessageBoxA(hWnd, lpText, lpCaption, uType);

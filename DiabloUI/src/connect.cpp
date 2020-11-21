@@ -661,7 +661,7 @@ BOOL __stdcall UiDrawDescCallback(
             OffsetRect(&rc, 0, special_frames * v24);
             SDlgBltToWindowI(
                 (HWND)v8[5], 0, (char*)v8[7], (int)v8[8] + (DWORD)a4, connect_data3, &rc, (SIZE*)special_data, -1, 0,
-                0xCC0020u);
+                SRCCOPY);
             goto LABEL_55;
         }
         if (a5 & 2)
@@ -699,13 +699,13 @@ BOOL __stdcall UiDrawDescCallback(
             if (connect_data2)
                 SBltROP3(
                     connect_data4, connect_data2, heroport_data[0], connect_draw_height, heroport_data[0],
-                    heroport_data[0], 0, 0xCC0020u);
+                    heroport_data[0], 0, SRCCOPY);
         }
         else
         {
             SBltROP3(
                 connect_data4, &connect_data1[heroport_frames * (heroinfo.heroclass + 3 * heroinfo.herorank)],
-                heroport_data[0], connect_draw_height, heroport_data[0], heroport_data[0], 0, 0xCC0020u);
+                heroport_data[0], connect_draw_height, heroport_data[0], heroport_data[0], 0, SRCCOPY);
         }
         v26 = heroinfo.level / 10;
         if (v26)
@@ -718,7 +718,7 @@ BOOL __stdcall UiDrawDescCallback(
         SetRect(&rc, 0, 0, heroport_data[0] - 1, connect_draw_height - 1);
         SDlgBltToWindowI(
             (HWND)v8[5], 0, (char*)v8[7], (int)v8[8] + (DWORD)a4, connect_data4, &rc, (SIZE*)heroport_data, -1, 0,
-            0xCC0020u);
+            SRCCOPY);
     }
 LABEL_55:
     if (!connect_color_text)

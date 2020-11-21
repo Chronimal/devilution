@@ -123,22 +123,22 @@ void __fastcall Fade_SetInputWindow(HWND hWnd)
 }
 
 // ref: 0x100073FD
-void __fastcall Fade_SetFadeTimer(int nTime)
+void __fastcall Fade_SetFadeTimer(HWND hWnd)
 {
     if (!sgbIsFading)
     {
-        SDlgSetTimer(nTime, 16, 50, Fade_TimerFunctionDlg);
+        SDlgSetTimer(hWnd, 16, 50, Fade_TimerFunctionDlg);
         sgbIsFading = 1;
     }
 }
 // 10029C70: using guessed type int sgbIsFading;
 
 // ref: 0x10007420
-void __stdcall Fade_TimerFunctionDlg(int a1, int a2, int a3, int a4)
+void __stdcall Fade_TimerFunctionDlg(HWND hWnd, int a2, int a3, int a4)
 {
     if (sgbFadeRange > 5)
     {
-        SDlgKillTimer(a1, 16);
+        SDlgKillTimer(hWnd, 16);
     }
     else
     {
