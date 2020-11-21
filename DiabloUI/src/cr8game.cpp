@@ -303,7 +303,7 @@ void __fastcall cr8game_DoAROP3Blit(HWND hWnd, int frame, int size)
         {
             SBltROP3(
                 (void*)*v5, &cr8_diffbtns_ptr[cr8diffbtns_size[0] * v5[2] * (size + 2 * frame)], v5[1], v5[2], v5[1],
-                cr8diffbtns_size[0], 0, 0xCC0020u);
+                cr8diffbtns_size[0], 0, SRCCOPY);
             InvalidateRect(hWnd, 0, 0);
         }
     }

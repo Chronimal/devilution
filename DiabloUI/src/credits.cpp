@@ -174,7 +174,7 @@ void __fastcall credits_CalcPosROP3(HWND hWnd)
     ScreenToClient(hWnd, (LPPOINT)&Rect.right);
     SBltROP3(
         (char*)credit_back_img + 30 * credit_horz_pos, (void*)(Rect.left + *v2 + Rect.top * v2[1]), credit_horz_pos,
-        Rect.bottom - Rect.top, credit_horz_pos, v2[1], 0, 0xCC0020u);
+        Rect.bottom - Rect.top, credit_horz_pos, v2[1], 0, SRCCOPY);
     --credit_vertical_pos2;
     credits_PrintCredLines(hWnd);
     InvalidateRect(hWnda, 0, 0);

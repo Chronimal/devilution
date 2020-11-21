@@ -27,7 +27,7 @@ void __fastcall Title_BlitTitleBuffer(HWND hWnd)
         {
             SBltROP3(
                 *(void**)v4, (void*)(Rect.left + *v2 + Rect.top * v2[1]), *((DWORD*)v4 + 1), *((DWORD*)v4 + 2),
-                *((DWORD*)v4 + 1), v2[1], 0, 0xCC0020u);
+                *((DWORD*)v4 + 1), v2[1], 0, SRCCOPY);
             STransBlt(*(void**)v4, 0, 0, *((DWORD*)v4 + 1), (HANDLE)titlePHTrans[titleTransIdx]);
             InvalidateRect(hWnda, 0, 0);
         }

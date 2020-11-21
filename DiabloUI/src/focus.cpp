@@ -43,13 +43,13 @@ void __fastcall Focus_BlitSpinner(HWND hWnd1, HWND hWnd2)
             ScreenToClient((HWND)v9, (LPPOINT)&Rect.right);
             SBltROP3(
                 *(void**)v3, (void*)(Rect.left + *v2 + Rect.top * v2[1]), focus_spin_width, *(DWORD*)(v3 + 8),
-                *(DWORD*)(v3 + 4), v2[1], 0, 0xCC0020u);
+                *(DWORD*)(v3 + 4), v2[1], 0, SRCCOPY);
             v5 = v2[1];
             v7 = *v2 + Rect.top * v5;
             v9 = *(char**)(v3 + 4);
             SBltROP3(
                 &v9[*(DWORD*)v3 - focus_spin_width], &v9[v7 - focus_spin_width + Rect.left], focus_spin_width,
-                *(DWORD*)(v3 + 8), (int)v9, v5, 0, 0xCC0020u);
+                *(DWORD*)(v3 + 8), (int)v9, v5, 0, SRCCOPY);
             Focus_CenterSpinFromSide(hWnd2);
         }
     }

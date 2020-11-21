@@ -127,7 +127,7 @@ void __fastcall Doom_GetWindowROP3(HWND hWnd1, HWND hWnd2)
             ScreenToClient(hWnd1, (LPPOINT)&Rect.right);
             SBltROP3(
                 *(void**)v4, (void*)(Rect.left + *v3 + Rect.top * v3[1]), *(DWORD*)(v4 + 4), *(DWORD*)(v4 + 8),
-                *(DWORD*)(v4 + 4), v3[1], 0, 0xCC0020u);
+                *(DWORD*)(v4 + 4), v3[1], 0, SRCCOPY);
         }
     }
 }
