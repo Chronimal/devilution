@@ -3,9 +3,9 @@
 // ref: 0x100063B3
 BOOL __stdcall UiBetaDisclaimer(int a1)
 {
-    int v1; // eax
+    HWND v1; // eax
 
-    v1 = (int)SDrawGetFrameWindow(NULL);
+    v1 = SDrawGetFrameWindow(NULL);
     SDlgDialogBoxParam(ghUiInst, "DISCLAIMER_DIALOG", v1, disclaim_WndProc, a1);
     return 1;
 }

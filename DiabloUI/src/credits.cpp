@@ -11,9 +11,9 @@ void __cdecl credits_cpp_init()
 // ref: 0x100052A2
 BOOL __stdcall UiCreditsDialog(int a1)
 {
-    int v1; // eax
+    HWND v1; // eax
 
-    v1 = (int)SDrawGetFrameWindow(NULL);
+    v1 = SDrawGetFrameWindow(NULL);
     SDlgDialogBoxParam(ghUiInst, "CREDITS_DIALOG", v1, credits_WndProc, 25);
     return 1;
 }

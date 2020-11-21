@@ -15,7 +15,7 @@ BOOL __stdcall UiMainMenuDialog(
     void(__stdcall* fnSound)(const char* file),
     int attractTimeOut)
 {
-    int v4; // eax
+    HWND v4; // eax
     int v5; // esi
 
     menu_item_timer = attractTimeOut;
@@ -24,7 +24,7 @@ BOOL __stdcall UiMainMenuDialog(
     menu_version_str[0] = 0;
     if (name)
         strncpy(menu_version_str, name, 0x40u);
-    v4 = (int)SDrawGetFrameWindow(NULL);
+    v4 = SDrawGetFrameWindow(NULL);
     v5 = SDlgDialogBoxParam(ghUiInst, "MAINMENU_DIALOG", v4, MainMenu_WndProc, 0);
     if (v5 == 5)
         artfont_FreeAllFonts();

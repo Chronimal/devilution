@@ -284,7 +284,7 @@ BOOL __fastcall CreaDung_SelDungDiff(int a1, int a2, int a3, int a4, int a5, int
     crea_somegamestruct = (DWORD*)a2;
     creadung_gamename = (char*)a8;
     v8 = SelHero_GetHeroIsGood();
-    result = SDlgDialogBoxParam(ghUiInst, "SELDIFF_DIALOG", *(DWORD*)(a4 + 8), CreaDung_WndProc, v8);
+    result = SDlgDialogBoxParam(ghUiInst, "SELDIFF_DIALOG", *(HWND*)(a4 + 8), CreaDung_WndProc, v8);
     if (result != 1)
     {
         SErrSetLastError(creadung_lasterror);

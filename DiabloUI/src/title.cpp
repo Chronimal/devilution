@@ -174,10 +174,10 @@ void __fastcall Title_KillTitleTimer(HWND hWnd)
 // ref: 0x100100FA
 BOOL __stdcall UiTitleDialog(int a1)
 {
-    int v1; // eax
+    HWND v1; // eax
 
     artfont_LoadAllFonts();
-    v1 = (int)SDrawGetFrameWindow(NULL);
+    v1 = SDrawGetFrameWindow(NULL);
     SDlgDialogBoxParam(ghUiInst, "TITLESCREEN_DIALOG", v1, Title_MainProc, a1);
     return 1;
 }
@@ -190,22 +190,24 @@ LRESULT __stdcall Title_MainProc(HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM lPa
 
     if (uMsg <= WM_COMMAND)
     {
-        if (uMsg != 273)
+        if (uMsg != WM_COMMAND)
         {
-            if (uMsg != 2)
+            if (uMsg != WM_DESTROY)
             {
-                if (uMsg == 135)
-                    return 4;
-                if (uMsg != 256)
+                if (uMsg == WM_GETDLGCODE)
                 {
-                    if (uMsg > 0x103)
+                    return 4;
+                }
+                if (uMsg != WM_KEYDOWN)
+                {
+                    if (uMsg > WM_DEADCHAR)
                     {
-                        if (uMsg <= 0x105)
+                        if (uMsg <= WM_SYSKEYUP)
                         {
-                            v5 = (HWND)SDrawGetFrameWindow(NULL);
+                            v5 = SDrawGetFrameWindow(NULL);
                             SendMessageA(v5, uMsg, wParam, lParam);
                         }
-                        else if (uMsg == 272)
+                        else if (uMsg == WM_INITDIALOG)
                         {
                             Title_LoadAllTitleImgs(hWnd, lParam);
                             PostMessageA(hWnd, 0x7E8u, 0, 0);
@@ -221,19 +223,23 @@ LRESULT __stdcall Title_MainProc(HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM lPa
         }
         goto LABEL_25;
     }
-    if (uMsg != 275)
+    if (uMsg != WM_TIMER)
     {
-        if (uMsg != 513 && uMsg != 516)
+        if (uMsg != WM_LBUTTONDOWN && uMsg != WM_RBUTTONDOWN)
         {
-            if (uMsg == 528)
+            if (uMsg == WM_PARENTNOTIFY)
             {
-                if ((WORD)wParam == 513 || (WORD)wParam == 516)
+                if ((WORD)wParam == WM_LBUTTONDOWN || (WORD)wParam == WM_RBUTTONDOWN)
+                {
                     Title_KillAndFadeDlg(hWnd);
+                }
             }
             else if (uMsg == 2024)
             {
                 if (!Fade_CheckRange5())
+                {
                     Fade_SetFadeTimer((int)hWnd);
+                }
                 return 0;
             }
             return (LRESULT)SDlgDefDialogProc(hWnd, uMsg, (HDC)wParam, (HWND)lParam);
@@ -243,7 +249,9 @@ LRESULT __stdcall Title_MainProc(HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM lPa
         return 0;
     }
     if (wParam == 1)
+    {
         goto LABEL_25;
+    }
     return 0;
 }
 // 1001037C: using guessed type int __stdcall SDlgDefDialogProc(DWORD, DWORD, DWORD, DWORD);

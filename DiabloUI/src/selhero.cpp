@@ -230,7 +230,7 @@ BOOL __stdcall UiSelHeroMultDialog(
     int* hero_is_created,
     char* name)
 {
-    int v7; // eax
+    HWND v7; // eax
     int v8; // eax
 
     artfont_LoadAllFonts();
@@ -241,7 +241,7 @@ BOOL __stdcall UiSelHeroMultDialog(
     sgpHeroInfo = 0;
     selhero_is_good = 1;
     selhero_is_created = 0;
-    v7 = (int)SDrawGetFrameWindow(NULL);
+    v7 = SDrawGetFrameWindow(NULL);
     v8 = SDlgDialogBoxParam(ghUiInst, "SELHERO_DIALOG", v7, SelHero_WndProc, 0);
     if (dlgresult)
         *dlgresult = v8;
@@ -447,7 +447,7 @@ void __fastcall SelHero_DoHeroSelList(HWND hWnd)
     BOOL v2; // eax
     int v3;  // edx
 
-    v2 = SDlgDialogBoxParam(ghUiInst, "SELLIST_DIALOG", (int)hWnd, SelList_WndProc, 0);
+    v2 = SDlgDialogBoxParam(ghUiInst, "SELLIST_DIALOG", hWnd, SelList_WndProc, 0);
     if (v2 == 1)
     {
         if (!strlen(selhero_heronamestr))
@@ -488,7 +488,7 @@ void __fastcall SelHero_DoHeroSelClass(HWND hWnd)
     int v3;          // eax
     char Buffer[32]; // [esp+8h] [ebp-20h]
 
-    v2 = SDlgDialogBoxParam(ghUiInst, "SELCLASS_DIALOG", (int)hWnd, SelClass_WndProc, 0);
+    v2 = SDlgDialogBoxParam(ghUiInst, "SELCLASS_DIALOG", hWnd, SelClass_WndProc, 0);
     if (v2 == -1 || v2 == 2)
     {
         LoadStringA(ghUiInst, 0x1Eu, Buffer, 31);
@@ -520,7 +520,7 @@ void __fastcall SelHero_DoEnterName(HWND hWnd)
 {
     char namestr[16]; // [esp+8h] [ebp-10h]
 
-    if (SDlgDialogBoxParam(ghUiInst, "ENTERNAME_DIALOG", (int)hWnd, EntName_WndProc, (int)namestr) == 1)
+    if (SDlgDialogBoxParam(ghUiInst, "ENTERNAME_DIALOG", hWnd, EntName_WndProc, (int)namestr) == 1)
     {
         namestr[15] = 0;
         if (SelHero_CreateHero(hWnd, namestr))
@@ -578,7 +578,7 @@ void __fastcall SelHero_DoSelLoad(HWND hWnd)
 {
     BOOL v2; // eax
 
-    v2 = SDlgDialogBoxParam(ghUiInst, "SELLOAD_DIALOG", (int)hWnd, SelLoad_WndProc, 0);
+    v2 = SDlgDialogBoxParam(ghUiInst, "SELLOAD_DIALOG", hWnd, SelLoad_WndProc, 0);
     if (v2 == -1 || v2 == 2)
     {
         PostMessageA(hWnd, 0xBD0u, 0, 0);
@@ -611,7 +611,7 @@ void __fastcall SelHero_DoSelDiff(HWND hWnd)
         return;
     }
     CreaDung_SetDelSpin(1);
-    if (SDlgDialogBoxParam(ghUiInst, "SELDIFF_DIALOG", (int)hWnd, CreaDung_WndProc, selhero_is_good) == 1)
+    if (SDlgDialogBoxParam(ghUiInst, "SELDIFF_DIALOG", hWnd, CreaDung_WndProc, selhero_is_good) == 1)
     {
         v3 = SelHero_GetHeroSlotFromName(sgpHeroInfo, selhero_heronamestr);
         UiCreatePlayerDescription(v3, 'DBLO', v7);
@@ -779,7 +779,7 @@ BOOL __stdcall UiSelHeroSingDialog(
     char* name,
     int* difficulty)
 {
-    int v7; // eax
+    HWND v7; // eax
     int v8; // edi
 
     artfont_LoadAllFonts();
@@ -789,7 +789,7 @@ BOOL __stdcall UiSelHeroSingDialog(
     selhero_fnstats = fnstats;
     sgpHeroInfo = 0;
     selhero_is_good = 0;
-    v7 = (int)SDrawGetFrameWindow(NULL);
+    v7 = SDrawGetFrameWindow(NULL);
     v8 = SDlgDialogBoxParam(ghUiInst, "SELHERO_DIALOG", v7, SelHero_WndProc, 0);
     if (dlgresult)
         *dlgresult = v8;

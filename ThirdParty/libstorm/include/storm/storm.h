@@ -1320,7 +1320,7 @@ extern "C"
     BOOL __stdcall SDlgDialogBoxParam(
         HINSTANCE hInst,
         const char* szDialog,
-        int hWnd,
+        HWND hWnd,
         WNDPROC func,
         int selhero_is_good);
     BOOL __stdcall SGdiTextOut(void* pBuffer, int x, int y, int mask, char* str, int len);
