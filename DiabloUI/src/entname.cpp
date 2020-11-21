@@ -99,11 +99,13 @@ void __fastcall EntName_LoadFocusChkName(HWND hWnd)
     Doom_ParseWndProcs(hWnd, entname_msgtbl2, AF_BIG, 0);
     Doom_ParseWndProc5(hWnd, entname_msgtbl3, AF_MED);
     Focus_LoadSpinner("ui_art\\focus.pcx");
-    SDlgSetTimer((int)hWnd, 1, 55, 0);
+    SDlgSetTimer(hWnd, 1, 55, 0);
     v4 = GetDlgItem(hWnd, 1065);
     SendMessageA(v4, 0x401u, 0xFu, 0);
     if (SelHero_GetHeroIsGood() == 1)
-        SendMessageA(v4, 0x404u, 0, (LPARAM) " ,<>%&\\\"?*#/");
+    {
+        SendMessageA(v4, 0x404u, 0, (LPARAM)" ,<>%&\\\"?*#/");
+    }
 }
 
 // ref: 0x100071AC
@@ -113,7 +115,7 @@ void __fastcall EntName_SetCharName(HWND hWnd, int a2)
     HWND v5;  // eax
 
     TitleSnd_PlaySelectSound();
-    SDlgKillTimer((int)hWnd, 1);
+    SDlgKillTimer(hWnd, 1);
     v4 = entname_charname;
     v5 = GetDlgItem(hWnd, 1065);
     GetWindowTextA(v5, v4, 16);

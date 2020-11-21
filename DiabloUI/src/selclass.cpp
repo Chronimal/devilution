@@ -113,7 +113,7 @@ void __fastcall SelClass_LoadClassFocus(HWND hWnd)
     Doom_ParseWndProcs(v1, selclass_msgtbl2, AF_BIG, 0);
     Doom_ParseWndProcs(v1, selclass_msgtbl3, AF_MED, 1);
     Focus_LoadSpinner("ui_art\\focus.pcx");
-    SDlgSetTimer((int)v1, 1, 55, 0);
+    SDlgSetTimer(v1, 1, 55, 0);
 }
 
 // ref: 0x10009FA2
@@ -150,7 +150,7 @@ void __fastcall SelClass_CheckClassSpawn(HWND hWnd, int a2)
     else
     {
         TitleSnd_PlaySelectSound();
-        SDlgKillTimer((int)hWnd, 1);
+        SDlgKillTimer(hWnd, 1);
         if (a2 == 1)
         {
             v5 = GetFocus();

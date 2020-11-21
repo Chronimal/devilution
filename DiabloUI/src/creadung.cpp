@@ -133,7 +133,7 @@ void __fastcall CreaDung_LoadDungGFX(HWND hWnd)
         Focus_LoadSpinner("ui_art\\focus16.pcx");
     else
         Focus_ResetSpinToZero();
-    SDlgSetTimer((int)hWnd, 1, 55, 0);
+    SDlgSetTimer(hWnd, 1, 55, 0);
     v2 = local_AllocWndLongData();
     if (v2)
     {
@@ -153,7 +153,7 @@ void __fastcall CreaDung_LoadDungGFX(HWND hWnd)
 void __fastcall CreaDung_PlaySndAndKill(HWND hWnd, int a2)
 {
     TitleSnd_PlaySelectSound();
-    SDlgKillTimer((int)hWnd, 1);
+    SDlgKillTimer(hWnd, 1);
     SDlgEndDialog(hWnd, (HANDLE)a2);
 }
 

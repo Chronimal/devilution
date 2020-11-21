@@ -16,7 +16,9 @@ void __fastcall Title_BlitTitleBuffer(HWND hWnd)
         v3 = titleTransIdx + 1;
         titleTransIdx = v3;
         if (!titlePHTrans[v3] || v3 >= 30)
+        {
             titleTransIdx = 0;
+        }
         GetWindowRect(hWnda, &Rect);
         ScreenToClient(hWnd, (LPPOINT)&Rect);
         ScreenToClient(hWnd, (LPPOINT)&Rect.right);
@@ -116,7 +118,9 @@ void __fastcall Title_LoadTitleImage(HWND hWnd, const char* pszFileName)
         {
             v6 = data[1] / v4[2];
             if (v6 > 30)
+            {
                 v6 = 30;
+            }
             if (v6 > 0)
             {
                 phTransOut = (HANDLE*)titlePHTrans;
@@ -144,13 +148,13 @@ void __fastcall Title_LoadImgSetTimer(HWND hWnd, const char* pszFileName)
     Title_SetTitleBMP(hWnd);
     Title_LoadTitleImage(hWnd, pszFileName);
     Title_BlitTitleBuffer(hWnd);
-    SDlgSetTimer((int)hWnd, 2, 55, Title_BlitTitleBufFnc);
+    SDlgSetTimer(hWnd, 2, 55, Title_BlitTitleBufFnc);
 }
 
 // ref: 0x100100CB
-void __stdcall Title_BlitTitleBufFnc(int hWnd, int a2, int a3, int a4)
+void __stdcall Title_BlitTitleBufFnc(HWND hWnd, int a2, int a3, int a4)
 {
-    Title_BlitTitleBuffer((HWND)hWnd);
+    Title_BlitTitleBuffer(hWnd);
 }
 
 // ref: 0x100100DC
@@ -167,7 +171,7 @@ void __fastcall Title_KillTitleTimer(HWND hWnd)
     HWND v1; // esi
 
     v1 = hWnd;
-    SDlgKillTimer((int)hWnd, 2);
+    SDlgKillTimer(hWnd, 2);
     Title_FreeTransMem(v1);
 }
 
@@ -238,7 +242,7 @@ LRESULT __stdcall Title_MainProc(HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM lPa
             {
                 if (!Fade_CheckRange5())
                 {
-                    Fade_SetFadeTimer((int)hWnd);
+                    Fade_SetFadeTimer(hWnd);
                 }
                 return 0;
             }
@@ -283,16 +287,20 @@ void __fastcall Title_LoadAllTitleImgs(HWND hWnd, int time)
     Doom_ParseWndProc3(hWnd, titlemsgtbl, AF_MEDGRAY);
     Title_LoadImgSetTimer(hWnd, "ui_art\\logo.pcx");
     if (time)
-        SDlgSetTimer((int)hWnd, 1, 1000 * time, 0);
+    {
+        SDlgSetTimer(hWnd, 1, 1000 * time, 0);
+    }
     else
-        SDlgSetTimer((int)hWnd, 1, 5000, 0);
+    {
+        SDlgSetTimer(hWnd, 1, 5000, 0);
+    }
 }
 
 // ref: 0x100102D7
 void __fastcall Title_KillAndFadeDlg(HWND hWnd)
 {
     Fade_Range5SetZero();
-    SDlgKillTimer((int)hWnd, 1);
+    SDlgKillTimer(hWnd, 1);
     Fade_UpdatePaletteRange(10);
     SDlgEndDialog(hWnd, (void*)HANDLE_FLAG_INHERIT);
 }

@@ -38,7 +38,9 @@ LRESULT __stdcall credits_WndProc(HWND hWnd, UINT Msg, WPARAM wParam, LPARAM lPa
             if (Msg == 2024)
             {
                 if (!Fade_CheckRange5())
-                    Fade_SetFadeTimer((int)hWnd);
+                {
+                    Fade_SetFadeTimer(hWnd);
+                }
                 return 0;
             }
             return (LRESULT)SDlgDefDialogProc(hWnd, Msg, (HDC)wParam, (HWND)lParam);
@@ -127,7 +129,7 @@ void __fastcall credits_LoadImgCreditTxt(HWND hWnd, LPARAM lParam)
         v2 = 1000 / lParam;
     else
         v2 = 50;
-    SDlgSetTimer((int)hWnd, 1, v2, 0);
+    SDlgSetTimer(hWnd, 1, v2, 0);
     v3 = FindResourceA(ghUiInst, "IDR_CREDITS", "TEXT_FILES");
     credittext_rsrc = LoadResource(ghUiInst, v3);
     v4 = FindResourceA(ghUiInst, "IDR_CREDITS", "TEXT_FILES");

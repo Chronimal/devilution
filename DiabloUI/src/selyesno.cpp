@@ -159,7 +159,7 @@ void __fastcall SelYesNo_LoadSelYN_GFX(HWND hWnd)
         Focus_LoadSpinner("ui_art\\focus.pcx");
     else
         Focus_ResetSpinToZero();
-    SDlgSetTimer((int)hWnd, 1, 55, 0);
+    SDlgSetTimer(hWnd, 1, 55, 0);
     local_DoUiWndProc2(hWnd, (DWORD*)yesno_msgtbl1);
 }
 // 1002A500: using guessed type int yesno_remove_focus;
@@ -171,7 +171,7 @@ void __fastcall SelYesNo_DoSelectYesNo(HWND hWnd, int option)
     HWND v4; // eax
 
     TitleSnd_PlaySelectSound();
-    SDlgKillTimer((int)hWnd, 1);
+    SDlgKillTimer(hWnd, 1);
     if (option == 2)
     {
         if (!YesNoFunc)

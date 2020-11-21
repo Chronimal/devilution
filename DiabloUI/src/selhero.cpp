@@ -329,7 +329,7 @@ LRESULT __stdcall SelHero_WndProc(HWND hWnd, UINT Msg, WPARAM wParam, LPARAM lPa
             return 0;
         case 0x7E8u:
             if (!Fade_CheckRange5())
-                Fade_SetFadeTimer((int)hWnd);
+                Fade_SetFadeTimer(hWnd);
             return 0;
         case 0xBD0u:
             SelHero_DoHeroSelList(hWnd);

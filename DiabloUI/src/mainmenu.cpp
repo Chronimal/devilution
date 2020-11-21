@@ -23,13 +23,19 @@ BOOL __stdcall UiMainMenuDialog(
     artfont_LoadAllFonts();
     menu_version_str[0] = 0;
     if (name)
+    {
         strncpy(menu_version_str, name, 0x40u);
+    }
     v4 = SDrawGetFrameWindow(NULL);
     v5 = SDlgDialogBoxParam(ghUiInst, "MAINMENU_DIALOG", v4, MainMenu_WndProc, 0);
     if (v5 == 5)
+    {
         artfont_FreeAllFonts();
+    }
     if (pdwResult)
+    {
         *pdwResult = v5;
+    }
     return 1;
 }
 // 10010382: using guessed type DWORD __stdcall SDrawGetFrameWindow();
@@ -87,9 +93,13 @@ LRESULT __stdcall MainMenu_WndProc(HWND hWnd, UINT Msg, WPARAM wParam, LPARAM lP
         if (wParam == 3 && !DiabloUI_GetSpawned())
         {
             if (app_is_active)
+            {
                 MainMenu_DoOptions(hWnd, 6, 0);
+            }
             else
+            {
                 MainMenu_SetMenuTimer(hWnd);
+            }
         }
         return 0;
     }
@@ -112,7 +122,9 @@ LRESULT __stdcall MainMenu_WndProc(HWND hWnd, UINT Msg, WPARAM wParam, LPARAM lP
         if (Msg == 2024)
         {
             if (!Fade_CheckRange5())
-                Fade_SetFadeTimer((int)hWnd);
+            {
+                Fade_SetFadeTimer(hWnd);
+            }
             return 0;
         }
     }
@@ -138,7 +150,7 @@ void __fastcall MainMenu_KillAndFreeMenu(HWND hWnd)
 // ref: 0x10008391
 void __fastcall MainMenu_SetMenuTimer(HWND hWnd)
 {
-    SDlgSetTimer((int)hWnd, 3, 1000 * menu_item_timer, 0);
+    SDlgSetTimer(hWnd, 3, 1000 * menu_item_timer, 0);
 }
 // 1002A118: using guessed type int menu_item_timer;
 
@@ -174,12 +186,12 @@ void __fastcall MainMenu_LoadMenuGFX(HWND hWnd)
 // ref: 0x1000845A
 void __fastcall MainMenu_DoOptions(HWND hWnd, int option, int PlaySelect)
 {
-    SDlgKillTimer((int)hWnd, 3);
+    SDlgKillTimer(hWnd, 3);
     if (DiabloUI_GetSpawned() && option == 3)
     {
         SelYesNo_SpawnErrDialog(hWnd, 70, 1);
     LABEL_7:
-        SDlgSetTimer((int)hWnd, 3, 1000 * menu_item_timer, 0);
+        SDlgSetTimer(hWnd, 3, 1000 * menu_item_timer, 0);
         return;
     }
     if (option == 2 && !MainMenu_CheckEnoughMemory())

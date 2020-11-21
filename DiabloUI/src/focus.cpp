@@ -215,21 +215,21 @@ void __fastcall Focus_LoadSpinner(const char* pszFileName)
 void __fastcall Focus_SetFocusTimer(HWND hWnd, const char* pszFileName)
 {
     Focus_LoadSpinner(pszFileName);
-    SDlgSetTimer((int)hWnd, 1, 55, Focus_SetFocusAndBlit);
+    SDlgSetTimer(hWnd, 1, 55, Focus_SetFocusAndBlit);
 }
 
 // ref: 0x10007804
-void __stdcall Focus_SetFocusAndBlit(int hWnd, int a2, int a3, int a4)
+void __stdcall Focus_SetFocusAndBlit(HWND hWnd, int a2, int a3, int a4)
 {
     HWND v1; // eax
 
     v1 = GetFocus();
-    Focus_DoBlitSpinIncFrame((HWND)hWnd, v1);
+    Focus_DoBlitSpinIncFrame(hWnd, v1);
 }
 
 // ref: 0x10007818
 void __fastcall Focus_KillFocusTimer(HWND hWnd)
 {
-    SDlgKillTimer((int)hWnd, 1);
+    SDlgKillTimer(hWnd, 1);
     Focus_DeleteSpinners();
 }
