@@ -13,6 +13,8 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "DiabloUI", "..\..\..\Diablo
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "libs", "libs", "{EE1BBFE9-682E-4A02-8E36-9E86ECB0EA26}"
 EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "smacker", "..\..\..\ThirdParty\libsmacker-1.1.1\build\vs2019\smacker.vcxproj", "{EC074D73-FB09-4080-92EF-F2000303137A}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|x64 = Debug|x64
@@ -53,6 +55,14 @@ Global
 		{86F1F9A4-B3A4-4E8E-B9F0-4C4F57C4C7F9}.Release|x64.Build.0 = Release|x64
 		{86F1F9A4-B3A4-4E8E-B9F0-4C4F57C4C7F9}.Release|x86.ActiveCfg = Release|Win32
 		{86F1F9A4-B3A4-4E8E-B9F0-4C4F57C4C7F9}.Release|x86.Build.0 = Release|Win32
+		{EC074D73-FB09-4080-92EF-F2000303137A}.Debug|x64.ActiveCfg = Debug|x64
+		{EC074D73-FB09-4080-92EF-F2000303137A}.Debug|x64.Build.0 = Debug|x64
+		{EC074D73-FB09-4080-92EF-F2000303137A}.Debug|x86.ActiveCfg = Debug|Win32
+		{EC074D73-FB09-4080-92EF-F2000303137A}.Debug|x86.Build.0 = Debug|Win32
+		{EC074D73-FB09-4080-92EF-F2000303137A}.Release|x64.ActiveCfg = Release|x64
+		{EC074D73-FB09-4080-92EF-F2000303137A}.Release|x64.Build.0 = Release|x64
+		{EC074D73-FB09-4080-92EF-F2000303137A}.Release|x86.ActiveCfg = Release|Win32
+		{EC074D73-FB09-4080-92EF-F2000303137A}.Release|x86.Build.0 = Release|Win32
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -61,6 +71,7 @@ Global
 		{AA15215B-1905-4762-82A2-D4A19C747FAF} = {EE1BBFE9-682E-4A02-8E36-9E86ECB0EA26}
 		{E2997B72-530D-4F2F-811A-F3D28FF33FD5} = {EE1BBFE9-682E-4A02-8E36-9E86ECB0EA26}
 		{86F1F9A4-B3A4-4E8E-B9F0-4C4F57C4C7F9} = {EE1BBFE9-682E-4A02-8E36-9E86ECB0EA26}
+		{EC074D73-FB09-4080-92EF-F2000303137A} = {EE1BBFE9-682E-4A02-8E36-9E86ECB0EA26}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {0B9B52E5-CA00-450E-A7CE-281B361395F5}
