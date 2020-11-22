@@ -5,6 +5,7 @@
  */
 #include "all.h"
 #include "storm/storm.h"
+#include "ddwrapper/ddwrapper.hpp"
 
 BYTE* sgpBackBuf;
 LPDIRECTDRAW lpDDInterface;
@@ -117,7 +118,8 @@ void dx_init(HWND hWnd)
     {
         lpGUID = (GUID*)DDCREATE_EMULATIONONLY;
     }
-    hDDVal = dx_DirectDrawCreate(lpGUID, &lpDDInterface, NULL);
+    //hDDVal = dx_DirectDrawCreate(lpGUID, &lpDDInterface, NULL);
+    hDDVal = ddw::directDrawCreate(lpGUID, &lpDDInterface, nullptr);
     if (hDDVal != DD_OK)
     {
         ErrDlg(IDD_DIALOG1, hDDVal, "C:\\Src\\Diablo\\Source\\dx.cpp", 149);

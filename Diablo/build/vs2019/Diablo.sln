@@ -15,6 +15,8 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "smacker", "..\..\..\3rdpart
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "storm", "..\..\..\3rdparty\libstorm\build\vs2019\storm.vcxproj", "{E2997B72-530D-4F2F-811A-F3D28FF33FD5}"
 EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "ddwrapper", "..\..\..\libs\ddwrapper\build\vs2019\ddwrapper.vcxproj", "{25D9949F-276D-4DF3-8D3F-76B430899F8F}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|x64 = Debug|x64
@@ -63,6 +65,14 @@ Global
 		{E2997B72-530D-4F2F-811A-F3D28FF33FD5}.Release|x64.Build.0 = Release|x64
 		{E2997B72-530D-4F2F-811A-F3D28FF33FD5}.Release|x86.ActiveCfg = Release|Win32
 		{E2997B72-530D-4F2F-811A-F3D28FF33FD5}.Release|x86.Build.0 = Release|Win32
+		{25D9949F-276D-4DF3-8D3F-76B430899F8F}.Debug|x64.ActiveCfg = Debug|x64
+		{25D9949F-276D-4DF3-8D3F-76B430899F8F}.Debug|x64.Build.0 = Debug|x64
+		{25D9949F-276D-4DF3-8D3F-76B430899F8F}.Debug|x86.ActiveCfg = Debug|Win32
+		{25D9949F-276D-4DF3-8D3F-76B430899F8F}.Debug|x86.Build.0 = Debug|Win32
+		{25D9949F-276D-4DF3-8D3F-76B430899F8F}.Release|x64.ActiveCfg = Release|x64
+		{25D9949F-276D-4DF3-8D3F-76B430899F8F}.Release|x64.Build.0 = Release|x64
+		{25D9949F-276D-4DF3-8D3F-76B430899F8F}.Release|x86.ActiveCfg = Release|Win32
+		{25D9949F-276D-4DF3-8D3F-76B430899F8F}.Release|x86.Build.0 = Release|Win32
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -72,6 +82,7 @@ Global
 		{AA15215B-1905-4762-82A2-D4A19C747FAF} = {EE1BBFE9-682E-4A02-8E36-9E86ECB0EA26}
 		{EC074D73-FB09-4080-92EF-F2000303137A} = {EE1BBFE9-682E-4A02-8E36-9E86ECB0EA26}
 		{E2997B72-530D-4F2F-811A-F3D28FF33FD5} = {EE1BBFE9-682E-4A02-8E36-9E86ECB0EA26}
+		{25D9949F-276D-4DF3-8D3F-76B430899F8F} = {EE1BBFE9-682E-4A02-8E36-9E86ECB0EA26}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {0B9B52E5-CA00-450E-A7CE-281B361395F5}
