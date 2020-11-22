@@ -73,12 +73,12 @@
     <None Include="diabloui.def" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\..\ThirdParty\libstorm\build\vs2019\storm.vcxproj">
-      <Project>{e2997b72-530d-4f2f-811a-f3d28ff33fd5}</Project>
-    </ProjectReference>
+    <ResourceCompile Include="..\..\src\res\diabloui.rc" />
   </ItemGroup>
   <ItemGroup>
-    <ResourceCompile Include="..\..\src\res\diabloui.rc" />
+    <ProjectReference Include="..\..\..\..\3rdparty\libstorm\build\vs2019\storm.vcxproj">
+      <Project>{e2997b72-530d-4f2f-811a-f3d28ff33fd5}</Project>
+    </ProjectReference>
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <VCProjectVersion>16.0</VCProjectVersion>
@@ -158,7 +158,7 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>_CRT_SECURE_NO_WARNINGS;WIN32;_DEBUG;DIABLOUI_EXPORTS;_WINDOWS;_USRDLL;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>$(ProjectDir)..\..\..\ThirdParty\libstorm\include;$(ProjectDir)..\..\..\Shared\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(ProjectDir)..\..\..\..\3rdparty\libstorm\include;$(ProjectDir)..\..\..\..\shared\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
@@ -175,7 +175,7 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>_CRT_SECURE_NO_WARNINGS;WIN32;NDEBUG;DIABLOUI_EXPORTS;_WINDOWS;_USRDLL;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>$(ProjectDir)..\..\..\ThirdParty\libstorm\include;$(ProjectDir)..\..\..\Shared\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(ProjectDir)..\..\..\..\3rdparty\libstorm\include;$(ProjectDir)..\..\..\..\shared\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
@@ -192,7 +192,7 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>_CRT_SECURE_NO_WARNINGS;_DEBUG;DIABLOUI_EXPORTS;_WINDOWS;_USRDLL;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>$(ProjectDir)..\..\..\ThirdParty\libstorm\include;$(ProjectDir)..\..\..\Shared\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(ProjectDir)..\..\..\..\3rdparty\libstorm\include;$(ProjectDir)..\..\..\..\shared\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
@@ -209,7 +209,7 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>_CRT_SECURE_NO_WARNINGS;NDEBUG;DIABLOUI_EXPORTS;_WINDOWS;_USRDLL;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>$(ProjectDir)..\..\..\ThirdParty\libstorm\include;$(ProjectDir)..\..\..\Shared\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(ProjectDir)..\..\..\..\3rdparty\libstorm\include;$(ProjectDir)..\..\..\..\shared\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>

@@ -209,14 +209,14 @@
     <ResourceCompile Include="..\..\src\res\Diablo.rc" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\..\DiabloUI\build\vs2019\DiabloUI.vcxproj">
-      <Project>{86f1f9a4-b3a4-4e8e-b9f0-4c4f57c4c7f9}</Project>
-    </ProjectReference>
-    <ProjectReference Include="..\..\..\ThirdParty\libpk\build\vs2019\pk.vcxproj">
+    <ProjectReference Include="..\..\..\3rdparty\libpk\build\vs2019\pk.vcxproj">
       <Project>{aa15215b-1905-4762-82a2-d4a19c747faf}</Project>
     </ProjectReference>
-    <ProjectReference Include="..\..\..\ThirdParty\libstorm\build\vs2019\storm.vcxproj">
+    <ProjectReference Include="..\..\..\3rdparty\libstorm\build\vs2019\storm.vcxproj">
       <Project>{e2997b72-530d-4f2f-811a-f3d28ff33fd5}</Project>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\libs\DiabloUI\build\vs2019\DiabloUI.vcxproj">
+      <Project>{86f1f9a4-b3a4-4e8e-b9f0-4c4f57c4c7f9}</Project>
     </ProjectReference>
   </ItemGroup>
   <PropertyGroup Label="Globals">
@@ -297,7 +297,7 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>RGBMODE;WIN32;_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>$(ProjectDir)..\..\..\ThirdParty\libstorm\include;$(ProjectDir)..\..\..\ThirdParty\libpk\include;$(ProjectDir)..\..\..\DiabloUI\include;$(ProjectDir)..\..\..\Shared\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(ProjectDir)..\..\..\3rdparty\libstorm\include;$(ProjectDir)..\..\..\3rdparty\libpk\include;$(ProjectDir)..\..\..\libs\DiabloUI\include;$(ProjectDir)..\..\..\shared\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
@@ -313,7 +313,7 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>RGBMODE;WIN32;NDEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>$(ProjectDir)..\..\..\ThirdParty\libstorm\include;$(ProjectDir)..\..\..\ThirdParty\libpk\include;$(ProjectDir)..\..\..\DiabloUI\include;$(ProjectDir)..\..\..\Shared\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(ProjectDir)..\..\..\3rdparty\libstorm\include;$(ProjectDir)..\..\..\3rdparty\libpk\include;$(ProjectDir)..\..\..\libs\DiabloUI\include;$(ProjectDir)..\..\..\shared\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
@@ -329,7 +329,7 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>RGBMODE;_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>$(ProjectDir)..\..\..\ThirdParty\libstorm\include;$(ProjectDir)..\..\..\ThirdParty\libpk\include;$(ProjectDir)..\..\..\DiabloUI\include;$(ProjectDir)..\..\..\Shared\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(ProjectDir)..\..\..\3rdparty\libstorm\include;$(ProjectDir)..\..\..\3rdparty\libpk\include;$(ProjectDir)..\..\..\libs\DiabloUI\include;$(ProjectDir)..\..\..\shared\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
@@ -345,7 +345,7 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>RGBMODE;NDEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>$(ProjectDir)..\..\..\ThirdParty\libstorm\include;$(ProjectDir)..\..\..\ThirdParty\libpk\include;$(ProjectDir)..\..\..\DiabloUI\include;$(ProjectDir)..\..\..\Shared\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(ProjectDir)..\..\..\3rdparty\libstorm\include;$(ProjectDir)..\..\..\3rdparty\libpk\include;$(ProjectDir)..\..\..\libs\DiabloUI\include;$(ProjectDir)..\..\..\shared\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
