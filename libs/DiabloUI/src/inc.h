@@ -1,6 +1,22 @@
 
+#include <SDKDDKVer.h>
+
+#ifndef WIN32_LEAN_AND_MEAN
+#define WIN32_LEAN_AND_MEAN
+#endif // WIN32_LEAN_AND_MEAN
+
+#ifndef NOMINMAX
+#define NOMINMAX
+#endif // NOMINMAX
+
+#ifndef STRICT
 #define STRICT // for WNDPROC. ref: Remarks in
                // https://docs.microsoft.com/en-us/windows/desktop/api/winuser/nf-winuser-callwindowproca
+#endif // STRICT
+
+#include <windows.h>
+#include <mmeapi.h> // Needed for dsound.h b/c WIN32_LEAN_AND_MEAN doesn't include it in windows.h
+
 #include <ddraw.h>
 #include <dsound.h>
 #include <io.h>
@@ -9,7 +25,6 @@
 #include <shlobj.h>
 #include <stdio.h>
 #include <time.h>
-#include <windows.h>
 
 #ifdef _MSC_VER
 #pragma warning(disable : 4018) // signed/unsigned mismatch
