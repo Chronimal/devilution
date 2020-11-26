@@ -215,7 +215,7 @@
     <ProjectReference Include="..\..\..\3rdparty\libstorm\build\vs2019\storm.vcxproj">
       <Project>{e2997b72-530d-4f2f-811a-f3d28ff33fd5}</Project>
     </ProjectReference>
-    <ProjectReference Include="..\..\..\libs\ddwrapper\build\vs2019\ddwrapper.vcxproj">
+    <ProjectReference Include="..\..\..\libs\ddshim\build\vs2019\ddshim.vcxproj">
       <Project>{25d9949f-276d-4df3-8d3f-76b430899f8f}</Project>
     </ProjectReference>
     <ProjectReference Include="..\..\..\libs\DiabloUI\build\vs2019\DiabloUI.vcxproj">
@@ -298,15 +298,16 @@
     <ClCompile>
       <WarningLevel>Level3</WarningLevel>
       <SDLCheck>true</SDLCheck>
-      <PreprocessorDefinitions>RGBMODE;WIN32;_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions>RGBMODE_;WIN32;_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>$(ProjectDir)..\..\..\3rdparty\libstorm\include;$(ProjectDir)..\..\..\libs\ddwrapper\include;$(ProjectDir)..\..\..\3rdparty\libpk\include;$(ProjectDir)..\..\..\libs\DiabloUI\include;$(ProjectDir)..\..\..\shared\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(ProjectDir)..\..\..\3rdparty\libstorm\include;$(ProjectDir)..\..\..\3rdparty\libpk\include;$(ProjectDir)..\..\..\libs\DiabloUI\include;$(ProjectDir)..\..\..\libs\ddshim\include;$(ProjectDir)..\..\..\shared\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <LanguageStandard>stdcpplatest</LanguageStandard>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <AdditionalDependencies>kernel32.lib;user32.lib;gdi32.lib;winspool.lib;comdlg32.lib;advapi32.lib;shell32.lib;ole32.lib;oleaut32.lib;uuid.lib;odbc32.lib;odbccp32.lib;Version.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <DataExecutionPrevention>true</DataExecutionPrevention>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
@@ -315,9 +316,9 @@
       <FunctionLevelLinking>true</FunctionLevelLinking>
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <SDLCheck>true</SDLCheck>
-      <PreprocessorDefinitions>RGBMODE;WIN32;NDEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions>RGBMODE_;WIN32;NDEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>$(ProjectDir)..\..\..\3rdparty\libstorm\include;$(ProjectDir)..\..\..\libs\ddwrapper\include;$(ProjectDir)..\..\..\3rdparty\libpk\include;$(ProjectDir)..\..\..\libs\DiabloUI\include;$(ProjectDir)..\..\..\shared\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(ProjectDir)..\..\..\3rdparty\libstorm\include;$(ProjectDir)..\..\..\3rdparty\libpk\include;$(ProjectDir)..\..\..\libs\DiabloUI\include;$(ProjectDir)..\..\..\libs\ddshim\include;$(ProjectDir)..\..\..\shared\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <LanguageStandard>stdcpplatest</LanguageStandard>
     </ClCompile>
     <Link>
@@ -326,21 +327,23 @@
       <OptimizeReferences>true</OptimizeReferences>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <AdditionalDependencies>kernel32.lib;user32.lib;gdi32.lib;winspool.lib;comdlg32.lib;advapi32.lib;shell32.lib;ole32.lib;oleaut32.lib;uuid.lib;odbc32.lib;odbccp32.lib;Version.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <DataExecutionPrevention>true</DataExecutionPrevention>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <ClCompile>
       <WarningLevel>Level3</WarningLevel>
       <SDLCheck>true</SDLCheck>
-      <PreprocessorDefinitions>RGBMODE;_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions>RGBMODE_;_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>$(ProjectDir)..\..\..\3rdparty\libstorm\include;$(ProjectDir)..\..\..\libs\ddwrapper\include;$(ProjectDir)..\..\..\3rdparty\libpk\include;$(ProjectDir)..\..\..\libs\DiabloUI\include;$(ProjectDir)..\..\..\shared\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(ProjectDir)..\..\..\3rdparty\libstorm\include;$(ProjectDir)..\..\..\3rdparty\libpk\include;$(ProjectDir)..\..\..\libs\DiabloUI\include;$(ProjectDir)..\..\..\libs\ddshim\include;$(ProjectDir)..\..\..\shared\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <LanguageStandard>stdcpplatest</LanguageStandard>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <AdditionalDependencies>kernel32.lib;user32.lib;gdi32.lib;winspool.lib;comdlg32.lib;advapi32.lib;shell32.lib;ole32.lib;oleaut32.lib;uuid.lib;odbc32.lib;odbccp32.lib;Version.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <DataExecutionPrevention>true</DataExecutionPrevention>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
@@ -349,9 +352,9 @@
       <FunctionLevelLinking>true</FunctionLevelLinking>
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <SDLCheck>true</SDLCheck>
-      <PreprocessorDefinitions>RGBMODE;NDEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions>RGBMODE_;NDEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>$(ProjectDir)..\..\..\3rdparty\libstorm\include;$(ProjectDir)..\..\..\libs\ddwrapper\include;$(ProjectDir)..\..\..\3rdparty\libpk\include;$(ProjectDir)..\..\..\libs\DiabloUI\include;$(ProjectDir)..\..\..\shared\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(ProjectDir)..\..\..\3rdparty\libstorm\include;$(ProjectDir)..\..\..\3rdparty\libpk\include;$(ProjectDir)..\..\..\libs\DiabloUI\include;$(ProjectDir)..\..\..\libs\ddshim\include;$(ProjectDir)..\..\..\shared\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <LanguageStandard>stdcpplatest</LanguageStandard>
     </ClCompile>
     <Link>
@@ -360,6 +363,7 @@
       <OptimizeReferences>true</OptimizeReferences>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <AdditionalDependencies>kernel32.lib;user32.lib;gdi32.lib;winspool.lib;comdlg32.lib;advapi32.lib;shell32.lib;ole32.lib;oleaut32.lib;uuid.lib;odbc32.lib;odbccp32.lib;Version.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <DataExecutionPrevention>true</DataExecutionPrevention>
     </Link>
   </ItemDefinitionGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

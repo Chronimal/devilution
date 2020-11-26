@@ -63,7 +63,7 @@ int color_cycle_timer;
  * Specifies whether to give the game exclusive access to the
  * screen, as needed for efficient rendering in fullscreen mode.
  */
-BOOL fullscreen = FALSE;
+BOOL fullscreen = TRUE;
 #ifdef _DEBUG
 int showintrodebug = 1;
 int questdebug = -1;

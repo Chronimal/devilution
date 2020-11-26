@@ -15,7 +15,7 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "smacker", "..\..\..\3rdpart
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "storm", "..\..\..\3rdparty\libstorm\build\vs2019\storm.vcxproj", "{E2997B72-530D-4F2F-811A-F3D28FF33FD5}"
 EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "ddwrapper", "..\..\..\libs\ddwrapper\build\vs2019\ddwrapper.vcxproj", "{25D9949F-276D-4DF3-8D3F-76B430899F8F}"
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "ddshim", "..\..\..\libs\ddshim\build\vs2019\ddshim.vcxproj", "{25D9949F-276D-4DF3-8D3F-76B430899F8F}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
