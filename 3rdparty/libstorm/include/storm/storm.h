@@ -3,6 +3,20 @@
 #ifndef __BLIZZARD_STORM_HEADER
 #define __BLIZZARD_STORM_HEADER
 
+#include <SDKDDKVer.h>
+
+#ifndef WIN32_LEAN_AND_MEAN
+#define WIN32_LEAN_AND_MEAN
+#endif // WIN32_LEAN_AND_MEAN
+
+#ifndef NOMINMAX
+#define NOMINMAX
+#endif // NOMINMAX
+
+#ifndef STRICT
+#define STRICT
+#endif // STRICT
+
 #include <windows.h>
 #include <winuser.h>
 #include <winsock.h>

@@ -465,8 +465,6 @@ static void init_archives()
 
 void init_create_window(int nCmdShow)
 {
-    int nWidth = SCREEN_WIDTH;
-    int nHeight = SCREEN_HEIGHT;
     HWND hWnd;
     WNDCLASSEXA wcex;
 
@@ -487,11 +485,37 @@ void init_create_window(int nCmdShow)
     {
         app_fatal("Unable to register window class");
     }
-    hWnd = CreateWindowEx(0, "DIABLO", GAME_NAME, WS_POPUP, 0, 0, nWidth, nHeight, NULL, NULL, ghInst, NULL);
-    if (!hWnd)
+
+    RECT rect{0, 0, SCREEN_WIDTH, SCREEN_HEIGHT};
+    AdjustWindowRectEx(&rect, WS_OVERLAPPEDWINDOW, FALSE, WS_EX_OVERLAPPEDWINDOW);
+    LONG width = rect.right - rect.left;
+    LONG height = rect.bottom - rect.top;
+
+    // clang-format off
+    hWnd = CreateWindowEx(WS_EX_OVERLAPPEDWINDOW,
+                          "DIABLO",
+                          GAME_NAME,
+                          WS_OVERLAPPEDWINDOW,
+                          CW_USEDEFAULT,
+                          0,
+                          width,
+                          height,
+                          nullptr,
+                          nullptr,
+                          ghInst,
+                          nullptr);
+    // clang-format on
+    if (hWnd == nullptr)
     {
         app_fatal("Unable to create main window");
     }
+
+    GetClientRect(hWnd, &rect);
+    if ((rect.right - rect.left) != SCREEN_WIDTH || (rect.bottom - rect.top) != SCREEN_HEIGHT)
+    {
+        app_fatal("Unexpected client rectangle dimension");
+    }
+
     ShowWindow(hWnd, SW_SHOWNORMAL); // nCmdShow used only in beta: ShowWindow(hWnd, nCmdShow)
     UpdateWindow(hWnd);
     init_await_mom_parent_exit();

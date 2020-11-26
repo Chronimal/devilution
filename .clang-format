@@ -2,8 +2,10 @@
 ---
 BasedOnStyle: Microsoft
 
-IndentWidth:     4
-UseTab:          Never
+IndentWidth: 4
+UseTab: Never
+
+ColumnLimit: 200
 
 SortIncludes: false
 

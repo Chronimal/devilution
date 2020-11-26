@@ -5,6 +5,7 @@
  */
 #include "all.h"
 #include "storm/storm.h"
+#include "ddshim/ddshim.hpp"
 
 BYTE* sgpBackBuf;
 LPDIRECTDRAW lpDDInterface;
@@ -75,29 +76,6 @@ static void dx_create_primary_surface()
         ErrDlg(IDD_DIALOG1, error_code, "C:\\Src\\Diablo\\Source\\dx.cpp", 109);
 }
 
-static HRESULT dx_DirectDrawCreate(LPGUID guid, LPDIRECTDRAW* lplpDD, LPUNKNOWN pUnkOuter)
-{
-    HRESULT(WINAPI * DirectDrawCreate)
-    (LPGUID lpGuid, LPDIRECTDRAW * lplpDD, LPUNKNOWN pUnkOuter);
-
-    if (ghDiabMod == NULL)
-    {
-        ghDiabMod = LoadLibrary("ddraw.dll");
-    }
-    if (ghDiabMod == NULL)
-    {
-        ErrDlg(IDD_DIALOG4, GetLastError(), "C:\\Src\\Diablo\\Source\\dx.cpp", 122);
-    }
-
-    DirectDrawCreate =
-        (HRESULT(WINAPI*)(LPGUID, LPDIRECTDRAW*, LPUNKNOWN))GetProcAddress(ghDiabMod, "DirectDrawCreate");
-    if (DirectDrawCreate == NULL)
-    {
-        ErrDlg(IDD_DIALOG4, GetLastError(), "C:\\Src\\Diablo\\Source\\dx.cpp", 127);
-    }
-    return DirectDrawCreate(guid, lplpDD, pUnkOuter);
-}
-
 void dx_init(HWND hWnd)
 {
     HRESULT hDDVal;
@@ -117,7 +95,7 @@ void dx_init(HWND hWnd)
     {
         lpGUID = (GUID*)DDCREATE_EMULATIONONLY;
     }
-    hDDVal = dx_DirectDrawCreate(lpGUID, &lpDDInterface, NULL);
+    hDDVal = ddw::directDrawCreate(lpGUID, &lpDDInterface, nullptr);
     if (hDDVal != DD_OK)
     {
         ErrDlg(IDD_DIALOG1, hDDVal, "C:\\Src\\Diablo\\Source\\dx.cpp", 149);
@@ -132,7 +110,7 @@ void dx_init(HWND hWnd)
 #endif
 
 #ifndef _DEBUG
-    // fullscreen = TRUE;
+    fullscreen = TRUE;
 #endif
     if (!fullscreen)
     {
