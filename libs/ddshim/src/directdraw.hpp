@@ -37,6 +37,7 @@ private:
     UINT numVerts_{};
 
     ULONG refCount_{1};
+    bool inSizeMove_{};
     bool isSubclassed_{};
 
     /*** IDirectDraw methods ***/
@@ -67,7 +68,14 @@ private:
 
     void onDeviceLost();
     void onDeviceRestored();
-    LRESULT onWindowMessage(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam);
+    void onWindowSizeChanged(int width, int height);
+    void onWindowMessage(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam);
+
+    void onGetMinMaxInfo(HWND hwnd, WPARAM wParam, LPARAM lParam);
+    void onSysKeyDown(HWND hwnd, WPARAM wParam, LPARAM lParam);
+    void onSize(HWND hwnd, WPARAM wParam, LPARAM lParam);
+    void onEnterSizeMove(HWND hwnd, WPARAM wParam, LPARAM lParam);
+    void onExitSizeMove(HWND hwnd, WPARAM wParam, LPARAM lParam);
 
     static LRESULT CALLBACK subclassProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam, UINT_PTR subclassID, DWORD_PTR userData);
     void unsubclassWindow(HWND hwnd) noexcept;

@@ -269,34 +269,3 @@ void dx_cleanup()
         lpDDInterface = NULL;
     }
 }
-
-void dx_reinit()
-{
-    int lockCount;
-
-    sgMemCrit.Enter();
-    ClearCursor();
-    lockCount = sgdwLockCount;
-
-    while (sgdwLockCount != 0)
-        unlock_buf_priv();
-
-    dx_cleanup();
-
-    force_redraw = 255;
-
-    dx_init(ghMainWnd);
-
-    while (lockCount-- != 0)
-    {
-        lock_buf_priv();
-    }
-
-    sgMemCrit.Leave();
-}
-
-/* check extern remove stub */
-void j_dx_reinit()
-{
-    dx_reinit();
-}

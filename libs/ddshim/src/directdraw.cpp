@@ -74,8 +74,7 @@ void DirectDraw::render(ID3D11ShaderResourceView* canvasView, ID3D11ShaderResour
     deviceContext->IASetVertexBuffers(0, 1, &vertexBuffer, &stride_, &offset_);
 
     deviceContext->Draw(numVerts_, 0);
-
-    deviceResources->getSwapChain()->Present(1, 0);
+    deviceResources->present();
 }
 
 /*** IUnknown methods ***/
@@ -256,7 +255,6 @@ HRESULT DirectDraw::WaitForVerticalBlank(DWORD dwFlags, HANDLE hEvent)
 
 void DirectDraw::createDeviceDependentResources()
 {
-    deviceResources_->createDeviceResources();
     auto device = deviceResources_->getDevice();
 
     DDS_THROW_IF_FAILED(device->CreatePixelShader(g_pixelShader, sizeof(g_pixelShader), nullptr, pixelShader_.ReleaseAndGetAddressOf()));
@@ -314,7 +312,6 @@ void DirectDraw::createDeviceDependentResources()
 
 void DirectDraw::createWindowSizeDependentResources()
 {
-    deviceResources_->createWindowSizeDependentResources();
 }
 
 void DirectDraw::onDeviceLost()
@@ -331,26 +328,84 @@ void DirectDraw::onDeviceRestored()
     createWindowSizeDependentResources();
 }
 
-LRESULT DirectDraw::onWindowMessage(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
+void DirectDraw::onWindowSizeChanged(int width, int height)
 {
-    return 0;
+    createWindowSizeDependentResources();
+}
+
+void DirectDraw::onWindowMessage(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
+{
+    switch (msg)
+    {
+        case WM_GETMINMAXINFO:
+            return onGetMinMaxInfo(hwnd, wParam, lParam);
+        case WM_SYSKEYDOWN:
+            return onSysKeyDown(hwnd, wParam, lParam);
+        case WM_SIZE:
+            return onSize(hwnd, wParam, lParam);
+        case WM_ENTERSIZEMOVE:
+            return onEnterSizeMove(hwnd, wParam, lParam);
+        case WM_EXITSIZEMOVE:
+            return onExitSizeMove(hwnd, wParam, lParam);
+    }
+}
+
+void DirectDraw::onGetMinMaxInfo(HWND hwnd, WPARAM wParam, LPARAM lParam)
+{
+    auto info = reinterpret_cast<MINMAXINFO*>(lParam);
+    info->ptMinTrackSize.x = 320;
+    info->ptMinTrackSize.y = 200;
+}
+
+void DirectDraw::onSysKeyDown(HWND hwnd, WPARAM wParam, LPARAM lParam)
+{
+    if (wParam == VK_RETURN && (lParam & 0x60000000) == 0x20000000)
+    {
+        DXGI_SWAP_CHAIN_FULLSCREEN_DESC fullscreenDesc;
+        auto swapChain = deviceResources_->getSwapChain();
+        if (SUCCEEDED(swapChain->GetFullscreenDesc(&fullscreenDesc)))
+        {
+            swapChain->SetFullscreenState(fullscreenDesc.Windowed, nullptr);
+        }
+    }
+}
+
+void DirectDraw::onSize(HWND hwnd, WPARAM wParam, LPARAM lParam)
+{
+    if (!inSizeMove_)
+    {
+        deviceResources_->windowSizeChanged(LOWORD(lParam), HIWORD(lParam));
+    }
+}
+
+void DirectDraw::onEnterSizeMove(HWND hwnd, WPARAM wParam, LPARAM lParam)
+{
+    inSizeMove_ = true;
+}
+
+void DirectDraw::onExitSizeMove(HWND hwnd, WPARAM wParam, LPARAM lParam)
+{
+    inSizeMove_ = false;
+    deviceResources_->windowSizeChanged(getClientSize(hwnd));
 }
 
 LRESULT DirectDraw::subclassProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam, UINT_PTR subclassID, DWORD_PTR)
 {
     auto self = reinterpret_cast<DirectDraw*>(subclassID);
     self->onWindowMessage(hwnd, msg, wParam, lParam);
-    auto result = ::DefSubclassProc(hwnd, msg, wParam, lParam);
-    if (msg == WM_DESTROY)
+    switch (msg)
     {
+    case WM_MENUCHAR:
+        return MAKELRESULT(0, MNC_CLOSE);
+    case WM_DESTROY:
         self->unsubclassWindow(hwnd);
     }
-    return result;
+    return ::DefSubclassProc(hwnd, msg, wParam, lParam);
 }
 
 void DirectDraw::subclassWindow(HWND hwnd)
 {
-    if (!isSubclassed_)
+    if (!isSubclassed_ && IsWindow(hwnd))
     {
         if (!SetWindowSubclass(hwnd, &DirectDraw::subclassProc, reinterpret_cast<UINT_PTR>(this), 0))
         {
@@ -362,9 +417,12 @@ void DirectDraw::subclassWindow(HWND hwnd)
 
 void DirectDraw::unsubclassWindow(HWND hwnd) noexcept
 {
-    if (isSubclassed_&& IsWindow(hwnd))
+    if (isSubclassed_ && IsWindow(hwnd))
     {
-        ::RemoveWindowSubclass(hwnd, &DirectDraw::subclassProc, reinterpret_cast<UINT_PTR>(this));
+        if (::RemoveWindowSubclass(hwnd, &DirectDraw::subclassProc, reinterpret_cast<UINT_PTR>(this)))
+        {
+            isSubclassed_ = false;
+        }
     }
 }
 

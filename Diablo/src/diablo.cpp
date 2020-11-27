@@ -664,7 +664,7 @@ static void diablo_reload_process(HINSTANCE hInstance)
 }
 
 /**
- * @brief Main entry point, check env, initialize systesm, play intros, start main menu, shut down
+ * @brief Main entry point, check environment, initialize system, play intros, start main menu, shut down
  * @param hInstance A handle to the current instance of the application.
  * @param hPrevInstance Always null
  * @param lpCmdLine The command line for the application

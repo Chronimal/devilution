@@ -18,7 +18,5 @@ void dx_init(HWND hWnd);
 void lock_buf(BYTE idx);
 void unlock_buf(BYTE idx);
 void dx_cleanup();
-void dx_reinit();
-void j_dx_reinit();
 
 #endif /* __DX_H__ */
