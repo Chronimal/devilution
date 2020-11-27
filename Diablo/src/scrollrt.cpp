@@ -3310,17 +3310,12 @@ static void DoBlitScreen(DWORD dwX, DWORD dwY, DWORD dwWdt, DWORD dwHgt)
  */
 static void DrawMain(int dwHgt, BOOL draw_desc, BOOL draw_hp, BOOL draw_mana, BOOL draw_sbar, BOOL draw_btn)
 {
-    int ysize;
-    DWORD dwTicks;
-    BOOL retry;
-    HRESULT hDDVal;
-
-    ysize = dwHgt;
-
     if (!gbActive || lpDDSPrimary == NULL)
     {
         return;
     }
+
+    int ysize = dwHgt;
 
     if (lpDDSPrimary->IsLost() == DDERR_SURFACELOST)
     {
@@ -3334,37 +3329,7 @@ static void DrawMain(int dwHgt, BOOL draw_desc, BOOL draw_hp, BOOL draw_mana, BO
 
     if (lpDDSBackBuf == NULL)
     {
-        retry = TRUE;
-        dwTicks = GetTickCount();
-        while (1)
-        {
-            DDS_desc.dwSize = sizeof(DDS_desc);
-            hDDVal = lpDDSPrimary->Lock(NULL, &DDS_desc, DDLOCK_WRITEONLY | DDLOCK_WAIT, NULL);
-            if (hDDVal == DD_OK)
-            {
-                break;
-            }
-            if (dwTicks - GetTickCount() > 5000)
-            {
-                break;
-            }
-            Sleep(1);
-            if (hDDVal == DDERR_SURFACELOST)
-            {
-                return;
-            }
-            if (hDDVal != DDERR_WASSTILLDRAWING && hDDVal != DDERR_SURFACEBUSY)
-            {
-                if (!retry || hDDVal != DDERR_GENERIC)
-                {
-                    break;
-                }
-                retry = FALSE;
-                j_dx_reinit();
-                ysize = SCREEN_HEIGHT;
-                dwTicks = GetTickCount();
-            }
-        }
+        auto hDDVal = lpDDSPrimary->Lock(NULL, &DDS_desc, DDLOCK_WRITEONLY | DDLOCK_WAIT, NULL);
         if (hDDVal == DDERR_SURFACELOST || hDDVal == DDERR_WASSTILLDRAWING || hDDVal == DDERR_SURFACEBUSY)
         {
             return;
@@ -3422,7 +3387,7 @@ static void DrawMain(int dwHgt, BOOL draw_desc, BOOL draw_hp, BOOL draw_mana, BO
 
     if (lpDDSBackBuf == NULL)
     {
-        hDDVal = lpDDSPrimary->Unlock(NULL);
+        auto hDDVal = lpDDSPrimary->Unlock(NULL);
         if (hDDVal != DDERR_SURFACELOST && hDDVal != DD_OK)
         {
             DDErrMsg(hDDVal, 3779, "C:\\Src\\Diablo\\Source\\SCROLLRT.CPP");

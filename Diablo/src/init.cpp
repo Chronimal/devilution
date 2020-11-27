@@ -167,44 +167,9 @@ static void init_run_office_from_start_menu()
     }
 }
 
-static void init_disable_screensaver(BOOLEAN disable)
-{
-#if 0
-	BOOLEAN enabled;
-	char Data[16];
-	DWORD Type, cbData;
-	HKEY phkResult;
-	LRESULT success;
-
-	// BUGFIX: this is probably the worst possible way to do this. Alternatives: ExtEscape() with SETPOWERMANAGEMENT,
-	// SystemParametersInfo() with SPI_SETSCREENSAVEACTIVE/SPI_SETPOWEROFFACTIVE/SPI_SETLOWPOWERACTIVE
-
-	success = RegOpenKeyEx(HKEY_CURRENT_USER, "Control Panel\\Desktop", 0, KEY_READ | KEY_WRITE, (PHKEY)&phkResult);
-	if (success != ERROR_SUCCESS) {
-		return;
-	}
-
-	if (disable) {
-		cbData = 16;
-		success = RegQueryValueEx(phkResult, "ScreenSaveActive", NULL, &Type, (LPBYTE)Data, &cbData);
-		if (success == ERROR_SUCCESS)
-			screensaver_enabled_prev = Data[0] != '0';
-		enabled = FALSE;
-	} else {
-		enabled = screensaver_enabled_prev;
-	}
-
-	Data[0] = enabled ? '1' : '0';
-	Data[1] = 0;
-	RegSetValueEx(phkResult, "ScreenSaveActive", NULL, REG_SZ, (const BYTE *)Data, 2);
-	RegCloseKey(phkResult);
-#endif
-}
-
 void init_cleanup(BOOL show_cursor)
 {
     pfile_flush_W();
-    init_disable_screensaver(FALSE);
     init_run_office_from_start_menu();
 
     if (diabdat_mpq)
@@ -268,7 +233,9 @@ void init_cleanup(BOOL show_cursor)
     StormDestroy();
 
     if (show_cursor)
+    {
         ShowCursor(TRUE);
+    }
 }
 
 static void init_strip_trailing_slash(char* path)
@@ -279,7 +246,9 @@ static void init_strip_trailing_slash(char* path)
     if (result)
     {
         if (!result[1])
+        {
             *result = 0;
+        }
     }
 }
 
@@ -465,45 +434,44 @@ static void init_archives()
 
 void init_create_window(int nCmdShow)
 {
-    HWND hWnd;
-    WNDCLASSEXA wcex;
-
     init_kill_mom_parent();
     pfile_init_save_directory();
-    memset(&wcex, 0, sizeof(wcex));
-    wcex.cbSize = sizeof(wcex);
-    wcex.style = CS_HREDRAW | CS_VREDRAW;
-    wcex.lpfnWndProc = WindowProc;
+
+    WNDCLASSEXA wcex{};
     wcex.hInstance = ghInst;
-    wcex.hIcon = LoadIcon(ghInst, MAKEINTRESOURCE(IDI_ICON1));
+    wcex.cbSize = sizeof(wcex);
+    wcex.lpfnWndProc = WindowProc;
+    wcex.lpszClassName = GAME_NAME;
+    wcex.style = CS_HREDRAW | CS_VREDRAW;
     wcex.hCursor = LoadCursor(NULL, IDC_ARROW);
     wcex.hbrBackground = (HBRUSH)GetStockObject(BLACK_BRUSH);
-    wcex.lpszMenuName = GAME_NAME;
-    wcex.lpszClassName = "DIABLO";
+    wcex.hIcon = LoadIcon(ghInst, MAKEINTRESOURCE(IDI_ICON1));
     wcex.hIconSm = (HICON)LoadImage(ghInst, MAKEINTRESOURCE(IDI_ICON1), IMAGE_ICON, 16, 16, LR_DEFAULTCOLOR);
     if (!RegisterClassEx(&wcex))
     {
         app_fatal("Unable to register window class");
     }
 
-    RECT rect{0, 0, SCREEN_WIDTH, SCREEN_HEIGHT};
-    AdjustWindowRectEx(&rect, WS_OVERLAPPEDWINDOW, FALSE, WS_EX_OVERLAPPEDWINDOW);
-    LONG width = rect.right - rect.left;
+    RECT rect{.right = SCREEN_WIDTH, .bottom = SCREEN_HEIGHT};
+    constexpr DWORD exStyle = WS_EX_OVERLAPPEDWINDOW | WS_EX_APPWINDOW;
+    constexpr DWORD style = WS_OVERLAPPEDWINDOW;
+    AdjustWindowRectEx(&rect, style, FALSE, exStyle);
     LONG height = rect.bottom - rect.top;
+    LONG width = rect.right - rect.left;
 
     // clang-format off
-    hWnd = CreateWindowEx(WS_EX_OVERLAPPEDWINDOW,
-                          "DIABLO",
-                          GAME_NAME,
-                          WS_OVERLAPPEDWINDOW,
-                          CW_USEDEFAULT,
-                          0,
-                          width,
-                          height,
-                          nullptr,
-                          nullptr,
-                          ghInst,
-                          nullptr);
+    HWND hWnd = CreateWindowEx(exStyle,
+                               GAME_NAME,
+                               APP_NAME,
+                               style,
+                               CW_USEDEFAULT,
+                               0,
+                               width,
+                               height,
+                               nullptr,
+                               nullptr,
+                               ghInst,
+                               nullptr);
     // clang-format on
     if (hWnd == nullptr)
     {
@@ -518,28 +486,18 @@ void init_create_window(int nCmdShow)
 
     ShowWindow(hWnd, SW_SHOWNORMAL); // nCmdShow used only in beta: ShowWindow(hWnd, nCmdShow)
     UpdateWindow(hWnd);
+
     init_await_mom_parent_exit();
     dx_init(hWnd);
     BlackPalette();
     snd_init(hWnd);
     init_archives();
-    init_disable_screensaver(TRUE);
 }
 
 static void init_activate_window(HWND hWnd, BOOL bActive)
 {
-    LONG dwNewLong;
-
     gbActive = bActive;
     UiAppActivate(bActive);
-    dwNewLong = GetWindowLong(hWnd, GWL_STYLE);
-
-    if (gbActive && fullscreen)
-        dwNewLong &= ~WS_SYSMENU;
-    else
-        dwNewLong |= WS_SYSMENU;
-
-    SetWindowLong(hWnd, GWL_STYLE, dwNewLong);
 
     if (gbActive)
     {
@@ -570,22 +528,14 @@ LRESULT __stdcall MainWndProc(HWND hWnd, UINT Msg, WPARAM wParam, LPARAM lParam)
         case WM_ACTIVATEAPP:
             init_activate_window(hWnd, wParam);
             break;
-#ifdef _DEBUG
-        case WM_SYSKEYUP:
-            if (wParam == VK_RETURN)
-            {
-                fullscreen = !fullscreen;
-                dx_reinit();
-                return 0;
-            }
-            break;
-#endif
         case WM_QUERYNEWPALETTE:
             SDrawRealizePalette();
             return 1;
         case WM_PALETTECHANGED:
             if ((HWND)wParam != hWnd)
+            {
                 SDrawRealizePalette();
+            }
             break;
     }
 
@@ -595,8 +545,9 @@ LRESULT __stdcall MainWndProc(HWND hWnd, UINT Msg, WPARAM wParam, LPARAM lParam)
 LRESULT __stdcall WindowProc(HWND hWnd, UINT Msg, WPARAM wParam, LPARAM lParam)
 {
     if (CurrentProc)
+    {
         return CurrentProc(hWnd, Msg, wParam, lParam);
-
+    }
     return MainWndProc(hWnd, Msg, wParam, lParam);
 }
 

@@ -46,6 +46,8 @@ private:
     static const char* formatError(HRESULT hr) noexcept;
 };
 
+SIZE getClientSize(HWND hwnd);
+
 HRESULT throwIfFailed(HRESULT hr, const char* file, int line) noexcept(false);
 [[noreturn]] void throwUnconditional(HRESULT hr, const char* file, int line);
 HRESULT toHRESULT(std::exception_ptr ep) noexcept;

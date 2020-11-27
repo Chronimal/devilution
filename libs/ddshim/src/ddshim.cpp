@@ -21,6 +21,16 @@ const char* ComRuntimeError::formatError(HRESULT hr) noexcept
     return message;
 }
 
+SIZE getClientSize(HWND hwnd)
+{
+    RECT rect{};
+    if (!GetClientRect(hwnd, &rect))
+    {
+        DDS_THROW_IF_FAILED(HRESULT_FROM_WIN32(GetLastError()));
+    }
+    return {rect.right - rect.left, rect.bottom - rect.top};
+}
+
 HRESULT throwIfFailed(HRESULT hr, const char* file, int line) noexcept(false)
 {
     if (FAILED(hr))
