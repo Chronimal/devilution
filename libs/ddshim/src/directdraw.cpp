@@ -31,6 +31,7 @@ DDS_END_ANON_NS
 DirectDraw::DirectDraw(GUID* /* guid */, IUnknown*)
     : deviceResources_{std::make_shared<DeviceResources>()}
 {
+    deviceResources_->addDeviceEventSink(this, &DirectDraw::onDeviceLost, &DirectDraw::onDeviceRestored);
 }
 
 DirectDraw::~DirectDraw()
@@ -117,11 +118,11 @@ HRESULT DirectDraw::CreateClipper(DWORD dwFlags, LPDIRECTDRAWCLIPPER* lplpDDClip
     return E_NOTIMPL;
 }
 
-HRESULT DirectDraw::CreatePalette(DWORD dwFlags, LPPALETTEENTRY lpColorTable, LPDIRECTDRAWPALETTE* lplpDDPalette, IUnknown* pUnkOuter)
+HRESULT DirectDraw::CreatePalette(DWORD dwFlags, LPPALETTEENTRY lpColorTable, LPDIRECTDRAWPALETTE* lplpDDPalette, IUnknown*)
 {
     try
     {
-        *lplpDDPalette = std::make_unique<DirectDrawPalette>(this, dwFlags, lpColorTable, pUnkOuter).release();
+        *lplpDDPalette = std::make_unique<DirectDrawPalette>(this, dwFlags, lpColorTable).release();
     }
     catch (...)
     {
@@ -134,7 +135,7 @@ HRESULT DirectDraw::CreateSurface(LPDDSURFACEDESC lpDDSurfaceDesc, LPDIRECTDRAWS
 {
     try
     {
-        *lplpDDSurface = std::make_unique<DirectDrawSurface>(this, lpDDSurfaceDesc, pUnkOuter).release();
+        *lplpDDSurface = std::make_unique<DirectDrawSurface>(this, lpDDSurfaceDesc, vdm_).release();
     }
     catch (...)
     {
@@ -205,8 +206,19 @@ HRESULT DirectDraw::GetScanLine(LPDWORD lpdwScanLine)
 
 HRESULT DirectDraw::GetVerticalBlankStatus(LPBOOL lpbIsInVB)
 {
-    // TODO: This needs some work
+    // Should use D3DKMTGetScanLine() instead of the hack below
     *lpbIsInVB = FALSE;
+    DWM_TIMING_INFO ti{.cbSize = sizeof(ti)};
+    if (SUCCEEDED(DwmGetCompositionTimingInfo(nullptr, &ti)))
+    {
+        LARGE_INTEGER counter;
+        LARGE_INTEGER frequency;
+        if (QueryPerformanceFrequency(&frequency) && QueryPerformanceCounter(&counter))
+        {
+            auto nextBlankIn = static_cast<double>(ti.qpcVBlank - counter.QuadPart) / frequency.QuadPart;
+            *lpbIsInVB = nextBlankIn <= 0.001;
+        }
+    }
     return DD_OK;
 }
 
@@ -239,16 +251,34 @@ HRESULT DirectDraw::SetCooperativeLevel(HWND hWnd, DWORD dwFlags)
     return DD_OK;
 }
 
-HRESULT DirectDraw::SetDisplayMode(DWORD dwWidth, DWORD dwHeight, DWORD dwBpp)
+HRESULT DirectDraw::SetDisplayMode(DWORD width, DWORD height, DWORD bpp)
 {
+    vdm_ = {width, height, bpp};
     return DD_OK;
 }
 
-HRESULT DirectDraw::WaitForVerticalBlank(DWORD dwFlags, HANDLE hEvent)
+HRESULT DirectDraw::WaitForVerticalBlank(DWORD flags, HANDLE)
 {
-    // TODO: This needs some work
-    Sleep(1000 / 60);
-    return S_OK;
+    try
+    {
+        if ((flags & (DDWAITVB_BLOCKBEGINEVENT | DDWAITVB_BLOCKEND)) != 0)
+        {
+            DDS_THROW(DDERR_UNSUPPORTED);
+        }
+        auto swapChain = deviceResources_->getSwapChain();
+        if (swapChain == nullptr)
+        {
+            DDS_THROW(DDERR_D3DNOTINITIALIZED);
+        }
+        ComPtr<IDXGIOutput> output;
+        DDS_THROW_IF_FAILED(swapChain->GetContainingOutput(output.GetAddressOf()));
+        DDS_THROW_IF_FAILED(output->WaitForVBlank());
+    }
+    catch (...)
+    {
+        return toHRESULT(std::current_exception());
+    }
+    return DD_OK;
 }
 
 // --- Help methods ---

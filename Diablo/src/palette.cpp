@@ -247,8 +247,8 @@ static void SetFadeLevel(DWORD fadeval)
 
     if (lpDDInterface)
     {
-        for (i = 0; i < 255; i++)
-        { // BUGFIX: should be 256
+        for (i = 0; i < 256; i++)
+        {
             system_palette[i].peRed = (fadeval * logical_palette[i].peRed) >> 8;
             system_palette[i].peGreen = (fadeval * logical_palette[i].peGreen) >> 8;
             system_palette[i].peBlue = (fadeval * logical_palette[i].peBlue) >> 8;

@@ -29,16 +29,18 @@ void mainmenu_refresh_music()
 
 static BOOL mainmenu_init_menu(int type)
 {
-    BOOL success;
-
     if (type == SELHERO_PREVIOUS)
+    {
         return TRUE;
+    }
 
     music_stop();
 
-    success = StartGame(type != SELHERO_CONTINUE, type != SELHERO_CONNECT);
+    BOOL success = StartGame(type != SELHERO_CONTINUE, type != SELHERO_CONNECT);
     if (success)
+    {
         mainmenu_refresh_music();
+    }
 
     return success;
 }
@@ -208,11 +210,15 @@ void mainmenu_loop()
         {
             case MAINMENU_SINGLE_PLAYER:
                 if (!mainmenu_single_player())
+                {
                     done = TRUE;
+                }
                 break;
             case MAINMENU_MULTIPLAYER:
                 if (!mainmenu_multi_player())
+                {
                     done = TRUE;
+                }
                 break;
             case MAINMENU_ATTRACT_MODE:
 #ifdef HELLFIRE
@@ -225,7 +231,9 @@ void mainmenu_loop()
 #endif
 #else
                 if (gbActive)
+                {
                     mainmenu_play_intro();
+                }
 #endif
                 break;
             case MAINMENU_SHOW_CREDITS:

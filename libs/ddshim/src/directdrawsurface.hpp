@@ -14,7 +14,7 @@ public:
     DirectDrawSurface(const DirectDrawSurface&) = delete;
     DirectDrawSurface& operator=(const DirectDrawSurface&) = delete;
 
-    DirectDrawSurface(Microsoft::WRL::ComPtr<DirectDraw> dd, LPDDSURFACEDESC surfaceDesc, IUnknown* unkOuter);
+    DirectDrawSurface(Microsoft::WRL::ComPtr<DirectDraw> dd, LPDDSURFACEDESC surfaceDesc, const VirtualDisplayMode& vdm);
     virtual ~DirectDrawSurface();
 
     /*** IUnknown methods ***/
@@ -44,8 +44,7 @@ private:
     DDSURFACEDESC surfaceDesc_{};    
     ULONG refCount_{1};
 
-    static constexpr UINT virtualScreenWidth_{ 640 };
-    static constexpr UINT virtualScreenHeight_{ 480 };
+    VirtualDisplayMode vdm_;
 
     /*** IDirectDrawSurface methods ***/
     HRESULT __stdcall AddAttachedSurface(LPDIRECTDRAWSURFACE) override;
@@ -83,6 +82,8 @@ private:
     HRESULT __stdcall UpdateOverlayZOrder(DWORD, LPDIRECTDRAWSURFACE) override;
 
     void createTexturesAndView();
+    void onDeviceRestored();
+    void onDeviceLost();
 };
 
 DDS_END_NS

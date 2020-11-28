@@ -10,7 +10,7 @@ DirectDrawPalette::ScopedMappedSubresource::ScopedMappedSubresource(ID3D11Device
     : deviceContext_{deviceContext}
     , staging_{staging}
 {
-    DDS_THROW_IF_FAILED(deviceContext_->Map(staging_, 0, D3D11_MAP_READ_WRITE, 0, this));
+    DDS_THROW_IF_FAILED(deviceContext_->Map(staging_, 0, D3D11_MAP_WRITE, 0, this));
 }
 
 DirectDrawPalette::ScopedMappedSubresource::~ScopedMappedSubresource()
@@ -18,7 +18,7 @@ DirectDrawPalette::ScopedMappedSubresource::~ScopedMappedSubresource()
     deviceContext_->Unmap(staging_, 0);
 }
 
-DirectDrawPalette::DirectDrawPalette(Microsoft::WRL::ComPtr<DirectDraw> dd, DWORD flags, LPPALETTEENTRY entries, IUnknown* unkOuter)
+DirectDrawPalette::DirectDrawPalette(Microsoft::WRL::ComPtr<DirectDraw> dd, DWORD flags, LPPALETTEENTRY entries)
     : dd_{dd}
 {
     createTexturesAndView();
@@ -26,6 +26,12 @@ DirectDrawPalette::DirectDrawPalette(Microsoft::WRL::ComPtr<DirectDraw> dd, DWOR
     {
         setStageEntries(0, 256, entries);
     }
+    else
+    {
+        PALETTEENTRY emptyPalette[256]{};
+        setStageEntries(0, 256, emptyPalette);
+    }
+    dd_->getDeviceResources()->addDeviceEventSink(this, &DirectDrawPalette::onDeviceLost, &DirectDrawPalette::onDeviceRestored);
 }
 
 ComPtr<ID3D11ShaderResourceView> DirectDrawPalette::getPaletteView() const noexcept
@@ -73,18 +79,7 @@ HRESULT DirectDrawPalette::GetCaps(LPDWORD)
 
 HRESULT DirectDrawPalette::GetEntries(DWORD flags, DWORD start, DWORD count, LPPALETTEENTRY entries)
 {
-    try
-    {
-        ScopedMappedSubresource mapped(dd_->getDeviceResources()->getDeviceContext(), staging_.Get());
-
-        _ASSERT(mapped.RowPitch == 1024);
-        auto src = static_cast<LPPALETTEENTRY>(mapped.pData);
-        memcpy(entries, &src[start], count * sizeof(PALETTEENTRY));
-    }
-    catch (...)
-    {
-        return toHRESULT(std::current_exception());
-    }
+    memcpy(entries, &paletteBackup_[start], count * sizeof(PALETTEENTRY));
     return DD_OK;
 }
 
@@ -109,6 +104,7 @@ HRESULT DirectDrawPalette::SetEntries(DWORD flags, DWORD start, DWORD count, LPP
 
 void DirectDrawPalette::setStageEntries(DWORD start, DWORD count, LPPALETTEENTRY entries)
 {
+    memcpy(paletteBackup_, &entries[start], count * sizeof(PALETTEENTRY));
     auto deviceContext = dd_->getDeviceResources()->getDeviceContext();
     {
         ScopedMappedSubresource mapped(deviceContext, staging_.Get());
@@ -126,8 +122,8 @@ void DirectDrawPalette::createTexturesAndView()
     textureDesc.MipLevels = 1;
     textureDesc.ArraySize = 1;
     textureDesc.Usage = D3D11_USAGE_STAGING;
+    textureDesc.CPUAccessFlags = D3D11_CPU_ACCESS_WRITE;
     textureDesc.Format = DXGI_FORMAT_B8G8R8A8_UNORM_SRGB;
-    textureDesc.CPUAccessFlags = D3D11_CPU_ACCESS_WRITE | D3D11_CPU_ACCESS_READ;
 
     auto deviceResources = dd_->getDeviceResources();
     auto device = deviceResources->getDevice();
@@ -138,6 +134,18 @@ void DirectDrawPalette::createTexturesAndView()
     textureDesc.CPUAccessFlags = D3D11_CPU_ACCESS_WRITE;
     DDS_THROW_IF_FAILED(device->CreateTexture1D(&textureDesc, nullptr, palette_.ReleaseAndGetAddressOf()));
     DDS_THROW_IF_FAILED(device->CreateShaderResourceView(palette_.Get(), nullptr, paletteView_.ReleaseAndGetAddressOf()));
+}
+
+void DirectDrawPalette::onDeviceRestored()
+{
+    createTexturesAndView();
+    setStageEntries(0, ARRAYSIZE(paletteBackup_), paletteBackup_);
+}
+
+void DirectDrawPalette::onDeviceLost()
+{
+    palette_.Reset();
+    paletteView_.Reset();
 }
 
 DDS_END_NS

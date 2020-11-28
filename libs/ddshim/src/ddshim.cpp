@@ -21,6 +21,13 @@ const char* ComRuntimeError::formatError(HRESULT hr) noexcept
     return message;
 }
 
+VirtualDisplayMode::VirtualDisplayMode(UINT width, UINT height, UINT bpp) noexcept
+    : height{ height }
+    , width{width}
+    , bpp{bpp}
+{
+}
+
 SIZE getClientSize(HWND hwnd)
 {
     RECT rect{};

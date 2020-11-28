@@ -1,10 +1,32 @@
 
 #include "deviceresources.hpp"
+#include <algorithm>
 
 using Microsoft::WRL::ComPtr;
 using namespace DirectX;
 
 DDS_BEGIN_NS
+
+void DeviceResources::DeviceEventDelegate::remove(void* instance)
+{
+    std::erase_if(deviceEventSinks_, [&](auto& p) {return p->isInstance(instance); });
+}
+
+void DeviceResources::DeviceEventDelegate::deviceLost()
+{
+    for (auto& p : deviceEventSinks_)
+    {
+        p->deviceLost();
+    }
+}
+
+void DeviceResources::DeviceEventDelegate::deviceRestored()
+{
+    for (auto& p : deviceEventSinks_)
+    {
+        p->deviceRestored();
+    }
+}
 
 DeviceResources::DeviceResources()
 {
@@ -198,10 +220,7 @@ void DeviceResources::present()
 
 void DeviceResources::deviceLost()
 {
-//     if (m_deviceNotify)
-//     {
-//         m_deviceNotify->OnDeviceLost();
-//     }
+    deviceEventDelegate_.deviceLost();
 
     d3dRenderTargetView_.Reset();
     d3dDeviceContext_.Reset();
@@ -211,10 +230,7 @@ void DeviceResources::deviceLost()
     createDeviceResources();
     createWindowSizeDependentResources(getClientSize(hwnd_));
 
-//     if (m_deviceNotify)
-//     {
-//         m_deviceNotify->OnDeviceRestored();
-//     }
+    deviceEventDelegate_.deviceRestored();
 }
 
 DDS_END_NS
