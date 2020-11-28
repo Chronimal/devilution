@@ -841,16 +841,20 @@ void MakeLightTable()
     {
         for (j = 0; j < 16; j++)
         {
-            fa = (sqrt((double)(16 - j))) / 128;
+            double fa = (sqrt((double)(16 - j))) / 128;
             fa *= fa;
             for (i = 0; i < 128; i++)
             {
                 lightradius[15 - j][i] = 15 - (BYTE)(fa * (double)((128 - i) * (128 - i)));
                 if (lightradius[15 - j][i] > 15)
+                {
                     lightradius[15 - j][i] = 0;
+                }
                 lightradius[15 - j][i] = lightradius[15 - j][i] - (BYTE)((15 - j) / 2);
                 if (lightradius[15 - j][i] > 15)
+                {
                     lightradius[15 - j][i] = 0;
+                }
             }
         }
     }

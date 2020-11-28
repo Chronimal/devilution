@@ -4898,9 +4898,8 @@ void SyncPlrAnim(int pnum)
 
 void SyncInitPlrPos(int pnum)
 {
-    int x, y, xx, yy, range;
+    int x, y;
     DWORD i;
-    BOOL posOk;
 
     plr[pnum]._ptargx = plr[pnum]._px;
     plr[pnum]._ptargy = plr[pnum]._py;
@@ -4927,13 +4926,13 @@ void SyncInitPlrPos(int pnum)
 #else
     if (!PosOkPlayer(pnum, x, y))
     {
-        posOk = FALSE;
-        for (range = 1; range < 50 && !posOk; range++)
+        BOOL posOk = FALSE;
+        for (int range = 1; range < 50 && !posOk; range++)
         {
-            for (yy = -range; yy <= range && !posOk; yy++)
+            for (int yy = -range; yy <= range && !posOk; yy++)
             {
                 y = yy + plr[pnum]._py;
-                for (xx = -range; xx <= range && !posOk; xx++)
+                for (int xx = -range; xx <= range && !posOk; xx++)
                 {
                     x = xx + plr[pnum]._px;
                     if (PosOkPlayer(pnum, x, y) && !PosOkPortal(currlevel, x, y))
@@ -5232,8 +5231,6 @@ void SetPlayerHitPoints(int pnum, int val)
 
 void SetPlrStr(int p, int v)
 {
-    int dm;
-
     if ((DWORD)p >= MAX_PLRS)
     {
         app_fatal("SetPlrStr: illegal player %d", p);
@@ -5243,6 +5240,7 @@ void SetPlrStr(int p, int v)
     CalcPlrInv(p, TRUE);
 
 #ifndef HELLFIRE
+    int dm;
     if (plr[p]._pClass == PC_ROGUE)
     {
         dm = plr[p]._pLevel * (plr[p]._pStrength + plr[p]._pDexterity) / 200;
@@ -5286,8 +5284,6 @@ void SetPlrMag(int p, int v)
 
 void SetPlrDex(int p, int v)
 {
-    int dm;
-
     if ((DWORD)p >= MAX_PLRS)
     {
         app_fatal("SetPlrDex: illegal player %d", p);
@@ -5297,6 +5293,7 @@ void SetPlrDex(int p, int v)
     CalcPlrInv(p, TRUE);
 
 #ifndef HELLFIRE
+    int dm;
     if (plr[p]._pClass == PC_ROGUE)
     {
         dm = plr[p]._pLevel * (plr[p]._pStrength + plr[p]._pDexterity) / 200;

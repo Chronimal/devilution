@@ -687,7 +687,6 @@ int APIENTRY WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLi
 {
     HINSTANCE hInst;
     int nData;
-    char szFileName[MAX_PATH];
     BOOL bNoEvent;
 #ifdef HELLFIRE
     char content[256];
@@ -707,6 +706,7 @@ int APIENTRY WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLi
     }
     if (ReadOnlyTest())
     {
+        char szFileName[MAX_PATH];
         if (!GetModuleFileName(ghInst, szFileName, sizeof(szFileName)))
         {
             szFileName[0] = '\0';
@@ -1707,7 +1707,7 @@ static void PressChar(int vkey)
 #ifndef HELLFIRE
             NetSendCmdString(1 << myplr, gszProductName);
 #else
-            char* local_10[3];
+            const char* local_10[3];
             char pszStr[120];
             local_10[0] = "Normal";
             local_10[1] = "Nightmare";

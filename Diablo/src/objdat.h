@@ -10,8 +10,8 @@ extern int ObjTypeConv[];
 extern ObjDataStruct AllObjects[];
 extern const char* const ObjMasterLoadList[];
 #ifdef HELLFIRE
-extern char* ObjCryptLoadList[];
-extern char* ObjHiveLoadList[];
+extern const char* const ObjCryptLoadList[];
+extern const char* const ObjHiveLoadList[];
 #endif
 
 #endif /* __OBJDAT_H__ */
