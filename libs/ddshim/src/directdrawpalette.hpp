@@ -13,7 +13,7 @@ public:
     DirectDrawPalette(const DirectDrawPalette&) = delete;
     DirectDrawPalette& operator=(const DirectDrawPalette&) = delete;
 
-    DirectDrawPalette(Microsoft::WRL::ComPtr<DirectDraw> dd, DWORD flags, LPPALETTEENTRY entries, IUnknown* unkOuter);
+    DirectDrawPalette(Microsoft::WRL::ComPtr<DirectDraw> dd, DWORD flags, LPPALETTEENTRY entries);
     virtual ~DirectDrawPalette() = default;
 
     Microsoft::WRL::ComPtr<ID3D11ShaderResourceView> getPaletteView() const noexcept;
@@ -41,6 +41,7 @@ private:
     Microsoft::WRL::ComPtr<ID3D11Texture1D> palette_;
     Microsoft::WRL::ComPtr<ID3D11Texture1D> staging_;
     Microsoft::WRL::ComPtr<DirectDraw> dd_;
+    PALETTEENTRY paletteBackup_[256];
     ULONG refCount_{1};
 
     /*** IDirectDrawPalette methods ***/
@@ -51,6 +52,8 @@ private:
 
     void setStageEntries(DWORD start, DWORD count, LPPALETTEENTRY entries);
     void createTexturesAndView();
+    void onDeviceRestored();
+    void onDeviceLost();
 };
 
 DDS_END_NS

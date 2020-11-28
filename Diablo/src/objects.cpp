@@ -4191,8 +4191,10 @@ void OperateShrine(int pnum, int i, int sType)
             spells = plr[pnum]._pMemSpells;
             for (j = 0; j < MAX_SPELLS; j++)
             {
-                if (spell & spells)
+                if (spells & spell)
+                {
                     cnt++;
+                }
                 spell <<= 1;
             }
             if (cnt > 1)
@@ -4203,18 +4205,24 @@ void OperateShrine(int pnum, int i, int sType)
                     if (plr[pnum]._pMemSpells & spell)
                     {
                         if (plr[pnum]._pSplLvl[j] < 15)
+                        {
                             plr[pnum]._pSplLvl[j]++;
+                        }
                     }
                     spell <<= 1;
                 }
                 do
                 {
-                    r = random_(0, 37);
+                    r = random_(0, MAX_SPELLS);
                 } while (!(plr[pnum]._pMemSpells & ((__int64)1 << r)));
                 if (plr[pnum]._pSplLvl[r] >= 2)
+                {
                     plr[pnum]._pSplLvl[r] -= 2;
+                }
                 else
+                {
                     plr[pnum]._pSplLvl[r] = 0;
+                }
             }
             InitDiabloMsg(EMSG_SHRINE_ENCHANTED);
             break;

@@ -6,15 +6,18 @@ using Microsoft::WRL::ComPtr;
 
 DDS_BEGIN_NS
 
-DirectDrawSurface::DirectDrawSurface(Microsoft::WRL::ComPtr<DirectDraw> dd, LPDDSURFACEDESC surfaceDesc, IUnknown*)
-    : dd_{dd}
+DirectDrawSurface::DirectDrawSurface(Microsoft::WRL::ComPtr<DirectDraw> dd, LPDDSURFACEDESC surfaceDesc, const VirtualDisplayMode& vdm)
+    : vdm_{vdm}
+    , dd_{dd}
 {
     if ((surfaceDesc->dwFlags & DDSD_CAPS) != DDSD_CAPS)
     {
         DDS_THROW(DDERR_INVALIDPARAMS);
     }
     surfaceDesc_.ddsCaps.dwCaps = DDSCAPS_3DDEVICE | DDSCAPS_SYSTEMMEMORY | surfaceDesc->dwFlags;
+
     createTexturesAndView();
+    dd_->getDeviceResources()->addDeviceEventSink(this, &DirectDrawSurface::onDeviceLost, &DirectDrawSurface::onDeviceRestored);
 }
 
 DirectDrawSurface::~DirectDrawSurface()
@@ -318,9 +321,9 @@ void DirectDrawSurface::createTexturesAndView()
     textureDesc.ArraySize = 1;
     textureDesc.SampleDesc.Count = 1;
     textureDesc.Usage = D3D11_USAGE_STAGING;
-    textureDesc.Width = virtualScreenWidth_;
+    textureDesc.Width = vdm_.width;
     textureDesc.Format = DXGI_FORMAT_R8_UINT;
-    textureDesc.Height = virtualScreenHeight_;
+    textureDesc.Height = vdm_.height;
     textureDesc.CPUAccessFlags = D3D11_CPU_ACCESS_WRITE;
 
     auto device = dd_->getDeviceResources()->getDevice();
@@ -330,6 +333,17 @@ void DirectDrawSurface::createTexturesAndView()
     textureDesc.BindFlags = D3D11_BIND_SHADER_RESOURCE;
     DDS_THROW_IF_FAILED(device->CreateTexture2D(&textureDesc, nullptr, canvas_.ReleaseAndGetAddressOf()));
     DDS_THROW_IF_FAILED(device->CreateShaderResourceView(canvas_.Get(), nullptr, canvasView_.ReleaseAndGetAddressOf()));
+}
+
+void DirectDrawSurface::onDeviceRestored()
+{
+    createTexturesAndView();
+}
+
+void DirectDrawSurface::onDeviceLost()
+{
+    canvas_.Reset();
+    canvasView_.Reset();
 }
 
 DDS_END_NS

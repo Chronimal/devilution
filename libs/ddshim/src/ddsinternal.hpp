@@ -6,6 +6,7 @@
 #include "../include/ddshim/ddshim.hpp"
 #include <wrl/client.h>
 
+#include <dwmapi.h>
 #include <d3d11.h>
 #include <d3d11_1.h>
 #include <dxgidebug.h>
@@ -21,6 +22,7 @@
 
 // Include libraries used in the platform specific part of the code base
 #pragma comment(lib, "Comctl32.lib")
+#pragma comment(lib, "Dwmapi.lib")
 #pragma comment(lib, "dxguid.lib")
 #pragma comment(lib, "d3d11.lib")
 #pragma comment(lib, "dxgi.lib")
@@ -44,6 +46,16 @@ public:
 private:
     HRESULT hr_;
     static const char* formatError(HRESULT hr) noexcept;
+};
+
+struct VirtualDisplayMode
+{
+    VirtualDisplayMode(UINT width, UINT height, UINT bpp) noexcept;
+    VirtualDisplayMode() = default;
+
+    UINT width{};
+    UINT height{};
+    UINT bpp{};
 };
 
 SIZE getClientSize(HWND hwnd);
