@@ -22,7 +22,7 @@ const char* ComRuntimeError::formatError(HRESULT hr) noexcept
 }
 
 VirtualDisplayMode::VirtualDisplayMode(UINT width, UINT height, UINT bpp) noexcept
-    : height{ height }
+    : height{height}
     , width{width}
     , bpp{bpp}
 {
@@ -70,11 +70,11 @@ inline HRESULT toHRESULT(std::exception_ptr ep) noexcept
 
 //--- The one and only public interface function --
 
-HRESULT directDrawCreate(GUID* guid, LPDIRECTDRAW* dd, IUnknown* unkOuter) noexcept
+HRESULT directDrawCreate(GUID* guid, LPDIRECTDRAW* dd, IUnknown*) noexcept
 {
     try
     {
-        *dd = std::make_unique<DirectDraw>(guid, unkOuter).release();
+        *dd = std::make_unique<DirectDraw>(guid).release();
     }
     catch (...)
     {

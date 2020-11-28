@@ -37,11 +37,11 @@ private:
 
     Microsoft::WRL::ComPtr<ID3D11ShaderResourceView> canvasView_;
     Microsoft::WRL::ComPtr<DirectDrawPalette> ddPalette_;
-    Microsoft::WRL::ComPtr <ID3D11Texture2D> staging_;
-    Microsoft::WRL::ComPtr <ID3D11Texture2D> canvas_;
+    Microsoft::WRL::ComPtr<ID3D11Texture2D> staging_;
+    Microsoft::WRL::ComPtr<ID3D11Texture2D> canvas_;
     Microsoft::WRL::ComPtr<DirectDraw> dd_;
     MappedSubresource mappedSubresource_;
-    DDSURFACEDESC surfaceDesc_{};    
+    DDSURFACEDESC surfaceDesc_{};
     ULONG refCount_{1};
 
     VirtualDisplayMode vdm_;

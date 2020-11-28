@@ -14,7 +14,7 @@ public:
     DirectDrawPalette& operator=(const DirectDrawPalette&) = delete;
 
     DirectDrawPalette(Microsoft::WRL::ComPtr<DirectDraw> dd, DWORD flags, LPPALETTEENTRY entries);
-    virtual ~DirectDrawPalette() = default;
+    virtual ~DirectDrawPalette();
 
     Microsoft::WRL::ComPtr<ID3D11ShaderResourceView> getPaletteView() const noexcept;
 
@@ -31,11 +31,11 @@ private:
         ScopedMappedSubresource& operator=(const ScopedMappedSubresource&) = delete;
         ScopedMappedSubresource(ID3D11DeviceContext1* deviceContext, ID3D11Texture1D* staging);
         ~ScopedMappedSubresource();
+
     private:
         ID3D11DeviceContext1* deviceContext_;
         ID3D11Texture1D* staging_;
     };
-
 
     Microsoft::WRL::ComPtr<ID3D11ShaderResourceView> paletteView_;
     Microsoft::WRL::ComPtr<ID3D11Texture1D> palette_;

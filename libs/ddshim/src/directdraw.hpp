@@ -13,7 +13,7 @@ public:
     DirectDraw(const DirectDraw&) = delete;
     DirectDraw& operator=(const DirectDraw&) = delete;
 
-    DirectDraw(GUID* guid, IUnknown* unkOuter);
+    DirectDraw(GUID* guid);
     virtual ~DirectDraw();
 
     std::shared_ptr<DeviceResources> getDeviceResources() const noexcept;
@@ -40,7 +40,6 @@ private:
     VirtualDisplayMode vdm_;
     bool isSubclassed_{};
     bool inSizeMove_{};
-    
 
     /*** IDirectDraw methods ***/
     HRESULT __stdcall Compact() override;
@@ -63,7 +62,6 @@ private:
     HRESULT __stdcall SetCooperativeLevel(HWND hWnd, DWORD dwFlags) override;
     HRESULT __stdcall SetDisplayMode(DWORD dwWidth, DWORD dwHeight, DWORD dwBpp) override;
     HRESULT __stdcall WaitForVerticalBlank(DWORD dwFlags, HANDLE hEvent) override;
-
 
     void createDeviceDependentResources();
     void createWindowSizeDependentResources();

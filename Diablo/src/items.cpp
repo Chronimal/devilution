@@ -6060,7 +6060,7 @@ void SpawnBoy(int lvl)
 {
     int itype;
 
-    if (boylevel < lvl >> 1 || boyitem._itype == ITYPE_NONE)
+    if (boylevel< lvl >> 1 || boyitem._itype == ITYPE_NONE)
     {
         do
         {

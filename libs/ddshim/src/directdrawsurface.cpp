@@ -22,6 +22,7 @@ DirectDrawSurface::DirectDrawSurface(Microsoft::WRL::ComPtr<DirectDraw> dd, LPDD
 
 DirectDrawSurface::~DirectDrawSurface()
 {
+    dd_->getDeviceResources()->removeDeviceEventSink(this);
 }
 
 DirectDrawSurface::MappedSubresource::MappedSubresource()

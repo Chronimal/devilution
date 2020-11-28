@@ -94,7 +94,6 @@ private:
         std::vector<std::unique_ptr<IDeviceEventSinks>> deviceEventSinks_;
     };
 
-
     HWND hwnd_{};
     SIZE windowSize_{};
     DeviceEventDelegate deviceEventDelegate_;
