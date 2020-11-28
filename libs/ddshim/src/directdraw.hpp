@@ -70,7 +70,6 @@ private:
 
     void onDeviceLost();
     void onDeviceRestored();
-
     void onWindowSizeChanged(int width, int height);
     void onWindowMessage(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam);
 
