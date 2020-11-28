@@ -45,6 +45,7 @@ private:
     ULONG refCount_{1};
 
     VirtualDisplayMode vdm_;
+    bool surfaceHasBeenLost_{};
 
     /*** IDirectDrawSurface methods ***/
     HRESULT __stdcall AddAttachedSurface(LPDIRECTDRAWSURFACE) override;

@@ -893,12 +893,16 @@ BOOL NetInit(BOOL bSinglePlayer, BOOL* pfExitProgram)
         if (bSinglePlayer)
         {
             if (!multi_init_single(&ProgramData, &plrdata, &UiData))
+            {
                 return FALSE;
+            }
         }
         else
         {
             if (!multi_init_multi(&ProgramData, &plrdata, &UiData, pfExitProgram))
+            {
                 return FALSE;
+            }
         }
 #ifdef _DEBUG
         gdwHistTicks = GetTickCount();

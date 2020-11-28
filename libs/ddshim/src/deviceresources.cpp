@@ -187,7 +187,7 @@ void DeviceResources::createWindowSizeDependentResources(const SIZE& windowSize)
         swapChainFullscreenDesc.Windowed = TRUE;
 
         // clang-format off
-        DDS_THROW_IF_FAILED(dxgiFactory->CreateSwapChainForHwnd(d3dDevice_.Get(),
+(dxgiFactory->CreateSwapChainForHwnd(d3dDevice_.Get(),
                                                                 hwnd_,
                                                                 &swapChainDesc,
                                                                 &swapChainFullscreenDesc,
