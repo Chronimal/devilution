@@ -189,22 +189,21 @@ BOOL __stdcall mainmenu_select_hero_dialog(
 
 void mainmenu_loop()
 {
-    BOOL done;
-    int menu;
-
     mainmenu_refresh_music();
-    done = FALSE;
+    BOOL done = FALSE;
 
     do
     {
-        menu = 0;
+        int menu = 0;
 #ifdef HELLFIRE
         // if (!UiMainMenuDialog(gszProductName, &menu, UseMultiTest, effects_play_sound, 30))
         if (!UiMainMenuDialog(gszProductName, &menu, effects_play_sound, 30))
 #else
         if (!UiMainMenuDialog(gszProductName, &menu, effects_play_sound, 30))
 #endif
+        {
             app_fatal("Unable to display mainmenu");
+        }
 
         switch (menu)
         {

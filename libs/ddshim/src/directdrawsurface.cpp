@@ -22,6 +22,7 @@ DirectDrawSurface::DirectDrawSurface(Microsoft::WRL::ComPtr<DirectDraw> dd, LPDD
 
 DirectDrawSurface::~DirectDrawSurface()
 {
+    dd_->getDeviceResources()->removeDeviceEventSink(this);
 }
 
 DirectDrawSurface::MappedSubresource::MappedSubresource()
@@ -205,7 +206,12 @@ HRESULT DirectDrawSurface::Initialize(LPDIRECTDRAW, LPDDSURFACEDESC)
 
 HRESULT DirectDrawSurface::IsLost()
 {
-    return DD_OK;
+    if (!surfaceHasBeenLost_)
+    {
+        return DD_OK;
+    }
+    surfaceHasBeenLost_ = false;
+    return DDERR_SURFACELOST;
 }
 
 HRESULT DirectDrawSurface::Lock(LPRECT dstRect, LPDDSURFACEDESC surfaceDesc, DWORD flags, HANDLE hEvent)
@@ -267,8 +273,7 @@ HRESULT DirectDrawSurface::ReleaseDC(HDC)
 
 HRESULT DirectDrawSurface::Restore()
 {
-    _ASSERT(false);
-    return E_NOTIMPL;
+    return DD_OK;
 }
 
 HRESULT DirectDrawSurface::SetClipper(LPDIRECTDRAWCLIPPER)
@@ -338,6 +343,7 @@ void DirectDrawSurface::createTexturesAndView()
 void DirectDrawSurface::onDeviceRestored()
 {
     createTexturesAndView();
+    surfaceHasBeenLost_ = true;
 }
 
 void DirectDrawSurface::onDeviceLost()

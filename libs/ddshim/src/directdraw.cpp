@@ -28,7 +28,7 @@ DDS_BEGIN_ANON_NS
 
 DDS_END_ANON_NS
 
-DirectDraw::DirectDraw(GUID* /* guid */, IUnknown*)
+DirectDraw::DirectDraw(GUID* /* guid */)
     : deviceResources_{std::make_shared<DeviceResources>()}
 {
     deviceResources_->addDeviceEventSink(this, &DirectDraw::onDeviceLost, &DirectDraw::onDeviceRestored);
@@ -36,6 +36,7 @@ DirectDraw::DirectDraw(GUID* /* guid */, IUnknown*)
 
 DirectDraw::~DirectDraw()
 {
+    deviceResources_->removeDeviceEventSink(this);
     unsubclassWindow(deviceResources_->getHWND());
 }
 
@@ -65,7 +66,7 @@ void DirectDraw::render(ID3D11ShaderResourceView* canvasView, ID3D11ShaderResour
     deviceContext->VSSetShader(vertexShader_.Get(), nullptr, 0);
     deviceContext->PSSetShader(pixelShader_.Get(), nullptr, 0);
 
-    ID3D11ShaderResourceView* psResources[]{ canvasView, paletteView };
+    ID3D11ShaderResourceView* psResources[]{canvasView, paletteView};
     deviceContext->PSSetShaderResources(0, 2, psResources);
 
     auto samplerState = samplerState_.Get();
@@ -108,7 +109,7 @@ ULONG DirectDraw::Release()
 /*** IDirectDraw methods ***/
 HRESULT DirectDraw::Compact()
 {
-    //return dd_->Compact();
+    _ASSERT(false);
     return E_NOTIMPL;
 }
 
@@ -425,10 +426,10 @@ LRESULT DirectDraw::subclassProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lPar
     self->onWindowMessage(hwnd, msg, wParam, lParam);
     switch (msg)
     {
-    case WM_MENUCHAR:
-        return MAKELRESULT(0, MNC_CLOSE);
-    case WM_DESTROY:
-        self->unsubclassWindow(hwnd);
+        case WM_MENUCHAR:
+            return MAKELRESULT(0, MNC_CLOSE);
+        case WM_DESTROY:
+            self->unsubclassWindow(hwnd);
     }
     return ::DefSubclassProc(hwnd, msg, wParam, lParam);
 }

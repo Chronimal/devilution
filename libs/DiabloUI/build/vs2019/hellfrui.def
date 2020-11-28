@@ -1,4 +1,4 @@
-LIBRARY "DiabloUI"
+LIBRARY "HellfrUI"
 
 EXPORTS
 	UiValidPlayerName

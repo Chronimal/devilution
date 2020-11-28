@@ -41,6 +41,8 @@ BraceWrapping:
 BreakBeforeBinaryOperators: None
 BreakBeforeBraces: Custom
 
+IndentCaseLabels: true
+
 # Template delcaration is on it's own line
 AlwaysBreakTemplateDeclarations: true
 

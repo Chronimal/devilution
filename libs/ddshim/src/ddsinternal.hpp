@@ -27,7 +27,9 @@
 #pragma comment(lib, "d3d11.lib")
 #pragma comment(lib, "dxgi.lib")
 
-#define DDS_BEGIN_ANON_NS namespace {
+#define DDS_BEGIN_ANON_NS                                                                                                                                                                              \
+    namespace                                                                                                                                                                                          \
+    {
 #define DDS_END_ANON_NS }
 
 DDS_BEGIN_NS

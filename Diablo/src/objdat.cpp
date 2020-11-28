@@ -243,7 +243,7 @@ const char* const ObjMasterLoadList[] = {
     "Cauldren", "MFountn",  "TFountn", "Altboy",  "Mcirl",    "Bkslbrnt", "Mushptch", "LzStand"};
 #ifdef HELLFIRE
 /** Maps from object_graphic_id to object CEL name (Hellfire Crypt overwrite). */
-char* ObjCryptLoadList[] = {
+const char* const ObjCryptLoadList[] = {
     "L1Braz",   "L5Door",   "L5Lever", "Chest1",  "Chest2",   "Banner",  "SkulPile", "SkulFire", "SkulStik", "CruxSk1",
     "CruxSk2",  "CruxSk3",  "Book1",   "Book2",   "Rockstan", "Angel",   "Chest3",   "Burncros", "L5Light",  "Nude2",
     "Switch4",  "TNudeM",   "TNudeW",  "TSoul",   "L2Doors",  "WTorch4", "WTorch3",  "L5Sarco",  "Flame1",   "Prsrplt1",
@@ -252,7 +252,7 @@ char* ObjCryptLoadList[] = {
     "TFountn",  "Altboy",   "Mcirl",   "L5Books", "Mushptch", "LzStand",
 };
 /** Maps from object_graphic_id to object CEL name (Hellfire Hive overwrite). */
-char* ObjHiveLoadList[] = {
+const char* const ObjHiveLoadList[] = {
     "L1Braz",   "L1Doors",  "Lever",   "Chest1",  "Chest2",   "Banner",   "SkulPile", "SkulFire",
     "SkulStik", "CruxSk1",  "CruxSk2", "CruxSk3", "Book1",    "Book2",    "Rockstan", "Angel",
     "Chest3",   "Burncros", "Candle2", "Nude2",   "Switch4",  "TNudeM",   "TNudeW",   "TSoul",

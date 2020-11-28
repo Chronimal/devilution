@@ -34,6 +34,11 @@ DirectDrawPalette::DirectDrawPalette(Microsoft::WRL::ComPtr<DirectDraw> dd, DWOR
     dd_->getDeviceResources()->addDeviceEventSink(this, &DirectDrawPalette::onDeviceLost, &DirectDrawPalette::onDeviceRestored);
 }
 
+DirectDrawPalette::~DirectDrawPalette()
+{
+    dd_->getDeviceResources()->removeDeviceEventSink(this);
+}
+
 ComPtr<ID3D11ShaderResourceView> DirectDrawPalette::getPaletteView() const noexcept
 {
     return paletteView_;

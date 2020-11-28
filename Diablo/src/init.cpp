@@ -306,26 +306,38 @@ static HANDLE init_test_access(char* mpq_path, const char* mpq_name, const char*
     HANDLE archive;
 
     if (!GetCurrentDirectory(sizeof(Buffer), Buffer))
+    {
         app_fatal("Can't get program path");
+    }
     init_strip_trailing_slash(Buffer);
     if (!SFileSetBasePath(Buffer))
+    {
         app_fatal("SFileSetBasePath");
+    }
     if (!GetModuleFileName(ghInst, Filename, sizeof(Filename)))
+    {
         app_fatal("Can't get program name");
+    }
     last_slash_pos = strrchr(Filename, '\\');
     if (last_slash_pos)
+    {
         *last_slash_pos = '\0';
+    }
     init_strip_trailing_slash(Filename);
     strcpy(mpq_path, Buffer);
     strcat(mpq_path, mpq_name);
     if (SFileOpenArchive(mpq_path, dwPriority, fs, &archive))
+    {
         return archive;
+    }
     if (strcmp(Filename, Buffer))
     {
         strcpy(mpq_path, Filename);
         strcat(mpq_path, mpq_name);
         if (SFileOpenArchive(mpq_path, dwPriority, fs, &archive))
+        {
             return archive;
+        }
     }
     archive_path[0] = '\0';
     if (reg_loc)
@@ -336,7 +348,9 @@ static HANDLE init_test_access(char* mpq_path, const char* mpq_name, const char*
             strcpy(mpq_path, archive_path);
             strcat(mpq_path, mpq_name);
             if (SFileOpenArchive(mpq_path, dwPriority, fs, &archive))
+            {
                 return archive;
+            }
         }
     }
     if (fs != FS_PC && init_read_test_file(archive_path, mpq_name, dwPriority, &archive))

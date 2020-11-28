@@ -9,7 +9,7 @@ DDS_BEGIN_NS
 
 void DeviceResources::DeviceEventDelegate::remove(void* instance)
 {
-    std::erase_if(deviceEventSinks_, [&](auto& p) {return p->isInstance(instance); });
+    std::erase_if(deviceEventSinks_, [&](auto& p) { return p->isInstance(instance); });
 }
 
 void DeviceResources::DeviceEventDelegate::deviceLost()
@@ -139,7 +139,7 @@ void DeviceResources::createWindowSizeDependentResources(const SIZE& windowSize)
     d3dRenderTargetView_.Reset();
     d3dDeviceContext_->Flush();
 
-    if (d3dSwapChain_)  // If the swap chain already exists, resize it
+    if (d3dSwapChain_) // If the swap chain already exists, resize it
     {
         // clang-format off
         auto hr = d3dSwapChain_->ResizeBuffers(2,
@@ -172,7 +172,7 @@ void DeviceResources::createWindowSizeDependentResources(const SIZE& windowSize)
 
         DXGI_SWAP_CHAIN_DESC1 swapChainDesc{};
         swapChainDesc.Width = windowSize_.cx;
-        swapChainDesc.Height =windowSize_.cy;
+        swapChainDesc.Height = windowSize_.cy;
         swapChainDesc.Format = dxgiFormat_;
         swapChainDesc.SampleDesc.Count = 1;
         swapChainDesc.SampleDesc.Quality = 0;
@@ -187,7 +187,7 @@ void DeviceResources::createWindowSizeDependentResources(const SIZE& windowSize)
         swapChainFullscreenDesc.Windowed = TRUE;
 
         // clang-format off
-        DDS_THROW_IF_FAILED(dxgiFactory->CreateSwapChainForHwnd(d3dDevice_.Get(),
+(dxgiFactory->CreateSwapChainForHwnd(d3dDevice_.Get(),
                                                                 hwnd_,
                                                                 &swapChainDesc,
                                                                 &swapChainFullscreenDesc,

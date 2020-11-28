@@ -70,10 +70,10 @@
     <None Include="..\..\src\res\diabloib.cur" />
     <None Include="..\..\src\res\diablo_a.cur" />
     <None Include="..\..\src\res\diablo_l.cur" />
-    <None Include="diabloui.def" />
+    <None Include="hellfrui.def" />
   </ItemGroup>
   <ItemGroup>
-    <ResourceCompile Include="..\..\src\res\diabloui.rc" />
+    <ResourceCompile Include="..\..\src\res\hellfrui.rc" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\..\..\3rdparty\libstorm\build\vs2019\storm.vcxproj">
@@ -83,8 +83,8 @@
   <PropertyGroup Label="Globals">
     <VCProjectVersion>16.0</VCProjectVersion>
     <Keyword>Win32Proj</Keyword>
-    <ProjectGuid>{86f1f9a4-b3a4-4e8e-b9f0-4c4f57c4c7f9}</ProjectGuid>
-    <RootNamespace>DiabloUI</RootNamespace>
+    <ProjectGuid>{2b3b5fae-4539-4740-8be7-5e812b1fa726}</ProjectGuid>
+    <RootNamespace>HellfrUI</RootNamespace>
     <WindowsTargetPlatformVersion>10.0</WindowsTargetPlatformVersion>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
@@ -169,7 +169,7 @@
       <DataExecutionPrevention>true</DataExecutionPrevention>
     </Link>
     <PostBuildEvent>
-      <Command>copy /y $(OutDir)$(TargetName)$(TargetExt) "D:\Games\Devilution\Diablo"</Command>
+      <Command>copy /y $(OutDir)$(TargetName)$(TargetExt) "D:\Games\Devilution\Hellfire"</Command>
     </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
@@ -193,7 +193,7 @@
       <DataExecutionPrevention>true</DataExecutionPrevention>
     </Link>
     <PostBuildEvent>
-      <Command>copy /y $(OutDir)$(TargetName)$(TargetExt) "D:\Games\Devilution\Diablo"</Command>
+      <Command>copy /y $(OutDir)$(TargetName)$(TargetExt) "D:\Games\Devilution\Hellfire"</Command>
     </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
@@ -213,7 +213,7 @@
       <DataExecutionPrevention>true</DataExecutionPrevention>
     </Link>
     <PostBuildEvent>
-      <Command>copy /y $(OutDir)$(TargetName)$(TargetExt) "D:\Games\Devilution\Diablo"</Command>
+      <Command>copy /y $(OutDir)$(TargetName)$(TargetExt) "D:\Games\Devilution\Hellfire"</Command>
     </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
@@ -237,7 +237,7 @@
       <DataExecutionPrevention>true</DataExecutionPrevention>
     </Link>
     <PostBuildEvent>
-      <Command>copy /y $(OutDir)$(TargetName)$(TargetExt) "D:\Games\Devilution\Diablo"</Command>
+      <Command>copy /y $(OutDir)$(TargetName)$(TargetExt) "D:\Games\Devilution\Hellfire"</Command>
     </PostBuildEvent>
   </ItemDefinitionGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
