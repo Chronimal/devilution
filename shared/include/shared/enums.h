@@ -1595,8 +1595,7 @@ typedef enum missile_graphic_id
     MFILE_EXBL3,
 #endif
     MFILE_NULL,
-    MFILE_NONE = 0xFF, // BUGFIX: should be `MFILE_NONE = MFILE_SCBSEXPD+1`, i.e. MFILE_NULL, since there would
-                       // otherwise be an out-of-bounds in SetMissAnim when accessing misfiledata for any of the
+    MFILE_NONE = 0xFF, // BUGFIX: should be `MFILE_NONE = MFILE_SCBSEXPD+1`, i.e. MFILE_NULL, since there would otherwise be an out-of-bounds in SetMissAnim when accessing misfiledata for any of the
                        // missiles that have MFILE_NONE as mFileNum in missiledata.
 } missile_graphic_id;
 
@@ -2334,11 +2333,15 @@ typedef enum placeflag
 /*
 First 5 bits store level
 6th bit stores onlygood flag
-7th bit stores uper15 flag - uper means unique percent, this flag is true for unique monsters and loot from them has 15%
-to become unique 8th bit stores uper1 flag - this is loot from normal monsters, which has 1% to become unique 9th bit
-stores info if item is unique 10th bit stores info if item is a basic one from griswold 11th bit stores info if item is
-a premium one from griswold 12th bit stores info if item is from wirt 13th bit stores info if item is from adria 14th
-bit stores info if item is from pepin 15th bit stores pregen flag
+7th bit stores uper15 flag - uper means unique percent, this flag is true for unique monsters and loot from them has 15% to become unique
+8th bit stores uper1 flag - this is loot from normal monsters, which has 1% to become unique
+9th bit stores info if item is unique
+10th bit stores info if item is a basic one from griswold
+11th bit stores info if item is a premium one from griswold
+12th bit stores info if item is from wirt
+13th bit stores info if item is from adria
+14th bit stores info if item is from pepin
+15th bit stores pregen flag
 
 combining CF_UPER15 and CF_UPER1 flags (CF_USEFUL) is used to mark potions and town portal scrolls created on the ground
 CF_TOWN is combining all store flags and indicates if item has been bought from a NPC
@@ -3126,8 +3129,8 @@ typedef enum _item_indexes
 #ifdef HELLFIRE
     IDI_OIL,
     IDI_SHORTSTAFF,
-    IDI_SWORD,
-    IDI_DAGGER,
+    IDI_BARDSWORD,
+    IDI_BARDDAGGER,
     IDI_RUNEBOMB,
     IDI_THEODORE,
     IDI_AURIC,
