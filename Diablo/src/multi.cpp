@@ -5,7 +5,11 @@
  */
 #include "all.h"
 #include "storm/storm.h"
+#ifdef HELLFIRE
+#include <hellfrui/hellfrui.h>
+#else // HELLFFIRE
 #include "ui/diabloui.h"
+#endif // HELLFIRE
 
 BOOLEAN gbSomebodyWonGameKludge;
 #ifdef _DEBUG
@@ -881,7 +885,11 @@ BOOL NetInit(BOOL bSinglePlayer, BOOL* pfExitProgram)
         UiData.changenamecallback = (void (*)())mainmenu_change_name;
         UiData.profilebitmapcallback = (void (*)())UiProfileDraw;
         UiData.profilecallback = (void (*)())UiProfileCallback;
+#ifdef HELLFIRE
+        UiData.profilefields = NULL;
+#else // HELLFIRE
         UiData.profilefields = UiProfileGetString();
+#endif // HELLFIRE
         memset(sgbPlayerTurnBitTbl, 0, sizeof(sgbPlayerTurnBitTbl));
         gbGameDestroyed = FALSE;
         memset(sgbPlayerLeftGameTbl, 0, sizeof(sgbPlayerLeftGameTbl));

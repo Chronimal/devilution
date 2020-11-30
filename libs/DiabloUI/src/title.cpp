@@ -133,7 +133,7 @@ void __fastcall Title_LoadTitleImage(HWND hWnd, const char* pszFileName)
                     STransCreateI(pBuffer, v5[1], v5[2], 8, (int)a5, 16777466, phTransOut);
                     ++phTransOut;
                     ++v3;
-                } while (v3 < v6);
+                } while (v3 < v6 - 1);
             }
         }
         SMemFree(pBuffer, "C:\\Src\\Diablo\\DiabloUI\\Title.cpp", 197, 0);

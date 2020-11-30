@@ -3,6 +3,10 @@
  *
  * Global definitions and Macros.
  */
+#pragma once
+
+#ifndef SHARED_DEFS_H_INCLUDED
+#define SHARED_DEFS_H_INCLUDED
 
 #ifdef HELLFIRE
 #define DIABOOL BOOLEAN
@@ -272,3 +276,5 @@ typedef void (*_PVFV)(void);
 #else
 #define SwapLE32(value) (value << 24 | (value & 0xFF00) << 8 | (value & 0xFF0000) >> 8 | value >> 24);
 #endif
+
+#endif // SHARED_DEFS_H_INCLUDED

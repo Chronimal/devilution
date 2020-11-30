@@ -4,6 +4,11 @@
  * Various global enumerators.
  */
 
+#pragma once
+
+#ifndef SHARED_ENUMS_H_INCLUDED
+#define SHARED_ENUMS_H_INCLUDED
+
 typedef enum item_quality
 {
     ITEM_QUALITY_NORMAL = 0,
@@ -3606,3 +3611,5 @@ typedef enum dlrg_flag
     DLRG_CHAMBER = 0x40,
     DLRG_PROTECTED = 0x80,
 } dlrg_flag;
+
+#endif //SHARED_ENUMS_H_INCLUDED
