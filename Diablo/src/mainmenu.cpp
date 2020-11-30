@@ -5,7 +5,11 @@
  */
 #include "all.h"
 #include "storm/storm.h"
+#ifdef HELLFIRE
+#include <hellfrui/hellfrui.h>
+#else // HELLFFIRE
 #include "ui/diabloui.h"
+#endif // HELLFIRE
 
 char gszHero[16];
 
@@ -62,9 +66,9 @@ static BOOL mainmenu_single_player()
 
         if (!UiSelHeroSingDialog(
                 pfile_ui_set_hero_infos, pfile_ui_save_create, pfile_delete_save, pfile_ui_set_class_stats, &dlgresult,
-                gszHero, &gnDifficulty
-                //,UseBardTest,
-                // UseBarbarianTest
+                gszHero, &gnDifficulty,
+                UseBardTest,
+                UseBarbarianTest
                 ))
         {
             app_fatal("Unable to display SelHeroSing");
@@ -149,10 +153,18 @@ BOOL __stdcall mainmenu_select_hero_dialog(
     int dlgresult = 0;
     if (gbMaxPlayers == 1)
     {
+#ifdef HELLFIRE
         if (!UiSelHeroSingDialog(
-                pfile_ui_set_hero_infos, pfile_ui_save_create, pfile_delete_save, pfile_ui_set_class_stats, &dlgresult,
-                gszHero, &gnDifficulty))
+            pfile_ui_set_hero_infos, pfile_ui_save_create, pfile_delete_save, pfile_ui_set_class_stats, &dlgresult, gszHero, &gnDifficulty, UseBardTest, UseBarbarianTest))
+        {
             app_fatal("Unable to display SelHeroSing");
+        }
+#else // HELLFIRE
+        if (!UiSelHeroSingDialog(pfile_ui_set_hero_infos, pfile_ui_save_create, pfile_delete_save, pfile_ui_set_class_stats, &dlgresult, gszHero, &gnDifficulty))
+        {
+            app_fatal("Unable to display SelHeroSing");
+        }
+#endif // HELLFIRE
 
         if (dlgresult == SELHERO_CONTINUE)
             gbLoadGame = TRUE;
@@ -196,8 +208,8 @@ void mainmenu_loop()
     {
         int menu = 0;
 #ifdef HELLFIRE
-        // if (!UiMainMenuDialog(gszProductName, &menu, UseMultiTest, effects_play_sound, 30))
-        if (!UiMainMenuDialog(gszProductName, &menu, effects_play_sound, 30))
+        if (!UiMainMenuDialog(gszProductName, &menu, UseMultiTest, effects_play_sound, 30))
+        //if (!UiMainMenuDialog(gszProductName, &menu, effects_play_sound, 30))
 #else
         if (!UiMainMenuDialog(gszProductName, &menu, effects_play_sound, 30))
 #endif

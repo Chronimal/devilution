@@ -218,8 +218,8 @@
     <ProjectReference Include="..\..\..\libs\ddshim\build\vs2019\ddshim.vcxproj">
       <Project>{25d9949f-276d-4df3-8d3f-76b430899f8f}</Project>
     </ProjectReference>
-    <ProjectReference Include="..\..\..\libs\DiabloUI\build\vs2019\HellfrUI.vcxproj">
-      <Project>{2b3b5fae-4539-4740-8be7-5e812b1fa726}</Project>
+    <ProjectReference Include="..\..\..\libs\hellfrui\build\vs2019\hellfrui.vcxproj">
+      <Project>{6e01988b-67cc-47b9-9617-9772085d1046}</Project>
     </ProjectReference>
   </ItemGroup>
   <PropertyGroup Label="Globals">
@@ -300,7 +300,7 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>HELLFIRE;WIN32;_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>$(ProjectDir)..\..\..\3rdparty\libstorm\include;$(ProjectDir)..\..\..\3rdparty\libpk\include;$(ProjectDir)..\..\..\libs\DiabloUI\include;$(ProjectDir)..\..\..\libs\ddshim\include;$(ProjectDir)..\..\..\shared\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(ProjectDir)..\..\..\3rdparty\libstorm\include;$(ProjectDir)..\..\..\3rdparty\libpk\include;$(ProjectDir)..\..\..\libs\hellfrui\include;$(ProjectDir)..\..\..\libs\ddshim\include;$(ProjectDir)..\..\..\shared\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <LanguageStandard>stdcpplatest</LanguageStandard>
     </ClCompile>
     <Link>
@@ -318,7 +318,7 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>HELLFIRE;WIN32;NDEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>$(ProjectDir)..\..\..\3rdparty\libstorm\include;$(ProjectDir)..\..\..\3rdparty\libpk\include;$(ProjectDir)..\..\..\libs\DiabloUI\include;$(ProjectDir)..\..\..\libs\ddshim\include;$(ProjectDir)..\..\..\shared\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(ProjectDir)..\..\..\3rdparty\libstorm\include;$(ProjectDir)..\..\..\3rdparty\libpk\include;$(ProjectDir)..\..\..\libs\hellfrui\include;$(ProjectDir)..\..\..\libs\ddshim\include;$(ProjectDir)..\..\..\shared\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <LanguageStandard>stdcpplatest</LanguageStandard>
     </ClCompile>
     <Link>
@@ -336,7 +336,7 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>HELLFIRE;_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>$(ProjectDir)..\..\..\3rdparty\libstorm\include;$(ProjectDir)..\..\..\3rdparty\libpk\include;$(ProjectDir)..\..\..\libs\DiabloUI\include;$(ProjectDir)..\..\..\libs\ddshim\include;$(ProjectDir)..\..\..\shared\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(ProjectDir)..\..\..\3rdparty\libstorm\include;$(ProjectDir)..\..\..\3rdparty\libpk\include;$(ProjectDir)..\..\..\libs\hellfrui\include;$(ProjectDir)..\..\..\libs\ddshim\include;$(ProjectDir)..\..\..\shared\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <LanguageStandard>stdcpplatest</LanguageStandard>
     </ClCompile>
     <Link>
@@ -354,7 +354,7 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>HELLFIRE;NDEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>$(ProjectDir)..\..\..\3rdparty\libstorm\include;$(ProjectDir)..\..\..\3rdparty\libpk\include;$(ProjectDir)..\..\..\libs\DiabloUI\include;$(ProjectDir)..\..\..\libs\ddshim\include;$(ProjectDir)..\..\..\shared\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(ProjectDir)..\..\..\3rdparty\libstorm\include;$(ProjectDir)..\..\..\3rdparty\libpk\include;$(ProjectDir)..\..\..\libs\hellfrui\include;$(ProjectDir)..\..\..\libs\ddshim\include;$(ProjectDir)..\..\..\shared\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <LanguageStandard>stdcpplatest</LanguageStandard>
     </ClCompile>
     <Link>

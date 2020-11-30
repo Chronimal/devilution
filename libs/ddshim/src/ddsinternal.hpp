@@ -27,10 +27,10 @@
 #pragma comment(lib, "d3d11.lib")
 #pragma comment(lib, "dxgi.lib")
 
-#define DDS_BEGIN_ANON_NS                                                                                                                                                                              \
-    namespace                                                                                                                                                                                          \
-    {
+// clang-format off
+#define DDS_BEGIN_ANON_NS namespace {
 #define DDS_END_ANON_NS }
+// clang-format on
 
 DDS_BEGIN_NS
 

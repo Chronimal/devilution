@@ -5,7 +5,11 @@
  */
 #include "all.h"
 #include "storm/storm.h"
+#ifdef HELLFIRE
+#include <hellfrui/hellfrui.h>
+#else // HELLFFIRE
 #include "ui/diabloui.h"
+#endif // HELLFIRE
 
 _SNETVERSIONDATA fileinfo;
 /** True if the game is the current active window */

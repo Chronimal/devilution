@@ -6,7 +6,11 @@
 
 #include "all.h"
 #include "storm/storm.h"
+#ifdef HELLFIRE
+#include <hellfrui/hellfrui.h>
+#else // HELLFFIRE
 #include "ui/diabloui.h"
+#endif // HELLFIRE
 
 HWND ghMainWnd;
 DWORD glSeedTbl[NUMLEVELS];
