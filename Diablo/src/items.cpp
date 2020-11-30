@@ -842,7 +842,13 @@ void CalcPlrItemVals(int p, BOOL Loadgfx)
 #ifdef HELLFIRE
     else if (plr[p]._pClass == PC_BARD)
     {
-        madd += madd >> 2 + madd >> 1;
+        // TODO: Original code is "madd += madd >> 2 + madd >> 1" which doesn't make any sense
+        // and causes a compiler warning. To avoid a warning and keep the same behavior
+        // parenthesis need to be set like "madd += madd >> (2 + madd) >> 1".
+        // I suspect the correct code should b "madd += (madd >> 2) + (madd >> 1)"
+        // but at this point in time I have no way to test it so some work for
+        // future.
+        madd += madd >> (2 + madd) >> 1;
     }
 #endif
     imana += (madd << 6);
