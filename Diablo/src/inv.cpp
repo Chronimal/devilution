@@ -28,80 +28,80 @@ int sgdwLastTime; // check name
  */
 const InvXY InvRect[] = {
     // clang-format off
-	//  X,   Y
-	{ RIGHT_PANEL + 132,  31 }, // helmet
-	{ RIGHT_PANEL + 160,  31 }, // helmet
-	{ RIGHT_PANEL + 132,  59 }, // helmet
-	{ RIGHT_PANEL + 160,  59 }, // helmet
-	{ RIGHT_PANEL + 45,  205 }, // left ring
-	{ RIGHT_PANEL + 247, 205 }, // right ring
-	{ RIGHT_PANEL + 204,  59 }, // amulet
-	{ RIGHT_PANEL + 17,  104 }, // left hand
-	{ RIGHT_PANEL + 46,  104 }, // left hand
-	{ RIGHT_PANEL + 17,  132 }, // left hand
-	{ RIGHT_PANEL + 46,  132 }, // left hand
-	{ RIGHT_PANEL + 17,  160 }, // left hand
-	{ RIGHT_PANEL + 46,  160 }, // left hand
-	{ RIGHT_PANEL + 247, 104 }, // right hand
-	{ RIGHT_PANEL + 276, 104 }, // right hand
-	{ RIGHT_PANEL + 247, 132 }, // right hand
-	{ RIGHT_PANEL + 276, 132 }, // right hand
-	{ RIGHT_PANEL + 247, 160 }, // right hand
-	{ RIGHT_PANEL + 276, 160 }, // right hand
-	{ RIGHT_PANEL + 132, 104 }, // chest
-	{ RIGHT_PANEL + 160, 104 }, // chest
-	{ RIGHT_PANEL + 132, 132 }, // chest
-	{ RIGHT_PANEL + 160, 132 }, // chest
-	{ RIGHT_PANEL + 132, 160 }, // chest
-	{ RIGHT_PANEL + 160, 160 }, // chest
-	{ RIGHT_PANEL + 17,  250 }, // inv row 1
-	{ RIGHT_PANEL + 46,  250 }, // inv row 1
-	{ RIGHT_PANEL + 74,  250 }, // inv row 1
-	{ RIGHT_PANEL + 103, 250 }, // inv row 1
-	{ RIGHT_PANEL + 131, 250 }, // inv row 1
-	{ RIGHT_PANEL + 160, 250 }, // inv row 1
-	{ RIGHT_PANEL + 189, 250 }, // inv row 1
-	{ RIGHT_PANEL + 218, 250 }, // inv row 1
-	{ RIGHT_PANEL + 247, 250 }, // inv row 1
-	{ RIGHT_PANEL + 276, 250 }, // inv row 1
-	{ RIGHT_PANEL + 17,  279 }, // inv row 2
-	{ RIGHT_PANEL + 46,  279 }, // inv row 2
-	{ RIGHT_PANEL + 74,  279 }, // inv row 2
-	{ RIGHT_PANEL + 103, 279 }, // inv row 2
-	{ RIGHT_PANEL + 131, 279 }, // inv row 2
-	{ RIGHT_PANEL + 160, 279 }, // inv row 2
-	{ RIGHT_PANEL + 189, 279 }, // inv row 2
-	{ RIGHT_PANEL + 218, 279 }, // inv row 2
-	{ RIGHT_PANEL + 247, 279 }, // inv row 2
-	{ RIGHT_PANEL + 276, 279 }, // inv row 2
-	{ RIGHT_PANEL + 17,  308 }, // inv row 3
-	{ RIGHT_PANEL + 46,  308 }, // inv row 3
-	{ RIGHT_PANEL + 74,  308 }, // inv row 3
-	{ RIGHT_PANEL + 103, 308 }, // inv row 3
-	{ RIGHT_PANEL + 131, 308 }, // inv row 3
-	{ RIGHT_PANEL + 160, 308 }, // inv row 3
-	{ RIGHT_PANEL + 189, 308 }, // inv row 3
-	{ RIGHT_PANEL + 218, 308 }, // inv row 3
-	{ RIGHT_PANEL + 247, 308 }, // inv row 3
-	{ RIGHT_PANEL + 276, 308 }, // inv row 3
-	{ RIGHT_PANEL + 17,  336 }, // inv row 4
-	{ RIGHT_PANEL + 46,  336 }, // inv row 4
-	{ RIGHT_PANEL + 74,  336 }, // inv row 4
-	{ RIGHT_PANEL + 103, 336 }, // inv row 4
-	{ RIGHT_PANEL + 131, 336 }, // inv row 4
-	{ RIGHT_PANEL + 160, 336 }, // inv row 4
-	{ RIGHT_PANEL + 189, 336 }, // inv row 4
-	{ RIGHT_PANEL + 218, 336 }, // inv row 4
-	{ RIGHT_PANEL + 247, 336 }, // inv row 4
-	{ RIGHT_PANEL + 276, 336 }, // inv row 4
-	{ PANEL_LEFT + 205, PANEL_TOP + 33 }, // belt
-	{ PANEL_LEFT + 234, PANEL_TOP + 33 }, // belt
-	{ PANEL_LEFT + 263, PANEL_TOP + 33 }, // belt
-	{ PANEL_LEFT + 292, PANEL_TOP + 33 }, // belt
-	{ PANEL_LEFT + 321, PANEL_TOP + 33 }, // belt
-	{ PANEL_LEFT + 350, PANEL_TOP + 33 }, // belt
-	{ PANEL_LEFT + 379, PANEL_TOP + 33 }, // belt
-	{ PANEL_LEFT + 408, PANEL_TOP + 33 }  // belt
+    //  X,   Y
+    { RIGHT_PANEL + 132,  31 }, // helmet
+    { RIGHT_PANEL + 160,  31 }, // helmet
+    { RIGHT_PANEL + 132,  59 }, // helmet
+    { RIGHT_PANEL + 160,  59 }, // helmet
+    { RIGHT_PANEL + 45,  205 }, // left ring
+    { RIGHT_PANEL + 247, 205 }, // right ring
+    { RIGHT_PANEL + 204,  59 }, // amulet
+    { RIGHT_PANEL + 17,  104 }, // left hand
+    { RIGHT_PANEL + 46,  104 }, // left hand
+    { RIGHT_PANEL + 17,  132 }, // left hand
+    { RIGHT_PANEL + 46,  132 }, // left hand
+    { RIGHT_PANEL + 17,  160 }, // left hand
+    { RIGHT_PANEL + 46,  160 }, // left hand
+    { RIGHT_PANEL + 247, 104 }, // right hand
+    { RIGHT_PANEL + 276, 104 }, // right hand
+    { RIGHT_PANEL + 247, 132 }, // right hand
+    { RIGHT_PANEL + 276, 132 }, // right hand
+    { RIGHT_PANEL + 247, 160 }, // right hand
+    { RIGHT_PANEL + 276, 160 }, // right hand
+    { RIGHT_PANEL + 132, 104 }, // chest
+    { RIGHT_PANEL + 160, 104 }, // chest
+    { RIGHT_PANEL + 132, 132 }, // chest
+    { RIGHT_PANEL + 160, 132 }, // chest
+    { RIGHT_PANEL + 132, 160 }, // chest
+    { RIGHT_PANEL + 160, 160 }, // chest
+    { RIGHT_PANEL + 17,  250 }, // inv row 1
+    { RIGHT_PANEL + 46,  250 }, // inv row 1
+    { RIGHT_PANEL + 74,  250 }, // inv row 1
+    { RIGHT_PANEL + 103, 250 }, // inv row 1
+    { RIGHT_PANEL + 131, 250 }, // inv row 1
+    { RIGHT_PANEL + 160, 250 }, // inv row 1
+    { RIGHT_PANEL + 189, 250 }, // inv row 1
+    { RIGHT_PANEL + 218, 250 }, // inv row 1
+    { RIGHT_PANEL + 247, 250 }, // inv row 1
+    { RIGHT_PANEL + 276, 250 }, // inv row 1
+    { RIGHT_PANEL + 17,  279 }, // inv row 2
+    { RIGHT_PANEL + 46,  279 }, // inv row 2
+    { RIGHT_PANEL + 74,  279 }, // inv row 2
+    { RIGHT_PANEL + 103, 279 }, // inv row 2
+    { RIGHT_PANEL + 131, 279 }, // inv row 2
+    { RIGHT_PANEL + 160, 279 }, // inv row 2
+    { RIGHT_PANEL + 189, 279 }, // inv row 2
+    { RIGHT_PANEL + 218, 279 }, // inv row 2
+    { RIGHT_PANEL + 247, 279 }, // inv row 2
+    { RIGHT_PANEL + 276, 279 }, // inv row 2
+    { RIGHT_PANEL + 17,  308 }, // inv row 3
+    { RIGHT_PANEL + 46,  308 }, // inv row 3
+    { RIGHT_PANEL + 74,  308 }, // inv row 3
+    { RIGHT_PANEL + 103, 308 }, // inv row 3
+    { RIGHT_PANEL + 131, 308 }, // inv row 3
+    { RIGHT_PANEL + 160, 308 }, // inv row 3
+    { RIGHT_PANEL + 189, 308 }, // inv row 3
+    { RIGHT_PANEL + 218, 308 }, // inv row 3
+    { RIGHT_PANEL + 247, 308 }, // inv row 3
+    { RIGHT_PANEL + 276, 308 }, // inv row 3
+    { RIGHT_PANEL + 17,  336 }, // inv row 4
+    { RIGHT_PANEL + 46,  336 }, // inv row 4
+    { RIGHT_PANEL + 74,  336 }, // inv row 4
+    { RIGHT_PANEL + 103, 336 }, // inv row 4
+    { RIGHT_PANEL + 131, 336 }, // inv row 4
+    { RIGHT_PANEL + 160, 336 }, // inv row 4
+    { RIGHT_PANEL + 189, 336 }, // inv row 4
+    { RIGHT_PANEL + 218, 336 }, // inv row 4
+    { RIGHT_PANEL + 247, 336 }, // inv row 4
+    { RIGHT_PANEL + 276, 336 }, // inv row 4
+    { PANEL_LEFT + 205, PANEL_TOP + 33 }, // belt
+    { PANEL_LEFT + 234, PANEL_TOP + 33 }, // belt
+    { PANEL_LEFT + 263, PANEL_TOP + 33 }, // belt
+    { PANEL_LEFT + 292, PANEL_TOP + 33 }, // belt
+    { PANEL_LEFT + 321, PANEL_TOP + 33 }, // belt
+    { PANEL_LEFT + 350, PANEL_TOP + 33 }, // belt
+    { PANEL_LEFT + 379, PANEL_TOP + 33 }, // belt
+    { PANEL_LEFT + 408, PANEL_TOP + 33 }  // belt
     // clang-format on
 };
 
@@ -163,34 +163,34 @@ void InvDrawSlotBack(int X, int Y, int W, int H)
 
 #ifdef USE_ASM
     __asm {
-		mov		edi, dst
-		xor		edx, edx
-		xor		ebx, ebx
-		mov		dx, word ptr H
-		mov		bx, word ptr W
-	label1:
-		mov		ecx, ebx
-	label2:
-		mov		al, [edi]
-		cmp		al, PAL16_BLUE
-		jb		label5
-		cmp		al, PAL16_BLUE + 15
-		ja		label3
-		sub		al, PAL16_BLUE - PAL16_BEIGE
-		jmp		label4
-	label3:
-		cmp		al, PAL16_GRAY
-		jb		label5
-		sub		al, PAL16_GRAY - PAL16_BEIGE
-	label4:
-		mov		[edi], al
-	label5:
-		inc		edi
-		loop	label2
-		sub		edi, BUFFER_WIDTH
-		sub		edi, ebx
-		dec		edx
-		jnz		label1
+        mov        edi, dst
+        xor        edx, edx
+        xor        ebx, ebx
+        mov        dx, word ptr H
+        mov        bx, word ptr W
+    label1:
+        mov        ecx, ebx
+    label2:
+        mov        al, [edi]
+        cmp        al, PAL16_BLUE
+        jb        label5
+        cmp        al, PAL16_BLUE + 15
+        ja        label3
+        sub        al, PAL16_BLUE - PAL16_BEIGE
+        jmp        label4
+    label3:
+        cmp        al, PAL16_GRAY
+        jb        label5
+        sub        al, PAL16_GRAY - PAL16_BEIGE
+    label4:
+        mov        [edi], al
+    label5:
+        inc        edi
+        loop    label2
+        sub        edi, BUFFER_WIDTH
+        sub        edi, ebx
+        dec        edx
+        jnz        label1
     }
 #else
     int wdt, hgt;
@@ -1537,9 +1537,7 @@ void CheckInvPaste(int pnum, int mx, int my)
             {
                 NetSendCmdChItem(FALSE, INVLOC_HAND_LEFT);
                 if (plr[pnum].InvBody[INVLOC_HAND_LEFT]._itype == ITYPE_NONE)
-                {
                     SwapItem(&plr[pnum].InvBody[INVLOC_HAND_LEFT], &plr[pnum].InvBody[INVLOC_HAND_RIGHT]);
-                }
                 cn = SwapItem(&plr[pnum].InvBody[INVLOC_HAND_LEFT], &plr[pnum].HoldItem);
             }
             else
@@ -1557,13 +1555,9 @@ void CheckInvPaste(int pnum, int mx, int my)
         case ILOC_ARMOR:
             NetSendCmdChItem(FALSE, INVLOC_CHEST);
             if (plr[pnum].InvBody[INVLOC_CHEST]._itype == ITYPE_NONE)
-            {
                 plr[pnum].InvBody[INVLOC_CHEST] = plr[pnum].HoldItem;
-            }
             else
-            {
                 cn = SwapItem(&plr[pnum].InvBody[INVLOC_CHEST], &plr[pnum].HoldItem);
-            }
             break;
         case ILOC_UNEQUIPABLE:
             if (plr[pnum].HoldItem._itype == ITYPE_GOLD && it == 0)
@@ -1989,6 +1983,7 @@ void RemoveInvItem(int pnum, int iv)
         {
             // BUGFIX: Cast the literal `1` to `unsigned __int64` to make that bitshift 64bit
             // this causes the last 4 skills to not reset correctly after use
+            // replace with SPELLBIT(plr[pnum]._pRSpell)
             if (!(plr[pnum]._pScrlSpells & (1 << (plr[pnum]._pRSpell - 1))))
             {
                 plr[pnum]._pRSpell = SPL_INVALID;
@@ -2061,6 +2056,7 @@ void RemoveSpdBarItem(int pnum, int iv)
         {
             // BUGFIX: Cast the literal `1` to `unsigned __int64` to make that bitshift 64bit
             // this causes the last 4 skills to not reset correctly after use
+            // replace with SPELLBIT(plr[pnum]._pRSpell)
             if (!(plr[pnum]._pScrlSpells & (1 << (plr[pnum]._pRSpell - 1))))
             {
                 plr[pnum]._pRSpell = SPL_INVALID;
@@ -2960,7 +2956,7 @@ int InvPutItem(int pnum, int x, int y)
     }
 #endif
     CanPut(x, y); // if (!CanPut(x, y)) {
-    //	assertion_failed(1524, "C:\\Diablo\\Direct\\inv.cpp", "CanPut(x,y)");
+    //    assertion_failed(1524, "C:\\Diablo\\Direct\\inv.cpp", "CanPut(x,y)");
     //}
 
     ii = itemavail[0];

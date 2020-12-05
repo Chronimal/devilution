@@ -98,12 +98,7 @@ static void fault_hex_format(BYTE* ptr, DWORD numBytes)
     log_printf("\r\n");
 }
 
-static void fault_unknown_module(
-    LPCVOID lpAddress,
-    LPSTR lpModuleName,
-    int iMaxLength,
-    int* sectionNum,
-    int* sectionOffset)
+static void fault_unknown_module(LPCVOID lpAddress, LPSTR lpModuleName, int iMaxLength, int* sectionNum, int* sectionOffset)
 {
     MEMORY_BASIC_INFORMATION memInfo;
     PIMAGE_DOS_HEADER dosHeader;
@@ -259,9 +254,7 @@ static char* fault_get_error_type(DWORD dwMessageId, LPSTR lpString1, DWORD nSiz
             s = "ACCESS_VIOLATION";
             break;
         default:
-            if (FormatMessage(
-                    FORMAT_MESSAGE_FROM_HMODULE | FORMAT_MESSAGE_IGNORE_INSERTS, (LPCVOID)GetModuleHandle("NTDLL.DLL"),
-                    dwMessageId, 0, lpString1, nSize, NULL))
+            if (FormatMessage(FORMAT_MESSAGE_FROM_HMODULE | FORMAT_MESSAGE_IGNORE_INSERTS, (LPCVOID)GetModuleHandle("NTDLL.DLL"), dwMessageId, 0, lpString1, nSize, NULL))
             {
                 return lpString1;
             }
@@ -283,20 +276,16 @@ LONG __stdcall TopLevelExceptionFilter(PEXCEPTION_POINTERS ExceptionInfo)
 
     log_dump_computer_info();
     xcpt = ExceptionInfo->ExceptionRecord;
-    pszExceptionName = fault_get_error_type(
-        ExceptionInfo->ExceptionRecord->ExceptionCode, szExceptionNameBuf, sizeof(szExceptionNameBuf));
+    pszExceptionName = fault_get_error_type(ExceptionInfo->ExceptionRecord->ExceptionCode, szExceptionNameBuf, sizeof(szExceptionNameBuf));
     log_printf("Exception code: %08X %s\r\n", xcpt->ExceptionCode, pszExceptionName);
 
     fault_unknown_module(xcpt->ExceptionAddress, szModuleName, MAX_PATH, &sectionNumber, &sectionOffset);
-    log_printf(
-        "Fault address:\t%08X %02X:%08X %s\r\n", xcpt->ExceptionAddress, sectionNumber, sectionOffset, szModuleName);
+    log_printf("Fault address:\t%08X %02X:%08X %s\r\n", xcpt->ExceptionAddress, sectionNumber, sectionOffset, szModuleName);
 
     ctx = ExceptionInfo->ContextRecord;
 
     log_printf("\r\nRegisters:\r\n");
-    log_printf(
-        "EAX:%08X\r\nEBX:%08X\r\nECX:%08X\r\nEDX:%08X\r\nESI:%08X\r\nEDI:%08X\r\n", ctx->Eax, ctx->Ebx, ctx->Ecx,
-        ctx->Edx, ctx->Esi, ctx->Edi);
+    log_printf("EAX:%08X\r\nEBX:%08X\r\nECX:%08X\r\nEDX:%08X\r\nESI:%08X\r\nEDI:%08X\r\n", ctx->Eax, ctx->Ebx, ctx->Ecx, ctx->Edx, ctx->Esi, ctx->Edi);
     log_printf("CS:EIP:%04X:%08X\r\n", ctx->SegCs, ctx->Eip);
     log_printf("SS:ESP:%04X:%08X EBP:%08X\r\n", ctx->SegSs, ctx->Esp, ctx->Ebp);
     log_printf("DS:%04X ES:%04X FS:%04X GS:%04X\r\n", ctx->SegDs, ctx->SegEs, ctx->SegFs, ctx->SegGs);

@@ -19,6 +19,9 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="..\..\..\..\shared\include\shared\defs.h" />
+    <ClInclude Include="..\..\..\..\shared\include\shared\enums.h" />
+    <ClInclude Include="..\..\..\..\shared\include\shared\structs.h" />
     <ClInclude Include="..\..\include\ui\diabloui.h" />
     <ClInclude Include="..\..\src\inc.h" />
     <ClInclude Include="..\..\src\res\resource.h" />

@@ -13,6 +13,10 @@
       <UniqueIdentifier>{4F2928D3-50CE-490F-961F-D7FC17554FBB}</UniqueIdentifier>
       <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
     </Filter>
+    <Filter Include="Shared Header Files">
+      <UniqueIdentifier>{4f2a79c0-82a0-432d-ae55-9930772bca66}</UniqueIdentifier>
+      <Extensions>h;hh;hpp;hxx;h++;hm;inl;inc;ipp;xsd</Extensions>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\src\trigs.h">
@@ -245,6 +249,15 @@
     </ClInclude>
     <ClInclude Include="..\..\src\types.h">
       <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\shared\include\shared\enums.h">
+      <Filter>Shared Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\shared\include\shared\structs.h">
+      <Filter>Shared Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\shared\include\shared\defs.h">
+      <Filter>Shared Header Files</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

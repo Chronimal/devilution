@@ -75,8 +75,7 @@ int FindPath(BOOL (*PosOk)(int, int, int), int PosOkArg, int sx, int sy, int dx,
             {
                 if (path_length >= MAX_PATH_LENGTH)
                     break;
-                pnode_vals[path_length++] =
-                    path_directions[3 * (current->y - current->Parent->y) - current->Parent->x + 4 + current->x];
+                pnode_vals[path_length++] = path_directions[3 * (current->y - current->Parent->y) - current->Parent->x + 4 + current->x];
                 current = current->Parent;
             }
             if (path_length != MAX_PATH_LENGTH)

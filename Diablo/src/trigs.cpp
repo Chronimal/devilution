@@ -42,8 +42,7 @@ int L4DownList[] = {120, 130, 131, 132, 133, -1};
 /** Specifies the dungeon piece IDs which constitute stairways leading up to town from hell. */
 int L4TWarpUpList[] = {421, 422, 429, -1};
 /** Specifies the dungeon piece IDs which constitute stairways leading down to Diablo from hell. */
-int L4PentaList[] = {353, 354, 355, 356, 357, 358, 359, 360, 361, 362, 363, 364, 365, 366, 367, 368, 369,
-                     370, 371, 372, 373, 374, 375, 376, 377, 378, 379, 380, 381, 382, 383, 384, -1};
+int L4PentaList[] = {353, 354, 355, 356, 357, 358, 359, 360, 361, 362, 363, 364, 365, 366, 367, 368, 369, 370, 371, 372, 373, 374, 375, 376, 377, 378, 379, 380, 381, 382, 383, 384, -1};
 #ifdef HELLFIRE
 int L5TWarpUpList[] = {172, 173, 174, 175, 176, 177, 178, 179, 184, -1};
 int L5UpList[] = {149, 150, 151, 152, 153, 154, 155, 157, 158, 159, -1};
@@ -746,8 +745,7 @@ BOOL ForceL3Trig()
         }
         for (i = 0; L3DownList[i] != -1; i++)
         {
-            if (dPiece[cursmx][cursmy] == L3DownList[i] || dPiece[cursmx + 1][cursmy] == L3DownList[i] ||
-                dPiece[cursmx + 2][cursmy] == L3DownList[i])
+            if (dPiece[cursmx][cursmy] == L3DownList[i] || dPiece[cursmx + 1][cursmy] == L3DownList[i] || dPiece[cursmx + 2][cursmy] == L3DownList[i])
             {
                 sprintf(infostr, "Down to level %i", currlevel + 1);
                 for (j = 0; j < numtrigs; j++)
@@ -783,8 +781,7 @@ BOOL ForceL3Trig()
         }
         for (i = 0; L6DownList[i] != -1; i++)
         {
-            if (dPiece[cursmx][cursmy] == L6DownList[i] || dPiece[cursmx + 1][cursmy] == L6DownList[i] ||
-                dPiece[cursmx + 2][cursmy] == L6DownList[i])
+            if (dPiece[cursmx][cursmy] == L6DownList[i] || dPiece[cursmx + 1][cursmy] == L6DownList[i] || dPiece[cursmx + 2][cursmy] == L6DownList[i])
             {
                 sprintf(infostr, "Down to level %i", currlevel - 15);
                 for (j = 0; j < numtrigs; j++)

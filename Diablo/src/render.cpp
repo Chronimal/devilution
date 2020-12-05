@@ -14,23 +14,17 @@ DWORD* gpDrawMask = NULL;
 // char world_4B326D[16] = { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 };
 
 /** Specifies the draw masks used to render transparency of the right side of tiles. */
-DWORD RightMask[TILE_WIDTH] = {0xEAAAAAAA, 0xF5555555, 0xFEAAAAAA, 0xFF555555, 0xFFEAAAAA, 0xFFF55555, 0xFFFEAAAA,
-                               0xFFFF5555, 0xFFFFEAAA, 0xFFFFF555, 0xFFFFFEAA, 0xFFFFFF55, 0xFFFFFFEA, 0xFFFFFFF5,
-                               0xFFFFFFFE, 0xFFFFFFFF, 0xFFFFFFFF, 0xFFFFFFFF, 0xFFFFFFFF, 0xFFFFFFFF, 0xFFFFFFFF,
-                               0xFFFFFFFF, 0xFFFFFFFF, 0xFFFFFFFF, 0xFFFFFFFF, 0xFFFFFFFF, 0xFFFFFFFF, 0xFFFFFFFF,
-                               0xFFFFFFFF, 0xFFFFFFFF, 0xFFFFFFFF, 0xFFFFFFFF};
+DWORD RightMask[TILE_WIDTH] = {0xEAAAAAAA, 0xF5555555, 0xFEAAAAAA, 0xFF555555, 0xFFEAAAAA, 0xFFF55555, 0xFFFEAAAA, 0xFFFF5555, 0xFFFFEAAA, 0xFFFFF555, 0xFFFFFEAA,
+                               0xFFFFFF55, 0xFFFFFFEA, 0xFFFFFFF5, 0xFFFFFFFE, 0xFFFFFFFF, 0xFFFFFFFF, 0xFFFFFFFF, 0xFFFFFFFF, 0xFFFFFFFF, 0xFFFFFFFF, 0xFFFFFFFF,
+                               0xFFFFFFFF, 0xFFFFFFFF, 0xFFFFFFFF, 0xFFFFFFFF, 0xFFFFFFFF, 0xFFFFFFFF, 0xFFFFFFFF, 0xFFFFFFFF, 0xFFFFFFFF, 0xFFFFFFFF};
 /** Specifies the draw masks used to render transparency of the left side of tiles. */
-DWORD LeftMask[TILE_WIDTH] = {0xAAAAAAAB, 0x5555555F, 0xAAAAAABF, 0x555555FF, 0xAAAAABFF, 0x55555FFF, 0xAAAABFFF,
-                              0x5555FFFF, 0xAAABFFFF, 0x555FFFFF, 0xAABFFFFF, 0x55FFFFFF, 0xABFFFFFF, 0x5FFFFFFF,
-                              0xBFFFFFFF, 0xFFFFFFFF, 0xFFFFFFFF, 0xFFFFFFFF, 0xFFFFFFFF, 0xFFFFFFFF, 0xFFFFFFFF,
-                              0xFFFFFFFF, 0xFFFFFFFF, 0xFFFFFFFF, 0xFFFFFFFF, 0xFFFFFFFF, 0xFFFFFFFF, 0xFFFFFFFF,
-                              0xFFFFFFFF, 0xFFFFFFFF, 0xFFFFFFFF, 0xFFFFFFFF};
+DWORD LeftMask[TILE_WIDTH] = {0xAAAAAAAB, 0x5555555F, 0xAAAAAABF, 0x555555FF, 0xAAAAABFF, 0x55555FFF, 0xAAAABFFF, 0x5555FFFF, 0xAAABFFFF, 0x555FFFFF, 0xAABFFFFF,
+                              0x55FFFFFF, 0xABFFFFFF, 0x5FFFFFFF, 0xBFFFFFFF, 0xFFFFFFFF, 0xFFFFFFFF, 0xFFFFFFFF, 0xFFFFFFFF, 0xFFFFFFFF, 0xFFFFFFFF, 0xFFFFFFFF,
+                              0xFFFFFFFF, 0xFFFFFFFF, 0xFFFFFFFF, 0xFFFFFFFF, 0xFFFFFFFF, 0xFFFFFFFF, 0xFFFFFFFF, 0xFFFFFFFF, 0xFFFFFFFF, 0xFFFFFFFF};
 /** Specifies the draw masks used to render transparency of wall tiles. */
-DWORD WallMask[TILE_WIDTH] = {0xAAAAAAAA, 0x55555555, 0xAAAAAAAA, 0x55555555, 0xAAAAAAAA, 0x55555555, 0xAAAAAAAA,
-                              0x55555555, 0xAAAAAAAA, 0x55555555, 0xAAAAAAAA, 0x55555555, 0xAAAAAAAA, 0x55555555,
-                              0xAAAAAAAA, 0x55555555, 0xAAAAAAAA, 0x55555555, 0xAAAAAAAA, 0x55555555, 0xAAAAAAAA,
-                              0x55555555, 0xAAAAAAAA, 0x55555555, 0xAAAAAAAA, 0x55555555, 0xAAAAAAAA, 0x55555555,
-                              0xAAAAAAAA, 0x55555555, 0xAAAAAAAA, 0x55555555};
+DWORD WallMask[TILE_WIDTH] = {0xAAAAAAAA, 0x55555555, 0xAAAAAAAA, 0x55555555, 0xAAAAAAAA, 0x55555555, 0xAAAAAAAA, 0x55555555, 0xAAAAAAAA, 0x55555555, 0xAAAAAAAA,
+                              0x55555555, 0xAAAAAAAA, 0x55555555, 0xAAAAAAAA, 0x55555555, 0xAAAAAAAA, 0x55555555, 0xAAAAAAAA, 0x55555555, 0xAAAAAAAA, 0x55555555,
+                              0xAAAAAAAA, 0x55555555, 0xAAAAAAAA, 0x55555555, 0xAAAAAAAA, 0x55555555, 0xAAAAAAAA, 0x55555555, 0xAAAAAAAA, 0x55555555};
 
 int WorldTbl3x16[48] = {0,  0,  0,  4,  4,  4,  8,  8,  8,  12, 12, 12, 16, 16, 16, 20, 20, 20, 24, 24, 24, 28, 28, 28,
                         32, 32, 32, 36, 36, 36, 40, 40, 40, 44, 44, 44, 48, 48, 48, 52, 52, 52, 56, 56, 56, 60, 60, 60};
@@ -4315,8 +4309,7 @@ void drawBottomArchesLowerScreen(BYTE* pBuff, DWORD* pMask)
         if ((BYTE)light_table_index == lightmax)
         {
             if (level_cel_block & 0x8000)
-                level_cel_block =
-                    *(DWORD*)&gpCelFrame[64 * (level_cel_block & 0xFFF)] + (WORD)(level_cel_block & 0xF000);
+                level_cel_block = *(DWORD*)&gpCelFrame[64 * (level_cel_block & 0xFFF)] + (WORD)(level_cel_block & 0xF000);
             src = pDungeonCels + *((DWORD*)pDungeonCels + (level_cel_block & 0xFFF));
             cel_type_16 = (level_cel_block >> 12) & 7;
             switch (cel_type_16)
@@ -5290,8 +5283,7 @@ void drawLowerScreen(BYTE* pBuff)
         if ((BYTE)light_table_index == lightmax)
         {
             if (level_cel_block & 0x8000)
-                level_cel_block =
-                    *(DWORD*)&gpCelFrame[64 * (level_cel_block & 0xFFF)] + (WORD)(level_cel_block & 0xF000);
+                level_cel_block = *(DWORD*)&gpCelFrame[64 * (level_cel_block & 0xFFF)] + (WORD)(level_cel_block & 0xF000);
             src = pDungeonCels + *((DWORD*)pDungeonCels + (level_cel_block & 0xFFF));
             cel_type_16 = (level_cel_block >> 12) & 7;
             switch (cel_type_16)

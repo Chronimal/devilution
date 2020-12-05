@@ -19,6 +19,10 @@
     <Filter Include="Build Files">
       <UniqueIdentifier>{d06e0458-9b9d-4674-827f-9896637c4559}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Shared Header Files">
+      <UniqueIdentifier>{1c916bf3-0151-4529-ba96-6d48df65727f}</UniqueIdentifier>
+      <Extensions>h;hh;hpp;hxx;h++;hm;inl;inc;ipp;xsd</Extensions>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\src\_temp_funcs.h">
@@ -32,6 +36,15 @@
     </ClInclude>
     <ClInclude Include="..\..\src\res\resource.h">
       <Filter>Resource Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\shared\include\shared\defs.h">
+      <Filter>Shared Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\shared\include\shared\enums.h">
+      <Filter>Shared Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\shared\include\shared\structs.h">
+      <Filter>Shared Header Files</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

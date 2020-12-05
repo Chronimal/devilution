@@ -44,17 +44,13 @@ BOOL TFit_Shrine(int i)
     {
         if (dTransVal[xp][yp] == themes[i].ttval)
         {
-            if (nTrapTable[dPiece[xp][yp - 1]] && !nSolidTable[dPiece[xp - 1][yp]] &&
-                !nSolidTable[dPiece[xp + 1][yp]] && dTransVal[xp - 1][yp] == themes[i].ttval &&
-                dTransVal[xp + 1][yp] == themes[i].ttval && dObject[xp - 1][yp - 1] == 0 &&
-                dObject[xp + 1][yp - 1] == 0)
+            if (nTrapTable[dPiece[xp][yp - 1]] && !nSolidTable[dPiece[xp - 1][yp]] && !nSolidTable[dPiece[xp + 1][yp]] && dTransVal[xp - 1][yp] == themes[i].ttval &&
+                dTransVal[xp + 1][yp] == themes[i].ttval && dObject[xp - 1][yp - 1] == 0 && dObject[xp + 1][yp - 1] == 0)
             {
                 found = 1;
             }
-            if (found == 0 && nTrapTable[dPiece[xp - 1][yp]] && !nSolidTable[dPiece[xp][yp - 1]] &&
-                !nSolidTable[dPiece[xp][yp + 1]] && dTransVal[xp][yp - 1] == themes[i].ttval &&
-                dTransVal[xp][yp + 1] == themes[i].ttval && dObject[xp - 1][yp - 1] == 0 &&
-                dObject[xp - 1][yp + 1] == 0)
+            if (found == 0 && nTrapTable[dPiece[xp - 1][yp]] && !nSolidTable[dPiece[xp][yp - 1]] && !nSolidTable[dPiece[xp][yp + 1]] && dTransVal[xp][yp - 1] == themes[i].ttval &&
+                dTransVal[xp][yp + 1] == themes[i].ttval && dObject[xp - 1][yp - 1] == 0 && dObject[xp - 1][yp + 1] == 0)
             {
                 found = 2;
             }
@@ -185,7 +181,7 @@ BOOL CheckThemeObj3(int xp, int yp, int t, int f)
             return FALSE;
         if (dObject[xp + trm3x[i]][yp + trm3y[i]])
             return FALSE;
-        if (f != -1 && !random_(0, f))
+        if (f != -1 && random_(0, f) == 0)
             return FALSE;
     }
 
@@ -561,8 +557,7 @@ void PlaceThemeMonsts(int t, int f)
     {
         for (xp = 0; xp < MAXDUNX; xp++)
         {
-            if (dTransVal[xp][yp] == themes[t].ttval && !nSolidTable[dPiece[xp][yp]] && dItem[xp][yp] == 0 &&
-                dObject[xp][yp] == 0)
+            if (dTransVal[xp][yp] == themes[t].ttval && !nSolidTable[dPiece[xp][yp]] && dItem[xp][yp] == 0 && dObject[xp][yp] == 0)
             {
                 if (random_(0, f) == 0)
                 {
@@ -781,8 +776,7 @@ void Theme_Treasure(int t)
             if (dTransVal[xp][yp] == themes[t].ttval && !nSolidTable[dPiece[xp][yp]])
             {
                 int rv = random_(0, treasrnd[leveltype - 1]);
-                // BUGFIX: the `2*` in `2*random_(0, treasrnd...) == 0` has no effect, should probably be `random_(0,
-                // 2*treasrnd...) == 0`
+                // BUGFIX: the `2*` in `2*random_(0, treasrnd...) == 0` has no effect, should probably be `random_(0, 2*treasrnd...) == 0`
                 if ((2 * random_(0, treasrnd[leveltype - 1])) == 0)
                 {
                     CreateTypeItem(xp, yp, FALSE, ITYPE_GOLD, IMISC_NONE, FALSE, TRUE);

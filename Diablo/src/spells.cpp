@@ -150,13 +150,13 @@ void CastSpell(int id, int spl, int sx, int sy, int dx, int dy, int caster, int 
 
     switch (caster)
     {
-        case 1:
+        case TARGET_PLAYERS:
             dir = monster[id]._mdir;
             break;
-        case 0:
+        case TARGET_MONSTERS:
             // caster must be 0 already in this case, but oh well,
             // it's needed to generate the right code
-            caster = 0;
+            caster = TARGET_MONSTERS;
             dir = plr[id]._pdir;
 
 #ifdef HELLFIRE
@@ -256,7 +256,7 @@ void DoResurrect(int pnum, int rid)
 
     if ((char)rid != -1)
     {
-        AddMissile(plr[rid]._px, plr[rid]._py, plr[rid]._px, plr[rid]._py, 0, MIS_RESURRECTBEAM, 0, pnum, 0, 0);
+        AddMissile(plr[rid]._px, plr[rid]._py, plr[rid]._px, plr[rid]._py, 0, MIS_RESURRECTBEAM, TARGET_MONSTERS, pnum, 0, 0);
     }
 
     if (pnum == myplr)
@@ -281,9 +281,9 @@ void DoResurrect(int pnum, int rid)
         PlacePlayer(rid);
 #endif
 
-        hp = 640;
+        hp = 10 << 6;
 #ifndef HELLFIRE
-        if (plr[rid]._pMaxHPBase < 640)
+        if (plr[rid]._pMaxHPBase < (10 << 6))
         {
             hp = plr[rid]._pMaxHPBase;
         }

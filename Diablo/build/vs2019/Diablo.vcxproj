@@ -19,6 +19,9 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="..\..\..\shared\include\shared\defs.h" />
+    <ClInclude Include="..\..\..\shared\include\shared\enums.h" />
+    <ClInclude Include="..\..\..\shared\include\shared\structs.h" />
     <ClInclude Include="..\..\src\all.h" />
     <ClInclude Include="..\..\src\appfat.h" />
     <ClInclude Include="..\..\src\automap.h" />

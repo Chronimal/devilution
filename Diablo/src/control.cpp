@@ -64,21 +64,17 @@ BYTE* pTalkPanel;
 BOOL spselflag;
 
 /** Maps from font index to smaltext.cel frame number. */
-const BYTE fontframe[128] = {0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,
-                             0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  54, 44, 57, 58, 56, 55, 47, 40, 41, 59, 39,
-                             50, 37, 51, 52, 36, 27, 28, 29, 30, 31, 32, 33, 34, 35, 48, 49, 60, 38, 61, 53, 62, 1,
-                             2,  3,  4,  5,  6,  7,  8,  9,  10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23,
-                             24, 25, 26, 42, 63, 43, 64, 65, 0,  1,  2,  3,  4,  5,  6,  7,  8,  9,  10, 11, 12, 13,
-                             14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 40, 66, 41, 67, 0};
+const BYTE fontframe[128] = {0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  54, 44, 57, 58, 56, 55, 47, 40, 41, 59,
+                             39, 50, 37, 51, 52, 36, 27, 28, 29, 30, 31, 32, 33, 34, 35, 48, 49, 60, 38, 61, 53, 62, 1,  2,  3,  4,  5,  6,  7,  8,  9,  10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21,
+                             22, 23, 24, 25, 26, 42, 63, 43, 64, 65, 0,  1,  2,  3,  4,  5,  6,  7,  8,  9,  10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 40, 66, 41, 67, 0};
 
 /**
  * Maps from smaltext.cel frame number to character width. Note, the
  * character width may be distinct from the frame width, which is 13 for every
  * smaltext.cel frame.
  */
-const BYTE fontkern[68] = {8,  10, 7,  9, 8, 7, 6, 8, 8, 3,  3,  8, 6, 11, 9, 10, 6, 9, 9, 6,  9, 11, 10,
-                           13, 10, 11, 7, 5, 7, 7, 8, 7, 7,  7,  7, 7, 10, 4, 5,  6, 3, 3, 4,  3, 6,  6,
-                           3,  3,  3,  3, 3, 2, 7, 6, 3, 10, 10, 6, 6, 7,  4, 4,  9, 6, 6, 12, 3, 7};
+const BYTE fontkern[68] = {8, 10, 7,  9, 8, 7, 6, 8, 8, 3, 3, 8, 6, 11, 9, 10, 6, 9, 9, 6, 9, 11, 10, 13, 10, 11, 7, 5, 7, 7, 8, 7,  7, 7,
+                           7, 7,  10, 4, 5, 6, 3, 3, 4, 3, 6, 6, 3, 3,  3, 3,  3, 2, 7, 6, 3, 10, 10, 6,  6,  7,  4, 4, 9, 6, 6, 12, 3, 7};
 /**
  * Line start position for info box text when displaying 1, 2, 3, 4 and 5 lines respectivly
  */
@@ -126,22 +122,22 @@ const int lineOffsets[5][5] = {
  */
 const BYTE gbFontTransTbl[256] = {
     // clang-format off
-	'\0', 0x01, 0x01, 0x01, 0x01, 0x01, 0x01, 0x01, 0x01, 0x01, 0x01, 0x01, 0x01, 0x01, 0x01, 0x01,
-	0x01, 0x01, 0x01, 0x01, 0x01, 0x01, 0x01, 0x01, 0x01, 0x01, 0x01, 0x01, 0x01, 0x01, 0x01, 0x01,
-	' ',  '!',  '\"', '#',  '$',  '%',  '&',  '\'', '(',  ')',  '*',  '+',  ',',  '-',  '.',  '/',
-	'0',  '1',  '2',  '3',  '4',  '5',  '6',  '7',  '8',  '9',  ':',  ';',  '<',  '=',  '>',  '?',
-	'@',  'A',  'B',  'C',  'D',  'E',  'F',  'G',  'H',  'I',  'J',  'K',  'L',  'M',  'N',  'O',
-	'P',  'Q',  'R',  'S',  'T',  'U',  'V',  'W',  'X',  'Y',  'Z',  '[',  '\\', ']',  '^',  '_',
-	'`',  'a',  'b',  'c',  'd',  'e',  'f',  'g',  'h',  'i',  'j',  'k',  'l',  'm',  'n',  'o',
-	'p',  'q',  'r',  's',  't',  'u',  'v',  'w',  'x',  'y',  'z',  '{',  '|',  '}',  '~',  0x01,
-	'C',  'u',  'e',  'a',  'a',  'a',  'a',  'c',  'e',  'e',  'e',  'i',  'i',  'i',  'A',  'A',
-	'E',  'a',  'A',  'o',  'o',  'o',  'u',  'u',  'y',  'O',  'U',  'c',  'L',  'Y',  'P',  'f',
-	'a',  'i',  'o',  'u',  'n',  'N',  'a',  'o',  '?',  0x01, 0x01, 0x01, 0x01, '!',  '<',  '>',
-	'o',  '+',  '2',  '3',  '\'', 'u',  'P',  '.',  ',',  '1',  '0',  '>',  0x01, 0x01, 0x01, '?',
-	'A',  'A',  'A',  'A',  'A',  'A',  'A',  'C',  'E',  'E',  'E',  'E',  'I',  'I',  'I',  'I',
-	'D',  'N',  'O',  'O',  'O',  'O',  'O',  'X',  '0',  'U',  'U',  'U',  'U',  'Y',  'b',  'B',
-	'a',  'a',  'a',  'a',  'a',  'a',  'a',  'c',  'e',  'e',  'e',  'e',  'i',  'i',  'i',  'i',
-	'o',  'n',  'o',  'o',  'o',  'o',  'o',  '/',  '0',  'u',  'u',  'u',  'u',  'y',  'b',  'y',
+    '\0', 0x01, 0x01, 0x01, 0x01, 0x01, 0x01, 0x01, 0x01, 0x01, 0x01, 0x01, 0x01, 0x01, 0x01, 0x01,
+    0x01, 0x01, 0x01, 0x01, 0x01, 0x01, 0x01, 0x01, 0x01, 0x01, 0x01, 0x01, 0x01, 0x01, 0x01, 0x01,
+    ' ',  '!',  '\"', '#',  '$',  '%',  '&',  '\'', '(',  ')',  '*',  '+',  ',',  '-',  '.',  '/',
+    '0',  '1',  '2',  '3',  '4',  '5',  '6',  '7',  '8',  '9',  ':',  ';',  '<',  '=',  '>',  '?',
+    '@',  'A',  'B',  'C',  'D',  'E',  'F',  'G',  'H',  'I',  'J',  'K',  'L',  'M',  'N',  'O',
+    'P',  'Q',  'R',  'S',  'T',  'U',  'V',  'W',  'X',  'Y',  'Z',  '[',  '\\', ']',  '^',  '_',
+    '`',  'a',  'b',  'c',  'd',  'e',  'f',  'g',  'h',  'i',  'j',  'k',  'l',  'm',  'n',  'o',
+    'p',  'q',  'r',  's',  't',  'u',  'v',  'w',  'x',  'y',  'z',  '{',  '|',  '}',  '~',  0x01,
+    'C',  'u',  'e',  'a',  'a',  'a',  'a',  'c',  'e',  'e',  'e',  'i',  'i',  'i',  'A',  'A',
+    'E',  'a',  'A',  'o',  'o',  'o',  'u',  'u',  'y',  'O',  'U',  'c',  'L',  'Y',  'P',  'f',
+    'a',  'i',  'o',  'u',  'n',  'N',  'a',  'o',  '?',  0x01, 0x01, 0x01, 0x01, '!',  '<',  '>',
+    'o',  '+',  '2',  '3',  '\'', 'u',  'P',  '.',  ',',  '1',  '0',  '>',  0x01, 0x01, 0x01, '?',
+    'A',  'A',  'A',  'A',  'A',  'A',  'A',  'C',  'E',  'E',  'E',  'E',  'I',  'I',  'I',  'I',
+    'D',  'N',  'O',  'O',  'O',  'O',  'O',  'X',  '0',  'U',  'U',  'U',  'U',  'Y',  'b',  'B',
+    'a',  'a',  'a',  'a',  'a',  'a',  'a',  'c',  'e',  'e',  'e',  'e',  'i',  'i',  'i',  'i',
+    'o',  'n',  'o',  'o',  'o',  'o',  'o',  '/',  '0',  'u',  'u',  'u',  'u',  'y',  'b',  'y',
     // clang-format on
 };
 
@@ -154,8 +150,7 @@ char SpellITbl[MAX_SPELLS] = {
 #else
     1,
 #endif
-    1,  2,  3,  4,  5,  6,  7,  8,  9,  28, 13, 12, 18, 16, 14, 18, 19, 11,
-    20, 15, 21, 23, 24, 25, 22, 26, 29, 37, 38, 39, 42, 41, 40, 10, 36, 30,
+    1,  2,  3,  4,  5,  6,  7,  8,  9,  28, 13, 12, 18, 16, 14, 18, 19, 11, 20, 15, 21, 23, 24, 25, 22, 26, 29, 37, 38, 39, 42, 41, 40, 10, 36, 30,
 #ifdef HELLFIRE
     51, 51, 50, 46, 47, 43, 45, 48, 49, 44, 35, 35, 35, 35, 35,
 #endif
@@ -163,22 +158,20 @@ char SpellITbl[MAX_SPELLS] = {
 /** Maps from panel_button_id to the position and dimensions of a panel button. */
 int PanBtnPos[8][5] = {
     // clang-format off
-	{ PANEL_LEFT +   9, PANEL_TOP +   9, 71, 19, TRUE  }, // char button
-	{ PANEL_LEFT +   9, PANEL_TOP +  35, 71, 19, FALSE }, // quests button
-	{ PANEL_LEFT +   9, PANEL_TOP +  75, 71, 19, TRUE  }, // map button
-	{ PANEL_LEFT +   9, PANEL_TOP + 101, 71, 19, FALSE }, // menu button
-	{ PANEL_LEFT + 560, PANEL_TOP +   9, 71, 19, TRUE  }, // inv button
-	{ PANEL_LEFT + 560, PANEL_TOP +  35, 71, 19, FALSE }, // spells button
-	{ PANEL_LEFT +  87, PANEL_TOP +  91, 33, 32, TRUE  }, // chat button
-	{ PANEL_LEFT + 527, PANEL_TOP +  91, 33, 32, TRUE  }, // friendly fire button
+    { PANEL_LEFT +   9, PANEL_TOP +   9, 71, 19, TRUE  }, // char button
+    { PANEL_LEFT +   9, PANEL_TOP +  35, 71, 19, FALSE }, // quests button
+    { PANEL_LEFT +   9, PANEL_TOP +  75, 71, 19, TRUE  }, // map button
+    { PANEL_LEFT +   9, PANEL_TOP + 101, 71, 19, FALSE }, // menu button
+    { PANEL_LEFT + 560, PANEL_TOP +   9, 71, 19, TRUE  }, // inv button
+    { PANEL_LEFT + 560, PANEL_TOP +  35, 71, 19, FALSE }, // spells button
+    { PANEL_LEFT +  87, PANEL_TOP +  91, 33, 32, TRUE  }, // chat button
+    { PANEL_LEFT + 527, PANEL_TOP +  91, 33, 32, TRUE  }, // friendly fire button
     // clang-format on
 };
 /** Maps from panel_button_id to hotkey name. */
 const char* const PanBtnHotKey[8] = {"'c'", "'q'", "Tab", "Esc", "'i'", "'b'", "Enter", NULL};
 /** Maps from panel_button_id to panel button description. */
-const char* const PanBtnStr[8] = {
-    "Character Information", "Quests log",   "Automap", "Main Menu", "Inventory", "Spell book",
-    "Send Message",          "Player Attack"};
+const char* const PanBtnStr[8] = {"Character Information", "Quests log", "Automap", "Main Menu", "Inventory", "Spell book", "Send Message", "Player Attack"};
 /** Maps from attribute_id to the rectangle on screen used for attribute increment buttons. */
 RECT32 ChrBtnsRect[4] = {{137, 138, 41, 22}, {137, 166, 41, 22}, {137, 195, 41, 22}, {137, 223, 41, 22}};
 
@@ -222,71 +215,71 @@ void DrawSpellCel(int xp, int yp, BYTE* Trans, int nCel, int w)
 
 #ifdef USE_ASM
     __asm {
-		mov		ebx, Trans
-		mov		eax, nCel
-		shl		eax, 2
-		add		ebx, eax
-		mov		eax, [ebx+4]
-		sub		eax, [ebx]
-		mov		end, eax
-		mov		esi, Trans
-		add		esi, [ebx]
-		mov		edi, dst
-		mov		eax, end
-		add		eax, esi
-		mov		end, eax
-		mov		ebx, tbl
-	label1:
-		mov		edx, w
-	label2:
-		xor		eax, eax
-		lodsb
-		or		al, al
-		js		label6
-		sub		edx, eax
-		mov		ecx, eax
-		shr		ecx, 1
-		jnb		label3
-		lodsb
-		xlat
-		stosb
-		jecxz	label5
-	label3:
-		shr		ecx, 1
-		jnb		label4
-		lodsw
-		xlat
-		ror		ax, 8
-		xlat
-		ror		ax, 8
-		stosw
-		jecxz	label5
-	label4:
-		lodsd
-		xlat
-		ror		eax, 8
-		xlat
-		ror		eax, 8
-		xlat
-		ror		eax, 8
-		xlat
-		ror		eax, 8
-		stosd
-		loop	label4
-	label5:
-		or		edx, edx
-		jz		label7
-		jmp		label2
-	label6:
-		neg		al
-		add		edi, eax
-		sub		edx, eax
-		jnz		label2
-	label7:
-		sub		edi, BUFFER_WIDTH
-		sub		edi, w
-		cmp		esi, end
-		jnz		label1
+        mov        ebx, Trans
+        mov        eax, nCel
+        shl        eax, 2
+        add        ebx, eax
+        mov        eax, [ebx+4]
+        sub        eax, [ebx]
+        mov        end, eax
+        mov        esi, Trans
+        add        esi, [ebx]
+        mov        edi, dst
+        mov        eax, end
+        add        eax, esi
+        mov        end, eax
+        mov        ebx, tbl
+    label1:
+        mov        edx, w
+    label2:
+        xor        eax, eax
+        lodsb
+        or        al, al
+        js        label6
+        sub        edx, eax
+        mov        ecx, eax
+        shr        ecx, 1
+        jnb        label3
+        lodsb
+        xlat
+        stosb
+        jecxz    label5
+    label3:
+        shr        ecx, 1
+        jnb        label4
+        lodsw
+        xlat
+        ror        ax, 8
+        xlat
+        ror        ax, 8
+        stosw
+        jecxz    label5
+    label4:
+        lodsd
+        xlat
+        ror        eax, 8
+        xlat
+        ror        eax, 8
+        xlat
+        ror        eax, 8
+        xlat
+        ror        eax, 8
+        stosd
+        loop    label4
+    label5:
+        or        edx, edx
+        jz        label7
+        jmp        label2
+    label6:
+        neg        al
+        add        edi, eax
+        sub        edx, eax
+        jnz        label2
+    label7:
+        sub        edi, BUFFER_WIDTH
+        sub        edi, w
+        cmp        esi, end
+        jnz        label1
     }
 #else
     int i;
@@ -528,9 +521,7 @@ void DrawSpellList()
                         v = 0;
                         for (t = 0; t < plr[myplr]._pNumInv; t++)
                         {
-                            if (plr[myplr].InvList[t]._itype != ITYPE_NONE &&
-                                (plr[myplr].InvList[t]._iMiscId == IMISC_SCROLL ||
-                                 plr[myplr].InvList[t]._iMiscId == IMISC_SCROLLT) &&
+                            if (plr[myplr].InvList[t]._itype != ITYPE_NONE && (plr[myplr].InvList[t]._iMiscId == IMISC_SCROLL || plr[myplr].InvList[t]._iMiscId == IMISC_SCROLLT) &&
                                 plr[myplr].InvList[t]._iSpell == pSpell)
                             {
                                 v++;
@@ -538,9 +529,7 @@ void DrawSpellList()
                         }
                         for (t = 0; t < MAXBELTITEMS; t++)
                         {
-                            if (plr[myplr].SpdList[t]._itype != ITYPE_NONE &&
-                                (plr[myplr].SpdList[t]._iMiscId == IMISC_SCROLL ||
-                                 plr[myplr].SpdList[t]._iMiscId == IMISC_SCROLLT) &&
+                            if (plr[myplr].SpdList[t]._itype != ITYPE_NONE && (plr[myplr].SpdList[t]._iMiscId == IMISC_SCROLL || plr[myplr].SpdList[t]._iMiscId == IMISC_SCROLLT) &&
                                 plr[myplr].SpdList[t]._iSpell == pSpell)
                             {
                                 v++;
@@ -641,7 +630,7 @@ void ToggleSpell(int slot)
             break;
     }
 
-    if (spells & (__int64)1 << (plr[myplr]._pSplHotKey[slot] - 1))
+    if (spells & SPELLBIT(plr[myplr]._pSplHotKey[slot]))
     {
         plr[myplr]._pRSpell = plr[myplr]._pSplHotKey[slot];
         plr[myplr]._pRSplType = plr[myplr]._pSplTHotKey[slot];
@@ -661,170 +650,170 @@ void PrintChar(int nOffset, int nCel, char col)
 
 #ifdef USE_ASM
     __asm {
-		mov		ebx, pPanelText
-		mov		eax, nCel
-		shl		eax, 2
-		add		ebx, eax
-		mov		edx, [ebx+4]
-		sub		edx, [ebx]
-		mov		esi, pPanelText
-		add		esi, [ebx]
-		mov		edi, gpBuffer
-		add		edi, nOffset
-		mov		ebx, edx
-		add		ebx, esi
-		xor		edx, edx
-		mov		dl, col
-		cmp		edx, COL_WHITE
-		jz		c0_label1
-		cmp		edx, COL_BLUE
-		jz		c1_label1
-		cmp		edx, COL_RED
-		jz		c2_label1
-		jmp		d_label1
+        mov        ebx, pPanelText
+        mov        eax, nCel
+        shl        eax, 2
+        add        ebx, eax
+        mov        edx, [ebx+4]
+        sub        edx, [ebx]
+        mov        esi, pPanelText
+        add        esi, [ebx]
+        mov        edi, gpBuffer
+        add        edi, nOffset
+        mov        ebx, edx
+        add        ebx, esi
+        xor        edx, edx
+        mov        dl, col
+        cmp        edx, COL_WHITE
+        jz        c0_label1
+        cmp        edx, COL_BLUE
+        jz        c1_label1
+        cmp        edx, COL_RED
+        jz        c2_label1
+        jmp        d_label1
 
             // Case 0
-	c0_label1:
-		mov		edx, 13
-	c0_label2:
-		xor		eax, eax
-		lodsb
-		or		al, al
-		js		c0_label6
-		sub		edx, eax
-		mov		ecx, eax
-		shr		ecx, 1
-		jnb		c0_label3
-		movsb
-		jecxz	c0_label5
-	c0_label3:
-		shr		ecx, 1
-		jnb		c0_label4
-		movsw
-		jecxz	c0_label5
-	c0_label4:
-		rep movsd
-	c0_label5:
-		or		edx, edx
-		jz		c0_label7
-		jmp		c0_label2
-	c0_label6:
-		neg		al
-		add		edi, eax
-		sub		edx, eax
-		jnz		c0_label2
-	c0_label7:
-		sub		edi, BUFFER_WIDTH + 13
-		cmp		ebx, esi
-		jnz		c0_label1
-		jmp		labret
+    c0_label1:
+        mov        edx, 13
+    c0_label2:
+        xor        eax, eax
+        lodsb
+        or        al, al
+        js        c0_label6
+        sub        edx, eax
+        mov        ecx, eax
+        shr        ecx, 1
+        jnb        c0_label3
+        movsb
+        jecxz    c0_label5
+    c0_label3:
+        shr        ecx, 1
+        jnb        c0_label4
+        movsw
+        jecxz    c0_label5
+    c0_label4:
+        rep movsd
+    c0_label5:
+        or        edx, edx
+        jz        c0_label7
+        jmp        c0_label2
+    c0_label6:
+        neg        al
+        add        edi, eax
+        sub        edx, eax
+        jnz        c0_label2
+    c0_label7:
+        sub        edi, BUFFER_WIDTH + 13
+        cmp        ebx, esi
+        jnz        c0_label1
+        jmp        labret
 
             // Case 1
-	c1_label1:
-		mov		edx, 13
-	c1_label2:
-		xor		eax, eax
-		lodsb
-		or		al, al
-		js		c1_label6
-		sub		edx, eax
-		mov		ecx, eax
-	c1_label3:
-		lodsb
-		cmp		al, PAL16_GRAY + 13
-		ja		c1_label4
-		cmp		al, PAL16_GRAY
-		jb		c1_label5
-		sub		al, PAL16_GRAY - (PAL16_BLUE + 2)
-		jmp		c1_label5
-	c1_label4:
-		mov		al, PAL16_BLUE + 15
-	c1_label5:
-		stosb
-		loop	c1_label3
-		or		edx, edx
-		jz		c1_label7
-		jmp		c1_label2
-	c1_label6:
-		neg		al
-		add		edi, eax
-		sub		edx, eax
-		jnz		c1_label2
-	c1_label7:
-		sub		edi, BUFFER_WIDTH + 13
-		cmp		ebx, esi
-		jnz		c1_label1
-		jmp		labret
+    c1_label1:
+        mov        edx, 13
+    c1_label2:
+        xor        eax, eax
+        lodsb
+        or        al, al
+        js        c1_label6
+        sub        edx, eax
+        mov        ecx, eax
+    c1_label3:
+        lodsb
+        cmp        al, PAL16_GRAY + 13
+        ja        c1_label4
+        cmp        al, PAL16_GRAY
+        jb        c1_label5
+        sub        al, PAL16_GRAY - (PAL16_BLUE + 2)
+        jmp        c1_label5
+    c1_label4:
+        mov        al, PAL16_BLUE + 15
+    c1_label5:
+        stosb
+        loop    c1_label3
+        or        edx, edx
+        jz        c1_label7
+        jmp        c1_label2
+    c1_label6:
+        neg        al
+        add        edi, eax
+        sub        edx, eax
+        jnz        c1_label2
+    c1_label7:
+        sub        edi, BUFFER_WIDTH + 13
+        cmp        ebx, esi
+        jnz        c1_label1
+        jmp        labret
 
             // Case 2
-	c2_label1:
-		mov		edx, 13
-	c2_label2:
-		xor		eax, eax
-		lodsb
-		or		al, al
-		js		c2_label5
-		sub		edx, eax
-		mov		ecx, eax
-	c2_label3:
-		lodsb
-		cmp		al, PAL16_GRAY
-		jb		c2_label4
-		sub		al, PAL16_GRAY - PAL16_RED
-	c2_label4:
-		stosb
-		loop	c2_label3
-		or		edx, edx
-		jz		c2_label6
-		jmp		c2_label2
-	c2_label5:
-		neg		al
-		add		edi, eax
-		sub		edx, eax
-		jnz		c2_label2
-	c2_label6:
-		sub		edi, BUFFER_WIDTH + 13
-		cmp		ebx, esi
-		jnz		c2_label1
-		jmp		labret
+    c2_label1:
+        mov        edx, 13
+    c2_label2:
+        xor        eax, eax
+        lodsb
+        or        al, al
+        js        c2_label5
+        sub        edx, eax
+        mov        ecx, eax
+    c2_label3:
+        lodsb
+        cmp        al, PAL16_GRAY
+        jb        c2_label4
+        sub        al, PAL16_GRAY - PAL16_RED
+    c2_label4:
+        stosb
+        loop    c2_label3
+        or        edx, edx
+        jz        c2_label6
+        jmp        c2_label2
+    c2_label5:
+        neg        al
+        add        edi, eax
+        sub        edx, eax
+        jnz        c2_label2
+    c2_label6:
+        sub        edi, BUFFER_WIDTH + 13
+        cmp        ebx, esi
+        jnz        c2_label1
+        jmp        labret
 
             // Default
-	d_label1:
-		mov		edx, 13
-	d_label2:
-		xor		eax, eax
-		lodsb
-		or		al, al
-		js		d_label6
-		sub		edx, eax
-		mov		ecx, eax
-	d_label3:
-		lodsb
-		cmp		al, PAL16_GRAY
-		jb		d_label5
-		cmp		al, PAL16_GRAY + 14
-		jnb		d_label4
-		sub		al, PAL16_GRAY - (PAL16_YELLOW + 2)
-		jmp		d_label5
-	d_label4:
-		mov		al, PAL16_YELLOW + 15
-	d_label5:
-		stosb
-		loop	d_label3
-		or		edx, edx
-		jz		d_label7
-		jmp		d_label2
-	d_label6:
-		neg		al
-		add		edi, eax
-		sub		edx, eax
-		jnz		d_label2
-	d_label7:
-		sub		edi, BUFFER_WIDTH + 13
-		cmp		ebx, esi
-		jnz		d_label1
+    d_label1:
+        mov        edx, 13
+    d_label2:
+        xor        eax, eax
+        lodsb
+        or        al, al
+        js        d_label6
+        sub        edx, eax
+        mov        ecx, eax
+    d_label3:
+        lodsb
+        cmp        al, PAL16_GRAY
+        jb        d_label5
+        cmp        al, PAL16_GRAY + 14
+        jnb        d_label4
+        sub        al, PAL16_GRAY - (PAL16_YELLOW + 2)
+        jmp        d_label5
+    d_label4:
+        mov        al, PAL16_YELLOW + 15
+    d_label5:
+        stosb
+        loop    d_label3
+        or        edx, edx
+        jz        d_label7
+        jmp        d_label2
+    d_label6:
+        neg        al
+        add        edi, eax
+        sub        edx, eax
+        jnz        d_label2
+    d_label7:
+        sub        edi, BUFFER_WIDTH + 13
+        cmp        ebx, esi
+        jnz        d_label1
 
-	labret:
+    labret:
     }
 #else
     int i, nDataSize;
@@ -999,34 +988,34 @@ void DrawPanelBox(int x, int y, int w, int h, int sx, int sy)
 
 #ifdef USE_ASM
     __asm {
-		mov		esi, pBtmBuff
-		add		esi, nSrcOff
-		mov		edi, gpBuffer
-		add		edi, nDstOff
-		xor		ebx, ebx
-		mov		bx, word ptr w
-		xor		edx, edx
-		mov		dx, word ptr h
-	label1:
-		mov		ecx, ebx
-		shr		ecx, 1
-		jnb		label2
-		movsb
-		jecxz	label4
-	label2:
-		shr		ecx, 1
-		jnb		label3
-		movsw
-		jecxz	label4
-	label3:
-		rep movsd
-	label4:
-		add		esi, PANEL_WIDTH
-		sub		esi, ebx
-		add		edi, BUFFER_WIDTH
-		sub		edi, ebx
-		dec		edx
-		jnz		label1
+        mov        esi, pBtmBuff
+        add        esi, nSrcOff
+        mov        edi, gpBuffer
+        add        edi, nDstOff
+        xor        ebx, ebx
+        mov        bx, word ptr w
+        xor        edx, edx
+        mov        dx, word ptr h
+    label1:
+        mov        ecx, ebx
+        shr        ecx, 1
+        jnb        label2
+        movsb
+        jecxz    label4
+    label2:
+        shr        ecx, 1
+        jnb        label3
+        movsw
+        jecxz    label4
+    label3:
+        rep movsd
+    label4:
+        add        esi, PANEL_WIDTH
+        sub        esi, ebx
+        add        edi, BUFFER_WIDTH
+        sub        edi, ebx
+        dec        edx
+        jnz        label1
     }
 #else
     int wdt, hgt;
@@ -1089,17 +1078,17 @@ void SetFlaskHeight(BYTE* pCelBuff, int min, int max, int sx, int sy)
 
 #ifdef USE_ASM
     __asm {
-		mov		esi, pCelBuff
-		add		esi, nSrcOff
-		mov		edi, gpBuffer
-		add		edi, nDstOff
-		mov		edx, w
-	label1:
-		mov		ecx, 88 / 4
-		rep movsd
-		add		edi, BUFFER_WIDTH - 88
-		dec		edx
-		jnz		label1
+        mov        esi, pCelBuff
+        add        esi, nSrcOff
+        mov        edi, gpBuffer
+        add        edi, nDstOff
+        mov        edx, w
+    label1:
+        mov        ecx, 88 / 4
+        rep movsd
+        add        edi, BUFFER_WIDTH - 88
+        dec        edx
+        jnz        label1
     }
 #else
     BYTE *src, *dst;
@@ -1127,26 +1116,26 @@ void DrawFlask(BYTE* pCelBuff, int w, int nSrcOff, BYTE* pBuff, int nDstOff, int
 {
 #ifdef USE_ASM
     __asm {
-		mov		esi, pCelBuff
-		add		esi, nSrcOff
-		mov		edi, pBuff
-		add		edi, nDstOff
-		mov		edx, h
-	label1:
-		mov		ecx, 59
-	label2:
-		lodsb
-		or		al, al
-		jz		label3
-		mov		[edi], al
-	label3:
-		inc		edi
-		loop	label2
-		add		esi, w
-		sub		esi, 59
-		add		edi, BUFFER_WIDTH - 59
-		dec		edx
-		jnz		label1
+        mov        esi, pCelBuff
+        add        esi, nSrcOff
+        mov        edi, pBuff
+        add        edi, nDstOff
+        mov        edx, h
+    label1:
+        mov        ecx, 59
+    label2:
+        lodsb
+        or        al, al
+        jz        label3
+        mov        [edi], al
+    label3:
+        inc        edi
+        loop    label2
+        add        esi, w
+        sub        esi, 59
+        add        edi, BUFFER_WIDTH - 59
+        dec        edx
+        jnz        label1
     }
 #else
     int wdt, hgt;
@@ -1203,9 +1192,7 @@ void DrawLifeFlask()
 
     DrawFlask(pLifeBuff, 88, 88 * 3 + 13, gpBuffer, SCREENXY(PANEL_LEFT + 109, PANEL_TOP - 13), filled);
     if (filled != 13)
-        DrawFlask(
-            pBtmBuff, PANEL_WIDTH, PANEL_WIDTH * (filled + 3) + 109, gpBuffer,
-            SCREENXY(PANEL_LEFT + 109, PANEL_TOP - 13 + filled), 13 - filled);
+        DrawFlask(pBtmBuff, PANEL_WIDTH, PANEL_WIDTH * (filled + 3) + 109, gpBuffer, SCREENXY(PANEL_LEFT + 109, PANEL_TOP - 13 + filled), 13 - filled);
 }
 
 /**
@@ -1259,9 +1246,7 @@ void DrawManaFlask()
 
     DrawFlask(pManaBuff, 88, 88 * 3 + 13, gpBuffer, SCREENXY(PANEL_LEFT + 475, PANEL_TOP - 13), filled);
     if (filled != 13)
-        DrawFlask(
-            pBtmBuff, PANEL_WIDTH, PANEL_WIDTH * (filled + 3) + 475, gpBuffer,
-            SCREENXY(PANEL_LEFT + 475, PANEL_TOP - 13 + filled), 13 - filled);
+        DrawFlask(pBtmBuff, PANEL_WIDTH, PANEL_WIDTH * (filled + 3) + 475, gpBuffer, SCREENXY(PANEL_LEFT + 475, PANEL_TOP - 13 + filled), 13 - filled);
 }
 
 void control_update_life_mana()
@@ -1440,9 +1425,7 @@ void DrawCtrlBtns()
     for (i = 0; i < 6; i++)
     {
         if (!panbtn[i])
-            DrawPanelBox(
-                PanBtnPos[i][0] - PANEL_LEFT, PanBtnPos[i][1] - (PANEL_TOP - 16), 71, 20, PanBtnPos[i][0] + SCREEN_X,
-                PanBtnPos[i][1] + SCREEN_Y);
+            DrawPanelBox(PanBtnPos[i][0] - PANEL_LEFT, PanBtnPos[i][1] - (PANEL_TOP - 16), 71, 20, PanBtnPos[i][0] + SCREEN_X, PanBtnPos[i][1] + SCREEN_Y);
         else
             CelDraw(PanBtnPos[i][0] + SCREEN_X, PanBtnPos[i][1] + SCREEN_Y + 18, pPanelButtons, i + 1, 71);
     }
@@ -1542,8 +1525,7 @@ void DoPanBtn()
             }
         }
     }
-    if (!spselflag && MouseX >= 565 + PANEL_LEFT && MouseX < 621 + PANEL_LEFT && MouseY >= 64 + PANEL_TOP &&
-        MouseY < 120 + PANEL_TOP)
+    if (!spselflag && MouseX >= 565 + PANEL_LEFT && MouseX < 621 + PANEL_LEFT && MouseY >= 64 + PANEL_TOP && MouseY < 120 + PANEL_TOP)
     {
         DoSpeedBook();
         gamemenu_off();
@@ -1627,8 +1609,7 @@ void CheckPanelInfo()
             pinfoflag = TRUE;
         }
     }
-    if (!spselflag && MouseX >= 565 + PANEL_LEFT && MouseX < 621 + PANEL_LEFT && MouseY >= 64 + PANEL_TOP &&
-        MouseY < 120 + PANEL_TOP)
+    if (!spselflag && MouseX >= 565 + PANEL_LEFT && MouseX < 621 + PANEL_LEFT && MouseY >= 64 + PANEL_TOP && MouseY < 120 + PANEL_TOP)
     {
         strcpy(infostr, "Select current spell button");
         infoclr = COL_WHITE;
@@ -1663,9 +1644,7 @@ void CheckPanelInfo()
                     s = 0;
                     for (i = 0; i < plr[myplr]._pNumInv; i++)
                     {
-                        if (plr[myplr].InvList[i]._itype != ITYPE_NONE &&
-                            (plr[myplr].InvList[i]._iMiscId == IMISC_SCROLL ||
-                             plr[myplr].InvList[i]._iMiscId == IMISC_SCROLLT) &&
+                        if (plr[myplr].InvList[i]._itype != ITYPE_NONE && (plr[myplr].InvList[i]._iMiscId == IMISC_SCROLL || plr[myplr].InvList[i]._iMiscId == IMISC_SCROLLT) &&
                             plr[myplr].InvList[i]._iSpell == v)
                         {
                             s++;
@@ -1673,9 +1652,7 @@ void CheckPanelInfo()
                     }
                     for (i = 0; i < MAXBELTITEMS; i++)
                     {
-                        if (plr[myplr].SpdList[i]._itype != ITYPE_NONE &&
-                            (plr[myplr].SpdList[i]._iMiscId == IMISC_SCROLL ||
-                             plr[myplr].SpdList[i]._iMiscId == IMISC_SCROLLT) &&
+                        if (plr[myplr].SpdList[i]._itype != ITYPE_NONE && (plr[myplr].SpdList[i]._iMiscId == IMISC_SCROLL || plr[myplr].SpdList[i]._iMiscId == IMISC_SCROLLT) &&
                             plr[myplr].SpdList[i]._iSpell == v)
                         {
                             s++;
@@ -1725,8 +1702,7 @@ void CheckBtnUp()
 
         panbtn[i] = FALSE;
 
-        if (MouseX < PanBtnPos[i][0] || MouseX > PanBtnPos[i][0] + PanBtnPos[i][2] || MouseY < PanBtnPos[i][1] ||
-            MouseY > PanBtnPos[i][1] + PanBtnPos[i][3])
+        if (MouseX < PanBtnPos[i][0] || MouseX > PanBtnPos[i][0] + PanBtnPos[i][2] || MouseY < PanBtnPos[i][1] || MouseY > PanBtnPos[i][1] + PanBtnPos[i][3])
         {
             continue;
         }
@@ -2318,15 +2294,13 @@ void DrawChr()
 
 void CheckLvlBtn()
 {
-    if (!lvlbtndown && MouseX >= 40 + PANEL_LEFT && MouseX <= 81 + PANEL_LEFT && MouseY >= -39 + PANEL_TOP &&
-        MouseY <= -17 + PANEL_TOP)
+    if (!lvlbtndown && MouseX >= 40 + PANEL_LEFT && MouseX <= 81 + PANEL_LEFT && MouseY >= -39 + PANEL_TOP && MouseY <= -17 + PANEL_TOP)
         lvlbtndown = TRUE;
 }
 
 void ReleaseLvlBtn()
 {
-    if (MouseX >= 40 + PANEL_LEFT && MouseX <= 81 + PANEL_LEFT && MouseY >= -39 + PANEL_TOP &&
-        MouseY <= -17 + PANEL_TOP)
+    if (MouseX >= 40 + PANEL_LEFT && MouseX <= 81 + PANEL_LEFT && MouseY >= -39 + PANEL_TOP && MouseY <= -17 + PANEL_TOP)
         chrflag = TRUE;
     lvlbtndown = FALSE;
 }
@@ -2394,8 +2368,7 @@ void ReleaseChrBtns()
         if (chrbtn[i])
         {
             chrbtn[i] = FALSE;
-            if (MouseX >= ChrBtnsRect[i].x && MouseX <= ChrBtnsRect[i].x + ChrBtnsRect[i].w &&
-                MouseY >= ChrBtnsRect[i].y && MouseY <= ChrBtnsRect[i].y + ChrBtnsRect[i].h)
+            if (MouseX >= ChrBtnsRect[i].x && MouseX <= ChrBtnsRect[i].x + ChrBtnsRect[i].w && MouseY >= ChrBtnsRect[i].y && MouseY <= ChrBtnsRect[i].y + ChrBtnsRect[i].h)
             {
                 switch (i)
                 {
@@ -2492,44 +2465,44 @@ void RedBack()
     if (leveltype != DTYPE_HELL)
     {
         __asm {
-			mov		edi, gpBuffer
-			add		edi, SCREENXY(0, 0)
-			mov		ebx, pLightTbl
-			add		ebx, idx
-			mov		edx, PANEL_TOP
-		lx_label1:
-			mov		ecx, SCREEN_WIDTH
-		lx_label2:
-			mov		al, [edi]
-			xlat
-			stosb
-			loop	lx_label2
-			add		edi, BUFFER_WIDTH - SCREEN_WIDTH
-			dec		edx
-			jnz		lx_label1
+            mov        edi, gpBuffer
+            add        edi, SCREENXY(0, 0)
+            mov        ebx, pLightTbl
+            add        ebx, idx
+            mov        edx, PANEL_TOP
+        lx_label1:
+            mov        ecx, SCREEN_WIDTH
+        lx_label2:
+            mov        al, [edi]
+            xlat
+            stosb
+            loop    lx_label2
+            add        edi, BUFFER_WIDTH - SCREEN_WIDTH
+            dec        edx
+            jnz        lx_label1
         }
     }
     else
     {
         __asm {
-			mov		edi, gpBuffer
-			add		edi, SCREENXY(0, 0)
-			mov		ebx, pLightTbl
-			add		ebx, idx
-			mov		edx, PANEL_TOP
-		l4_label1:
-			mov		ecx, SCREEN_WIDTH
-		l4_label2:
-			mov		al, [edi]
-			cmp		al, 32
-			jb		l4_label3
-			xlat
-		l4_label3:
-			stosb
-			loop	l4_label2
-			add		edi, BUFFER_WIDTH - SCREEN_WIDTH
-			dec		edx
-			jnz		l4_label1
+            mov        edi, gpBuffer
+            add        edi, SCREENXY(0, 0)
+            mov        ebx, pLightTbl
+            add        ebx, idx
+            mov        edx, PANEL_TOP
+        l4_label1:
+            mov        ecx, SCREEN_WIDTH
+        l4_label2:
+            mov        al, [edi]
+            cmp        al, 32
+            jb        l4_label3
+            xlat
+        l4_label3:
+            stosb
+            loop    l4_label2
+            add        edi, BUFFER_WIDTH - SCREEN_WIDTH
+            dec        edx
+            jnz        l4_label1
         }
     }
 #else
@@ -2610,16 +2583,16 @@ char GetSBookTrans(int ii, BOOL townok)
         return RSPLTYPE_SKILL;
 #endif
     st = RSPLTYPE_SPELL;
-    if (plr[myplr]._pISpells & (__int64)1 << (ii - 1))
+    if (plr[myplr]._pISpells & SPELLBIT(ii))
     {
         st = RSPLTYPE_CHARGES;
     }
 #ifdef HELLFIRE
-    if (plr[myplr]._pAblSpells & (__int64)1 << (ii - 1))
+    if (plr[myplr]._pAblSpells & SPELLBIT(ii))
     {
 #else
     if (plr[myplr]._pAblSpells & 1 << (ii - 1))
-    { /// BUGFIX: missing (__int64)
+    { /// BUGFIX: missing (__int64) - use SPELLBIT(ii) macro
 #endif
         st = RSPLTYPE_SKILL;
     }
@@ -2662,7 +2635,7 @@ void DrawSpellBook()
     for (i = 1; i < 8; i++)
     {
         sn = SpellPages[sbooktab][i - 1];
-        if (sn != -1 && spl & (__int64)1 << (sn - 1))
+        if (sn != -1 && spl & SPELLBIT(sn))
         {
             st = GetSBookTrans(sn, TRUE);
             SetSpellTrans(st);
@@ -2728,14 +2701,14 @@ void CheckSBook()
     {
         sn = SpellPages[sbooktab][(MouseY - 18) / 43];
         spl = plr[myplr]._pMemSpells | plr[myplr]._pISpells | plr[myplr]._pAblSpells;
-        if (sn != -1 && spl & (__int64)1 << (sn - 1))
+        if (sn != -1 && spl & SPELLBIT(sn))
         {
             st = RSPLTYPE_SPELL;
-            if (plr[myplr]._pISpells & (__int64)1 << (sn - 1))
+            if (plr[myplr]._pISpells & SPELLBIT(sn))
             {
                 st = RSPLTYPE_CHARGES;
             }
-            if (plr[myplr]._pAblSpells & (__int64)1 << (sn - 1))
+            if (plr[myplr]._pAblSpells & SPELLBIT(sn))
             {
                 st = RSPLTYPE_SKILL;
             }
@@ -3020,8 +2993,7 @@ void control_release_talk_btn()
     {
         for (i = 0; i < sizeof(talkbtndown) / sizeof(talkbtndown[0]); i++)
             talkbtndown[i] = FALSE;
-        if (MouseX >= 172 + PANEL_LEFT && MouseY >= 69 + PANEL_TOP && MouseX <= 233 + PANEL_LEFT &&
-            MouseY <= 123 + PANEL_TOP)
+        if (MouseX >= 172 + PANEL_LEFT && MouseY >= 69 + PANEL_TOP && MouseX <= 233 + PANEL_LEFT && MouseY <= 123 + PANEL_TOP)
         {
             off = (MouseY - (69 + PANEL_TOP)) / 18;
 

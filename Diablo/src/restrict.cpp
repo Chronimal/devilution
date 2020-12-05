@@ -16,8 +16,7 @@ BOOL SystemSupported()
 
     memset(&VersionInformation, 0, sizeof(VersionInformation));
     VersionInformation.dwOSVersionInfoSize = sizeof(VersionInformation);
-    if (GetVersionEx(&VersionInformation) && VersionInformation.dwPlatformId == VER_PLATFORM_WIN32_NT &&
-        VersionInformation.dwMajorVersion >= 5)
+    if (GetVersionEx(&VersionInformation) && VersionInformation.dwPlatformId == VER_PLATFORM_WIN32_NT && VersionInformation.dwMajorVersion >= 5)
     {
         ret = TRUE;
     }

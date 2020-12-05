@@ -496,8 +496,7 @@ void SearchAutomapItem()
                 py = j - 2 * AutoMapYOfs - ViewY;
 
                 x = (ScrollInfo._sxoff * AutoMapScale / 100 >> 1) + (px - py) * AmLine16 + SCREEN_WIDTH / 2 + SCREEN_X;
-                y = (ScrollInfo._syoff * AutoMapScale / 100 >> 1) + (px + py) * AmLine8 +
-                    (SCREEN_HEIGHT - PANEL_HEIGHT) / 2 + SCREEN_Y;
+                y = (ScrollInfo._syoff * AutoMapScale / 100 >> 1) + (px + py) * AmLine8 + (SCREEN_HEIGHT - PANEL_HEIGHT) / 2 + SCREEN_Y;
 
                 if (invflag || sbookflag)
                     x -= 160;
@@ -536,10 +535,8 @@ static void DrawAutomapPlr()
     px = x - 2 * AutoMapXOfs - ViewX;
     py = y - 2 * AutoMapYOfs - ViewY;
 
-    x = (plr[myplr]._pxoff * AutoMapScale / 100 >> 1) + (ScrollInfo._sxoff * AutoMapScale / 100 >> 1) +
-        (px - py) * AmLine16 + SCREEN_WIDTH / 2 + SCREEN_X;
-    y = (plr[myplr]._pyoff * AutoMapScale / 100 >> 1) + (ScrollInfo._syoff * AutoMapScale / 100 >> 1) +
-        (px + py) * AmLine8 + (SCREEN_HEIGHT - PANEL_HEIGHT) / 2 + SCREEN_Y;
+    x = (plr[myplr]._pxoff * AutoMapScale / 100 >> 1) + (ScrollInfo._sxoff * AutoMapScale / 100 >> 1) + (px - py) * AmLine16 + SCREEN_WIDTH / 2 + SCREEN_X;
+    y = (plr[myplr]._pyoff * AutoMapScale / 100 >> 1) + (ScrollInfo._syoff * AutoMapScale / 100 >> 1) + (px + py) * AmLine8 + (SCREEN_HEIGHT - PANEL_HEIGHT) / 2 + SCREEN_Y;
 
     if (invflag || sbookflag)
         x -= SCREEN_WIDTH / 4;
@@ -658,8 +655,7 @@ static WORD GetAutomapType(int x, int y, BOOL view)
 }
 
 /**
- * @brief Renders game info, such as the name of the current level, and in multi player the name of the game and the
- * game password.
+ * @brief Renders game info, such as the name of the current level, and in multi player the name of the game and the game password.
  */
 static void DrawAutomapText()
 {

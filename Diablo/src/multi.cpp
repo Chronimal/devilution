@@ -71,8 +71,8 @@ void __cdecl dumphist(const char* pszFmt, ...)
     fprintf(sgpHistFile, "%4u.%02u  ", (dwTicks - gdwHistTicks) / 1000, (dwTicks - gdwHistTicks) % 1000 / 10);
     vfprintf(sgpHistFile, pszFmt, va);
     fprintf(
-        sgpHistFile, "\r\n          (%d,%d)(%d,%d)(%d,%d)(%d,%d)\r\n", plr[0].plractive, player_state[0],
-        plr[1].plractive, player_state[1], plr[2].plractive, player_state[2], plr[3].plractive, player_state[3]);
+        sgpHistFile, "\r\n          (%d,%d)(%d,%d)(%d,%d)(%d,%d)\r\n", plr[0].plractive, player_state[0], plr[1].plractive, player_state[1], plr[2].plractive, player_state[2], plr[3].plractive,
+        player_state[3]);
     fflush(sgpHistFile);
 }
 #endif
@@ -646,22 +646,22 @@ void multi_send_zero_packet(int pnum, BYTE bCmd, BYTE* pbSrc, DWORD dwLen)
             return;
         }
 #if 0
-		if((DWORD)pnum >= MAX_PLRS) {
-			if(myplr != 0) {
-				debug_plr_tbl[0]++;
-			}
-			if(myplr != 1) {
-				debug_plr_tbl[1]++;
-			}
-			if(myplr != 2) {
-				debug_plr_tbl[2]++;
-			}
-			if(myplr != 3) {
-				debug_plr_tbl[3]++;
-			}
-		} else {
-			debug_plr_tbl[pnum]++;
-		}
+        if((DWORD)pnum >= MAX_PLRS) {
+            if(myplr != 0) {
+                debug_plr_tbl[0]++;
+            }
+            if(myplr != 1) {
+                debug_plr_tbl[1]++;
+            }
+            if(myplr != 2) {
+                debug_plr_tbl[2]++;
+            }
+            if(myplr != 3) {
+                debug_plr_tbl[3]++;
+            }
+        } else {
+            debug_plr_tbl[pnum]++;
+        }
 #endif
         pbSrc += p->wBytes;
         dwLen -= p->wBytes;
@@ -887,7 +887,7 @@ BOOL NetInit(BOOL bSinglePlayer, BOOL* pfExitProgram)
         UiData.profilecallback = (void (*)())UiProfileCallback;
 #ifdef HELLFIRE
         UiData.profilefields = NULL;
-#else // HELLFIRE
+#else  // HELLFIRE
         UiData.profilefields = UiProfileGetString();
 #endif // HELLFIRE
         memset(sgbPlayerTurnBitTbl, 0, sizeof(sgbPlayerTurnBitTbl));
@@ -968,8 +968,7 @@ BOOL multi_init_single(_SNETPROGRAMDATA* client_info, _SNETPLAYERDATA* user_info
     }
 
     unused = 0;
-    if (!SNetCreateGame(
-            "local", "local", "local", 0, (char*)&sgGameInitInfo, sizeof(sgGameInitInfo), 1, "local", "local", &unused))
+    if (!SNetCreateGame("local", "local", "local", 0, (char*)&sgGameInitInfo, sizeof(sgGameInitInfo), 1, "local", "local", &unused))
     {
         app_fatal("SNetCreateGame1:\n%s", TraceLastError());
     }
@@ -980,11 +979,7 @@ BOOL multi_init_single(_SNETPROGRAMDATA* client_info, _SNETPLAYERDATA* user_info
     return TRUE;
 }
 
-BOOL multi_init_multi(
-    _SNETPROGRAMDATA* client_info,
-    _SNETPLAYERDATA* user_info,
-    _SNETUIDATA* ui_info,
-    BOOL* pfExitProgram)
+BOOL multi_init_multi(_SNETPROGRAMDATA* client_info, _SNETPLAYERDATA* user_info, _SNETUIDATA* ui_info, BOOL* pfExitProgram)
 {
     BOOL first;
     int playerId;
@@ -995,8 +990,7 @@ BOOL multi_init_multi(
         type = 0x00;
         if (gbSelectProvider)
         {
-            if (!UiSelectProvider(0, client_info, user_info, ui_info, &fileinfo, &type) &&
-                (!first || SErrGetLastError() != STORM_ERROR_REQUIRES_UPGRADE || !multi_upgrade(pfExitProgram)))
+            if (!UiSelectProvider(0, client_info, user_info, ui_info, &fileinfo, &type) && (!first || SErrGetLastError() != STORM_ERROR_REQUIRES_UPGRADE || !multi_upgrade(pfExitProgram)))
             {
                 return FALSE;
             }

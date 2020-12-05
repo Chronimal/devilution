@@ -16,40 +16,40 @@ void town_clear_upper_buf(BYTE* pBuff)
 
 #ifdef USE_ASM
     __asm {
-		mov		edi, pBuff
-		mov		edx, TILE_HEIGHT - 2
-		mov		ebx, 1
-		xor		eax, eax
-	label1:
-		cmp		edi, gpBufEnd
-		jb		label4
-		add		edi, edx
-		mov		ecx, ebx
-		rep stosd
-		add		edi, edx
-		sub		edi, BUFFER_WIDTH + TILE_WIDTH
-		or		edx, edx
-		jz		label2
-		sub		edx, 2
-		inc		ebx
-		jmp		label1
-	label2:
-		mov		edx, 2
-		mov		ebx, TILE_HEIGHT / 2 - 1
-	label3:
-		cmp		edi, gpBufEnd
-		jb		label4
-		add		edi, edx
-		mov		ecx, ebx
-		rep stosd
-		add		edi, edx
-		sub		edi, BUFFER_WIDTH + TILE_WIDTH
-		dec		ebx
-		add		edx, 2
-		cmp		edx, TILE_HEIGHT
-		jnz		label3
-	label4:
-		nop
+        mov        edi, pBuff
+        mov        edx, TILE_HEIGHT - 2
+        mov        ebx, 1
+        xor        eax, eax
+    label1:
+        cmp        edi, gpBufEnd
+        jb        label4
+        add        edi, edx
+        mov        ecx, ebx
+        rep stosd
+        add        edi, edx
+        sub        edi, BUFFER_WIDTH + TILE_WIDTH
+        or        edx, edx
+        jz        label2
+        sub        edx, 2
+        inc        ebx
+        jmp        label1
+    label2:
+        mov        edx, 2
+        mov        ebx, TILE_HEIGHT / 2 - 1
+    label3:
+        cmp        edi, gpBufEnd
+        jb        label4
+        add        edi, edx
+        mov        ecx, ebx
+        rep stosd
+        add        edi, edx
+        sub        edi, BUFFER_WIDTH + TILE_WIDTH
+        dec        ebx
+        add        edx, 2
+        cmp        edx, TILE_HEIGHT
+        jnz        label3
+    label4:
+        nop
     }
 #else
     int i, j, k;
@@ -64,8 +64,7 @@ void town_clear_upper_buf(BYTE* pBuff)
             *dst++ = 0;
         dst += i;
     }
-    for (i = 2, j = TILE_HEIGHT / 2 - 1; i != TILE_HEIGHT && dst >= gpBufEnd;
-         i += 2, j--, dst -= BUFFER_WIDTH + TILE_WIDTH)
+    for (i = 2, j = TILE_HEIGHT / 2 - 1; i != TILE_HEIGHT && dst >= gpBufEnd; i += 2, j--, dst -= BUFFER_WIDTH + TILE_WIDTH)
     {
         dst += i;
         for (k = 0; k < 4 * j; k++)
@@ -86,46 +85,46 @@ void town_clear_low_buf(BYTE* pBuff)
 
 #ifdef USE_ASM
     __asm {
-		mov		edi, pBuff
-		mov		edx, TILE_HEIGHT - 2
-		mov		ebx, 1
-		xor		eax, eax
-	label1:
-		cmp		edi, gpBufEnd
-		jb		label2
-		add		edi, TILE_WIDTH
-		jmp		label3
-	label2:
-		add		edi, edx
-		mov		ecx, ebx
-		rep stosd
-		add		edi, edx
-	label3:
-		sub		edi, BUFFER_WIDTH + TILE_WIDTH
-		or		edx, edx
-		jz		label4
-		sub		edx, 2
-		inc		ebx
-		jmp		label1
-	label4:
-		mov		edx, 2
-		mov		ebx, TILE_HEIGHT / 2 - 1
-	label5:
-		cmp		edi, gpBufEnd
-		jb		label6
-		add		edi, TILE_WIDTH
-		jmp		label7
-	label6:
-		add		edi, edx
-		mov		ecx, ebx
-		rep stosd
-		add		edi, edx
-	label7:
-		sub		edi, BUFFER_WIDTH + TILE_WIDTH
-		dec		ebx
-		add		edx, 2
-		cmp		edx, TILE_HEIGHT
-		jnz		label5
+        mov        edi, pBuff
+        mov        edx, TILE_HEIGHT - 2
+        mov        ebx, 1
+        xor        eax, eax
+    label1:
+        cmp        edi, gpBufEnd
+        jb        label2
+        add        edi, TILE_WIDTH
+        jmp        label3
+    label2:
+        add        edi, edx
+        mov        ecx, ebx
+        rep stosd
+        add        edi, edx
+    label3:
+        sub        edi, BUFFER_WIDTH + TILE_WIDTH
+        or        edx, edx
+        jz        label4
+        sub        edx, 2
+        inc        ebx
+        jmp        label1
+    label4:
+        mov        edx, 2
+        mov        ebx, TILE_HEIGHT / 2 - 1
+    label5:
+        cmp        edi, gpBufEnd
+        jb        label6
+        add        edi, TILE_WIDTH
+        jmp        label7
+    label6:
+        add        edi, edx
+        mov        ecx, ebx
+        rep stosd
+        add        edi, edx
+    label7:
+        sub        edi, BUFFER_WIDTH + TILE_WIDTH
+        dec        ebx
+        add        edx, 2
+        cmp        edx, TILE_HEIGHT
+        jnz        label5
     }
 #else
     int i, j, k;
@@ -172,113 +171,113 @@ void town_clear_low_buf(BYTE* pBuff)
 void town_special_lower(BYTE* pBuff, int nCel)
 {
 #if 0
-	int w;
-	BYTE *end;
+    int w;
+    BYTE *end;
 
 #ifdef USE_ASM
-	__asm {
-		mov		ebx, pSpecialCels
-		mov		eax, nCel
-		shl		eax, 2
-		add		ebx, eax
-		mov		eax, [ebx+4]
-		sub		eax, [ebx]
-		mov		end, eax
-		mov		esi, pSpecialCels
-		add		esi, [ebx]
-		mov		edi, pBuff
-		mov		eax, BUFFER_WIDTH + 64
-		mov		w, eax
-		mov		ebx, end
-		add		ebx, esi
-	label1:
-		mov		edx, 64
-	label2:
-		xor		eax, eax
-		lodsb
-		or		al, al
-		js		label7
-		sub		edx, eax
-		cmp		edi, gpBufEnd
-		jb		label3
-		add		esi, eax
-		add		edi, eax
-		jmp		label6
-	label3:
-		mov		ecx, eax
-		shr		ecx, 1
-		jnb		label4
-		movsb
-		jecxz	label6
-	label4:
-		shr		ecx, 1
-		jnb		label5
-		movsw
-		jecxz	label6
-	label5:
-		rep movsd
-	label6:
-		or		edx, edx
-		jz		label8
-		jmp		label2
-	label7:
-		neg		al
-		add		edi, eax
-		sub		edx, eax
-		jnz		label2
-	label8:
-		sub		edi, w
-		cmp		ebx, esi
-		jnz		label1
-	}
+    __asm {
+        mov        ebx, pSpecialCels
+        mov        eax, nCel
+        shl        eax, 2
+        add        ebx, eax
+        mov        eax, [ebx+4]
+        sub        eax, [ebx]
+        mov        end, eax
+        mov        esi, pSpecialCels
+        add        esi, [ebx]
+        mov        edi, pBuff
+        mov        eax, BUFFER_WIDTH + 64
+        mov        w, eax
+        mov        ebx, end
+        add        ebx, esi
+    label1:
+        mov        edx, 64
+    label2:
+        xor        eax, eax
+        lodsb
+        or        al, al
+        js        label7
+        sub        edx, eax
+        cmp        edi, gpBufEnd
+        jb        label3
+        add        esi, eax
+        add        edi, eax
+        jmp        label6
+    label3:
+        mov        ecx, eax
+        shr        ecx, 1
+        jnb        label4
+        movsb
+        jecxz    label6
+    label4:
+        shr        ecx, 1
+        jnb        label5
+        movsw
+        jecxz    label6
+    label5:
+        rep movsd
+    label6:
+        or        edx, edx
+        jz        label8
+        jmp        label2
+    label7:
+        neg        al
+        add        edi, eax
+        sub        edx, eax
+        jnz        label2
+    label8:
+        sub        edi, w
+        cmp        ebx, esi
+        jnz        label1
+    }
 #else
-	BYTE width;
-	BYTE *src, *dst;
-	DWORD *pFrameTable;
+    BYTE width;
+    BYTE *src, *dst;
+    DWORD *pFrameTable;
 
-	pFrameTable = (DWORD *)pSpecialCels;
-	src = &pSpecialCels[pFrameTable[nCel]];
-	dst = pBuff;
-	end = &src[pFrameTable[nCel + 1] - pFrameTable[nCel]];
+    pFrameTable = (DWORD *)pSpecialCels;
+    src = &pSpecialCels[pFrameTable[nCel]];
+    dst = pBuff;
+    end = &src[pFrameTable[nCel + 1] - pFrameTable[nCel]];
 
-	for(; src != end; dst -= BUFFER_WIDTH + 64) {
-		for(w = 64; w;) {
-			width = *src++;
-			if(!(width & 0x80)) {
-				w -= width;
-				if(dst < gpBufEnd) {
-					if(width & 1) {
-						dst[0] = src[0];
-						src++;
-						dst++;
-					}
-					width >>= 1;
-					if(width & 1) {
-						dst[0] = src[0];
-						dst[1] = src[1];
-						src += 2;
-						dst += 2;
-					}
-					width >>= 1;
-					for(; width; width--) {
-						dst[0] = src[0];
-						dst[1] = src[1];
-						dst[2] = src[2];
-						dst[3] = src[3];
-						src += 4;
-						dst += 4;
-					}
-				} else {
-					src += width;
-					dst += width;
-				}
-			} else {
-				width = -(char)width;
-				dst += width;
-				w -= width;
-			}
-		}
-	}
+    for(; src != end; dst -= BUFFER_WIDTH + 64) {
+        for(w = 64; w;) {
+            width = *src++;
+            if(!(width & 0x80)) {
+                w -= width;
+                if(dst < gpBufEnd) {
+                    if(width & 1) {
+                        dst[0] = src[0];
+                        src++;
+                        dst++;
+                    }
+                    width >>= 1;
+                    if(width & 1) {
+                        dst[0] = src[0];
+                        dst[1] = src[1];
+                        src += 2;
+                        dst += 2;
+                    }
+                    width >>= 1;
+                    for(; width; width--) {
+                        dst[0] = src[0];
+                        dst[1] = src[1];
+                        dst[2] = src[2];
+                        dst[3] = src[3];
+                        src += 4;
+                        dst += 4;
+                    }
+                } else {
+                    src += width;
+                    dst += width;
+                }
+            } else {
+                width = -(char)width;
+                dst += width;
+                w -= width;
+            }
+        }
+    }
 #endif
 #endif
 }
@@ -291,109 +290,109 @@ void town_special_lower(BYTE* pBuff, int nCel)
 void town_special_upper(BYTE* pBuff, int nCel)
 {
 #if 0
-	int w;
-	BYTE *end;
+    int w;
+    BYTE *end;
 
 #ifdef USE_ASM
-	__asm {
-		mov		ebx, pSpecialCels
-		mov		eax, nCel
-		shl		eax, 2
-		add		ebx, eax
-		mov		eax, [ebx+4]
-		sub		eax, [ebx]
-		mov		end, eax
-		mov		esi, pSpecialCels
-		add		esi, [ebx]
-		mov		edi, pBuff
-		mov		eax, BUFFER_WIDTH + 64
-		mov		w, eax
-		mov		ebx, end
-		add		ebx, esi
-	label1:
-		mov		edx, 64
-	label2:
-		xor		eax, eax
-		lodsb
-		or		al, al
-		js		label6
-		sub		edx, eax
-		cmp		edi, gpBufEnd
-		jb		label8
-		mov		ecx, eax
-		shr		ecx, 1
-		jnb		label3
-		movsb
-		jecxz	label5
-	label3:
-		shr		ecx, 1
-		jnb		label4
-		movsw
-		jecxz	label5
-	label4:
-		rep movsd
-	label5:
-		or		edx, edx
-		jz		label7
-		jmp		label2
-	label6:
-		neg		al
-		add		edi, eax
-		sub		edx, eax
-		jnz		label2
-	label7:
-		sub		edi, w
-		cmp		ebx, esi
-		jnz		label1
-	label8:
-		nop
-	}
+    __asm {
+        mov        ebx, pSpecialCels
+        mov        eax, nCel
+        shl        eax, 2
+        add        ebx, eax
+        mov        eax, [ebx+4]
+        sub        eax, [ebx]
+        mov        end, eax
+        mov        esi, pSpecialCels
+        add        esi, [ebx]
+        mov        edi, pBuff
+        mov        eax, BUFFER_WIDTH + 64
+        mov        w, eax
+        mov        ebx, end
+        add        ebx, esi
+    label1:
+        mov        edx, 64
+    label2:
+        xor        eax, eax
+        lodsb
+        or        al, al
+        js        label6
+        sub        edx, eax
+        cmp        edi, gpBufEnd
+        jb        label8
+        mov        ecx, eax
+        shr        ecx, 1
+        jnb        label3
+        movsb
+        jecxz    label5
+    label3:
+        shr        ecx, 1
+        jnb        label4
+        movsw
+        jecxz    label5
+    label4:
+        rep movsd
+    label5:
+        or        edx, edx
+        jz        label7
+        jmp        label2
+    label6:
+        neg        al
+        add        edi, eax
+        sub        edx, eax
+        jnz        label2
+    label7:
+        sub        edi, w
+        cmp        ebx, esi
+        jnz        label1
+    label8:
+        nop
+    }
 #else
-	BYTE width;
-	BYTE *src, *dst;
-	DWORD *pFrameTable;
+    BYTE width;
+    BYTE *src, *dst;
+    DWORD *pFrameTable;
 
-	pFrameTable = (DWORD *)pSpecialCels;
-	src = &pSpecialCels[pFrameTable[nCel]];
-	dst = pBuff;
-	end = &src[pFrameTable[nCel + 1] - pFrameTable[nCel]];
+    pFrameTable = (DWORD *)pSpecialCels;
+    src = &pSpecialCels[pFrameTable[nCel]];
+    dst = pBuff;
+    end = &src[pFrameTable[nCel + 1] - pFrameTable[nCel]];
 
-	for(; src != end; dst -= BUFFER_WIDTH + 64) {
-		for(w = 64; w;) {
-			width = *src++;
-			if(!(width & 0x80)) {
-				w -= width;
-				if(dst < gpBufEnd) {
-					return;
-				}
-				if(width & 1) {
-					dst[0] = src[0];
-					src++;
-					dst++;
-				}
-				width >>= 1;
-				if(width & 1) {
-					dst[0] = src[0];
-					dst[1] = src[1];
-					src += 2;
-					dst += 2;
-				}
-				width >>= 1;
-				for(; width; width--) {
-					dst[0] = src[0];
-					dst[1] = src[1];
-					dst[2] = src[2];
-					dst[3] = src[3];
-					src += 4;
-					dst += 4;
-				}
-			} else {
-				width = -(char)width;
-				dst += width;
-				w -= width;
-			}
-		}
-	}
+    for(; src != end; dst -= BUFFER_WIDTH + 64) {
+        for(w = 64; w;) {
+            width = *src++;
+            if(!(width & 0x80)) {
+                w -= width;
+                if(dst < gpBufEnd) {
+                    return;
+                }
+                if(width & 1) {
+                    dst[0] = src[0];
+                    src++;
+                    dst++;
+                }
+                width >>= 1;
+                if(width & 1) {
+                    dst[0] = src[0];
+                    dst[1] = src[1];
+                    src += 2;
+                    dst += 2;
+                }
+                width >>= 1;
+                for(; width; width--) {
+                    dst[0] = src[0];
+                    dst[1] = src[1];
+                    dst[2] = src[2];
+                    dst[3] = src[3];
+                    src += 4;
+                    dst += 4;
+                }
+            } else {
+                width = -(char)width;
+                dst += width;
+                w -= width;
+            }
+        }
+    }
 #endif
 #endif
 }
@@ -469,8 +468,7 @@ void town_draw_clipped_town(BYTE* pBuff, int sx, int sy, int dx, int dy, int efl
         px = dx - towner[mi]._tAnimWidth2;
         if (mi == pcursmonst)
         {
-            CelBlitOutlineSafe(
-                166, px, dy, towner[mi]._tAnimData, towner[mi]._tAnimFrame, towner[mi]._tAnimWidth, 0, 8);
+            CelBlitOutlineSafe(166, px, dy, towner[mi]._tAnimData, towner[mi]._tAnimFrame, towner[mi]._tAnimWidth, 0, 8);
         }
         CelClippedDrawSafe(px, dy, towner[mi]._tAnimData, towner[mi]._tAnimFrame, towner[mi]._tAnimWidth, 0, 8);
     }
@@ -480,8 +478,7 @@ void town_draw_clipped_town(BYTE* pBuff, int sx, int sy, int dx, int dy, int efl
         px = dx - towner[mi]._tAnimWidth2;
         if (mi == pcursmonst)
         {
-            CelBlitOutlineSafe(
-                166, px, dy, towner[mi]._tAnimData, towner[mi]._tAnimFrame, towner[mi]._tAnimWidth, 0, 8);
+            CelBlitOutlineSafe(166, px, dy, towner[mi]._tAnimData, towner[mi]._tAnimFrame, towner[mi]._tAnimWidth, 0, 8);
         }
         CelClippedDrawSafe(px, dy, towner[mi]._tAnimData, towner[mi]._tAnimFrame, towner[mi]._tAnimWidth, 0, 8);
     }
@@ -726,8 +723,7 @@ void town_draw_clipped_town_2(BYTE* pBuff, int sx, int sy, int row, int CelSkip,
         px = dx - item[bv]._iAnimWidth2;
         if (bv == pcursitem)
         {
-            CelBlitOutlineSafe(
-                181, px, dy, item[bv]._iAnimData, item[bv]._iAnimFrame, item[bv]._iAnimWidth, CelSkip, 8);
+            CelBlitOutlineSafe(181, px, dy, item[bv]._iAnimData, item[bv]._iAnimFrame, item[bv]._iAnimWidth, CelSkip, 8);
         }
         CelClippedDrawSafe(px, dy, item[bv]._iAnimData, item[bv]._iAnimFrame, item[bv]._iAnimWidth, CelSkip, 8);
     }
@@ -737,8 +733,7 @@ void town_draw_clipped_town_2(BYTE* pBuff, int sx, int sy, int row, int CelSkip,
         px = dx - towner[mi]._tAnimWidth2;
         if (mi == pcursmonst)
         {
-            CelBlitOutlineSafe(
-                166, px, dy, towner[mi]._tAnimData, towner[mi]._tAnimFrame, towner[mi]._tAnimWidth, CelSkip, 8);
+            CelBlitOutlineSafe(166, px, dy, towner[mi]._tAnimData, towner[mi]._tAnimFrame, towner[mi]._tAnimWidth, CelSkip, 8);
         }
         CelClippedDrawSafe(px, dy, towner[mi]._tAnimData, towner[mi]._tAnimFrame, towner[mi]._tAnimWidth, CelSkip, 8);
     }
@@ -748,8 +743,7 @@ void town_draw_clipped_town_2(BYTE* pBuff, int sx, int sy, int row, int CelSkip,
         px = dx - towner[mi]._tAnimWidth2;
         if (mi == pcursmonst)
         {
-            CelBlitOutlineSafe(
-                166, px, dy, towner[mi]._tAnimData, towner[mi]._tAnimFrame, towner[mi]._tAnimWidth, CelSkip, 8);
+            CelBlitOutlineSafe(166, px, dy, towner[mi]._tAnimData, towner[mi]._tAnimFrame, towner[mi]._tAnimWidth, CelSkip, 8);
         }
         CelClippedDrawSafe(px, dy, towner[mi]._tAnimData, towner[mi]._tAnimFrame, towner[mi]._tAnimWidth, CelSkip, 8);
     }
@@ -885,8 +879,7 @@ void town_draw_lower_2(int x, int y, int sx, int sy, int chunks, int row, int ef
                 }
                 if (CelSkip < 8)
                 {
-                    town_draw_clipped_town_2(
-                        &gpBuffer[sx + PitchTbl[sy] - BUFFER_WIDTH * 16 * CelSkip], x, y, row, CelSkip, sx, sy, 1);
+                    town_draw_clipped_town_2(&gpBuffer[sx + PitchTbl[sy] - BUFFER_WIDTH * 16 * CelSkip], x, y, row, CelSkip, sx, sy, 1);
                 }
             }
             else
@@ -1016,8 +1009,7 @@ void town_draw_town_all(BYTE* pBuff, int x, int y, int row, int CelCap, int sx, 
         px = sx - towner[mi]._tAnimWidth2;
         if (mi == pcursmonst)
         {
-            CelBlitOutline(
-                166, px, sy, towner[mi]._tAnimData, towner[mi]._tAnimFrame, towner[mi]._tAnimWidth, 0, CelCap);
+            CelBlitOutline(166, px, sy, towner[mi]._tAnimData, towner[mi]._tAnimFrame, towner[mi]._tAnimWidth, 0, CelCap);
         }
         /// ASSERT: assert(towner[mi]._tAnimData);
         CelClippedDraw(px, sy, towner[mi]._tAnimData, towner[mi]._tAnimFrame, towner[mi]._tAnimWidth, 0, CelCap);
@@ -1028,8 +1020,7 @@ void town_draw_town_all(BYTE* pBuff, int x, int y, int row, int CelCap, int sx, 
         px = sx - towner[mi]._tAnimWidth2;
         if (mi == pcursmonst)
         {
-            CelBlitOutline(
-                166, px, sy, towner[mi]._tAnimData, towner[mi]._tAnimFrame, towner[mi]._tAnimWidth, 0, CelCap);
+            CelBlitOutline(166, px, sy, towner[mi]._tAnimData, towner[mi]._tAnimFrame, towner[mi]._tAnimWidth, 0, CelCap);
         }
         /// ASSERT: assert(towner[mi]._tAnimData);
         CelClippedDraw(px, sy, towner[mi]._tAnimData, towner[mi]._tAnimFrame, towner[mi]._tAnimWidth, 0, CelCap);
@@ -1474,35 +1465,35 @@ void T_DrawZoom(int x, int y)
 
 #ifdef USE_ASM
     __asm {
-		mov		esi, gpBuffer
-		mov		edx, nDstOff
-		mov		edi, esi
-		mov		ecx, nSrcOff
-		add		edi, edx
-		add		esi, ecx
-		mov		ebx, edi
-		add		ebx, BUFFER_WIDTH
-		mov		edx, VIEWPORT_HEIGHT / 2
-	label1:
-		mov		ecx, wdt
-	label2:
-		mov		al, [esi]
-		inc		esi
-		mov		ah, al
-		mov		[edi], ax
-		mov		[ebx], ax
-		add		edi, 2
-		add		ebx, 2
-		dec		ecx
-		jnz		label2
-		mov		eax, BUFFER_WIDTH
-		add		eax, wdt
-		sub		esi, eax
-		add		eax, eax
-		sub		ebx, eax
-		sub		edi, eax
-		dec		edx
-		jnz		label1
+        mov        esi, gpBuffer
+        mov        edx, nDstOff
+        mov        edi, esi
+        mov        ecx, nSrcOff
+        add        edi, edx
+        add        esi, ecx
+        mov        ebx, edi
+        add        ebx, BUFFER_WIDTH
+        mov        edx, VIEWPORT_HEIGHT / 2
+    label1:
+        mov        ecx, wdt
+    label2:
+        mov        al, [esi]
+        inc        esi
+        mov        ah, al
+        mov        [edi], ax
+        mov        [ebx], ax
+        add        edi, 2
+        add        ebx, 2
+        dec        ecx
+        jnz        label2
+        mov        eax, BUFFER_WIDTH
+        add        eax, wdt
+        sub        esi, eax
+        add        eax, eax
+        sub        ebx, eax
+        sub        edi, eax
+        dec        edx
+        jnz        label1
     }
 #else
     int hgt;
@@ -1512,8 +1503,7 @@ void T_DrawZoom(int x, int y)
     dst1 = &gpBuffer[nDstOff];
     dst2 = &gpBuffer[nDstOff + BUFFER_WIDTH];
 
-    for (hgt = VIEWPORT_HEIGHT / 2; hgt != 0;
-         hgt--, src -= BUFFER_WIDTH + wdt, dst1 -= 2 * (BUFFER_WIDTH + wdt), dst2 -= 2 * (BUFFER_WIDTH + wdt))
+    for (hgt = VIEWPORT_HEIGHT / 2; hgt != 0; hgt--, src -= BUFFER_WIDTH + wdt, dst1 -= 2 * (BUFFER_WIDTH + wdt), dst2 -= 2 * (BUFFER_WIDTH + wdt))
     {
         for (i = wdt; i != 0; i--)
         {
@@ -1684,38 +1674,38 @@ void T_FillSector(BYTE* P3Tiles, BYTE* pSector, int xi, int yi, int w, int h)
         {
 #ifdef USE_ASM
             __asm {
-				mov		esi, pSector
-				mov		eax, ii
-				add		esi, eax
-				xor		eax, eax
-				lodsw
-				or		eax, eax
-				jz		label1
-				dec		eax
-				mov		esi, P3Tiles
-				shl		eax, 3
-				add		esi, eax
-				xor		eax, eax
-				lodsw
-				inc		eax
-				mov		v1, eax
-				lodsw
-				inc		eax
-				mov		v2, eax
-				lodsw
-				inc		eax
-				mov		v3, eax
-				lodsw
-				inc		eax
-				mov		v4, eax
-				jmp		label2
-			label1:
-				mov		v1, eax
-				mov		v2, eax
-				mov		v3, eax
-				mov		v4, eax
-			label2:
-				nop
+                mov        esi, pSector
+                mov        eax, ii
+                add        esi, eax
+                xor        eax, eax
+                lodsw
+                or        eax, eax
+                jz        label1
+                dec        eax
+                mov        esi, P3Tiles
+                shl        eax, 3
+                add        esi, eax
+                xor        eax, eax
+                lodsw
+                inc        eax
+                mov        v1, eax
+                lodsw
+                inc        eax
+                mov        v2, eax
+                lodsw
+                inc        eax
+                mov        v3, eax
+                lodsw
+                inc        eax
+                mov        v4, eax
+                jmp        label2
+            label1:
+                mov        v1, eax
+                mov        v2, eax
+                mov        v3, eax
+                mov        v4, eax
+            label2:
+                nop
             }
 #else
             WORD* Map;
@@ -1760,31 +1750,31 @@ void T_FillTile(BYTE* P3Tiles, int xx, int yy, int t)
 
 #ifdef USE_ASM
     __asm {
-		mov		eax, t
-		dec		eax
-		mov		esi, P3Tiles
-		shl		eax, 3
-		add		esi, eax
-		xor		eax, eax
-		lodsw
-		inc		eax
-		mov		v1, eax
-		lodsw
-		inc		eax
-		mov		v2, eax
-		lodsw
-		inc		eax
-		mov		v3, eax
-		lodsw
-		inc		eax
-		mov		v4, eax
-		jmp		label1
-		mov		v1, eax
-		mov		v2, eax
-		mov		v3, eax
-		mov		v4, eax
-	label1:
-		nop
+        mov        eax, t
+        dec        eax
+        mov        esi, P3Tiles
+        shl        eax, 3
+        add        esi, eax
+        xor        eax, eax
+        lodsw
+        inc        eax
+        mov        v1, eax
+        lodsw
+        inc        eax
+        mov        v2, eax
+        lodsw
+        inc        eax
+        mov        v3, eax
+        lodsw
+        inc        eax
+        mov        v4, eax
+        jmp        label1
+        mov        v1, eax
+        mov        v2, eax
+        mov        v3, eax
+        mov        v4, eax
+    label1:
+        nop
     }
 #else
     v1 = *((WORD*)&P3Tiles[(t - 1) * 8] + 0) + 1;
@@ -1971,8 +1961,7 @@ void T_Pass3()
     {
 #endif
 #ifdef HELLFIRE
-        if (quests[Q_FARMER]._qactive == 3 || quests[Q_FARMER]._qactive == 10 || quests[Q_JERSEY]._qactive == 3 ||
-            quests[Q_JERSEY]._qactive == 10)
+        if (quests[Q_FARMER]._qactive == 3 || quests[Q_FARMER]._qactive == 10 || quests[Q_JERSEY]._qactive == 3 || quests[Q_JERSEY]._qactive == 10)
         {
             town_4751C6();
         }
@@ -2025,8 +2014,7 @@ void T_Pass3()
 #ifdef HELLFIRE
     else
     {
-        if (quests[Q_FARMER]._qactive == 3 || quests[Q_FARMER]._qactive == 10 || quests[Q_JERSEY]._qactive == 3 ||
-            quests[Q_JERSEY]._qactive == 10)
+        if (quests[Q_FARMER]._qactive == 3 || quests[Q_FARMER]._qactive == 10 || quests[Q_JERSEY]._qactive == 3 || quests[Q_JERSEY]._qactive == 10)
         {
             town_4751C6();
         }

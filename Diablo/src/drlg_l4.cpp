@@ -34,100 +34,98 @@ const BYTE L4ConvTbl[16] = {30, 6, 1, 6, 2, 6, 6, 6, 9, 6, 1, 6, 2, 6, 3, 6};
 /** Miniset: Stairs up. */
 const BYTE L4USTAIRS[] = {
     // clang-format off
-	4, 5, // width, height
+    4, 5, // width, height
 
-	 6, 6, 6, 6, // search
-	 6, 6, 6, 6,
-	 6, 6, 6, 6,
-	 6, 6, 6, 6,
-	 6, 6, 6, 6,
+     6, 6, 6, 6, // search
+     6, 6, 6, 6,
+     6, 6, 6, 6,
+     6, 6, 6, 6,
+     6, 6, 6, 6,
 
-	 0,  0,  0,  0, // replace
-	36, 38, 35,  0,
-	37, 34, 33, 32,
-	 0,  0, 31,  0,
-	 0,  0,  0,  0,
+     0,  0,  0,  0, // replace
+    36, 38, 35,  0,
+    37, 34, 33, 32,
+     0,  0, 31,  0,
+     0,  0,  0,  0,
     // clang-format on
 };
 /** Miniset: Stairs up to town. */
 const BYTE L4TWARP[] = {
     // clang-format off
-	4, 5, // width, height
+    4, 5, // width, height
 
-	6, 6, 6, 6, // search
-	6, 6, 6, 6,
-	6, 6, 6, 6,
-	6, 6, 6, 6,
-	6, 6, 6, 6,
+    6, 6, 6, 6, // search
+    6, 6, 6, 6,
+    6, 6, 6, 6,
+    6, 6, 6, 6,
+    6, 6, 6, 6,
 
-	  0,   0,   0,   0, // replace
-	134, 136, 133,   0,
-	135, 132, 131, 130,
-	  0,   0, 129,   0,
-	  0,   0,   0,   0,
+      0,   0,   0,   0, // replace
+    134, 136, 133,   0,
+    135, 132, 131, 130,
+      0,   0, 129,   0,
+      0,   0,   0,   0,
     // clang-format on
 };
 /** Miniset: Stairs down. */
 const BYTE L4DSTAIRS[] = {
     // clang-format off
-	5, 5, // width, height
+    5, 5, // width, height
 
-	6, 6, 6, 6, 6, // search
-	6, 6, 6, 6, 6,
-	6, 6, 6, 6, 6,
-	6, 6, 6, 6, 6,
-	6, 6, 6, 6, 6,
+    6, 6, 6, 6, 6, // search
+    6, 6, 6, 6, 6,
+    6, 6, 6, 6, 6,
+    6, 6, 6, 6, 6,
+    6, 6, 6, 6, 6,
 
-	0,  0,  0,  0, 0, // replace
-	0,  0, 45, 41, 0,
-	0, 44, 43, 40, 0,
-	0, 46, 42, 39, 0,
-	0,  0,  0,  0, 0,
+    0,  0,  0,  0, 0, // replace
+    0,  0, 45, 41, 0,
+    0, 44, 43, 40, 0,
+    0, 46, 42, 39, 0,
+    0,  0,  0,  0, 0,
     // clang-format on
 };
 /** Miniset: Pentagram. */
 const BYTE L4PENTA[] = {
     // clang-format off
-	5, 5, // width, height
+    5, 5, // width, height
 
-	6, 6, 6, 6, 6, // search
-	6, 6, 6, 6, 6,
-	6, 6, 6, 6, 6,
-	6, 6, 6, 6, 6,
-	6, 6, 6, 6, 6,
+    6, 6, 6, 6, 6, // search
+    6, 6, 6, 6, 6,
+    6, 6, 6, 6, 6,
+    6, 6, 6, 6, 6,
+    6, 6, 6, 6, 6,
 
-	0,   0,   0,   0, 0, // replace
-	0,  98, 100, 103, 0,
-	0,  99, 102, 105, 0,
-	0, 101, 104, 106, 0,
-	0,   0,   0,   0, 0,
+    0,   0,   0,   0, 0, // replace
+    0,  98, 100, 103, 0,
+    0,  99, 102, 105, 0,
+    0, 101, 104, 106, 0,
+    0,   0,   0,   0, 0,
     // clang-format on
 };
 /** Miniset: Pentagram portal. */
 const BYTE L4PENTA2[] = {
     // clang-format off
-	5, 5, // width, height
+    5, 5, // width, height
 
-	6, 6, 6, 6, 6, // search
-	6, 6, 6, 6, 6,
-	6, 6, 6, 6, 6,
-	6, 6, 6, 6, 6,
-	6, 6, 6, 6, 6,
+    6, 6, 6, 6, 6, // search
+    6, 6, 6, 6, 6,
+    6, 6, 6, 6, 6,
+    6, 6, 6, 6, 6,
+    6, 6, 6, 6, 6,
 
-	0,   0,   0,   0, 0, // replace
-	0, 107, 109, 112, 0,
-	0, 108, 111, 114, 0,
-	0, 110, 113, 115, 0,
-	0,   0,   0,   0, 0,
+    0,   0,   0,   0, 0, // replace
+    0, 107, 109, 112, 0,
+    0, 108, 111, 114, 0,
+    0, 110, 113, 115, 0,
+    0,   0,   0,   0, 0,
     // clang-format on
 };
 
 /** Maps tile IDs to their corresponding undecorated tile ID. */
-const BYTE L4BTYPES[140] = {
-    0, 1, 2, 3, 4, 5, 6, 7,  8,  9, 10, 11, 12, 13, 14, 15, 16, 17, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
-    0, 0, 0, 0, 0, 0, 0, 0,  0,  0, 0,  0,  0,  0,  6,  6,  6,  0,  0, 0, 0, 0, 0, 0, 0, 0, 1, 2, 1, 2, 1, 2, 1, 1, 2,
-    2, 0, 0, 0, 0, 0, 0, 15, 16, 9, 12, 4,  5,  7,  0,  0,  0,  0,  0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
-    0, 0, 0, 0, 0, 0, 0, 0,  0,  0, 0,  0,  0,  0,  0,  0,  0,  0,  0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0};
+const BYTE L4BTYPES[140] = {0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,  0,  0, 0,  0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+                            0, 0, 6, 6, 6, 0, 0, 0, 0, 0, 0,  0,  0,  0,  1,  2,  1,  2,  1, 2, 1, 1, 2, 2, 0, 0, 0, 0, 0, 0, 15, 16, 9, 12, 4, 5, 7, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+                            0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,  0,  0,  0,  0,  0,  0,  0,  0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,  0,  0, 0,  0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0};
 
 static void DRLG_L4Shadows()
 {
@@ -249,8 +247,7 @@ static void L4makeDmt()
     {
         for (i = 0, dmtx = 1; dmtx <= 77; i++, dmtx += 2)
         {
-            val = 8 * L4dungeon[dmtx + 1][dmty + 1] + 4 * L4dungeon[dmtx][dmty + 1] + 2 * L4dungeon[dmtx + 1][dmty] +
-                  L4dungeon[dmtx][dmty];
+            val = 8 * L4dungeon[dmtx + 1][dmty + 1] + 4 * L4dungeon[dmtx][dmty + 1] + 2 * L4dungeon[dmtx + 1][dmty] + L4dungeon[dmtx][dmty];
             idx = L4ConvTbl[val];
             dungeon[i][j] = idx;
         }
@@ -739,20 +736,15 @@ static void L4tileFix()
                 dungeon[i][j + 1] = 18;
             if (dungeon[i][j] == 28 && dungeon[i][j + 1] == 2)
                 dungeon[i][j + 1] = 15;
-            if (dungeon[i][j] == 19 && dungeon[i + 2][j] == 2 && dungeon[i + 1][j - 1] == 18 &&
-                dungeon[i + 1][j + 1] == 1)
+            if (dungeon[i][j] == 19 && dungeon[i + 2][j] == 2 && dungeon[i + 1][j - 1] == 18 && dungeon[i + 1][j + 1] == 1)
                 dungeon[i + 1][j] = 17;
-            if (dungeon[i][j] == 19 && dungeon[i + 2][j] == 2 && dungeon[i + 1][j - 1] == 22 &&
-                dungeon[i + 1][j + 1] == 1)
+            if (dungeon[i][j] == 19 && dungeon[i + 2][j] == 2 && dungeon[i + 1][j - 1] == 22 && dungeon[i + 1][j + 1] == 1)
                 dungeon[i + 1][j] = 17;
-            if (dungeon[i][j] == 19 && dungeon[i + 2][j] == 2 && dungeon[i + 1][j - 1] == 18 &&
-                dungeon[i + 1][j + 1] == 13)
+            if (dungeon[i][j] == 19 && dungeon[i + 2][j] == 2 && dungeon[i + 1][j - 1] == 18 && dungeon[i + 1][j + 1] == 13)
                 dungeon[i + 1][j] = 17;
-            if (dungeon[i][j] == 21 && dungeon[i + 2][j] == 2 && dungeon[i + 1][j - 1] == 18 &&
-                dungeon[i + 1][j + 1] == 1)
+            if (dungeon[i][j] == 21 && dungeon[i + 2][j] == 2 && dungeon[i + 1][j - 1] == 18 && dungeon[i + 1][j + 1] == 1)
                 dungeon[i + 1][j] = 17;
-            if (dungeon[i][j] == 21 && dungeon[i + 1][j + 1] == 1 && dungeon[i + 1][j - 1] == 22 &&
-                dungeon[i + 2][j] == 3)
+            if (dungeon[i][j] == 21 && dungeon[i + 1][j + 1] == 1 && dungeon[i + 1][j - 1] == 22 && dungeon[i + 2][j] == 3)
                 dungeon[i + 1][j] = 17;
             if (dungeon[i][j] == 15 && dungeon[i + 1][j] == 28 && dungeon[i + 2][j] == 30 && dungeon[i + 1][j - 1] == 6)
                 dungeon[i + 1][j] = 23;
@@ -880,8 +872,7 @@ static void L4tileFix()
         {
             if (dungeon[i][j] == 21 && dungeon[i][j + 1] == 24 && dungeon[i][j + 2] == 1)
                 dungeon[i][j + 1] = 17;
-            if (dungeon[i][j] == 15 && dungeon[i + 1][j + 1] == 9 && dungeon[i + 1][j - 1] == 1 &&
-                dungeon[i + 2][j] == 16)
+            if (dungeon[i][j] == 15 && dungeon[i + 1][j + 1] == 9 && dungeon[i + 1][j - 1] == 1 && dungeon[i + 2][j] == 16)
                 dungeon[i + 1][j] = 29;
             if (dungeon[i][j] == 2 && dungeon[i - 1][j] == 6)
                 dungeon[i - 1][j] = 8;
@@ -997,8 +988,7 @@ static void L4tileFix()
         {
             if (dungeon[i][j] == 15 && dungeon[i + 1][j] == 28 && dungeon[i + 2][j] == 16)
                 dungeon[i + 1][j] = 23;
-            if (dungeon[i][j] == 21 && dungeon[i + 1][j - 1] == 21 && dungeon[i + 1][j + 1] == 13 &&
-                dungeon[i + 2][j] == 2)
+            if (dungeon[i][j] == 21 && dungeon[i + 1][j - 1] == 21 && dungeon[i + 1][j + 1] == 13 && dungeon[i + 2][j] == 2)
                 dungeon[i + 1][j] = 17;
             if (dungeon[i][j] == 19 && dungeon[i + 1][j] == 15 && dungeon[i + 1][j + 1] == 12)
                 dungeon[i + 1][j] = 17;
@@ -2068,23 +2058,23 @@ static void DRLG_L4Pass3()
 
 #ifdef USE_ASM
     __asm {
-		mov		esi, pMegaTiles
-		mov		eax, lv
-		shl		eax, 3
-		add		esi, eax
-		xor		eax, eax
-		lodsw
-		inc		eax
-		mov		v1, eax
-		lodsw
-		inc		eax
-		mov		v2, eax
-		lodsw
-		inc		eax
-		mov		v3, eax
-		lodsw
-		inc		eax
-		mov		v4, eax
+        mov        esi, pMegaTiles
+        mov        eax, lv
+        shl        eax, 3
+        add        esi, eax
+        xor        eax, eax
+        lodsw
+        inc        eax
+        mov        v1, eax
+        lodsw
+        inc        eax
+        mov        v2, eax
+        lodsw
+        inc        eax
+        mov        v3, eax
+        lodsw
+        inc        eax
+        mov        v4, eax
     }
 #else
     v1 = *((WORD*)&pMegaTiles[lv * 8] + 0) + 1;
@@ -2115,23 +2105,23 @@ static void DRLG_L4Pass3()
             if (lv >= 0)
             {
                 __asm {
-					mov		esi, pMegaTiles
-					mov		eax, lv
-					shl		eax, 3
-					add		esi, eax
-					xor		eax, eax
-					lodsw
-					inc		eax
-					mov		v1, eax
-					lodsw
-					inc		eax
-					mov		v2, eax
-					lodsw
-					inc		eax
-					mov		v3, eax
-					lodsw
-					inc		eax
-					mov		v4, eax
+                    mov        esi, pMegaTiles
+                    mov        eax, lv
+                    shl        eax, 3
+                    add        esi, eax
+                    xor        eax, eax
+                    lodsw
+                    inc        eax
+                    mov        v1, eax
+                    lodsw
+                    inc        eax
+                    mov        v2, eax
+                    lodsw
+                    inc        eax
+                    mov        v3, eax
+                    lodsw
+                    inc        eax
+                    mov        v4, eax
                 }
             }
             else

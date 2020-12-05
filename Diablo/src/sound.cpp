@@ -352,8 +352,7 @@ static HRESULT sound_DirectSoundCreate(LPGUID lpGuid, LPDIRECTSOUND* ppDS, LPUNK
         ErrDlg(IDD_DIALOG5, GetLastError(), "C:\\Src\\Diablo\\Source\\SOUND.CPP", 422);
     }
 
-    DirectSoundCreate =
-        (HRESULT(WINAPI*)(LPGUID, LPDIRECTSOUND*, LPUNKNOWN))GetProcAddress(hDsound_dll, "DirectSoundCreate");
+    DirectSoundCreate = (HRESULT(WINAPI*)(LPGUID, LPDIRECTSOUND*, LPUNKNOWN))GetProcAddress(hDsound_dll, "DirectSoundCreate");
     if (DirectSoundCreate == NULL)
     {
         ErrDlg(IDD_DIALOG5, GetLastError(), "C:\\Src\\Diablo\\Source\\SOUND.CPP", 427);

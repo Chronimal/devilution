@@ -41,8 +41,7 @@ static void pfile_check_available_space(char* pszDir)
         break;
     }
 
-    hasSpace =
-        GetDiskFreeSpace(pszDir, &SectorsPerCluster, &BytesPerSector, &NumberOfFreeClusters, &TotalNumberOfClusters);
+    hasSpace = GetDiskFreeSpace(pszDir, &SectorsPerCluster, &BytesPerSector, &NumberOfFreeClusters, &TotalNumberOfClusters);
     if (hasSpace)
     {
         // 10MB is the amount hardcoded in the error dialog

@@ -206,8 +206,7 @@ const TextDataStruct alltext[] = {
      "longer than I've been alive. If you need something to use against this King of the undead, then I can help you "
      "out... |",
      1, 5, TSFX_PEGBOY1},
-    {"The warmth of life has entered my tomb. Prepare yourself, mortal, to serve my Master for eternity! |", 0, 5,
-     USFX_SKING1},
+    {"The warmth of life has entered my tomb. Prepare yourself, mortal, to serve my Master for eternity! |", 0, 5, USFX_SKING1},
     {"I see that this strange behavior puzzles you as well. I would surmise that since many demons fear the light of "
      "the sun and believe that it holds great power, it may be that the rising sun depicted on the sign you speak of "
      "has led them to believe that it too holds some arcane powers. Hmm, perhaps they are not all as smart as we had "
@@ -341,11 +340,9 @@ const TextDataStruct alltext[] = {
      "to protect great treasures, they would create domains where those who died in the attempt to steal that treasure "
      "would be forever bound to defend it. A twisted, but strangely fitting, end? |",
      1, 4, TSFX_STORY7},
-    {"I am afraid that I don't know anything about that, good master. Cain has many books that may be of some help. |",
-     1, 6, TSFX_TAVERN5},
+    {"I am afraid that I don't know anything about that, good master. Cain has many books that may be of some help. |", 1, 6, TSFX_TAVERN5},
     {"This sounds like a very dangerous place. If you venture there, please take great care. |", 1, 6, TSFX_HEALER5},
-    {"I am afraid that I haven't heard anything about that. Perhaps Cain the Storyteller could be of some help. |", 1,
-     6, TSFX_BMAID6},
+    {"I am afraid that I haven't heard anything about that. Perhaps Cain the Storyteller could be of some help. |", 1, 6, TSFX_BMAID6},
     {"I know nothing of this place, but you may try asking Cain. He talks about many things, and it would not surprise "
      "me if he had some answers to your question. |",
      1, 6, TSFX_SMITH7},
@@ -434,8 +431,7 @@ const TextDataStruct alltext[] = {
      "effect you if you were to try to drink it. As your healer, I strongly advise that should you find such an "
      "elixir, do as Lachdanan asks and DO NOT try to use it. |",
      1, 5, TSFX_HEALER11},
-    {"I've never heard of a Lachdanan before. I'm sorry, but I don't think that I can be of much help to you. |", 1, 7,
-     TSFX_BMAID11},
+    {"I've never heard of a Lachdanan before. I'm sorry, but I don't think that I can be of much help to you. |", 1, 7, TSFX_BMAID11},
     {"If it is actually Lachdanan that you have met, then I would advise that you aid him. I dealt with him on several "
      "occasions and found him to be honest and loyal in nature. The curse that fell upon the followers of King Leoric "
      "would fall especially hard upon him. |",
@@ -457,8 +453,7 @@ const TextDataStruct alltext[] = {
      "my soul to rest, but I have been unable to find it. My strength now wanes, and with it the last of my humanity "
      "as well. Please aid me and find the Elixir. I will repay your efforts - I swear upon my honor. |",
      1, 3, USFX_LACH1},
-    {"You have not found the Golden Elixir. I fear that I am doomed for eternity. Please, keep trying... |", 1, 6,
-     USFX_LACH2},
+    {"You have not found the Golden Elixir. I fear that I am doomed for eternity. Please, keep trying... |", 1, 6, USFX_LACH2},
     {"You have saved my soul from damnation, and for that I am in your debt. If there is ever a way that I can repay "
      "you from beyond the grave I will find it, but for now - take my helm. On the journey I am about to take I will "
      "have little use for it. May it protect you against the dark powers below. Go with the Light, my friend... |",
@@ -469,8 +464,7 @@ const TextDataStruct alltext[] = {
      "immersed into the realm of Chaos, imbedding it with magical properties. It is said that the unpredictable nature "
      "of Chaos makes it difficult to know what the outcome of this smithing will be... |",
      1, 4, TSFX_STORY14},
-    {"Don't you think that Griswold would be a better person to ask about this? He's quite handy, you know. |", 1, 7,
-     TSFX_TAVERN12},
+    {"Don't you think that Griswold would be a better person to ask about this? He's quite handy, you know. |", 1, 7, TSFX_TAVERN12},
     {"If you had been looking for information on the Pestle of Curing or the Silver Chalice of Purification, I could "
      "have assisted you, my friend. However, in this matter, you would be better served to speak to either Griswold or "
      "Cain. |",
@@ -495,8 +489,7 @@ const TextDataStruct alltext[] = {
     {"I can hardly believe it! This is the Anvil of Fury - good work, my friend. Now we'll show those bastards that "
      "there are no weapons in Hell more deadly than those made by men! Take this and may Light protect you. |",
      1, 5, TSFX_SMITH23},
-    {"Griswold can't sell his anvil. What will he do then? And I'd be angry too if someone took my anvil! |", 1, 6,
-     TSFX_DRUNK14},
+    {"Griswold can't sell his anvil. What will he do then? And I'd be angry too if someone took my anvil! |", 1, 6, TSFX_DRUNK14},
     {"There are many artifacts within the Labyrinth that hold powers beyond the comprehension of mortals. Some of "
      "these hold fantastic power that can be used by either the Light or the Darkness. Securing the Anvil from below "
      "could shift the course of the Sin War towards the Light. |",
@@ -543,8 +536,7 @@ const TextDataStruct alltext[] = {
     {"I am afraid that I haven't heard anything about such a vicious warrior, good master. I hope that you do not have "
      "to fight him, for he sounds extremely dangerous. |",
      1, 6, TSFX_TAVERN16},
-    {"Cain would be able to tell you much more about something like this than I would ever wish to know. |", 1, 7,
-     TSFX_HEALER16},
+    {"Cain would be able to tell you much more about something like this than I would ever wish to know. |", 1, 7, TSFX_HEALER16},
     {"If you are to battle such a fierce opponent, may Light be your guide and your defender. I will keep you in my "
      "thoughts. |",
      1, 6, TSFX_BMAID16},
@@ -639,8 +631,7 @@ const TextDataStruct alltext[] = {
     {"What? Now you bring me that elixir from the healer? I was able to finish my brew without it. Why don't you just "
      "keep it... |",
      1, 6, TSFX_WITCH26},
-    {"I don't have any mushrooms of any size or color for sale. How about something a bit more useful? |", 1, 6,
-     TSFX_PEGBOY19},
+    {"I don't have any mushrooms of any size or color for sale. How about something a bit more useful? |", 1, 6, TSFX_PEGBOY19},
     {"So, the legend of the Map is real. Even I never truly believed any of it! I suppose it is time that I told you "
      "the truth about who I am, my friend. You see, I am not all that I seem...\n \nMy true name is Deckard Cain the "
      "Elder, and I am the last descendant of an ancient Brotherhood that was dedicated to keeping and safeguarding the "
@@ -683,8 +674,7 @@ const TextDataStruct alltext[] = {
     {"Something for you I am making. Again, not kill Gharbad. Live and give good. \n \nYou take this as proof I keep "
      "word... |",
      1, 6, USFX_GARBUD2},
-    {"Nothing yet! Almost done. \n \nVery powerful, very strong. Live! Live! \n \nNo pain and promise I keep! |", 1, 6,
-     USFX_GARBUD3},
+    {"Nothing yet! Almost done. \n \nVery powerful, very strong. Live! Live! \n \nNo pain and promise I keep! |", 1, 6, USFX_GARBUD3},
     {"This too good for you. Very Powerful! You want - you take! |", 1, 6, USFX_GARBUD4},
     {"What?! Why are you here? All these interruptions are enough to make one insane. Here, take this and leave me to "
      "my work. Trouble me no more! |",
@@ -1067,8 +1057,7 @@ const TextDataStruct alltext[] = {
     {"Not everyone in Tristram has a use - or a market - for everything you will find in the labyrinth. Not even me, "
      "as hard as that is to believe. \n \nSometimes, only you will be able to find a purpose for some things. |",
      1, 6, TSFX_PEGBOY33},
-    {"Don't trust everything the drunk says. Too many ales have fogged his vision and his good sense. |", 1, 6,
-     TSFX_PEGBOY34},
+    {"Don't trust everything the drunk says. Too many ales have fogged his vision and his good sense. |", 1, 6, TSFX_PEGBOY34},
     {"In case you haven't noticed, I don't buy anything from Tristram. I am an importer of quality goods. If you want "
      "to peddle junk, you'll have to see Griswold, Pepin or that witch, Adria. I'm sure that they will snap up "
      "whatever you can bring them... |",
@@ -1331,22 +1320,19 @@ const TextDataStruct alltext[] = {
      "the big green thing.  I said we shouldn't, but we snuck over there, and then suddenly this BUG came out!  We ran "
      "away but Theo fell down and the bug GRABBED him and took him away!|",
      1, 5, TSFX_TEDDYBR2},
-    {"Didja find him?  You gotta find Theodore, please!  He's just little.  He can't take care of himself!  Please!|",
-     1, 5, TSFX_TEDDYBR3},
+    {"Didja find him?  You gotta find Theodore, please!  He's just little.  He can't take care of himself!  Please!|", 1, 5, TSFX_TEDDYBR3},
     {"You found him!  You found him!  Thank you!  Oh Theo, did those nasty bugs scare you?  Hey!  Ugh!  There's "
      "something stuck to your fur!  Ick!  Come on, Theo, let's go home!  Thanks again, hero person!|",
      1, 5, TSFX_TEDDYBR4},
     {"We have long lain dormant, and the time to awaken has come.  After our long sleep, we are filled with great "
      "hunger.  Soon, now, we shall feed...|",
      1, 5, USFX_DEFILER6},
-    {"Have you been enjoying yourself, little mammal?  How pathetic. Your little world will be no challenge at all.|",
-     1, 5, USFX_DEFILER2},
+    {"Have you been enjoying yourself, little mammal?  How pathetic. Your little world will be no challenge at all.|", 1, 5, USFX_DEFILER2},
     {"These lands shall be defiled, and our brood shall overrun the fields that men call home.  Our tendrils shall "
      "envelop this world, and we will feast on the flesh of its denizens.  Man shall become our chattel and "
      "sustenance.|",
      1, 5, USFX_DEFILER7},
-    {"Ah, I can smell you...you are close! Close! Ssss...the scent of blood and fear...how enticing...|", 1, 5,
-     USFX_DEFILER4},
+    {"Ah, I can smell you...you are close! Close! Ssss...the scent of blood and fear...how enticing...|", 1, 5, USFX_DEFILER4},
     {" |", 1, 5, USFX_DEFILER8},
     {" |", 1, 5, USFX_NAKRUL1},
     {" |", 1, 5, USFX_NAKRUL2},
@@ -1372,10 +1358,8 @@ const TextDataStruct alltext[] = {
      "that have overgrown everything.  You can't miss my house, it's just south of the fork in the river... you "
      "know... the one with the overgrown vegetable garden.|",
      1, 5, TSFX_COWSUT4},
-    {"What are you wasting time for?  Go get my suit!  And hurry!  That Holstein over there keeps winking at me! |", 1,
-     5, TSFX_COWSUT5},
-    {"Hey, have you got my suit there?  Quick, pass it over!  These ears itch like you wouldn't believe!|", 1, 5,
-     TSFX_COWSUT6},
+    {"What are you wasting time for?  Go get my suit!  And hurry!  That Holstein over there keeps winking at me! |", 1, 5, TSFX_COWSUT5},
+    {"Hey, have you got my suit there?  Quick, pass it over!  These ears itch like you wouldn't believe!|", 1, 5, TSFX_COWSUT6},
     {"No no no no!  This is my GRAY suit!  It's for evening wear!  Formal occasions!  I can't wear THIS.  What are "
      "you, some kind of weirdo?  I need the BROWN suit.|",
      1, 5, TSFX_COWSUT7},
@@ -1384,14 +1368,12 @@ const TextDataStruct alltext[] = {
      "little... you could use a new... yknowwhatImean?  The whole adventurer motif is just so... retro.  Just a word "
      "of advice, eh?  Ciao.|",
      1, 5, TSFX_COWSUT8},
-    {"Look.  I'm a cow.  And you, you're monster bait. Get some experience under your belt!  We'll talk...|", 1, 5,
-     TSFX_COWSUT9},
+    {"Look.  I'm a cow.  And you, you're monster bait. Get some experience under your belt!  We'll talk...|", 1, 5, TSFX_COWSUT9},
     {"|", 1, 5, TSFX_TRADER1},
     {"It must truly be a fearsome task I've set before you. If there was just some way that I could... would a flagon "
      "of some nice, fresh milk help?|",
      1, 5, TSFX_FARMER2A},
-    {"Oh, I could use your help, but perhaps after you've saved the catacombs from the desecration of those beasts.|",
-     1, 5, TSFX_FARMER6},
+    {"Oh, I could use your help, but perhaps after you've saved the catacombs from the desecration of those beasts.|", 1, 5, TSFX_FARMER6},
     {"I need something done, but I couldn't impose on a perfect stranger. Perhaps after you've been here a while I "
      "might feel more comfortable asking a favor.|",
      1, 5, TSFX_FARMER7},
@@ -1423,7 +1405,7 @@ const TextDataStruct alltext[] = {
     {"I have tried spells, threats, abjuration and bargaining with this foul creature -- to no avail.  My methods of "
      "enslaving lesser demons seem to have no effect on this fearsome beast.|",
      1, 5, PS_NARATR6},
-    {"My home is slowly becoming corrupted by the vileness of this unwanted prisoner.  The crypts are	full of "
+    {"My home is slowly becoming corrupted by the vileness of this unwanted prisoner.  The crypts are    full of "
      "shadows that move just beyond the corners of my vision.  The faint scrabble of claws dances at the edges of my "
      "hearing. They are searching, I think, for this journal.|",
      1, 5, PS_NARATR7},

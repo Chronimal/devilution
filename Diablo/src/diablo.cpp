@@ -3,13 +3,12 @@
  *
  * Implementation of the main game initialization functions.
  */
-
 #include "all.h"
 #include "storm/storm.h"
-#ifdef HELLFIRE
-#include <hellfrui/hellfrui.h>
-#else // HELLFFIRE
+#ifndef HELLFIRE
 #include "ui/diabloui.h"
+#else // HELLFIRE
+#include "hellfrui/hellfrui.h"
 #endif // HELLFIRE
 
 HWND ghMainWnd;
@@ -357,9 +356,7 @@ static void free_game()
     FreeStoreMem();
 
     for (i = 0; i < MAX_PLRS; i++)
-    {
         FreePlayerGFX(i);
-    }
 
     FreeItemGFX();
     FreeCursor();
@@ -486,9 +483,7 @@ BOOL StartGame(BOOL bNewGame, BOOL bSinglePlayer)
         {
 #else
             if (!gbValidSaveFile && gbLoadGame)
-            {
                 inv_diablo_to_hellfire(myplr);
-            }
 #endif
             uMsg = WM_DIABNEWGAME;
         }
@@ -522,9 +517,7 @@ static void diablo_init_screen()
     ScrollInfo._sdir = SDIR_NONE;
 
     for (i = 0; i < 1024; i++)
-    {
         PitchTbl[i] = i * BUFFER_WIDTH;
-    }
 
     ClrDiabloMsg();
 }
@@ -535,9 +528,7 @@ static LONG __stdcall diablo_TopLevelExceptionFilter(PEXCEPTION_POINTERS pExc)
     dx_cleanup();
     init_cleanup(FALSE);
     if (lpTopLevelExceptionFilter)
-    {
         return lpTopLevelExceptionFilter(pExc);
-    }
 
     return EXCEPTION_CONTINUE_SEARCH;
 }
@@ -559,21 +550,15 @@ static BOOL diablo_find_window(LPCSTR lpClassName)
 
     hWnd = FindWindow(lpClassName, NULL);
     if (hWnd == NULL)
-    {
         return FALSE;
-    }
 
     active = GetLastActivePopup(hWnd);
     if (active != NULL)
-    {
         hWnd = active;
-    }
 
     active = GetTopWindow(hWnd);
     if (!active)
-    {
         active = hWnd;
-    }
 
     SetForegroundWindow(hWnd);
     SetFocus(active);
@@ -681,7 +666,7 @@ static void diablo_reload_process(HINSTANCE hInstance)
 }
 
 /**
- * @brief Main entry point, check environment, initialize system, play intros, start main menu, shut down
+ * @brief Main entry point, check env, initialize systesm, play intros, start main menu, shut down
  * @param hInstance A handle to the current instance of the application.
  * @param hPrevInstance Always null
  * @param lpCmdLine The command line for the application
@@ -695,26 +680,23 @@ int APIENTRY WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLi
 #ifdef HELLFIRE
     char content[256];
     FILE* file;
+#else
+    char szFileName[MAX_PATH];
 #endif
 
     hInst = hInstance;
 #ifndef DEBUGGER
-    // diablo_reload_process(hInstance);
+    diablo_reload_process(hInstance);
 #endif
     ghInst = hInst;
 
 #ifndef HELLFIRE
     if (RestrictedTest())
-    {
         ErrOkDlg(IDD_DIALOG10, 0, "C:\\Src\\Diablo\\Source\\DIABLO.CPP", 877);
-    }
     if (ReadOnlyTest())
     {
-        char szFileName[MAX_PATH];
         if (!GetModuleFileName(ghInst, szFileName, sizeof(szFileName)))
-        {
             szFileName[0] = '\0';
-        }
         DirErrorDlg(szFileName);
     }
 #endif
@@ -732,14 +714,10 @@ int APIENTRY WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLi
     bNoEvent = diablo_get_not_running();
 #ifdef HELLFIRE
     if (diablo_find_window("DIABLO"))
-    {
         return 0;
-    }
 #endif
     if (diablo_find_window(GAME_NAME) || !bNoEvent)
-    {
         return 0;
-    }
 
 #ifdef _DEBUG
     SFileEnableDirectAccess(TRUE);
@@ -774,14 +752,10 @@ int APIENTRY WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLi
     {
         char szValueName[] = "Intro";
         if (!SRegLoadValue(APP_NAME, szValueName, 0, &nData))
-        {
             nData = 1;
-        }
 #ifndef HELLFIRE
         if (nData)
-        {
             play_movie("gendata\\diablo1.smk", TRUE);
-        }
 #else
         play_movie("gendata\\Hellfire.smk", TRUE);
 #endif
@@ -821,17 +795,11 @@ static BOOL LeftMouseCmd(BOOL bShift)
     if (leveltype == DTYPE_TOWN)
     {
         if (pcursitem != -1 && pcurs == CURSOR_HAND)
-        {
             NetSendCmdLocParam1(TRUE, invflag ? CMD_GOTOGETITEM : CMD_GOTOAGETITEM, cursmx, cursmy, pcursitem);
-        }
         if (pcursmonst != -1)
-        {
             NetSendCmdLocParam1(TRUE, CMD_TALKXY, cursmx, cursmy, pcursmonst);
-        }
         if (pcursitem == -1 && pcursmonst == -1 && pcursplr == -1)
-        {
             return TRUE;
-        }
     }
     else
     {
@@ -896,9 +864,7 @@ static BOOL LeftMouseCmd(BOOL bShift)
             }
         }
         if (!bShift && pcursitem == -1 && pcursobj == -1 && pcursmonst == -1 && pcursplr == -1)
-        {
             return TRUE;
-        }
     }
 
     return FALSE;
@@ -927,39 +893,27 @@ static BOOL TryIconCurs()
     if (pcurs == CURSOR_IDENTIFY)
     {
         if (pcursinvitem != -1)
-        {
             CheckIdentify(myplr, pcursinvitem);
-        }
         else
-        {
             NewCursor(CURSOR_HAND);
-        }
         return TRUE;
     }
 
     if (pcurs == CURSOR_REPAIR)
     {
         if (pcursinvitem != -1)
-        {
             DoRepair(myplr, pcursinvitem);
-        }
         else
-        {
             NewCursor(CURSOR_HAND);
-        }
         return TRUE;
     }
 
     if (pcurs == CURSOR_RECHARGE)
     {
         if (pcursinvitem != -1)
-        {
             DoRecharge(myplr, pcursinvitem);
-        }
         else
-        {
             NewCursor(CURSOR_HAND);
-        }
         return TRUE;
     }
 
@@ -967,13 +921,9 @@ static BOOL TryIconCurs()
     if (pcurs == CURSOR_OIL)
     {
         if (pcursinvitem != -1)
-        {
             DoOil(myplr, pcursinvitem);
-        }
         else
-        {
             SetCursor_(CURSOR_HAND);
-        }
         return TRUE;
     }
 
@@ -981,17 +931,11 @@ static BOOL TryIconCurs()
     if (pcurs == CURSOR_TELEPORT)
     {
         if (pcursmonst != -1)
-        {
             NetSendCmdParam3(TRUE, CMD_TSPELLID, pcursmonst, plr[myplr]._pTSpell, GetSpellLevel(myplr, plr[myplr]._pTSpell));
-        }
         else if (pcursplr != -1)
-        {
             NetSendCmdParam3(TRUE, CMD_TSPELLPID, pcursplr, plr[myplr]._pTSpell, GetSpellLevel(myplr, plr[myplr]._pTSpell));
-        }
         else
-        {
             NetSendCmdLocParam2(TRUE, CMD_TSPELLXY, cursmx, cursmy, plr[myplr]._pTSpell, GetSpellLevel(myplr, plr[myplr]._pTSpell));
-        }
         NewCursor(CURSOR_HAND);
         return TRUE;
     }
@@ -1008,19 +952,13 @@ static BOOL TryIconCurs()
 static BOOL LeftMouseDown(int wParam)
 {
     if (gmenu_left_mouse(TRUE))
-    {
         return FALSE;
-    }
 
     if (control_check_talk_btn())
-    {
         return FALSE;
-    }
 
     if (sgnTimeoutCurs != CURSOR_NONE)
-    {
         return FALSE;
-    }
 
     if (deathflag)
     {
@@ -1096,14 +1034,10 @@ static BOOL LeftMouseDown(int wParam)
     else
     {
         if (!talkflag && !dropGoldFlag && !gmenu_is_active())
-        {
             CheckInvScrn();
-        }
         DoPanBtn();
         if (pcurs > CURSOR_HAND && pcurs < CURSOR_FIRSTITEM)
-        {
             NewCursor(CURSOR_HAND);
-        }
     }
 
     return FALSE;
@@ -1114,21 +1048,13 @@ static void LeftMouseUp()
     gmenu_left_mouse(FALSE);
     control_release_talk_btn();
     if (panbtndown)
-    {
         CheckBtnUp();
-    }
     if (chrbtnactive)
-    {
         ReleaseChrBtns();
-    }
     if (lvlbtndown)
-    {
         ReleaseLvlBtn();
-    }
     if (stextflag != STORE_NONE)
-    {
         ReleaseStoreBtn();
-    }
 }
 
 static void RightMouseDown()
@@ -1215,9 +1141,7 @@ static void diablo_hotkey_msg(DWORD dwMsg)
 static BOOL PressSysKey(int wParam)
 {
     if (gmenu_is_active() || wParam != VK_F10)
-    {
         return FALSE;
-    }
     diablo_hotkey_msg(1);
     return TRUE;
 }
@@ -1225,9 +1149,7 @@ static BOOL PressSysKey(int wParam)
 static void ReleaseKey(int vkey)
 {
     if (vkey == VK_SNAPSHOT)
-    {
         CaptureScreen();
-    }
 }
 
 BOOL PressEscKey()
@@ -1910,41 +1832,31 @@ LRESULT CALLBACK DisableInputWndProc(HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM
             return 0;
         case WM_LBUTTONDOWN:
             if (sgbMouseDown != CLICK_NONE)
-            {
                 return 0;
-            }
             sgbMouseDown = CLICK_LEFT;
             SetCapture(hWnd);
             return 0;
         case WM_LBUTTONUP:
             if (sgbMouseDown != CLICK_LEFT)
-            {
                 return 0;
-            }
             sgbMouseDown = CLICK_NONE;
             ReleaseCapture();
             return 0;
         case WM_RBUTTONDOWN:
             if (sgbMouseDown != CLICK_NONE)
-            {
                 return 0;
-            }
             sgbMouseDown = CLICK_RIGHT;
             SetCapture(hWnd);
             return 0;
         case WM_RBUTTONUP:
             if (sgbMouseDown != CLICK_RIGHT)
-            {
                 return 0;
-            }
             sgbMouseDown = CLICK_NONE;
             ReleaseCapture();
             return 0;
         case WM_CAPTURECHANGED:
             if (hWnd == (HWND)lParam)
-            {
                 return 0;
-            }
             sgbMouseDown = CLICK_NONE;
             return 0;
     }
@@ -1967,9 +1879,7 @@ LRESULT CALLBACK GM_Game(HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM lParam)
             return 0;
         case WM_SYSKEYDOWN:
             if (PressSysKey(wParam))
-            {
                 return 0;
-            }
             break;
         case WM_SYSCOMMAND:
             if (wParam == SC_CLOSE)
@@ -2040,9 +1950,7 @@ LRESULT CALLBACK GM_Game(HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM lParam)
         case WM_DIABTWARPUP:
         case WM_DIABRETOWN:
             if (gbMaxPlayers > 1)
-            {
                 pfile_write_hero();
-            }
             nthread_ignore_mutex(TRUE);
             PaletteFadeOut(8);
             sound_stop();
@@ -2054,9 +1962,7 @@ LRESULT CALLBACK GM_Game(HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM lParam)
             force_redraw = 255;
             DrawAndBlit();
             if (gbRunGame)
-            {
                 PaletteFadeIn(8);
-            }
             nthread_ignore_mutex(FALSE);
             gbGameLoopStartup = TRUE;
             return 0;
@@ -2226,9 +2132,7 @@ void LoadGameLevel(BOOL firstflag, int lvldir)
     BOOL visited;
 
     if (setseed)
-    {
         glSeedTbl[currlevel] = setseed;
-    }
 
     music_stop();
     SetCursor_(CURSOR_HAND);
@@ -2245,9 +2149,7 @@ void LoadGameLevel(BOOL firstflag, int lvldir)
         InitQuestText();
 
         for (i = 0; i < gbMaxPlayers; i++)
-        {
             InitPlrGFXMem(i);
-        }
 
         InitStores();
         InitAutomapOnce();
@@ -2257,9 +2159,7 @@ void LoadGameLevel(BOOL firstflag, int lvldir)
     SetRndSeed(glSeedTbl[currlevel]);
 
     if (leveltype == DTYPE_TOWN)
-    {
         SetupTownStores();
-    }
 
     IncProgress();
     InitAutomap();
@@ -2294,13 +2194,9 @@ void LoadGameLevel(BOOL firstflag, int lvldir)
         IncProgress();
 
         if (lvldir == ENTRY_RTNLVL)
-        {
             GetReturnLvlPos();
-        }
         if (lvldir == ENTRY_WARPLVL)
-        {
             GetPortalLvlPos();
-        }
 
         IncProgress();
 
@@ -2310,9 +2206,7 @@ void LoadGameLevel(BOOL firstflag, int lvldir)
             {
                 InitPlayerGFX(i);
                 if (lvldir != ENTRY_LOAD)
-                {
                     InitPlayer(i, firstflag);
-                }
             }
         }
 
@@ -2324,9 +2218,7 @@ void LoadGameLevel(BOOL firstflag, int lvldir)
         for (i = 0; i < gbMaxPlayers; i++)
         {
             if (plr[i].plractive)
-            {
                 visited = visited || plr[i]._pLvlVisited[currlevel];
-            }
         }
 
         SetRndSeed(glSeedTbl[currlevel]);
@@ -2351,9 +2243,7 @@ void LoadGameLevel(BOOL firstflag, int lvldir)
                 glEndSeed[currlevel] = GetRndSeed();
 
                 if (gbMaxPlayers != 1)
-                {
                     DeltaLoadLevel();
-                }
 
                 IncProgress();
                 SavePreLighting();
@@ -2373,9 +2263,7 @@ void LoadGameLevel(BOOL firstflag, int lvldir)
             for (i = 0; i < MAXDUNX; i++)
             {
                 for (j = 0; j < MAXDUNY; j++)
-                {
                     dFlags[i][j] |= BFLAG_LIT;
-                }
             }
 
             InitTowners();
@@ -2384,23 +2272,16 @@ void LoadGameLevel(BOOL firstflag, int lvldir)
             IncProgress();
 
             if (!firstflag && lvldir != ENTRY_LOAD && plr[myplr]._pLvlVisited[currlevel] && gbMaxPlayers == 1)
-            {
                 LoadLevel();
-            }
             if (gbMaxPlayers != 1)
-            {
                 DeltaLoadLevel();
-            }
+
             IncProgress();
         }
         if (gbMaxPlayers == 1)
-        {
             ResyncQuests();
-        }
         else
-        {
             ResyncMPQuests();
-        }
 #ifndef SPAWN
     }
     else
@@ -2417,9 +2298,7 @@ void LoadGameLevel(BOOL firstflag, int lvldir)
         IncProgress();
 
         if (lvldir == ENTRY_WARPLVL)
-        {
             GetPortalLvlPos();
-        }
 
         for (i = 0; i < MAX_PLRS; i++)
         {
@@ -2427,9 +2306,7 @@ void LoadGameLevel(BOOL firstflag, int lvldir)
             {
                 InitPlayerGFX(i);
                 if (lvldir != ENTRY_LOAD)
-                {
                     InitPlayer(i, firstflag);
-                }
             }
         }
 
@@ -2460,13 +2337,9 @@ void LoadGameLevel(BOOL firstflag, int lvldir)
             if (plr[i]._pHitPoints > 0)
             {
                 if (gbMaxPlayers == 1)
-                {
                     dPlayer[plr[i]._px][plr[i]._py] = i + 1;
-                }
                 else
-                {
                     SyncInitPlrPos(i);
-                }
             }
             else
             {
@@ -2509,26 +2382,19 @@ void LoadGameLevel(BOOL firstflag, int lvldir)
 
 #ifdef HELLFIRE
     if (currlevel >= 17)
-    {
         music_start(currlevel > 20 ? TMUSIC_L5 : TMUSIC_L6);
-    }
     else
-    {
         music_start(leveltype);
-    }
 #else
     music_start(leveltype);
 #endif
 
     while (!IncProgress())
-    {
-    }
+        ;
 
 #ifndef SPAWN
     if (setlevel && setlvlnum == SL_SKELKING && quests[Q_SKELKING]._qactive == QUEST_ACTIVE)
-    {
         PlaySFX(USFX_SKING1);
-    }
 #endif
 }
 
@@ -2632,9 +2498,7 @@ void game_loop(BOOL bStartup)
             game_logic();
         }
         if (!gbRunGame || gbMaxPlayers == 1 || !nthread_has_500ms_passed(TRUE))
-        {
             break;
-        }
     }
 }
 
@@ -2648,9 +2512,7 @@ void diablo_color_cyc_logic()
         color_cycle_timer = tc;
 #ifndef HELLFIRE
         if (!palette_get_color_cycling())
-        {
             return;
-        }
 #endif
         if (leveltype == DTYPE_HELL)
         {
@@ -2669,9 +2531,7 @@ void diablo_color_cyc_logic()
         else if (leveltype == DTYPE_CAVES)
         {
             if (fullscreen)
-            {
                 palette_update_caves();
-            }
         }
     }
 }

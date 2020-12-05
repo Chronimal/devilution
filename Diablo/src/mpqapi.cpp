@@ -278,8 +278,7 @@ static int mpqapi_get_hash_index(short index, int hash_a, int hash_b, int locale
     {
         if (!i--)
             break;
-        if (sgpHashTbl[idx].hashcheck[0] == hash_a && sgpHashTbl[idx].hashcheck[1] == hash_b &&
-            sgpHashTbl[idx].lcid == locale && sgpHashTbl[idx].block != -2)
+        if (sgpHashTbl[idx].hashcheck[0] == hash_a && sgpHashTbl[idx].hashcheck[1] == hash_b && sgpHashTbl[idx].lcid == locale && sgpHashTbl[idx].block != -2)
             return idx;
     }
 
@@ -353,10 +352,9 @@ static BOOL ParseMPQHeader(_FILEHEADER* pHdr, DWORD* pdwNextFileStart)
     size = GetFileSize(sghArchive, 0);
     *pdwNextFileStart = size;
 
-    if (size == -1 || size < sizeof(*pHdr) || !ReadFile(sghArchive, pHdr, sizeof(*pHdr), &NumberOfBytesRead, NULL) ||
-        NumberOfBytesRead != 104 || pHdr->signature != '\x1AQPM' || pHdr->headersize != 32 || pHdr->version > 0 ||
-        pHdr->sectorsizeid != 3 || pHdr->filesize != size || pHdr->hashoffset != 32872 || pHdr->blockoffset != 104 ||
-        pHdr->hashcount != 2048 || pHdr->blockcount != 2048)
+    if (size == -1 || size < sizeof(*pHdr) || !ReadFile(sghArchive, pHdr, sizeof(*pHdr), &NumberOfBytesRead, NULL) || NumberOfBytesRead != 104 || pHdr->signature != '\x1AQPM' ||
+        pHdr->headersize != 32 || pHdr->version > 0 || pHdr->sectorsizeid != 3 || pHdr->filesize != size || pHdr->hashoffset != 32872 || pHdr->blockoffset != 104 || pHdr->hashcount != 2048 ||
+        pHdr->blockcount != 2048)
     {
 
         if (SetFilePointer(sghArchive, 0, NULL, FILE_BEGIN) == -1)
@@ -618,13 +616,10 @@ BOOL OpenMPQ(const char* pszArchive, BOOL hidden, DWORD dwChar)
     }
     dwFlagsAndAttributes = gbMaxPlayers > 1 ? FILE_FLAG_WRITE_THROUGH : 0;
     save_archive_open = FALSE;
-    sghArchive =
-        CreateFile(pszArchive, GENERIC_READ | GENERIC_WRITE, 0, NULL, OPEN_EXISTING, dwFlagsAndAttributes, NULL);
+    sghArchive = CreateFile(pszArchive, GENERIC_READ | GENERIC_WRITE, 0, NULL, OPEN_EXISTING, dwFlagsAndAttributes, NULL);
     if (sghArchive == INVALID_HANDLE_VALUE)
     {
-        sghArchive = CreateFile(
-            pszArchive, GENERIC_READ | GENERIC_WRITE, 0, NULL, CREATE_ALWAYS,
-            dwFlagsAndAttributes | (hidden ? FILE_ATTRIBUTE_SYSTEM | FILE_ATTRIBUTE_HIDDEN : 0), NULL);
+        sghArchive = CreateFile(pszArchive, GENERIC_READ | GENERIC_WRITE, 0, NULL, CREATE_ALWAYS, dwFlagsAndAttributes | (hidden ? FILE_ATTRIBUTE_SYSTEM | FILE_ATTRIBUTE_HIDDEN : 0), NULL);
         if (sghArchive == INVALID_HANDLE_VALUE)
             return FALSE;
         save_archive_open = TRUE;

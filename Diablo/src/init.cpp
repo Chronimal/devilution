@@ -383,8 +383,7 @@ static void init_get_file_info()
             {
                 if (VerQueryValue(pBlock, "\\", (LPVOID*)&lpBuffer, &uBytes))
                     sprintf(
-                        gszVersionNumber, "version %d.%d.%d.%d", lpBuffer->dwProductVersionMS >> 16,
-                        lpBuffer->dwProductVersionMS & 0xFFFF, lpBuffer->dwProductVersionLS >> 16,
+                        gszVersionNumber, "version %d.%d.%d.%d", lpBuffer->dwProductVersionMS >> 16, lpBuffer->dwProductVersionMS & 0xFFFF, lpBuffer->dwProductVersionLS >> 16,
                         lpBuffer->dwProductVersionLS & 0xFFFF);
             }
             mem_free_dbg(pBlock);
