@@ -64,12 +64,7 @@ static BOOL mainmenu_single_player()
             jogging_opt = TRUE;
         }
 
-        if (!UiSelHeroSingDialog(
-                pfile_ui_set_hero_infos, pfile_ui_save_create, pfile_delete_save, pfile_ui_set_class_stats, &dlgresult,
-                gszHero, &gnDifficulty,
-                UseBardTest,
-                UseBarbarianTest
-                ))
+        if (!UiSelHeroSingDialog(pfile_ui_set_hero_infos, pfile_ui_save_create, pfile_delete_save, pfile_ui_set_class_stats, &dlgresult, gszHero, &gnDifficulty, UseBardTest, UseBarbarianTest))
         {
             app_fatal("Unable to display SelHeroSing");
         }
@@ -154,12 +149,11 @@ BOOL __stdcall mainmenu_select_hero_dialog(
     if (gbMaxPlayers == 1)
     {
 #ifdef HELLFIRE
-        if (!UiSelHeroSingDialog(
-            pfile_ui_set_hero_infos, pfile_ui_save_create, pfile_delete_save, pfile_ui_set_class_stats, &dlgresult, gszHero, &gnDifficulty, UseBardTest, UseBarbarianTest))
+        if (!UiSelHeroSingDialog(pfile_ui_set_hero_infos, pfile_ui_save_create, pfile_delete_save, pfile_ui_set_class_stats, &dlgresult, gszHero, &gnDifficulty, UseBardTest, UseBarbarianTest))
         {
             app_fatal("Unable to display SelHeroSing");
         }
-#else // HELLFIRE
+#else  // HELLFIRE
         if (!UiSelHeroSingDialog(pfile_ui_set_hero_infos, pfile_ui_save_create, pfile_delete_save, pfile_ui_set_class_stats, &dlgresult, gszHero, &gnDifficulty))
         {
             app_fatal("Unable to display SelHeroSing");
@@ -171,9 +165,7 @@ BOOL __stdcall mainmenu_select_hero_dialog(
         else
             gbLoadGame = FALSE;
     }
-    else if (!UiSelHeroMultDialog(
-                 pfile_ui_set_hero_infos, pfile_ui_save_create, pfile_delete_save, pfile_ui_set_class_stats, &dlgresult,
-                 &hero_is_created, gszHero))
+    else if (!UiSelHeroMultDialog(pfile_ui_set_hero_infos, pfile_ui_save_create, pfile_delete_save, pfile_ui_set_class_stats, &dlgresult, &hero_is_created, gszHero))
     {
         app_fatal("Can't load multiplayer dialog");
     }
@@ -209,7 +201,7 @@ void mainmenu_loop()
         int menu = 0;
 #ifdef HELLFIRE
         if (!UiMainMenuDialog(gszProductName, &menu, UseMultiTest, effects_play_sound, 30))
-        //if (!UiMainMenuDialog(gszProductName, &menu, effects_play_sound, 30))
+        // if (!UiMainMenuDialog(gszProductName, &menu, effects_play_sound, 30))
 #else
         if (!UiMainMenuDialog(gszProductName, &menu, effects_play_sound, 30))
 #endif

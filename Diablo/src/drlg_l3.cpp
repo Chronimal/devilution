@@ -22,501 +22,513 @@ const BYTE L3ConvTbl[16] = {8, 11, 3, 10, 1, 9, 12, 12, 6, 13, 4, 13, 2, 14, 5, 
 /** Miniset: Stairs up. */
 const BYTE L3UP[] = {
     // clang-format off
-	3, 3, // width, height
+    3, 3, // width, height
 
-	 8,  8, 0, // search
-	10, 10, 0,
-	 7,  7, 0,
+     8,  8, 0, // search
+    10, 10, 0,
+     7,  7, 0,
 
-	51, 50, 0, // replace
-	48, 49, 0,
-	 0,  0, 0,
+    51, 50, 0, // replace
+    48, 49, 0,
+     0,  0, 0,
     // clang-format on
 };
 #ifdef HELLFIRE
 const BYTE L6UP[] = {
     // clang-format off
-	3, 3, // width, height
+    3, 3, // width, height
 
-	 8,  8, 0, // search
-	10, 10, 0,
-	 7,  7, 0,
+     8,  8, 0, // search
+    10, 10, 0,
+     7,  7, 0,
 
-	20, 19, 0, // replace
-	17, 18, 0,
-	 0,  0, 0,
+    20, 19, 0, // replace
+    17, 18, 0,
+     0,  0, 0,
     // clang-format on
 };
 #endif
 /** Miniset: Stairs down. */
 const BYTE L3DOWN[] = {
     // clang-format off
-	3, 3, // width, height
+    3, 3, // width, height
 
-	8, 9, 7, // search
-	8, 9, 7,
-	0, 0, 0,
+    8, 9, 7, // search
+    8, 9, 7,
+    0, 0, 0,
 
-	0, 47, 0, // replace
-	0, 46, 0,
-	0,  0, 0,
+    0, 47, 0, // replace
+    0, 46, 0,
+    0,  0, 0,
     // clang-format on
 };
 #ifdef HELLFIRE
 const BYTE L6DOWN[] = {
     // clang-format off
-	3, 3, // width, height
+    3, 3, // width, height
 
-	8, 9, 7, // search
-	8, 9, 7,
-	0, 0, 0,
+    8, 9, 7, // search
+    8, 9, 7,
+    0, 0, 0,
 
-	0, 16, 0, // replace
-	0, 15, 0,
-	0,  0, 0,
+    0, 16, 0, // replace
+    0, 15, 0,
+    0,  0, 0,
     // clang-format on
 };
 #endif
 /** Miniset: Stairs up to town. */
 const BYTE L3HOLDWARP[] = {
     // clang-format off
-	3, 3, // width, height
+    3, 3, // width, height
 
-	 8,  8, 0, // search
-	10, 10, 0,
-	 7,  7, 0,
+     8,  8, 0, // search
+    10, 10, 0,
+     7,  7, 0,
 
-	125, 125, 0, // replace
-	125, 125, 0,
-	  0,   0, 0,
+    125, 125, 0, // replace
+    125, 125, 0,
+      0,   0, 0,
     // clang-format on
 };
 #ifdef HELLFIRE
 const BYTE L6HOLDWARP[] = {
     // clang-format off
-	3, 3, // width, height
+    3, 3, // width, height
 
-	 8,  8, 0, // search
-	10, 10, 0,
-	 7,  7, 0,
+     8,  8, 0, // search
+    10, 10, 0,
+     7,  7, 0,
 
-	24, 23, 0, // replace
-	21, 22, 0,
-	 0,  0, 0,
+    24, 23, 0, // replace
+    21, 22, 0,
+     0,  0, 0,
     // clang-format on
 };
 #endif
 /** Miniset: Stalagmite white stalactite 1. */
 const BYTE L3TITE1[] = {
     // clang-format off
-	4, 4, // width, height
+    4, 4, // width, height
 
-	7, 7, 7, 7, // search
-	7, 7, 7, 7,
-	7, 7, 7, 7,
-	7, 7, 7, 7,
+    7, 7, 7, 7, // search
+    7, 7, 7, 7,
+    7, 7, 7, 7,
+    7, 7, 7, 7,
 
-	0,  0,  0, 0, // replace
-	0, 57, 58, 0,
-	0, 56, 55, 0,
-	0,  0,  0, 0,
+    0,  0,  0, 0, // replace
+    0, 57, 58, 0,
+    0, 56, 55, 0,
+    0,  0,  0, 0,
     // clang-format on
 };
 /** Miniset: Stalagmite white stalactite 2. */
 const BYTE L3TITE2[] = {
     // clang-format off
-	4, 4, // width, height
+    4, 4, // width, height
 
-	7, 7, 7, 7, // search
-	7, 7, 7, 7,
-	7, 7, 7, 7,
-	7, 7, 7, 7,
+    7, 7, 7, 7, // search
+    7, 7, 7, 7,
+    7, 7, 7, 7,
+    7, 7, 7, 7,
 
-	0,  0,  0, 0, // replace
-	0, 61, 62, 0,
-	0, 60, 59, 0,
-	0,  0,  0, 0,
+    0,  0,  0, 0, // replace
+    0, 61, 62, 0,
+    0, 60, 59, 0,
+    0,  0,  0, 0,
     // clang-format on
 };
 /** Miniset: Stalagmite white stalactite 3. */
 const BYTE L3TITE3[] = {
     // clang-format off
-	4, 4, // width, height
+    4, 4, // width, height
 
-	7, 7, 7, 7, // search
-	7, 7, 7, 7,
-	7, 7, 7, 7,
-	7, 7, 7, 7,
+    7, 7, 7, 7, // search
+    7, 7, 7, 7,
+    7, 7, 7, 7,
+    7, 7, 7, 7,
 
-	0,  0,  0, 0, // replace
-	0, 65, 66, 0,
-	0, 64, 63, 0,
-	0,  0,  0, 0,
+    0,  0,  0, 0, // replace
+    0, 65, 66, 0,
+    0, 64, 63, 0,
+    0,  0,  0, 0,
     // clang-format on
 };
 /** Miniset: Stalagmite white stalactite horizontal. */
 const BYTE L3TITE6[] = {
     // clang-format off
-	5, 4, // width, height
+    5, 4, // width, height
 
-	7, 7, 7, 7, 7, // search
-	7, 7, 7, 0, 7,
-	7, 7, 7, 0, 7,
-	7, 7, 7, 7, 7,
+    7, 7, 7, 7, 7, // search
+    7, 7, 7, 0, 7,
+    7, 7, 7, 0, 7,
+    7, 7, 7, 7, 7,
 
-	0,  0,  0,  0, 0, // replace
-	0, 77, 78,  0, 0,
-	0, 76, 74, 75, 0,
-	0,  0,  0,  0, 0,
+    0,  0,  0,  0, 0, // replace
+    0, 77, 78,  0, 0,
+    0, 76, 74, 75, 0,
+    0,  0,  0,  0, 0,
     // clang-format on
 };
 /** Miniset: Stalagmite white stalactite vertical. */
 const BYTE L3TITE7[] = {
     // clang-format off
-	4, 5, // width, height
+    4, 5, // width, height
 
-	7, 7, 7, 7, // search
-	7, 7, 0, 7,
-	7, 7, 7, 7,
-	7, 7, 7, 7,
-	7, 7, 7, 7,
+    7, 7, 7, 7, // search
+    7, 7, 0, 7,
+    7, 7, 7, 7,
+    7, 7, 7, 7,
+    7, 7, 7, 7,
 
-	0,  0,  0, 0, // replace
-	0, 83,  0, 0,
-	0, 82, 80, 0,
-	0, 81, 79, 0,
-	0,  0,  0, 0,
+    0,  0,  0, 0, // replace
+    0, 83,  0, 0,
+    0, 82, 80, 0,
+    0, 81, 79, 0,
+    0,  0,  0, 0,
     // clang-format on
 };
 /** Miniset: Stalagmite 1. */
 const BYTE L3TITE8[] = {
     // clang-format off
-	3, 3, // width, height
+    3, 3, // width, height
 
-	7, 7, 7, // search
-	7, 7, 7,
-	7, 7, 7,
+    7, 7, 7, // search
+    7, 7, 7,
+    7, 7, 7,
 
-	0,  0, 0, // replace
-	0, 52, 0,
-	0,  0, 0,
+    0,  0, 0, // replace
+    0, 52, 0,
+    0,  0, 0,
     // clang-format on
 };
 /** Miniset: Stalagmite 2. */
 const BYTE L3TITE9[] = {
     // clang-format off
-	3, 3, // width, height
+    3, 3, // width, height
 
-	7, 7, 7, // search
-	7, 7, 7,
-	7, 7, 7,
+    7, 7, 7, // search
+    7, 7, 7,
+    7, 7, 7,
 
-	0,  0, 0, // replace
-	0, 53, 0,
-	0,  0, 0,
+    0,  0, 0, // replace
+    0, 53, 0,
+    0,  0, 0,
     // clang-format on
 };
 /** Miniset: Stalagmite 3. */
 const BYTE L3TITE10[] = {
     // clang-format off
-	3, 3, // width, height
+    3, 3, // width, height
 
-	7, 7, 7, // search
-	7, 7, 7,
-	7, 7, 7,
+    7, 7, 7, // search
+    7, 7, 7,
+    7, 7, 7,
 
-	0,  0, 0, // replace
-	0, 54, 0,
-	0,  0, 0,
+    0,  0, 0, // replace
+    0, 54, 0,
+    0,  0, 0,
     // clang-format on
 };
 /** Miniset: Stalagmite 4. */
 const BYTE L3TITE11[] = {
     // clang-format off
-	3, 3, // width, height
+    3, 3, // width, height
 
-	7, 7, 7, // search
-	7, 7, 7,
-	7, 7, 7,
+    7, 7, 7, // search
+    7, 7, 7,
+    7, 7, 7,
 
-	0,  0, 0, // replace
-	0, 67, 0,
-	0,  0, 0,
+    0,  0, 0, // replace
+    0, 67, 0,
+    0,  0, 0,
     // clang-format on
 };
 /** Miniset: Stalagmite on vertical wall. */
 const BYTE L3TITE12[] = {
     // clang-format off
-	2, 1, // width, height
+    2, 1, // width, height
 
-	9, 7, // search
+    9, 7, // search
 
-	68, 0, // replace
+    68, 0, // replace
     // clang-format on
 };
 /** Miniset: Stalagmite on horizontal wall. */
 const BYTE L3TITE13[] = {
     // clang-format off
-	1, 2, // width, height
+    1, 2, // width, height
 
-	10, // search
-	 7,
+    10, // search
+     7,
 
-	69, // replace
-	 0,
+    69, // replace
+     0,
     // clang-format on
 };
 /** Miniset: Cracked vertical wall 1. */
 const BYTE L3CREV1[] = {
     // clang-format off
-	2, 1, // width, height
+    2, 1, // width, height
 
-	8, 7, // search
+    8, 7, // search
 
-	84, 85, // replace
+    84, 85, // replace
     // clang-format on
 };
 /** Miniset: Cracked vertical wall - north corner. */
 const BYTE L3CREV2[] = {
     // clang-format off
-	2, 1, // width, height
+    2, 1, // width, height
 
-	8, 11, // search
+    8, 11, // search
 
-	86, 87, // replace
+    86, 87, // replace
     // clang-format on
 };
 /** Miniset: Cracked horizontal wall 1. */
 const BYTE L3CREV3[] = {
     // clang-format off
-	1, 2, // width, height
+    1, 2, // width, height
 
-	 8, // search
-	10,
+     8, // search
+    10,
 
-	89, // replace
-	88,
+    89, // replace
+    88,
     // clang-format on
 };
 /** Miniset: Cracked vertical wall 2. */
 const BYTE L3CREV4[] = {
     // clang-format off
-	2, 1, // width, height
+    2, 1, // width, height
 
-	8, 7, // search
+    8, 7, // search
 
-	90, 91, // replace
+    90, 91, // replace
     // clang-format on
 };
 /** Miniset: Cracked horizontal wall - north corner. */
 const BYTE L3CREV5[] = {
     // clang-format off
-	1, 2, // width, height
+    1, 2, // width, height
 
-	 8, // search
-	11,
+     8, // search
+    11,
 
-	92, // replace
-	93,
+    92, // replace
+    93,
     // clang-format on
 };
 /** Miniset: Cracked horizontal wall 2. */
 const BYTE L3CREV6[] = {
     // clang-format off
-	1, 2, // width, height
+    1, 2, // width, height
 
-	 8, // search
-	10,
+     8, // search
+    10,
 
-	95, // replace
-	94,
+    95, // replace
+    94,
     // clang-format on
 };
 /** Miniset: Cracked vertical wall - west corner. */
 const BYTE L3CREV7[] = {
     // clang-format off
-	2, 1, // width, height
+    2, 1, // width, height
 
-	8, 7, // search
+    8, 7, // search
 
-	96, 101, // replace
+    96, 101, // replace
     // clang-format on
 };
 /** Miniset: Cracked horizontal wall - north. */
 const BYTE L3CREV8[] = {
     // clang-format off
-	1, 2, // width, height
+    1, 2, // width, height
 
-	2, // search
-	8,
+    2, // search
+    8,
 
-	102, // replace
-	 97,
+    102, // replace
+     97,
     // clang-format on
 };
 /** Miniset: Cracked vertical wall - east corner. */
 const BYTE L3CREV9[] = {
     // clang-format off
-	2, 1, // width, height
+    2, 1, // width, height
 
-	3, 8, // search
+    3, 8, // search
 
-	103, 98, // replace
+    103, 98, // replace
     // clang-format on
 };
 /** Miniset: Cracked vertical wall - west. */
 const BYTE L3CREV10[] = {
     // clang-format off
-	2, 1, // width, height
+    2, 1, // width, height
 
-	4, 8, // search
+    4, 8, // search
 
-	104, 99, // replace
+    104, 99, // replace
     // clang-format on
 };
 /** Miniset: Cracked horizontal wall - south corner. */
 const BYTE L3CREV11[] = {
     // clang-format off
-	1, 2, // width, height
+    1, 2, // width, height
 
-	6, // search
-	8,
+    6, // search
+    8,
 
-	105, // replace
-	100,
+    105, // replace
+    100,
     // clang-format on
 };
 /** Miniset: Replace broken wall with floor 1. */
 const BYTE L3ISLE1[] = {
     // clang-format off
-	2, 3, // width, height
+    2, 3, // width, height
 
-	5, 14, // search
-	4,  9,
-	13, 12,
+    5, 14, // search
+    4,  9,
+    13, 12,
 
-	7, 7, // replace
-	7, 7,
-	7, 7,
+    7, 7, // replace
+    7, 7,
+    7, 7,
     // clang-format on
 };
 /** Miniset: Replace small wall with floor 2. */
 const BYTE L3ISLE2[] = {
     // clang-format off
-	3, 2, // width, height
+    3, 2, // width, height
 
-	 5,  2, 14, // search
-	13, 10, 12,
+     5,  2, 14, // search
+    13, 10, 12,
 
-	7, 7, 7, // replace
-	7, 7, 7,
+    7, 7, 7, // replace
+    7, 7, 7,
     // clang-format on
 };
 /** Miniset: Replace small wall with lava 1. */
 const BYTE L3ISLE3[] = {
     // clang-format off
-	2, 3, // width, height
+    2, 3, // width, height
 
-	 5, 14, // search
-	 4,  9,
-	13, 12,
+     5, 14, // search
+     4,  9,
+    13, 12,
 
-	29, 30, // replace
-	25, 28,
-	31, 32,
+    29, 30, // replace
+    25, 28,
+    31, 32,
     // clang-format on
 };
 /** Miniset: Replace small wall with lava 2. */
 const BYTE L3ISLE4[] = {
     // clang-format off
-	3, 2, // width, height
+    3, 2, // width, height
 
-	 5,  2, 14, // search
-	13, 10, 12,
+     5,  2, 14, // search
+    13, 10, 12,
 
-	29, 26, 30, // replace
-	31, 27, 32,
+    29, 26, 30, // replace
+    31, 27, 32,
     // clang-format on
 };
 /** Miniset: Replace small wall with floor 3. */
 const BYTE L3ISLE5[] = {
     // clang-format off
-	2, 2, // width, height
+    2, 2, // width, height
 
-	 5, 14, // search
-	13, 12,
+     5, 14, // search
+    13, 12,
 
-	7, 7, // replace
-	7, 7,
+    7, 7, // replace
+    7, 7,
     // clang-format on
 };
 /** Miniset: Use random floor tile 1. */
 const BYTE L3XTRA1[] = {
     // clang-format off
-	1, 1, // width, height
+    1, 1, // width, height
 
-	7, // search
+    7, // search
 
-	106, // replace
+    106, // replace
     // clang-format on
 };
 /** Miniset: Use random floor tile 2. */
 const BYTE L3XTRA2[] = {
     // clang-format off
-	1, 1, // width, height
+    1, 1, // width, height
 
-	7, // search
+    7, // search
 
-	107, // replace
+    107, // replace
     // clang-format on
 };
 /** Miniset: Use random floor tile 3. */
 const BYTE L3XTRA3[] = {
     // clang-format off
-	1, 1, // width, height
+    1, 1, // width, height
 
-	7, // search
+    7, // search
 
-	108, // replace
+    108, // replace
     // clang-format on
 };
 /** Miniset: Use random horizontal wall tile. */
 const BYTE L3XTRA4[] = {
     // clang-format off
-	1, 1, // width, height
+    1, 1, // width, height
 
-	9, // search
+    9, // search
 
-	109, // replace
+    109, // replace
     // clang-format on
 };
 /** Miniset: Use random vertical wall tile. */
 const BYTE L3XTRA5[] = {
     // clang-format off
-	1, 1, // width, height
+    1, 1, // width, height
 
-	10, // search
+    10, // search
 
-	110, // replace
+    110, // replace
     // clang-format on
 };
 
 /** Miniset: Anvil of Fury island. */
 const BYTE L3ANVIL[] = {
-    // clang-format on
+    // clang-format off
     11, 11, // width, height
 
-    7,  7,  7,  7,  7,  7,  7,  7,  7,  7,  7, // search
-    7,  7,  7,  7,  7,  7,  7,  7,  7,  7,  7,  7,  7,  7,  7,  7,  7,  7,  7,  7,  7,  7, 7,  7,  7,  7,  7,  7,
-    7,  7,  7,  7,  7,  7,  7,  7,  7,  7,  7,  7,  7,  7,  7,  7,  7,  7,  7,  7,  7,  7, 7,  7,  7,  7,  7,  7,
-    7,  7,  7,  7,  7,  7,  7,  7,  7,  7,  7,  7,  7,  7,  7,  7,  7,  7,  7,  7,  7,  7, 7,  7,  7,  7,  7,  7,
-    7,  7,  7,  7,  7,  7,  7,  7,  7,  7,  7,  7,  7,  7,  7,  7,  7,  7,  7,  7,  7,  7, 7,  7,  7,  7,
+    7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, // search
+    7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7,
+    7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7,
+    7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7,
+    7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7,
+    7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7,
+    7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7,
+    7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7,
+    7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7,
+    7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7,
+    7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7,
 
-    0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0, // replace
-    0,  0,  29, 26, 26, 26, 26, 26, 30, 0,  0,  0,  29, 34, 33, 33, 37, 36, 33, 35, 30, 0, 0,  25, 33, 37, 27, 32,
-    31, 36, 33, 28, 0,  0,  25, 37, 32, 7,  7,  7,  31, 27, 32, 0,  0,  25, 28, 7,  7,  7, 7,  2,  2,  2,  0,  0,
-    25, 35, 30, 7,  7,  7,  29, 26, 30, 0,  0,  25, 33, 35, 26, 30, 29, 34, 33, 28, 0,  0, 31, 36, 33, 33, 35, 34,
-    33, 37, 32, 0,  0,  0,  31, 27, 27, 27, 27, 27, 32, 0,  0,  0,  0,  0,  0,  0,  0,  0, 0,  0,  0,  0,
+    0,  0,  0,  0,  0,  0,  0,  0,  0,  0, 0, // replace
+    0,  0, 29, 26, 26, 26, 26, 26, 30,  0, 0,
+    0, 29, 34, 33, 33, 37, 36, 33, 35, 30, 0,
+    0, 25, 33, 37, 27, 32, 31, 36, 33, 28, 0,
+    0, 25, 37, 32,  7,  7,  7, 31, 27, 32, 0,
+    0, 25, 28,  7,  7,  7,  7,  2,  2,  2, 0,
+    0, 25, 35, 30,  7,  7,  7, 29, 26, 30, 0,
+    0, 25, 33, 35, 26, 30, 29, 34, 33, 28, 0,
+    0, 31, 36, 33, 33, 35, 34, 33, 37, 32, 0,
+    0,  0, 31, 27, 27, 27, 27, 27, 32,  0, 0,
+    0,  0,  0,  0,  0,  0,  0,  0,  0,  0, 0,
     // clang-format on
 };
 #ifdef HELLFIRE
@@ -529,25 +541,29 @@ const BYTE byte_48A780[] = {1, 1, 7, 30};
 const BYTE byte_48A784[] = {1, 1, 7, 31};
 const BYTE byte_48A788[] = {1, 1, 7, 32};
 const BYTE byte_48A790[] = {
-    // clang-format on
+    // clang-format off
     3, 3, // width, height
 
-    7, 7,   7, // search
-    7, 7,   7, 7, 7, 7,
+    7, 7, 7, // search
+    7, 7, 7,
+    7, 7, 7,
 
-    0, 0,   0, // replace
-    0, 126, 0, 0, 0, 0,
+    0,   0, 0, // replace
+    0, 126, 0,
+    0,   0, 0,
     // clang-format on
 };
 const BYTE byte_48A7A8[] = {
-    // clang-format on
+    // clang-format off
     3, 3, // width, height
 
-    7, 7,   7, // search
-    7, 7,   7, 7, 7, 7,
+    7, 7, 7, // search
+    7, 7, 7,
+    7, 7, 7,
 
-    0, 0,   0, // replace
-    0, 124, 0, 0, 0, 0,
+    0,   0, 0, // replace
+    0, 124, 0,
+    0,   0, 0,
     // clang-format on
 };
 const BYTE byte_48A7BC[] = {1, 1, 9, 33};
@@ -569,212 +585,256 @@ const BYTE byte_48A7F8[] = {1, 1, 10, 48};
 const BYTE byte_48A7FC[] = {1, 1, 11, 49};
 const BYTE byte_48A800[] = {1, 1, 11, 50};
 const BYTE byte_48A808[] = {
-    // clang-format on
-    3,  3, // width, height
+    // clang-format off
+    3, 3, // width, height
 
-    7,  7,  7, // search
-    7,  7,  7, 7, 7, 7,
+    7, 7, 7, // search
+    7, 7, 7,
+    7, 7, 7,
 
-    67, 0,  0, // replace
-    66, 51, 0, 0, 0, 0,
+    67,  0, 0, // replace
+    66, 51, 0,
+     0,  0, 0,
     // clang-format on
 };
 const BYTE byte_48A820[] = {
-    // clang-format on
-    3,  3, // width, height
+    // clang-format off
+    3, 3, // width, height
 
-    7,  7,  7, // search
-    7,  7,  7, 7, 7, 7,
+    7, 7, 7, // search
+    7, 7, 7,
+    7, 7, 7,
 
-    69, 0,  0, // replace
-    68, 52, 0, 0, 0, 0,
+    69,  0, 0, // replace
+    68, 52, 0,
+     0,  0, 0,
     // clang-format on
 };
 const BYTE byte_48A838[] = {
-    // clang-format on
-    3,  3, // width, height
+    // clang-format off
+    3, 3, // width, height
 
-    7,  7,  7, // search
-    7,  7,  7, 7, 7, 7,
+    7, 7, 7, // search
+    7, 7, 7,
+    7, 7, 7,
 
-    70, 0,  0, // replace
-    71, 53, 0, 0, 0, 0,
+    70,  0, 0, // replace
+    71, 53, 0,
+     0,  0, 0,
     // clang-format on
 };
 const BYTE byte_48A850[] = {
-    // clang-format on
-    3,  3, // width, height
+    // clang-format off
+    3, 3, // width, height
 
-    7,  7,  7, // search
-    7,  7,  7, 7, 7, 7,
+    7, 7, 7, // search
+    7, 7, 7,
+    7, 7, 7,
 
-    73, 0,  0, // replace
-    72, 54, 0, 0, 0, 0,
+    73,  0, 0, // replace
+    72, 54, 0,
+     0,  0, 0,
     // clang-format on
 };
 const BYTE byte_48A868[] = {
-    // clang-format on
-    3,  3, // width, height
+    // clang-format off
+    3, 3, // width, height
 
-    7,  7,  7, // search
-    7,  7,  7, 7, 7, 7,
+    7, 7, 7, // search
+    7, 7, 7,
+    7, 7, 7,
 
-    75, 0,  0, // replace
-    74, 55, 0, 0, 0, 0,
+    75,  0, 0, // replace
+    74, 55, 0,
+     0,  0, 0,
     // clang-format on
 };
 const BYTE byte_48A880[] = {
-    // clang-format on
-    3,  3, // width, height
+    // clang-format off
+    3, 3, // width, height
 
-    7,  7,  7, // search
-    7,  7,  7, 7, 7, 7,
+    7, 7, 7, // search
+    7, 7, 7,
+    7, 7, 7,
 
-    77, 0,  0, // replace
-    76, 56, 0, 0, 0, 0,
+    77,  0, 0, // replace
+    76, 56, 0,
+     0,  0, 0,
     // clang-format on
 };
 const BYTE byte_48A898[] = {
-    // clang-format on
-    3,  3, // width, height
+    // clang-format off
+    3, 3, // width, height
 
-    7,  7,  7, // search
-    7,  7,  7, 7, 7, 7,
+    7, 7, 7, // search
+    7, 7, 7,
+    7, 7, 7,
 
-    79, 0,  0, // replace
-    78, 57, 0, 0, 0, 0,
+    79,  0, 0, // replace
+    78, 57, 0,
+     0,  0, 0,
     // clang-format on
 };
 const BYTE byte_48A8B0[] = {
-    // clang-format on
-    3,  3, // width, height
+    // clang-format off
+    3, 3, // width, height
 
-    7,  7,  7, // search
-    7,  7,  7, 7, 7, 7,
+    7, 7, 7, // search
+    7, 7, 7,
+    7, 7, 7,
 
-    81, 0,  0, // replace
-    80, 58, 0, 0, 0, 0,
+    81,  0, 0, // replace
+    80, 58, 0,
+     0,  0, 0,
     // clang-format on
 };
 const BYTE byte_48A8C8[] = {
-    // clang-format on
-    3,  3, // width, height
+    // clang-format off
+    3, 3, // width, height
 
-    7,  7,  7, // search
-    7,  7,  7, 7, 7, 7,
+    7, 7, 7, // search
+    7, 7, 7,
+    7, 7, 7,
 
-    83, 0,  0, // replace
-    82, 59, 0, 0, 0, 0,
+    83,  0, 0, // replace
+    82, 59, 0,
+     0,  0, 0,
     // clang-format on
 };
 const BYTE byte_48A8E0[] = {
-    // clang-format on
-    3,  3, // width, height
+    // clang-format off
+    3, 3, // width, height
 
-    7,  7,  7, // search
-    7,  7,  7, 7, 7, 7,
+    7, 7, 7, // search
+    7, 7, 7,
+    7, 7, 7,
 
-    84, 0,  0, // replace
-    85, 60, 0, 0, 0, 0,
+    84,  0, 0, // replace
+    85, 60, 0,
+     0,  0, 0,
     // clang-format on
 };
 const BYTE L6ISLE1[] = {
-    // clang-format on
+    // clang-format off
     2, 3, // width, height
 
-    5, 14, // search
-    4, 9,  13, 12,
+     5, 14, // search
+     4,  9,
+    13, 12,
 
     7, 7, // replace
-    7, 7,  7,  7,
+    7, 7,
+    7, 7,
     // clang-format on
 };
 const BYTE L6ISLE2[] = {
-    // clang-format on
-    3,  2, // width, height
+    // clang-format off
+    3, 2, // width, height
 
-    5,  2,  14, // search
+     5,  2, 14, // search
     13, 10, 12,
 
-    7,  7,  7, // replace
-    7,  7,  7,
+    7, 7, 7, // replace
+    7, 7, 7,
     // clang-format on
 };
 const BYTE L6ISLE3[] = {
-    // clang-format on
-    2,   3, // width, height
+    // clang-format off
+    2, 3, // width, height
 
-    5,   14, // search
-    4,   9,   13,  12,
+     5, 14, // search
+     4,  9,
+    13, 12,
 
     107, 115, // replace
-    119, 122, 131, 123,
+    119, 122,
+    131, 123,
     // clang-format on
 };
 const BYTE L6ISLE4[] = {
-    // clang-format on
-    3,   2, // width, height
+    // clang-format off
+    3, 2, // width, height
 
-    5,   2,   14, // search
-    13,  10,  12,
+     5,  2, 14, // search
+    13, 10, 12,
 
     107, 120, 115, // replace
     131, 121, 123,
     // clang-format on
 };
 const BYTE L6ISLE5[] = {
-    // clang-format on
-    2,  2, // width, height
+    // clang-format off
+    2, 2, // width, height
 
-    5,  14, // search
+     5, 14, // search
     13, 12,
 
-    7,  7, // replace
-    7,  7,
+    7, 7, // replace
+    7, 7,
     // clang-format on
 };
 const BYTE byte_48A948[] = {
-    // clang-format on
+    // clang-format off
     4, 4, // width, height
 
-    7, 7,   7,   7, // search
-    7, 7,   7,   7, 7, 7,   7,   7, 7, 7, 7, 7,
+    7, 7, 7, 7, // search
+    7, 7, 7, 7,
+    7, 7, 7, 7,
+    7, 7, 7, 7,
 
-    7, 7,   7,   7, // replace
-    7, 107, 115, 7, 7, 131, 123, 7, 7, 7, 7, 7,
+    7,   7,   7, 7, // replace
+    7, 107, 115, 7,
+    7, 131, 123, 7,
+    7,   7,   7, 7,
     // clang-format on
 };
 const BYTE byte_48A970[] = {
-    // clang-format on
+    // clang-format off
     4, 4, // width, height
 
-    7, 7, 7,   7, // search
-    7, 7, 7,   7, 7, 7,   7,   7, 7, 7, 7, 7,
+    7, 7, 7, 7, // search
+    7, 7, 7, 7,
+    7, 7, 7, 7,
+    7, 7, 7, 7,
 
-    7, 7, 7,   7, // replace
-    7, 7, 108, 7, 7, 109, 112, 7, 7, 7, 7, 7,
+    7,   7,   7, 7, // replace
+    7,   7, 108, 7,
+    7, 109, 112, 7,
+    7,   7,   7, 7,
     // clang-format on
 };
 const BYTE byte_48A998[] = {
-    // clang-format on
+    // clang-format off
     4, 5, // width, height
 
-    7, 7,   7,   7, // search
-    7, 7,   7,   7, 7, 7,   7,   7, 7, 7,   7,   7, 7, 7, 7, 7,
+    7, 7, 7, 7, // search
+    7, 7, 7, 7,
+    7, 7, 7, 7,
+    7, 7, 7, 7,
+    7, 7, 7, 7,
 
-    7, 7,   7,   7, // replace
-    7, 107, 115, 7, 7, 119, 122, 7, 7, 131, 123, 7, 7, 7, 7, 7,
+    7,   7,   7, 7, // replace
+    7, 107, 115, 7,
+    7, 119, 122, 7,
+    7, 131, 123, 7,
+    7,   7,   7, 7,
     // clang-format on
 };
 const BYTE byte_48A9C8[] = {
-    // clang-format on
+    // clang-format off
     4, 5, // width, height
 
-    7, 7,   7,   7, // search
-    7, 7,   7,   7, 7, 7, 7,   7, 7, 7,   7,   7, 7, 7, 7, 7,
+    7, 7, 7, 7, // search
+    7, 7, 7, 7,
+    7, 7, 7, 7,
+    7, 7, 7, 7,
+    7, 7, 7, 7,
 
-    7, 7,   7,   7, // replace
-    7, 126, 108, 7, 7, 7, 117, 7, 7, 109, 112, 7, 7, 7, 7, 7,
+    7,   7,   7, 7, // replace
+    7, 126, 108, 7,
+    7,   7, 117, 7,
+    7, 109, 112, 7,
+    7,   7,   7, 7,
     // clang-format on
 };
 #endif
@@ -854,7 +914,7 @@ static BOOL DRLG_L3FillRoom(int x1, int y1, int x2, int y2)
 static void DRLG_L3CreateBlock(int x, int y, int obs, int dir)
 {
     int blksizex, blksizey, x1, y1, x2, y2;
-    BOOL contflag;
+    int contflag;
 
     blksizex = random_(0, 2) + 3;
     blksizey = random_(0, 2) + 3;
@@ -935,19 +995,19 @@ static void DRLG_L3CreateBlock(int x, int y, int obs, int dir)
     if (DRLG_L3FillRoom(x1, y1, x2, y2) == TRUE)
     {
         contflag = random_(0, 4);
-        if (contflag && dir != 2)
+        if (contflag != 0 && dir != 2)
         {
             DRLG_L3CreateBlock(x1, y1, blksizey, 0);
         }
-        if (contflag && dir != 3)
+        if (contflag != 0 && dir != 3)
         {
             DRLG_L3CreateBlock(x2, y1, blksizex, 1);
         }
-        if (contflag && dir != 0)
+        if (contflag != 0 && dir != 0)
         {
             DRLG_L3CreateBlock(x1, y2, blksizey, 2);
         }
-        if (contflag && dir != 1)
+        if (contflag != 0 && dir != 1)
         {
             DRLG_L3CreateBlock(x1, y1, blksizex, 3);
         }
@@ -1010,8 +1070,7 @@ static void DRLG_L3FillSingles()
     {
         for (i = 1; i < DMAXX - 1; i++)
         {
-            if (dungeon[i][j] == 0 && dungeon[i][j - 1] + dungeon[i - 1][j - 1] + dungeon[i + 1][j - 1] == 3 &&
-                dungeon[i + 1][j] + dungeon[i - 1][j] == 2 &&
+            if (dungeon[i][j] == 0 && dungeon[i][j - 1] + dungeon[i - 1][j - 1] + dungeon[i + 1][j - 1] == 3 && dungeon[i + 1][j] + dungeon[i - 1][j] == 2 &&
                 dungeon[i][j + 1] + dungeon[i - 1][j + 1] + dungeon[i + 1][j + 1] == 3)
             {
                 dungeon[i][j] = 1;
@@ -1473,27 +1532,21 @@ static void DRLG_L3River()
             {
                 lpcnt++;
                 bridge = random_(0, riveramt);
-                if ((river[2][bridge] == 15 || river[2][bridge] == 16) &&
-                    dungeon[river[0][bridge]][river[1][bridge] - 1] == 7 &&
-                    dungeon[river[0][bridge]][river[1][bridge] + 1] == 7)
+                if ((river[2][bridge] == 15 || river[2][bridge] == 16) && dungeon[river[0][bridge]][river[1][bridge] - 1] == 7 && dungeon[river[0][bridge]][river[1][bridge] + 1] == 7)
                 {
                     found = 1;
                 }
-                if ((river[2][bridge] == 17 || river[2][bridge] == 18) &&
-                    dungeon[river[0][bridge] - 1][river[1][bridge]] == 7 &&
-                    dungeon[river[0][bridge] + 1][river[1][bridge]] == 7)
+                if ((river[2][bridge] == 17 || river[2][bridge] == 18) && dungeon[river[0][bridge] - 1][river[1][bridge]] == 7 && dungeon[river[0][bridge] + 1][river[1][bridge]] == 7)
                 {
                     found = 2;
                 }
                 for (i = 0; i < riveramt && found != 0; i++)
                 {
-                    if (found == 1 && (river[1][bridge] - 1 == river[1][i] || river[1][bridge] + 1 == river[1][i]) &&
-                        river[0][bridge] == river[0][i])
+                    if (found == 1 && (river[1][bridge] - 1 == river[1][i] || river[1][bridge] + 1 == river[1][i]) && river[0][bridge] == river[0][i])
                     {
                         found = 0;
                     }
-                    if (found == 2 && (river[0][bridge] - 1 == river[0][i] || river[0][bridge] + 1 == river[0][i]) &&
-                        river[1][bridge] == river[1][i])
+                    if (found == 2 && (river[0][bridge] - 1 == river[0][i] || river[0][bridge] + 1 == river[0][i]) && river[1][bridge] == river[1][i])
                     {
                         found = 0;
                     }
@@ -1528,8 +1581,7 @@ static BOOL DRLG_L3Spawn(int x, int y, int* totarea);
 static BOOL DRLG_L3SpawnEdge(int x, int y, int* totarea)
 {
     BYTE i;
-    static BYTE spawntable[15] = {0x00, 0x0A, 0x43, 0x05, 0x2c, 0x06, 0x09, 0x00,
-                                  0x00, 0x1c, 0x83, 0x06, 0x09, 0x0A, 0x05};
+    static BYTE spawntable[15] = {0x00, 0x0A, 0x43, 0x05, 0x2c, 0x06, 0x09, 0x00, 0x00, 0x1c, 0x83, 0x06, 0x09, 0x0A, 0x05};
 
     if (*totarea > 40)
     {
@@ -1591,8 +1643,7 @@ static BOOL DRLG_L3SpawnEdge(int x, int y, int* totarea)
 static BOOL DRLG_L3Spawn(int x, int y, int* totarea)
 {
     BYTE i;
-    static BYTE spawntable[15] = {0x00, 0x0A, 0x03, 0x05, 0x0C, 0x06, 0x09, 0x00,
-                                  0x00, 0x0C, 0x03, 0x06, 0x09, 0x0A, 0x05};
+    static BYTE spawntable[15] = {0x00, 0x0A, 0x03, 0x05, 0x0C, 0x06, 0x09, 0x00, 0x00, 0x0C, 0x03, 0x06, 0x09, 0x0A, 0x05};
 
     if (*totarea > 40)
     {
@@ -1747,13 +1798,9 @@ static void DRLG_L3PoolFix()
         { // BUGFIX: Change '0' to '1' and 'DMAXX' to 'DMAXX - 1'
             if (dungeon[dunx][duny] == 8)
             {
-                if (dungeon[dunx - 1][duny - 1] >= 25 && dungeon[dunx - 1][duny - 1] <= 41 &&
-                    dungeon[dunx - 1][duny] >= 25 && dungeon[dunx - 1][duny] <= 41 &&
-                    dungeon[dunx - 1][duny + 1] >= 25 && dungeon[dunx - 1][duny + 1] <= 41 &&
-                    dungeon[dunx][duny - 1] >= 25 && dungeon[dunx][duny - 1] <= 41 && dungeon[dunx][duny + 1] >= 25 &&
-                    dungeon[dunx][duny + 1] <= 41 && dungeon[dunx + 1][duny - 1] >= 25 &&
-                    dungeon[dunx + 1][duny - 1] <= 41 && dungeon[dunx + 1][duny] >= 25 &&
-                    dungeon[dunx + 1][duny] <= 41 && dungeon[dunx + 1][duny + 1] >= 25 &&
+                if (dungeon[dunx - 1][duny - 1] >= 25 && dungeon[dunx - 1][duny - 1] <= 41 && dungeon[dunx - 1][duny] >= 25 && dungeon[dunx - 1][duny] <= 41 && dungeon[dunx - 1][duny + 1] >= 25 &&
+                    dungeon[dunx - 1][duny + 1] <= 41 && dungeon[dunx][duny - 1] >= 25 && dungeon[dunx][duny - 1] <= 41 && dungeon[dunx][duny + 1] >= 25 && dungeon[dunx][duny + 1] <= 41 &&
+                    dungeon[dunx + 1][duny - 1] >= 25 && dungeon[dunx + 1][duny - 1] <= 41 && dungeon[dunx + 1][duny] >= 25 && dungeon[dunx + 1][duny] <= 41 && dungeon[dunx + 1][duny + 1] >= 25 &&
                     dungeon[dunx + 1][duny + 1] <= 41)
                 {
                     dungeon[dunx][duny] = 33;
@@ -2135,8 +2182,7 @@ void AddFenceDoors()
         {
             if (dungeon[i][j] == 7)
             {
-                if (dungeon[i - 1][j] <= 152 && dungeon[i - 1][j] >= 130 && dungeon[i + 1][j] <= 152 &&
-                    dungeon[i + 1][j] >= 130)
+                if (dungeon[i - 1][j] <= 152 && dungeon[i - 1][j] >= 130 && dungeon[i + 1][j] <= 152 && dungeon[i + 1][j] >= 130)
                 {
                     dungeon[i][j] = 146;
                     continue;
@@ -2144,8 +2190,7 @@ void AddFenceDoors()
             }
             if (dungeon[i][j] == 7)
             {
-                if (dungeon[i][j - 1] <= 152 && dungeon[i][j - 1] >= 130 && dungeon[i][j + 1] <= 152 &&
-                    dungeon[i][j + 1] >= 130)
+                if (dungeon[i][j - 1] <= 152 && dungeon[i][j - 1] >= 130 && dungeon[i][j + 1] <= 152 && dungeon[i][j + 1] >= 130)
                 {
                     dungeon[i][j] = 147;
                     continue;
@@ -2165,8 +2210,7 @@ void FenceDoorFix()
         {
             if (dungeon[i][j] == 146)
             {
-                if (dungeon[i + 1][j] > 152 || dungeon[i + 1][j] < 130 || dungeon[i - 1][j] > 152 ||
-                    dungeon[i - 1][j] < 130)
+                if (dungeon[i + 1][j] > 152 || dungeon[i + 1][j] < 130 || dungeon[i - 1][j] > 152 || dungeon[i - 1][j] < 130)
                 {
                     dungeon[i][j] = 7;
                     continue;
@@ -2174,10 +2218,8 @@ void FenceDoorFix()
             }
             if (dungeon[i][j] == 146)
             {
-                if (dungeon[i + 1][j] != 130 && dungeon[i - 1][j] != 130 && dungeon[i + 1][j] != 132 &&
-                    dungeon[i - 1][j] != 132 && dungeon[i + 1][j] != 133 && dungeon[i - 1][j] != 133 &&
-                    dungeon[i + 1][j] != 134 && dungeon[i - 1][j] != 134 && dungeon[i + 1][j] != 136 &&
-                    dungeon[i - 1][j] != 136 && dungeon[i + 1][j] != 138 && dungeon[i - 1][j] != 138 &&
+                if (dungeon[i + 1][j] != 130 && dungeon[i - 1][j] != 130 && dungeon[i + 1][j] != 132 && dungeon[i - 1][j] != 132 && dungeon[i + 1][j] != 133 && dungeon[i - 1][j] != 133 &&
+                    dungeon[i + 1][j] != 134 && dungeon[i - 1][j] != 134 && dungeon[i + 1][j] != 136 && dungeon[i - 1][j] != 136 && dungeon[i + 1][j] != 138 && dungeon[i - 1][j] != 138 &&
                     dungeon[i + 1][j] != 140 && dungeon[i - 1][j] != 140)
                 {
                     dungeon[i][j] = 7;
@@ -2186,8 +2228,7 @@ void FenceDoorFix()
             }
             if (dungeon[i][j] == 147)
             {
-                if (dungeon[i][j + 1] > 152 || dungeon[i][j + 1] < 130 || dungeon[i][j - 1] > 152 ||
-                    dungeon[i][j - 1] < 130)
+                if (dungeon[i][j + 1] > 152 || dungeon[i][j + 1] < 130 || dungeon[i][j - 1] > 152 || dungeon[i][j - 1] < 130)
                 {
                     dungeon[i][j] = 7;
                     continue;
@@ -2195,10 +2236,8 @@ void FenceDoorFix()
             }
             if (dungeon[i][j] == 147)
             {
-                if (dungeon[i][j + 1] != 131 && dungeon[i][j - 1] != 131 && dungeon[i][j + 1] != 132 &&
-                    dungeon[i][j - 1] != 132 && dungeon[i][j + 1] != 133 && dungeon[i][j - 1] != 133 &&
-                    dungeon[i][j + 1] != 135 && dungeon[i][j - 1] != 135 && dungeon[i][j + 1] != 137 &&
-                    dungeon[i][j - 1] != 137 && dungeon[i][j + 1] != 138 && dungeon[i][j - 1] != 138 &&
+                if (dungeon[i][j + 1] != 131 && dungeon[i][j - 1] != 131 && dungeon[i][j + 1] != 132 && dungeon[i][j - 1] != 132 && dungeon[i][j + 1] != 133 && dungeon[i][j - 1] != 133 &&
+                    dungeon[i][j + 1] != 135 && dungeon[i][j - 1] != 135 && dungeon[i][j + 1] != 137 && dungeon[i][j - 1] != 137 && dungeon[i][j + 1] != 138 && dungeon[i][j - 1] != 138 &&
                     dungeon[i][j + 1] != 139 && dungeon[i][j - 1] != 139)
                 {
                     dungeon[i][j] = 7;
@@ -2551,8 +2590,7 @@ void FixL3Warp()
     {
         for (i = 0; i < DMAXX; i++)
         {
-            if (dungeon[i][j] == 125 && dungeon[i + 1][j] == 125 && dungeon[i][j + 1] == 125 &&
-                dungeon[i + 1][j + 1] == 125)
+            if (dungeon[i][j] == 125 && dungeon[i + 1][j] == 125 && dungeon[i][j + 1] == 125 && dungeon[i + 1][j + 1] == 125)
             {
                 dungeon[i][j] = 156;
                 dungeon[i + 1][j] = 155;
@@ -3002,23 +3040,23 @@ static void DRLG_L3Pass3()
 
 #ifdef USE_ASM
     __asm {
-		mov		esi, pMegaTiles
-		mov		eax, lv
-		shl		eax, 3
-		add		esi, eax
-		xor		eax, eax
-		lodsw
-		inc		eax
-		mov		v1, eax
-		lodsw
-		inc		eax
-		mov		v2, eax
-		lodsw
-		inc		eax
-		mov		v3, eax
-		lodsw
-		inc		eax
-		mov		v4, eax
+        mov        esi, pMegaTiles
+        mov        eax, lv
+        shl        eax, 3
+        add        esi, eax
+        xor        eax, eax
+        lodsw
+        inc        eax
+        mov        v1, eax
+        lodsw
+        inc        eax
+        mov        v2, eax
+        lodsw
+        inc        eax
+        mov        v3, eax
+        lodsw
+        inc        eax
+        mov        v4, eax
     }
 #else
     v1 = *((WORD*)&pMegaTiles[lv * 8] + 0) + 1;
@@ -3049,23 +3087,23 @@ static void DRLG_L3Pass3()
             if (lv >= 0)
             {
                 __asm {
-					mov		esi, pMegaTiles
-					mov		eax, lv
-					shl		eax, 3
-					add		esi, eax
-					xor		eax, eax
-					lodsw
-					inc		eax
-					mov		v1, eax
-					lodsw
-					inc		eax
-					mov		v2, eax
-					lodsw
-					inc		eax
-					mov		v3, eax
-					lodsw
-					inc		eax
-					mov		v4, eax
+                    mov        esi, pMegaTiles
+                    mov        eax, lv
+                    shl        eax, 3
+                    add        esi, eax
+                    xor        eax, eax
+                    lodsw
+                    inc        eax
+                    mov        v1, eax
+                    lodsw
+                    inc        eax
+                    mov        v2, eax
+                    lodsw
+                    inc        eax
+                    mov        v3, eax
+                    lodsw
+                    inc        eax
+                    mov        v4, eax
                 }
             }
             else

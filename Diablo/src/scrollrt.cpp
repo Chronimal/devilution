@@ -80,9 +80,8 @@ const char* const szMonModeAssert[18] = {
     "healing",
     "talking"};
 
-const char* const szPlrModeAssert[12] = {
-    "standing", "walking (1)", "walking (2)", "walking (3)",     "attacking (melee)", "attacking (ranged)",
-    "blocking", "getting hit", "dying",       "casting a spell", "changing levels",   "quitting"};
+const char* const szPlrModeAssert[12] = {"standing", "walking (1)", "walking (2)", "walking (3)",     "attacking (melee)", "attacking (ranged)",
+                                         "blocking", "getting hit", "dying",       "casting a spell", "changing levels",   "quitting"};
 
 /**
  * @brief Clear cursor state
@@ -289,8 +288,7 @@ void DrawMissile(int x, int y, int sx, int sy, int CelSkip, int CelCap, BOOL pre
                 mx = sx + m->_mixoff - m->_miAnimWidth2;
                 my = sy + m->_miyoff;
                 if (m->_miUniqTrans)
-                    Cl2DrawLightTbl(
-                        mx, my, m->_miAnimData, m->_miAnimFrame, m->_miAnimWidth, CelSkip, CelCap, m->_miUniqTrans + 3);
+                    Cl2DrawLightTbl(mx, my, m->_miAnimData, m->_miAnimFrame, m->_miAnimWidth, CelSkip, CelCap, m->_miUniqTrans + 3);
                 else if (m->_miLightFlag)
                     Cl2DrawLight(mx, my, m->_miAnimData, m->_miAnimFrame, m->_miAnimWidth, CelSkip, CelCap);
                 else
@@ -324,8 +322,7 @@ void DrawMissile(int x, int y, int sx, int sy, int CelSkip, int CelCap, BOOL pre
             mx = sx + m->_mixoff - m->_miAnimWidth2;
             my = sy + m->_miyoff;
             if (m->_miUniqTrans)
-                Cl2DrawLightTbl(
-                    mx, my, m->_miAnimData, m->_miAnimFrame, m->_miAnimWidth, CelSkip, CelCap, m->_miUniqTrans + 3);
+                Cl2DrawLightTbl(mx, my, m->_miAnimData, m->_miAnimFrame, m->_miAnimWidth, CelSkip, CelCap, m->_miUniqTrans + 3);
             else if (m->_miLightFlag)
                 Cl2DrawLight(mx, my, m->_miAnimData, m->_miAnimFrame, m->_miAnimWidth, CelSkip, CelCap);
             else
@@ -382,8 +379,7 @@ void DrawClippedMissile(int x, int y, int sx, int sy, int CelSkip, int CelCap, B
                 mx = sx + m->_mixoff - m->_miAnimWidth2;
                 my = sy + m->_miyoff;
                 if (m->_miUniqTrans)
-                    Cl2DrawLightTblSafe(
-                        mx, my, m->_miAnimData, m->_miAnimFrame, m->_miAnimWidth, CelSkip, CelCap, m->_miUniqTrans + 3);
+                    Cl2DrawLightTblSafe(mx, my, m->_miAnimData, m->_miAnimFrame, m->_miAnimWidth, CelSkip, CelCap, m->_miUniqTrans + 3);
                 else if (m->_miLightFlag)
                     Cl2DrawLightSafe(mx, my, m->_miAnimData, m->_miAnimFrame, m->_miAnimWidth, CelSkip, CelCap);
                 else
@@ -418,8 +414,7 @@ void DrawClippedMissile(int x, int y, int sx, int sy, int CelSkip, int CelCap, B
             mx = sx + m->_mixoff - m->_miAnimWidth2;
             my = sy + m->_miyoff;
             if (m->_miUniqTrans)
-                Cl2DrawLightTblSafe(
-                    mx, my, m->_miAnimData, m->_miAnimFrame, m->_miAnimWidth, CelSkip, CelCap, m->_miUniqTrans + 3);
+                Cl2DrawLightTblSafe(mx, my, m->_miAnimData, m->_miAnimFrame, m->_miAnimWidth, CelSkip, CelCap, m->_miUniqTrans + 3);
             else if (m->_miLightFlag)
                 Cl2DrawLightSafe(mx, my, m->_miAnimData, m->_miAnimFrame, m->_miAnimWidth, CelSkip, CelCap);
             else
@@ -478,8 +473,7 @@ static void DrawMonster(int x, int y, int mx, int my, int m, int CelSkip, int Ce
 
     if (!(dFlags[x][y] & BFLAG_LIT))
     {
-        Cl2DrawLightTbl(
-            mx, my, monster[m]._mAnimData, monster[m]._mAnimFrame, monster[m].MType->width, CelSkip, CelCap, 1);
+        Cl2DrawLightTbl(mx, my, monster[m]._mAnimData, monster[m]._mAnimFrame, monster[m].MType->width, CelSkip, CelCap, 1);
     }
     else
     {
@@ -491,11 +485,9 @@ static void DrawMonster(int x, int y, int mx, int my, int m, int CelSkip, int Ce
         if (plr[myplr]._pInfraFlag && light_table_index > 8)
             trans = 1;
         if (trans)
-            Cl2DrawLightTbl(
-                mx, my, monster[m]._mAnimData, monster[m]._mAnimFrame, monster[m].MType->width, CelSkip, CelCap, trans);
+            Cl2DrawLightTbl(mx, my, monster[m]._mAnimData, monster[m]._mAnimFrame, monster[m].MType->width, CelSkip, CelCap, trans);
         else
-            Cl2DrawLight(
-                mx, my, monster[m]._mAnimData, monster[m]._mAnimFrame, monster[m].MType->width, CelSkip, CelCap);
+            Cl2DrawLight(mx, my, monster[m]._mAnimData, monster[m]._mAnimFrame, monster[m].MType->width, CelSkip, CelCap);
     }
 }
 
@@ -549,8 +541,7 @@ static void DrawClippedMonster(int x, int y, int mx, int my, int m, int CelSkip,
 
     if (!(dFlags[x][y] & BFLAG_LIT))
     {
-        Cl2DrawLightTblSafe(
-            mx, my, monster[m]._mAnimData, monster[m]._mAnimFrame, monster[m].MType->width, CelSkip, CelCap, 1);
+        Cl2DrawLightTblSafe(mx, my, monster[m]._mAnimData, monster[m]._mAnimFrame, monster[m].MType->width, CelSkip, CelCap, 1);
     }
     else
     {
@@ -562,11 +553,9 @@ static void DrawClippedMonster(int x, int y, int mx, int my, int m, int CelSkip,
         if (plr[myplr]._pInfraFlag && light_table_index > 8)
             trans = 1;
         if (trans)
-            Cl2DrawLightTblSafe(
-                mx, my, monster[m]._mAnimData, monster[m]._mAnimFrame, monster[m].MType->width, CelSkip, CelCap, trans);
+            Cl2DrawLightTblSafe(mx, my, monster[m]._mAnimData, monster[m]._mAnimFrame, monster[m].MType->width, CelSkip, CelCap, trans);
         else
-            Cl2DrawLightSafe(
-                mx, my, monster[m]._mAnimData, monster[m]._mAnimFrame, monster[m].MType->width, CelSkip, CelCap);
+            Cl2DrawLightSafe(mx, my, monster[m]._mAnimData, monster[m]._mAnimFrame, monster[m].MType->width, CelSkip, CelCap);
     }
 }
 
@@ -583,17 +572,7 @@ static void DrawClippedMonster(int x, int y, int mx, int my, int m, int CelSkip,
  * @param CelSkip Skip part of sprite, see Cl2Draw
  * @param CelCap  Skip part of sprite, see Cl2Draw
  */
-static void DrawPlayer(
-    int pnum,
-    int x,
-    int y,
-    int px,
-    int py,
-    BYTE* pCelBuff,
-    int nCel,
-    int nWidth,
-    int CelSkip,
-    int CelCap)
+static void DrawPlayer(int pnum, int x, int y, int px, int py, BYTE* pCelBuff, int nCel, int nWidth, int CelSkip, int CelCap)
 {
     int l;
     DWORD* pFrameTable;
@@ -631,8 +610,7 @@ static void DrawPlayer(
 #ifndef HELLFIRE
             if (plr[pnum].pManaShield)
                 Cl2Draw(
-                    px + plr[pnum]._pAnimWidth2 - misfiledata[MFILE_MANASHLD].mAnimWidth2[0], py,
-                    misfiledata[MFILE_MANASHLD].mAnimData[0], 1, misfiledata[MFILE_MANASHLD].mAnimWidth[0], CelSkip,
+                    px + plr[pnum]._pAnimWidth2 - misfiledata[MFILE_MANASHLD].mAnimWidth2[0], py, misfiledata[MFILE_MANASHLD].mAnimData[0], 1, misfiledata[MFILE_MANASHLD].mAnimWidth[0], CelSkip,
                     CelCap);
 #endif
         }
@@ -642,8 +620,7 @@ static void DrawPlayer(
 #ifndef HELLFIRE
             if (plr[pnum].pManaShield)
                 Cl2DrawLightTbl(
-                    px + plr[pnum]._pAnimWidth2 - misfiledata[MFILE_MANASHLD].mAnimWidth2[0], py,
-                    misfiledata[MFILE_MANASHLD].mAnimData[0], 1, misfiledata[MFILE_MANASHLD].mAnimWidth[0], CelSkip,
+                    px + plr[pnum]._pAnimWidth2 - misfiledata[MFILE_MANASHLD].mAnimWidth2[0], py, misfiledata[MFILE_MANASHLD].mAnimData[0], 1, misfiledata[MFILE_MANASHLD].mAnimWidth[0], CelSkip,
                     CelCap, 1);
 #endif
         }
@@ -658,8 +635,7 @@ static void DrawPlayer(
 #ifndef HELLFIRE
             if (plr[pnum].pManaShield)
                 Cl2DrawLight(
-                    px + plr[pnum]._pAnimWidth2 - misfiledata[MFILE_MANASHLD].mAnimWidth2[0], py,
-                    misfiledata[MFILE_MANASHLD].mAnimData[0], 1, misfiledata[MFILE_MANASHLD].mAnimWidth[0], CelSkip,
+                    px + plr[pnum]._pAnimWidth2 - misfiledata[MFILE_MANASHLD].mAnimWidth2[0], py, misfiledata[MFILE_MANASHLD].mAnimData[0], 1, misfiledata[MFILE_MANASHLD].mAnimWidth[0], CelSkip,
                     CelCap);
 #endif
             light_table_index = l;
@@ -680,17 +656,7 @@ static void DrawPlayer(
  * @param CelSkip Skip part of sprite, see Cl2Draw
  * @param CelCap  Skip part of sprite, see Cl2Draw
  */
-static void DrawClippedPlayer(
-    int pnum,
-    int x,
-    int y,
-    int px,
-    int py,
-    BYTE* pCelBuff,
-    int nCel,
-    int nWidth,
-    int CelSkip,
-    int CelCap)
+static void DrawClippedPlayer(int pnum, int x, int y, int px, int py, BYTE* pCelBuff, int nCel, int nWidth, int CelSkip, int CelCap)
 {
     int l;
     DWORD* pFrameTable;
@@ -728,8 +694,7 @@ static void DrawClippedPlayer(
 #ifndef HELLFIRE
             if (plr[pnum].pManaShield)
                 Cl2DrawSafe(
-                    px + plr[pnum]._pAnimWidth2 - misfiledata[MFILE_MANASHLD].mAnimWidth2[0], py,
-                    misfiledata[MFILE_MANASHLD].mAnimData[0], 1, misfiledata[MFILE_MANASHLD].mAnimWidth[0], CelSkip,
+                    px + plr[pnum]._pAnimWidth2 - misfiledata[MFILE_MANASHLD].mAnimWidth2[0], py, misfiledata[MFILE_MANASHLD].mAnimData[0], 1, misfiledata[MFILE_MANASHLD].mAnimWidth[0], CelSkip,
                     CelCap);
 #endif
         }
@@ -739,8 +704,7 @@ static void DrawClippedPlayer(
 #ifndef HELLFIRE
             if (plr[pnum].pManaShield)
                 Cl2DrawLightTblSafe(
-                    px + plr[pnum]._pAnimWidth2 - misfiledata[MFILE_MANASHLD].mAnimWidth2[0], py,
-                    misfiledata[MFILE_MANASHLD].mAnimData[0], 1, misfiledata[MFILE_MANASHLD].mAnimWidth[0], CelSkip,
+                    px + plr[pnum]._pAnimWidth2 - misfiledata[MFILE_MANASHLD].mAnimWidth2[0], py, misfiledata[MFILE_MANASHLD].mAnimData[0], 1, misfiledata[MFILE_MANASHLD].mAnimWidth[0], CelSkip,
                     CelCap, 1);
 #endif
         }
@@ -755,8 +719,7 @@ static void DrawClippedPlayer(
 #ifndef HELLFIRE
             if (plr[pnum].pManaShield)
                 Cl2DrawLightSafe(
-                    px + plr[pnum]._pAnimWidth2 - misfiledata[MFILE_MANASHLD].mAnimWidth2[0], py,
-                    misfiledata[MFILE_MANASHLD].mAnimData[0], 1, misfiledata[MFILE_MANASHLD].mAnimWidth[0], CelSkip,
+                    px + plr[pnum]._pAnimWidth2 - misfiledata[MFILE_MANASHLD].mAnimWidth2[0], py, misfiledata[MFILE_MANASHLD].mAnimData[0], 1, misfiledata[MFILE_MANASHLD].mAnimWidth[0], CelSkip,
                     CelCap);
 #endif
             light_table_index = l;
@@ -880,19 +843,16 @@ static void DrawObject(int x, int y, int ox, int oy, BOOL pre, int CelSkip, int 
     }
 
     if (bv == pcursobj)
-        CelBlitOutline(
-            194, sx, sy, object[bv]._oAnimData, object[bv]._oAnimFrame, object[bv]._oAnimWidth, CelSkip, CelCap);
+        CelBlitOutline(194, sx, sy, object[bv]._oAnimData, object[bv]._oAnimFrame, object[bv]._oAnimWidth, CelSkip, CelCap);
     if (object[bv]._oLight)
     {
-        CelClippedDrawLight(
-            sx, sy, object[bv]._oAnimData, object[bv]._oAnimFrame, object[bv]._oAnimWidth, CelSkip, CelCap);
+        CelClippedDrawLight(sx, sy, object[bv]._oAnimData, object[bv]._oAnimFrame, object[bv]._oAnimWidth, CelSkip, CelCap);
     }
     else
     {
         /// ASSERT: assert(object[bv]._oAnimData);
         if (object[bv]._oAnimData) // BUGFIX: _oAnimData was already checked, this is redundant
-            CelClippedDraw(
-                sx, sy, object[bv]._oAnimData, object[bv]._oAnimFrame, object[bv]._oAnimWidth, CelSkip, CelCap);
+            CelClippedDraw(sx, sy, object[bv]._oAnimData, object[bv]._oAnimFrame, object[bv]._oAnimWidth, CelSkip, CelCap);
     }
 }
 
@@ -958,14 +918,11 @@ static void DrawClippedObject(int x, int y, int ox, int oy, BOOL pre, int CelSki
     }
 
     if (bv == pcursobj)
-        CelBlitOutlineSafe(
-            194, sx, sy, object[bv]._oAnimData, object[bv]._oAnimFrame, object[bv]._oAnimWidth, CelSkip, CelCap);
+        CelBlitOutlineSafe(194, sx, sy, object[bv]._oAnimData, object[bv]._oAnimFrame, object[bv]._oAnimWidth, CelSkip, CelCap);
     if (object[bv]._oLight)
-        CelDrawLightSafe(
-            sx, sy, object[bv]._oAnimData, object[bv]._oAnimFrame, object[bv]._oAnimWidth, CelSkip, CelCap);
+        CelDrawLightSafe(sx, sy, object[bv]._oAnimData, object[bv]._oAnimFrame, object[bv]._oAnimWidth, CelSkip, CelCap);
     else
-        CelClippedDrawSafe(
-            sx, sy, object[bv]._oAnimData, object[bv]._oAnimFrame, object[bv]._oAnimWidth, CelSkip, CelCap);
+        CelClippedDrawSafe(sx, sy, object[bv]._oAnimData, object[bv]._oAnimFrame, object[bv]._oAnimWidth, CelSkip, CelCap);
 }
 
 static void scrollrt_draw_clipped_dungeon(BYTE* pBuff, int sx, int sy, int dx, int dy, int eflag);
@@ -1161,15 +1118,12 @@ static void scrollrt_draw_clipped_dungeon(BYTE* pBuff, int sx, int sy, int dx, i
             pPlayer = &plr[p];
             px = dx + pPlayer->_pxoff - pPlayer->_pAnimWidth2;
             py = dy + pPlayer->_pyoff;
-            DrawClippedPlayer(
-                p, sx, sy - 1, px, py, pPlayer->_pAnimData, pPlayer->_pAnimFrame, pPlayer->_pAnimWidth, 0, 8);
+            DrawClippedPlayer(p, sx, sy - 1, px, py, pPlayer->_pAnimData, pPlayer->_pAnimFrame, pPlayer->_pAnimWidth, 0, 8);
             if (eflag && pPlayer->_peflag != 0)
             {
                 if (pPlayer->_peflag == 2)
                 {
-                    scrollrt_draw_clipped_e_flag(
-                        pBuff - (BUFFER_WIDTH * TILE_HEIGHT / 2 + TILE_WIDTH + TILE_WIDTH / 2), sx - 2, sy + 1,
-                        dx - (TILE_WIDTH + TILE_WIDTH / 2), dy - TILE_HEIGHT / 2);
+                    scrollrt_draw_clipped_e_flag(pBuff - (BUFFER_WIDTH * TILE_HEIGHT / 2 + TILE_WIDTH + TILE_WIDTH / 2), sx - 2, sy + 1, dx - (TILE_WIDTH + TILE_WIDTH / 2), dy - TILE_HEIGHT / 2);
                 }
                 scrollrt_draw_clipped_e_flag(pBuff - TILE_WIDTH, sx - 1, sy + 1, dx - TILE_WIDTH, dy);
             }
@@ -1193,8 +1147,7 @@ static void scrollrt_draw_clipped_dungeon(BYTE* pBuff, int sx, int sy, int dx, i
                     py = dy + pMonster->_myoff;
                     if (draw_monster_num == pcursmonst)
                     {
-                        Cl2DrawOutlineSafe(
-                            233, px, py, pMonster->_mAnimData, pMonster->_mAnimFrame, pMonster->MType->width, 0, 8);
+                        Cl2DrawOutlineSafe(233, px, py, pMonster->_mAnimData, pMonster->_mAnimFrame, pMonster->MType->width, 0, 8);
                     }
                     DrawClippedMonster(sx, sy, px, py, draw_monster_num, 0, 8);
                     if (eflag && pMonster->_meflag)
@@ -1230,9 +1183,7 @@ static void scrollrt_draw_clipped_dungeon(BYTE* pBuff, int sx, int sy, int dx, i
             {
                 if (pPlayer->_peflag == 2)
                 {
-                    scrollrt_draw_clipped_e_flag(
-                        pBuff - (BUFFER_WIDTH * TILE_HEIGHT / 2 + TILE_WIDTH + TILE_WIDTH / 2), sx - 2, sy + 1,
-                        dx - TILE_WIDTH + TILE_WIDTH / 2, dy - TILE_HEIGHT / 2);
+                    scrollrt_draw_clipped_e_flag(pBuff - (BUFFER_WIDTH * TILE_HEIGHT / 2 + TILE_WIDTH + TILE_WIDTH / 2), sx - 2, sy + 1, dx - TILE_WIDTH + TILE_WIDTH / 2, dy - TILE_HEIGHT / 2);
                 }
                 scrollrt_draw_clipped_e_flag(pBuff - TILE_WIDTH, sx - 1, sy + 1, dx - TILE_WIDTH, dy);
             }
@@ -1256,8 +1207,7 @@ static void scrollrt_draw_clipped_dungeon(BYTE* pBuff, int sx, int sy, int dx, i
                     py = dy + pMonster->_myoff;
                     if (draw_monster_num == pcursmonst)
                     {
-                        Cl2DrawOutlineSafe(
-                            233, px, py, pMonster->_mAnimData, pMonster->_mAnimFrame, pMonster->MType->width, 0, 8);
+                        Cl2DrawOutlineSafe(233, px, py, pMonster->_mAnimData, pMonster->_mAnimFrame, pMonster->MType->width, 0, 8);
                     }
                     DrawClippedMonster(sx, sy, px, py, draw_monster_num, 0, 8);
                     if (eflag && pMonster->_meflag)
@@ -1521,15 +1471,7 @@ static void scrollrt_draw_lower(int x, int y, int sx, int sy, int chunks, int ef
     }
 }
 
-static void scrollrt_draw_clipped_dungeon_2(
-    BYTE* pBuff,
-    int sx,
-    int sy,
-    int row,
-    int CelSkip,
-    int dx,
-    int dy,
-    int eflag);
+static void scrollrt_draw_clipped_dungeon_2(BYTE* pBuff, int sx, int sy, int row, int CelSkip, int dx, int dy, int eflag);
 
 /**
  * This variant checks for of screen element on the lower screen
@@ -1633,15 +1575,7 @@ static void scrollrt_draw_clipped_e_flag_2(BYTE* pBuff, int x, int y, int row, i
  * @param dy Back buffer coordinate
  * @param eflag Should the sorting workaround be applied
  */
-static void scrollrt_draw_clipped_dungeon_2(
-    BYTE* pBuff,
-    int sx,
-    int sy,
-    int row,
-    int CelSkip,
-    int dx,
-    int dy,
-    int eflag)
+static void scrollrt_draw_clipped_dungeon_2(BYTE* pBuff, int sx, int sy, int row, int CelSkip, int dx, int dy, int eflag)
 {
     int px, py, nCel, nMon, negMon, p;
     char bFlag, bDead, bObj, bItem, bPlr, bArch, bMap, negPlr, dd;
@@ -1692,8 +1626,7 @@ static void scrollrt_draw_clipped_dungeon_2(
                 {
                     if (pDeadGuy->_deadtrans != 0)
                     {
-                        Cl2DrawLightTblSafe(
-                            px, dy, pCelBuff, nCel, pDeadGuy->_deadWidth, CelSkip, 8, pDeadGuy->_deadtrans);
+                        Cl2DrawLightTblSafe(px, dy, pCelBuff, nCel, pDeadGuy->_deadWidth, CelSkip, 8, pDeadGuy->_deadtrans);
                     }
                     else
                     {
@@ -1761,15 +1694,13 @@ static void scrollrt_draw_clipped_dungeon_2(
             pPlayer = &plr[p];
             px = dx + pPlayer->_pxoff - pPlayer->_pAnimWidth2;
             py = dy + pPlayer->_pyoff;
-            DrawClippedPlayer(
-                p, sx, sy - 1, px, py, pPlayer->_pAnimData, pPlayer->_pAnimFrame, pPlayer->_pAnimWidth, CelSkip, 8);
+            DrawClippedPlayer(p, sx, sy - 1, px, py, pPlayer->_pAnimData, pPlayer->_pAnimFrame, pPlayer->_pAnimWidth, CelSkip, 8);
             if (eflag && pPlayer->_peflag != 0)
             {
                 if (pPlayer->_peflag == 2)
                 {
                     scrollrt_draw_clipped_e_flag_2(
-                        pBuff - (BUFFER_WIDTH * TILE_HEIGHT / 2 + TILE_WIDTH + TILE_WIDTH / 2), sx - 2, sy + 1, row,
-                        CelSkip, dx - TILE_WIDTH + TILE_WIDTH / 2, dy - TILE_HEIGHT / 2);
+                        pBuff - (BUFFER_WIDTH * TILE_HEIGHT / 2 + TILE_WIDTH + TILE_WIDTH / 2), sx - 2, sy + 1, row, CelSkip, dx - TILE_WIDTH + TILE_WIDTH / 2, dy - TILE_HEIGHT / 2);
                 }
                 scrollrt_draw_clipped_e_flag_2(pBuff - TILE_WIDTH, sx - 1, sy + 1, row, CelSkip, dx - TILE_WIDTH, dy);
             }
@@ -1793,15 +1724,12 @@ static void scrollrt_draw_clipped_dungeon_2(
                     py = dy + pMonster->_myoff;
                     if (draw_monster_num == pcursmonst)
                     {
-                        Cl2DrawOutlineSafe(
-                            233, px, py, pMonster->_mAnimData, pMonster->_mAnimFrame, pMonster->MType->width, CelSkip,
-                            8);
+                        Cl2DrawOutlineSafe(233, px, py, pMonster->_mAnimData, pMonster->_mAnimFrame, pMonster->MType->width, CelSkip, 8);
                     }
                     DrawClippedMonster(sx, sy, px, py, draw_monster_num, CelSkip, 8);
                     if (eflag && !pMonster->_meflag)
                     {
-                        scrollrt_draw_clipped_e_flag_2(
-                            pBuff - TILE_WIDTH, sx - 1, sy + 1, row, CelSkip, dx - TILE_WIDTH, dy);
+                        scrollrt_draw_clipped_e_flag_2(pBuff - TILE_WIDTH, sx - 1, sy + 1, row, CelSkip, dx - TILE_WIDTH, dy);
                     }
                 }
                 else
@@ -1827,15 +1755,13 @@ static void scrollrt_draw_clipped_dungeon_2(
             pPlayer = &plr[p];
             px = dx + pPlayer->_pxoff - pPlayer->_pAnimWidth2;
             py = dy + pPlayer->_pyoff;
-            DrawClippedPlayer(
-                p, sx, sy, px, py, pPlayer->_pAnimData, pPlayer->_pAnimFrame, pPlayer->_pAnimWidth, CelSkip, 8);
+            DrawClippedPlayer(p, sx, sy, px, py, pPlayer->_pAnimData, pPlayer->_pAnimFrame, pPlayer->_pAnimWidth, CelSkip, 8);
             if (eflag && pPlayer->_peflag != 0)
             {
                 if (pPlayer->_peflag == 2)
                 {
                     scrollrt_draw_clipped_e_flag_2(
-                        pBuff - (BUFFER_WIDTH * TILE_HEIGHT / 2 + TILE_WIDTH + TILE_WIDTH / 2), sx - 2, sy + 1, row,
-                        CelSkip, dx - TILE_WIDTH + TILE_WIDTH / 2, dy - TILE_HEIGHT / 2);
+                        pBuff - (BUFFER_WIDTH * TILE_HEIGHT / 2 + TILE_WIDTH + TILE_WIDTH / 2), sx - 2, sy + 1, row, CelSkip, dx - TILE_WIDTH + TILE_WIDTH / 2, dy - TILE_HEIGHT / 2);
                 }
                 scrollrt_draw_clipped_e_flag_2(pBuff - TILE_WIDTH, sx - 1, sy + 1, row, CelSkip, dx - TILE_WIDTH, dy);
             }
@@ -1859,15 +1785,12 @@ static void scrollrt_draw_clipped_dungeon_2(
                     py = dy + pMonster->_myoff;
                     if (draw_monster_num == pcursmonst)
                     {
-                        Cl2DrawOutlineSafe(
-                            233, px, py, pMonster->_mAnimData, pMonster->_mAnimFrame, pMonster->MType->width, CelSkip,
-                            8);
+                        Cl2DrawOutlineSafe(233, px, py, pMonster->_mAnimData, pMonster->_mAnimFrame, pMonster->MType->width, CelSkip, 8);
                     }
                     DrawClippedMonster(sx, sy, px, py, draw_monster_num, CelSkip, 8);
                     if (eflag && !pMonster->_meflag)
                     {
-                        scrollrt_draw_clipped_e_flag_2(
-                            pBuff - TILE_WIDTH, sx - 1, sy + 1, row, CelSkip, dx - TILE_WIDTH, dy);
+                        scrollrt_draw_clipped_e_flag_2(pBuff - TILE_WIDTH, sx - 1, sy + 1, row, CelSkip, dx - TILE_WIDTH, dy);
                     }
                 }
                 else
@@ -1982,9 +1905,7 @@ static void scrollrt_draw_lower_2(int x, int y, int sx, int sy, int chunks, int 
                 }
                 if (CelSkip < 8)
                 {
-                    scrollrt_draw_clipped_dungeon_2(
-                        &gpBuffer[sx + PitchTbl[sy] - BUFFER_WIDTH * TILE_HEIGHT / 2 * CelSkip], x, y, row, CelSkip, sx,
-                        sy, 0);
+                    scrollrt_draw_clipped_dungeon_2(&gpBuffer[sx + PitchTbl[sy] - BUFFER_WIDTH * TILE_HEIGHT / 2 * CelSkip], x, y, row, CelSkip, sx, sy, 0);
                 }
             }
         }
@@ -2031,9 +1952,7 @@ static void scrollrt_draw_lower_2(int x, int y, int sx, int sy, int chunks, int 
                 }
                 if (CelSkip < 8)
                 {
-                    scrollrt_draw_clipped_dungeon_2(
-                        &gpBuffer[sx + PitchTbl[sy] - BUFFER_WIDTH * TILE_HEIGHT * (row + 1)], x, y, row, CelSkip, sx,
-                        sy, 1);
+                    scrollrt_draw_clipped_dungeon_2(&gpBuffer[sx + PitchTbl[sy] - BUFFER_WIDTH * TILE_HEIGHT * (row + 1)], x, y, row, CelSkip, sx, sy, 1);
                 }
             }
         }
@@ -2067,9 +1986,7 @@ static void scrollrt_draw_lower_2(int x, int y, int sx, int sy, int chunks, int 
                 }
                 if (CelSkip < 8)
                 {
-                    scrollrt_draw_clipped_dungeon_2(
-                        &gpBuffer[sx + PitchTbl[sy] - BUFFER_WIDTH * TILE_HEIGHT / 2 * CelSkip], x, y, row, CelSkip, sx,
-                        sy, 0);
+                    scrollrt_draw_clipped_dungeon_2(&gpBuffer[sx + PitchTbl[sy] - BUFFER_WIDTH * TILE_HEIGHT / 2 * CelSkip], x, y, row, CelSkip, sx, sy, 0);
                 }
             }
         }
@@ -2250,8 +2167,7 @@ static void scrollrt_draw_dungeon(BYTE* pBuff, int sx, int sy, int row, int CelC
                         {
                             CelBlitOutline(181, px, dy, pCelBuff, nCel, pItem->_iAnimWidth, 0, CelCap);
                         }
-                        CelClippedDrawLight(
-                            px, dy, pItem->_iAnimData, pItem->_iAnimFrame, pItem->_iAnimWidth, 0, CelCap);
+                        CelClippedDrawLight(px, dy, pItem->_iAnimData, pItem->_iAnimFrame, pItem->_iAnimWidth, 0, CelCap);
                     }
                     else
                     {
@@ -2274,15 +2190,12 @@ static void scrollrt_draw_dungeon(BYTE* pBuff, int sx, int sy, int row, int CelC
             pPlayer = &plr[p];
             px = dx + pPlayer->_pxoff - pPlayer->_pAnimWidth2;
             py = dy + pPlayer->_pyoff;
-            DrawPlayer(
-                p, sx, sy - 1, px, py, pPlayer->_pAnimData, pPlayer->_pAnimFrame, pPlayer->_pAnimWidth, 0, CelCap);
+            DrawPlayer(p, sx, sy - 1, px, py, pPlayer->_pAnimData, pPlayer->_pAnimFrame, pPlayer->_pAnimWidth, 0, CelCap);
             if (eflag && pPlayer->_peflag != 0)
             {
                 if (pPlayer->_peflag == 2)
                 {
-                    scrollrt_draw_e_flag(
-                        pBuff - (BUFFER_WIDTH * TILE_HEIGHT / 2 + TILE_WIDTH + TILE_WIDTH / 2), sx - 2, sy + 1, row,
-                        CelCap, tx, ty);
+                    scrollrt_draw_e_flag(pBuff - (BUFFER_WIDTH * TILE_HEIGHT / 2 + TILE_WIDTH + TILE_WIDTH / 2), sx - 2, sy + 1, row, CelCap, tx, ty);
                 }
                 scrollrt_draw_e_flag(pBuff - TILE_WIDTH, sx - 1, sy + 1, row, CelCap, dx - TILE_WIDTH, dy);
             }
@@ -2306,9 +2219,7 @@ static void scrollrt_draw_dungeon(BYTE* pBuff, int sx, int sy, int row, int CelC
                     py = dy + pMonster->_myoff;
                     if (draw_monster_num == pcursmonst)
                     {
-                        Cl2DrawOutline(
-                            233, px, py, pMonster->_mAnimData, pMonster->_mAnimFrame, pMonster->MType->width, 0,
-                            CelCap);
+                        Cl2DrawOutline(233, px, py, pMonster->_mAnimData, pMonster->_mAnimFrame, pMonster->MType->width, 0, CelCap);
                     }
                     DrawMonster(sx, sy, px, py, draw_monster_num, 0, CelCap);
                     if (eflag && !pMonster->_meflag)
@@ -2344,9 +2255,7 @@ static void scrollrt_draw_dungeon(BYTE* pBuff, int sx, int sy, int row, int CelC
             {
                 if (pPlayer->_peflag == 2)
                 {
-                    scrollrt_draw_e_flag(
-                        pBuff - (BUFFER_WIDTH * TILE_HEIGHT / 2 + TILE_WIDTH / 2), sx - 2, sy + 1, row, CelCap,
-                        dx - TILE_WIDTH / 2, dy - TILE_HEIGHT / 2);
+                    scrollrt_draw_e_flag(pBuff - (BUFFER_WIDTH * TILE_HEIGHT / 2 + TILE_WIDTH / 2), sx - 2, sy + 1, row, CelCap, dx - TILE_WIDTH / 2, dy - TILE_HEIGHT / 2);
                 }
                 scrollrt_draw_e_flag(pBuff - TILE_WIDTH, sx - 1, sy + 1, row, CelCap, dx - TILE_WIDTH, dy);
             }
@@ -2370,9 +2279,7 @@ static void scrollrt_draw_dungeon(BYTE* pBuff, int sx, int sy, int row, int CelC
                     py = dy + pMonster->_myoff;
                     if (draw_monster_num == pcursmonst)
                     {
-                        Cl2DrawOutline(
-                            233, px, py, pMonster->_mAnimData, pMonster->_mAnimFrame, pMonster->MType->width, 0,
-                            CelCap);
+                        Cl2DrawOutline(233, px, py, pMonster->_mAnimData, pMonster->_mAnimFrame, pMonster->MType->width, 0, CelCap);
                     }
                     DrawMonster(sx, sy, px, py, draw_monster_num, 0, CelCap);
                     if (eflag && !pMonster->_meflag)
@@ -2419,8 +2326,7 @@ static void scrollrt_draw_dungeon(BYTE* pBuff, int sx, int sy, int row, int CelC
                         {
                             CelBlitOutline(181, px, dy, pCelBuff, nCel, pItem->_iAnimWidth, 0, CelCap);
                         }
-                        CelClippedDrawLight(
-                            px, dy, pItem->_iAnimData, pItem->_iAnimFrame, pItem->_iAnimWidth, 0, CelCap);
+                        CelClippedDrawLight(px, dy, pItem->_iAnimData, pItem->_iAnimFrame, pItem->_iAnimWidth, 0, CelCap);
                     }
                     else
                     {
@@ -2870,35 +2776,35 @@ static void DrawZoom(int x, int y)
 
 #ifdef USE_ASM
     __asm {
-		mov		esi, gpBuffer
-		mov		edx, nDstOff
-		mov		edi, esi
-		mov		ecx, nSrcOff
-		add		edi, edx
-		add		esi, ecx
-		mov		ebx, edi
-		add		ebx, BUFFER_WIDTH
-		mov		edx, (VIEWPORT_HEIGHT / 2)
-	label1:
-		mov		ecx, wdt
-	label2:
-		mov		al, [esi]
-		inc		esi
-		mov		ah, al
-		mov		[edi], ax
-		mov		[ebx], ax
-		add		edi, 2
-		add		ebx, 2
-		dec		ecx
-		jnz		label2
-		mov		eax, BUFFER_WIDTH
-		add		eax, wdt
-		sub		esi, eax
-		add		eax, eax
-		sub		ebx, eax
-		sub		edi, eax
-		dec		edx
-		jnz		label1
+        mov        esi, gpBuffer
+        mov        edx, nDstOff
+        mov        edi, esi
+        mov        ecx, nSrcOff
+        add        edi, edx
+        add        esi, ecx
+        mov        ebx, edi
+        add        ebx, BUFFER_WIDTH
+        mov        edx, (VIEWPORT_HEIGHT / 2)
+    label1:
+        mov        ecx, wdt
+    label2:
+        mov        al, [esi]
+        inc        esi
+        mov        ah, al
+        mov        [edi], ax
+        mov        [ebx], ax
+        add        edi, 2
+        add        ebx, 2
+        dec        ecx
+        jnz        label2
+        mov        eax, BUFFER_WIDTH
+        add        eax, wdt
+        sub        esi, eax
+        add        eax, eax
+        sub        ebx, eax
+        sub        edi, eax
+        dec        edx
+        jnz        label1
     }
 #else
     int hgt;
@@ -2908,8 +2814,7 @@ static void DrawZoom(int x, int y)
     dst1 = &gpBuffer[nDstOff];
     dst2 = &gpBuffer[nDstOff + BUFFER_WIDTH];
 
-    for (hgt = VIEWPORT_HEIGHT / 2; hgt != 0;
-         hgt--, src -= BUFFER_WIDTH + wdt, dst1 -= 2 * (BUFFER_WIDTH + wdt), dst2 -= 2 * (BUFFER_WIDTH + wdt))
+    for (hgt = VIEWPORT_HEIGHT / 2; hgt != 0; hgt--, src -= BUFFER_WIDTH + wdt, dst1 -= 2 * (BUFFER_WIDTH + wdt), dst2 -= 2 * (BUFFER_WIDTH + wdt))
     {
         for (i = wdt; i != 0; i--)
         {
@@ -3017,16 +2922,16 @@ void ClearScreenBuffer()
 
 #ifdef USE_ASM
     __asm {
-		mov		edi, gpBuffer
-		add		edi, SCREENXY(0, 0)
-		mov		edx, SCREEN_HEIGHT
-		xor		eax, eax
-	zeroline:
-		mov		ecx, SCREEN_WIDTH / 4
-		rep stosd
-		add		edi, BUFFER_WIDTH - SCREEN_WIDTH
-		dec		edx
-		jnz		zeroline
+        mov        edi, gpBuffer
+        add        edi, SCREENXY(0, 0)
+        mov        edx, SCREEN_HEIGHT
+        xor        eax, eax
+    zeroline:
+        mov        ecx, SCREEN_WIDTH / 4
+        rep stosd
+        add        edi, BUFFER_WIDTH - SCREEN_WIDTH
+        dec        edx
+        jnz        zeroline
     }
 #else
     int i;
@@ -3236,8 +3141,7 @@ static void DoBlitScreen(DWORD dwX, DWORD dwY, DWORD dwWdt, DWORD dwHgt)
                 break;
             }
         }
-        if (hDDVal != DDERR_SURFACELOST && hDDVal != DDERR_WASSTILLDRAWING && hDDVal != DDERR_SURFACEBUSY &&
-            hDDVal != DD_OK)
+        if (hDDVal != DDERR_SURFACELOST && hDDVal != DDERR_WASSTILLDRAWING && hDDVal != DDERR_SURFACEBUSY && hDDVal != DD_OK)
         {
             DDErrMsg(hDDVal, 3596, "C:\\Src\\Diablo\\Source\\SCROLLRT.CPP");
         }

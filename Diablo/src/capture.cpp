@@ -52,8 +52,7 @@ static BOOL CapturePal(HANDLE hFile, PALETTEENTRY* palette)
         pcx_palette[1 + 3 * i + 2] = palette[i].peBlue;
     }
 
-    return WriteFile(hFile, pcx_palette, sizeof(pcx_palette), &NumberOfBytesWritten, NULL) &&
-           NumberOfBytesWritten == sizeof(pcx_palette);
+    return WriteFile(hFile, pcx_palette, sizeof(pcx_palette), &NumberOfBytesWritten, NULL) && NumberOfBytesWritten == sizeof(pcx_palette);
 }
 
 /**

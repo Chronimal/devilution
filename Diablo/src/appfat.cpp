@@ -51,7 +51,7 @@ void TriggerBreak()
     pFilter = SetUnhandledExceptionFilter(BreakFilter);
 #ifdef USE_ASM
     __asm {
-		int		3
+        int        3
     }
 #else
     __debugbreak();
@@ -458,9 +458,7 @@ const char* GetErrorStr(DWORD error_code)
     }
     else if (
         !SErrGetErrorStr(error_code, sz_error_buf, sizeof(sz_error_buf) / sizeof(sz_error_buf[0])) &&
-        !FormatMessage(
-            FORMAT_MESSAGE_FROM_SYSTEM, NULL, error_code, MAKELANGID(LANG_NEUTRAL, SUBLANG_DEFAULT), sz_error_buf,
-            sizeof(sz_error_buf) / sizeof(sz_error_buf[0]), NULL))
+        !FormatMessage(FORMAT_MESSAGE_FROM_SYSTEM, NULL, error_code, MAKELANGID(LANG_NEUTRAL, SUBLANG_DEFAULT), sz_error_buf, sizeof(sz_error_buf) / sizeof(sz_error_buf[0]), NULL))
     {
         wsprintf(sz_error_buf, "unknown error 0x%08x", error_code);
     }

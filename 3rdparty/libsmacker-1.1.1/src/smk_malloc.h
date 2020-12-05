@@ -47,7 +47,7 @@
             free(p);                                                                                                   \
             p = NULL;                                                                                                  \
         }                                                                                                              \
-        /*	else                                                                                                        \
+        /*    else                                                                                                        \
             {                                                                                                          \
                 fprintf(stderr, "libsmacker::smk_free(" #p ") - Warning: attempt to free NULL pointer (file: %s, line: \
            %lu)\n", __FILE__, (unsigned long)__LINE__);                                                                \
@@ -63,7 +63,7 @@
 */
 #define smk_malloc(p, x)                                                                                               \
     {                                                                                                                  \
-        /*	if (p)                                                                                                      \
+        /*    if (p)                                                                                                      \
             {                                                                                                          \
                 fprintf(stderr, "libsmacker::smk_malloc(" #p ", %lu) - Warning: freeing non-NULL pointer before calloc \
            (file: %s, line: %lu)\n", (unsigned long) (x), __FILE__, (unsigned long)__LINE__); free(p);                                                                                                              \

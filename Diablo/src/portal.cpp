@@ -42,7 +42,7 @@ void AddWarpMissile(int i, int x, int y)
 
     missiledata[MIS_TOWN].mlSFX = -1;
     dMissile[x][y] = 0;
-    mi = AddMissile(0, 0, x, y, 0, MIS_TOWN, 0, i, 0, 0);
+    mi = AddMissile(0, 0, x, y, 0, MIS_TOWN, TARGET_MONSTERS, i, 0, 0);
 
     if (mi != -1)
     {
@@ -194,8 +194,7 @@ BOOL PosOkPortal(int lvl, int x, int y)
 
     for (i = 0; i < MAXPORTAL; i++)
     {
-        if (portal[i].open && portal[i].level == lvl &&
-            ((portal[i].x == x && portal[i].y == y) || (portal[i].x == x - 1 && portal[i].y == y - 1)))
+        if (portal[i].open && portal[i].level == lvl && ((portal[i].x == x && portal[i].y == y) || (portal[i].x == x - 1 && portal[i].y == y - 1)))
             return TRUE;
     }
     return FALSE;

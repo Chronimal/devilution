@@ -72,8 +72,7 @@ static HANDLE log_create()
             buf[0] = '\0';
         log_get_version(&file_info);
         _snprintf(
-            FileName, sizeof(filename_tmp), "%s%s%02u%02u%02u.ERR", filename_tmp, buf,
-            file_info.dwProductVersionMS & 0xFFFF, file_info.dwProductVersionLS >> 16,
+            FileName, sizeof(filename_tmp), "%s%s%02u%02u%02u.ERR", filename_tmp, buf, file_info.dwProductVersionMS & 0xFFFF, file_info.dwProductVersionLS >> 16,
             file_info.dwProductVersionLS & 0xFFFF);
     }
     fh = INVALID_HANDLE_VALUE;
@@ -189,7 +188,6 @@ void log_dump_computer_info()
         "TIME: %02u/%02u/%02u %02u:%02u:%02u\r\n"
         "INFO: %s\r\n"
         "\r\n",
-        file_info.dwProductVersionMS >> 16, file_info.dwProductVersionMS & 0xFFFF, file_info.dwProductVersionLS >> 16,
-        file_info.dwProductVersionLS & 0xFFFF, Buffer, SystemTime.wMonth, SystemTime.wDay, SystemTime.wYear % 100,
-        SystemTime.wHour, SystemTime.wMinute, SystemTime.wSecond, log_buffer);
+        file_info.dwProductVersionMS >> 16, file_info.dwProductVersionMS & 0xFFFF, file_info.dwProductVersionLS >> 16, file_info.dwProductVersionLS & 0xFFFF, Buffer, SystemTime.wMonth,
+        SystemTime.wDay, SystemTime.wYear % 100, SystemTime.wHour, SystemTime.wMinute, SystemTime.wSecond, log_buffer);
 }

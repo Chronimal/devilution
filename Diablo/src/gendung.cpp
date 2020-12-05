@@ -157,8 +157,7 @@ void FillSolidBlockTbls()
 {
     BYTE bv;
     DWORD dwTiles;
-    BYTE* pSBFile = nullptr;
-    BYTE* pTmp;
+    BYTE *pSBFile, *pTmp;
     int i;
 
     memset(nBlockTable, 0, sizeof(nBlockTable));
@@ -206,7 +205,7 @@ void FillSolidBlockTbls()
             app_fatal("FillSolidBlockTbls");
     }
 
-    pTmp = pSBFile;
+    pTmp = pSBFile = nullptr;
 
     for (i = 1; i <= dwTiles; i++)
     {
@@ -318,13 +317,13 @@ void MakeSpeedCels()
         z = i;
 #ifdef USE_ASM
         __asm {
-			mov		ebx, pDungeonCels
-			mov		eax, z
-			shl		eax, 2
-			add		ebx, eax
-			mov		eax, [ebx+4]
-			sub		eax, [ebx]
-			mov		nDataSize, eax
+            mov        ebx, pDungeonCels
+            mov        eax, z
+            shl        eax, 2
+            add        ebx, eax
+            mov        eax, [ebx+4]
+            sub        eax, [ebx]
+            mov        nDataSize, eax
         }
 #else
         nDataSize = pFrameTable[i + 1] - pFrameTable[i];
@@ -349,26 +348,26 @@ void MakeSpeedCels()
 #ifdef USE_ASM
                     t = level_frame_sizes[i];
                     __asm {
-						mov		ebx, pDungeonCels
-						mov		eax, z
-						shl		eax, 2
-						add		ebx, eax
-						mov		esi, pDungeonCels
-						add		esi, [ebx]
-						xor		ebx, ebx
-						mov		ecx, t
-						jecxz	l1_label3
-					l1_label1:
-						lodsb
-						cmp		al, 0
-						jz		l1_label2
-						cmp		al, 32
-						jnb		l1_label2
-						mov		blood_flag, ebx
-					l1_label2:
-						loop	l1_label1
-					l1_label3:
-						nop
+                        mov        ebx, pDungeonCels
+                        mov        eax, z
+                        shl        eax, 2
+                        add        ebx, eax
+                        mov        esi, pDungeonCels
+                        add        esi, [ebx]
+                        xor        ebx, ebx
+                        mov        ecx, t
+                        jecxz    l1_label3
+                    l1_label1:
+                        lodsb
+                        cmp        al, 0
+                        jz        l1_label2
+                        cmp        al, 32
+                        jnb        l1_label2
+                        mov        blood_flag, ebx
+                    l1_label2:
+                        loop    l1_label1
+                    l1_label3:
+                        nop
                     }
 #else
                     src = &pDungeonCels[pFrameTable[i]];
@@ -384,43 +383,43 @@ void MakeSpeedCels()
                 {
 #ifdef USE_ASM
                     __asm {
-						mov		ebx, pDungeonCels
-						mov		eax, z
-						shl		eax, 2
-						add		ebx, eax
-						mov		esi, pDungeonCels
-						add		esi, [ebx]
-						xor		ebx, ebx
-						mov		ecx, 32
-					l2_label1:
-						push	ecx
-						mov		edx, 32
-					l2_label2:
-						xor		eax, eax
-						lodsb
-						or		al, al
-						js		l2_label5
-						sub		edx, eax
-						mov		ecx, eax
-					l2_label3:
-						lodsb
-						cmp		al, 0
-						jz		l2_label4
-						cmp		al, 32
-						jnb		l2_label4
-						mov		blood_flag, ebx
-					l2_label4:
-						loop	l2_label3
-						or		edx, edx
-						jz		l2_label6
-						jmp		l2_label2
-					l2_label5:
-						neg		al
-						sub		edx, eax
-						jnz		l2_label2
-					l2_label6:
-						pop		ecx
-						loop	l2_label1
+                        mov        ebx, pDungeonCels
+                        mov        eax, z
+                        shl        eax, 2
+                        add        ebx, eax
+                        mov        esi, pDungeonCels
+                        add        esi, [ebx]
+                        xor        ebx, ebx
+                        mov        ecx, 32
+                    l2_label1:
+                        push    ecx
+                        mov        edx, 32
+                    l2_label2:
+                        xor        eax, eax
+                        lodsb
+                        or        al, al
+                        js        l2_label5
+                        sub        edx, eax
+                        mov        ecx, eax
+                    l2_label3:
+                        lodsb
+                        cmp        al, 0
+                        jz        l2_label4
+                        cmp        al, 32
+                        jnb        l2_label4
+                        mov        blood_flag, ebx
+                    l2_label4:
+                        loop    l2_label3
+                        or        edx, edx
+                        jz        l2_label6
+                        jmp        l2_label2
+                    l2_label5:
+                        neg        al
+                        sub        edx, eax
+                        jnz        l2_label2
+                    l2_label6:
+                        pop        ecx
+                        loop    l2_label1
                     }
 #else
                     src = &pDungeonCels[pFrameTable[i]];
@@ -499,26 +498,26 @@ void MakeSpeedCels()
                 SpeedFrameTbl[i][j] = frameidx;
 #ifdef USE_ASM
                 __asm {
-					mov		ebx, pDungeonCels
-					mov		eax, z
-					shl		eax, 2
-					add		ebx, eax
-					mov		esi, pDungeonCels
-					add		esi, [ebx]
-					mov		edi, pSpeedCels
-					add		edi, frameidx
-					mov		ebx, j
-					shl		ebx, 8
-					add		ebx, pLightTbl
-					mov		ecx, t
-					jecxz	l3_label2
-				l3_label1:
-					lodsb
-					xlat
-					stosb
-					loop	l3_label1
-				l3_label2:
-					nop
+                    mov        ebx, pDungeonCels
+                    mov        eax, z
+                    shl        eax, 2
+                    add        ebx, eax
+                    mov        esi, pDungeonCels
+                    add        esi, [ebx]
+                    mov        edi, pSpeedCels
+                    add        edi, frameidx
+                    mov        ebx, j
+                    shl        ebx, 8
+                    add        ebx, pLightTbl
+                    mov        ecx, t
+                    jecxz    l3_label2
+                l3_label1:
+                    lodsb
+                    xlat
+                    stosb
+                    loop    l3_label1
+                l3_label2:
+                    nop
                 }
 #else
                 src = &pDungeonCels[pFrameTable[z]];
@@ -539,44 +538,44 @@ void MakeSpeedCels()
                 SpeedFrameTbl[i][j] = frameidx;
 #ifdef USE_ASM
                 __asm {
-					mov		ebx, pDungeonCels
-					mov		eax, z
-					shl		eax, 2
-					add		ebx, eax
-					mov		esi, pDungeonCels
-					add		esi, [ebx]
-					mov		edi, pSpeedCels
-					add		edi, frameidx
-					mov		ebx, j
-					shl		ebx, 8
-					add		ebx, pLightTbl
-					mov		ecx, 32
-				l4_label1:
-					push	ecx
-					mov		edx, 32
-				l4_label2:
-					xor		eax, eax
-					lodsb
-					stosb
-					or		al, al
-					js		l4_label4
-					sub		edx, eax
-					mov		ecx, eax
-				l4_label3:
-					lodsb
-					xlat
-					stosb
-					loop	l4_label3
-					or		edx, edx
-					jz		l4_label5
-					jmp		l4_label2
-				l4_label4:
-					neg		al
-					sub		edx, eax
-					jnz		l4_label2
-				l4_label5:
-					pop		ecx
-					loop	l4_label1
+                    mov        ebx, pDungeonCels
+                    mov        eax, z
+                    shl        eax, 2
+                    add        ebx, eax
+                    mov        esi, pDungeonCels
+                    add        esi, [ebx]
+                    mov        edi, pSpeedCels
+                    add        edi, frameidx
+                    mov        ebx, j
+                    shl        ebx, 8
+                    add        ebx, pLightTbl
+                    mov        ecx, 32
+                l4_label1:
+                    push    ecx
+                    mov        edx, 32
+                l4_label2:
+                    xor        eax, eax
+                    lodsb
+                    stosb
+                    or        al, al
+                    js        l4_label4
+                    sub        edx, eax
+                    mov        ecx, eax
+                l4_label3:
+                    lodsb
+                    xlat
+                    stosb
+                    loop    l4_label3
+                    or        edx, edx
+                    jz        l4_label5
+                    jmp        l4_label2
+                l4_label4:
+                    neg        al
+                    sub        edx, eax
+                    jnz        l4_label2
+                l4_label5:
+                    pop        ecx
+                    loop    l4_label1
                 }
 #else
                 src = &pDungeonCels[pFrameTable[z]];
@@ -962,18 +961,14 @@ void DRLG_CreateThemeRoom(int themeIndex)
         {
             if (leveltype == DTYPE_CATACOMBS)
             {
-                if (yy == themeLoc[themeIndex].y && xx >= themeLoc[themeIndex].x &&
-                        xx <= themeLoc[themeIndex].x + themeLoc[themeIndex].width ||
-                    yy == themeLoc[themeIndex].y + themeLoc[themeIndex].height - 1 && xx >= themeLoc[themeIndex].x &&
-                        xx <= themeLoc[themeIndex].x + themeLoc[themeIndex].width)
+                if (yy == themeLoc[themeIndex].y && xx >= themeLoc[themeIndex].x && xx <= themeLoc[themeIndex].x + themeLoc[themeIndex].width ||
+                    yy == themeLoc[themeIndex].y + themeLoc[themeIndex].height - 1 && xx >= themeLoc[themeIndex].x && xx <= themeLoc[themeIndex].x + themeLoc[themeIndex].width)
                 {
                     dungeon[xx][yy] = 2;
                 }
                 else if (
-                    xx == themeLoc[themeIndex].x && yy >= themeLoc[themeIndex].y &&
-                        yy <= themeLoc[themeIndex].y + themeLoc[themeIndex].height ||
-                    xx == themeLoc[themeIndex].x + themeLoc[themeIndex].width - 1 && yy >= themeLoc[themeIndex].y &&
-                        yy <= themeLoc[themeIndex].y + themeLoc[themeIndex].height)
+                    xx == themeLoc[themeIndex].x && yy >= themeLoc[themeIndex].y && yy <= themeLoc[themeIndex].y + themeLoc[themeIndex].height ||
+                    xx == themeLoc[themeIndex].x + themeLoc[themeIndex].width - 1 && yy >= themeLoc[themeIndex].y && yy <= themeLoc[themeIndex].y + themeLoc[themeIndex].height)
                 {
                     dungeon[xx][yy] = 1;
                 }
@@ -984,18 +979,14 @@ void DRLG_CreateThemeRoom(int themeIndex)
             }
             if (leveltype == DTYPE_CAVES)
             {
-                if (yy == themeLoc[themeIndex].y && xx >= themeLoc[themeIndex].x &&
-                        xx <= themeLoc[themeIndex].x + themeLoc[themeIndex].width ||
-                    yy == themeLoc[themeIndex].y + themeLoc[themeIndex].height - 1 && xx >= themeLoc[themeIndex].x &&
-                        xx <= themeLoc[themeIndex].x + themeLoc[themeIndex].width)
+                if (yy == themeLoc[themeIndex].y && xx >= themeLoc[themeIndex].x && xx <= themeLoc[themeIndex].x + themeLoc[themeIndex].width ||
+                    yy == themeLoc[themeIndex].y + themeLoc[themeIndex].height - 1 && xx >= themeLoc[themeIndex].x && xx <= themeLoc[themeIndex].x + themeLoc[themeIndex].width)
                 {
                     dungeon[xx][yy] = 134;
                 }
                 else if (
-                    xx == themeLoc[themeIndex].x && yy >= themeLoc[themeIndex].y &&
-                        yy <= themeLoc[themeIndex].y + themeLoc[themeIndex].height ||
-                    xx == themeLoc[themeIndex].x + themeLoc[themeIndex].width - 1 && yy >= themeLoc[themeIndex].y &&
-                        yy <= themeLoc[themeIndex].y + themeLoc[themeIndex].height)
+                    xx == themeLoc[themeIndex].x && yy >= themeLoc[themeIndex].y && yy <= themeLoc[themeIndex].y + themeLoc[themeIndex].height ||
+                    xx == themeLoc[themeIndex].x + themeLoc[themeIndex].width - 1 && yy >= themeLoc[themeIndex].y && yy <= themeLoc[themeIndex].y + themeLoc[themeIndex].height)
                 {
                     dungeon[xx][yy] = 137;
                 }
@@ -1006,18 +997,14 @@ void DRLG_CreateThemeRoom(int themeIndex)
             }
             if (leveltype == DTYPE_HELL)
             {
-                if (yy == themeLoc[themeIndex].y && xx >= themeLoc[themeIndex].x &&
-                        xx <= themeLoc[themeIndex].x + themeLoc[themeIndex].width ||
-                    yy == themeLoc[themeIndex].y + themeLoc[themeIndex].height - 1 && xx >= themeLoc[themeIndex].x &&
-                        xx <= themeLoc[themeIndex].x + themeLoc[themeIndex].width)
+                if (yy == themeLoc[themeIndex].y && xx >= themeLoc[themeIndex].x && xx <= themeLoc[themeIndex].x + themeLoc[themeIndex].width ||
+                    yy == themeLoc[themeIndex].y + themeLoc[themeIndex].height - 1 && xx >= themeLoc[themeIndex].x && xx <= themeLoc[themeIndex].x + themeLoc[themeIndex].width)
                 {
                     dungeon[xx][yy] = 2;
                 }
                 else if (
-                    xx == themeLoc[themeIndex].x && yy >= themeLoc[themeIndex].y &&
-                        yy <= themeLoc[themeIndex].y + themeLoc[themeIndex].height ||
-                    xx == themeLoc[themeIndex].x + themeLoc[themeIndex].width - 1 && yy >= themeLoc[themeIndex].y &&
-                        yy <= themeLoc[themeIndex].y + themeLoc[themeIndex].height)
+                    xx == themeLoc[themeIndex].x && yy >= themeLoc[themeIndex].y && yy <= themeLoc[themeIndex].y + themeLoc[themeIndex].height ||
+                    xx == themeLoc[themeIndex].x + themeLoc[themeIndex].width - 1 && yy >= themeLoc[themeIndex].y && yy <= themeLoc[themeIndex].y + themeLoc[themeIndex].height)
                 {
                     dungeon[xx][yy] = 1;
                 }
@@ -1034,24 +1021,21 @@ void DRLG_CreateThemeRoom(int themeIndex)
         dungeon[themeLoc[themeIndex].x][themeLoc[themeIndex].y] = 8;
         dungeon[themeLoc[themeIndex].x + themeLoc[themeIndex].width - 1][themeLoc[themeIndex].y] = 7;
         dungeon[themeLoc[themeIndex].x][themeLoc[themeIndex].y + themeLoc[themeIndex].height - 1] = 9;
-        dungeon[themeLoc[themeIndex].x + themeLoc[themeIndex].width - 1]
-               [themeLoc[themeIndex].y + themeLoc[themeIndex].height - 1] = 6;
+        dungeon[themeLoc[themeIndex].x + themeLoc[themeIndex].width - 1][themeLoc[themeIndex].y + themeLoc[themeIndex].height - 1] = 6;
     }
     if (leveltype == DTYPE_CAVES)
     {
         dungeon[themeLoc[themeIndex].x][themeLoc[themeIndex].y] = 150;
         dungeon[themeLoc[themeIndex].x + themeLoc[themeIndex].width - 1][themeLoc[themeIndex].y] = 151;
         dungeon[themeLoc[themeIndex].x][themeLoc[themeIndex].y + themeLoc[themeIndex].height - 1] = 152;
-        dungeon[themeLoc[themeIndex].x + themeLoc[themeIndex].width - 1]
-               [themeLoc[themeIndex].y + themeLoc[themeIndex].height - 1] = 138;
+        dungeon[themeLoc[themeIndex].x + themeLoc[themeIndex].width - 1][themeLoc[themeIndex].y + themeLoc[themeIndex].height - 1] = 138;
     }
     if (leveltype == DTYPE_HELL)
     {
         dungeon[themeLoc[themeIndex].x][themeLoc[themeIndex].y] = 9;
         dungeon[themeLoc[themeIndex].x + themeLoc[themeIndex].width - 1][themeLoc[themeIndex].y] = 16;
         dungeon[themeLoc[themeIndex].x][themeLoc[themeIndex].y + themeLoc[themeIndex].height - 1] = 15;
-        dungeon[themeLoc[themeIndex].x + themeLoc[themeIndex].width - 1]
-               [themeLoc[themeIndex].y + themeLoc[themeIndex].height - 1] = 12;
+        dungeon[themeLoc[themeIndex].x + themeLoc[themeIndex].width - 1][themeLoc[themeIndex].y + themeLoc[themeIndex].height - 1] = 12;
     }
 
     if (leveltype == DTYPE_CATACOMBS)
@@ -1059,12 +1043,10 @@ void DRLG_CreateThemeRoom(int themeIndex)
         switch (random_(0, 2))
         {
             case 0:
-                dungeon[themeLoc[themeIndex].x + themeLoc[themeIndex].width - 1]
-                       [themeLoc[themeIndex].y + themeLoc[themeIndex].height / 2] = 4;
+                dungeon[themeLoc[themeIndex].x + themeLoc[themeIndex].width - 1][themeLoc[themeIndex].y + themeLoc[themeIndex].height / 2] = 4;
                 break;
             case 1:
-                dungeon[themeLoc[themeIndex].x + themeLoc[themeIndex].width / 2]
-                       [themeLoc[themeIndex].y + themeLoc[themeIndex].height - 1] = 5;
+                dungeon[themeLoc[themeIndex].x + themeLoc[themeIndex].width / 2][themeLoc[themeIndex].y + themeLoc[themeIndex].height - 1] = 5;
                 break;
         }
     }
@@ -1073,12 +1055,10 @@ void DRLG_CreateThemeRoom(int themeIndex)
         switch (random_(0, 2))
         {
             case 0:
-                dungeon[themeLoc[themeIndex].x + themeLoc[themeIndex].width - 1]
-                       [themeLoc[themeIndex].y + themeLoc[themeIndex].height / 2] = 147;
+                dungeon[themeLoc[themeIndex].x + themeLoc[themeIndex].width - 1][themeLoc[themeIndex].y + themeLoc[themeIndex].height / 2] = 147;
                 break;
             case 1:
-                dungeon[themeLoc[themeIndex].x + themeLoc[themeIndex].width / 2]
-                       [themeLoc[themeIndex].y + themeLoc[themeIndex].height - 1] = 146;
+                dungeon[themeLoc[themeIndex].x + themeLoc[themeIndex].width / 2][themeLoc[themeIndex].y + themeLoc[themeIndex].height - 1] = 146;
                 break;
         }
     }
@@ -1087,26 +1067,17 @@ void DRLG_CreateThemeRoom(int themeIndex)
         switch (random_(0, 2))
         {
             case 0:
-                dungeon[themeLoc[themeIndex].x + themeLoc[themeIndex].width - 1]
-                       [themeLoc[themeIndex].y + themeLoc[themeIndex].height / 2 - 1] = 53;
-                dungeon[themeLoc[themeIndex].x + themeLoc[themeIndex].width - 1]
-                       [themeLoc[themeIndex].y + themeLoc[themeIndex].height / 2] = 6;
-                dungeon[themeLoc[themeIndex].x + themeLoc[themeIndex].width - 1]
-                       [themeLoc[themeIndex].y + themeLoc[themeIndex].height / 2 + 1] = 52;
-                dungeon[themeLoc[themeIndex].x + themeLoc[themeIndex].width - 2]
-                       [themeLoc[themeIndex].y + themeLoc[themeIndex].height / 2 - 1] = 54;
+                dungeon[themeLoc[themeIndex].x + themeLoc[themeIndex].width - 1][themeLoc[themeIndex].y + themeLoc[themeIndex].height / 2 - 1] = 53;
+                dungeon[themeLoc[themeIndex].x + themeLoc[themeIndex].width - 1][themeLoc[themeIndex].y + themeLoc[themeIndex].height / 2] = 6;
+                dungeon[themeLoc[themeIndex].x + themeLoc[themeIndex].width - 1][themeLoc[themeIndex].y + themeLoc[themeIndex].height / 2 + 1] = 52;
+                dungeon[themeLoc[themeIndex].x + themeLoc[themeIndex].width - 2][themeLoc[themeIndex].y + themeLoc[themeIndex].height / 2 - 1] = 54;
                 break;
             case 1:
-                dungeon[themeLoc[themeIndex].x + themeLoc[themeIndex].width / 2 - 1]
-                       [themeLoc[themeIndex].y + themeLoc[themeIndex].height - 1] = 57;
-                dungeon[themeLoc[themeIndex].x + themeLoc[themeIndex].width / 2]
-                       [themeLoc[themeIndex].y + themeLoc[themeIndex].height - 1] = 6;
-                dungeon[themeLoc[themeIndex].x + themeLoc[themeIndex].width / 2 + 1]
-                       [themeLoc[themeIndex].y + themeLoc[themeIndex].height - 1] = 56;
-                dungeon[themeLoc[themeIndex].x + themeLoc[themeIndex].width / 2]
-                       [themeLoc[themeIndex].y + themeLoc[themeIndex].height - 2] = 59;
-                dungeon[themeLoc[themeIndex].x + themeLoc[themeIndex].width / 2 - 1]
-                       [themeLoc[themeIndex].y + themeLoc[themeIndex].height - 2] = 58;
+                dungeon[themeLoc[themeIndex].x + themeLoc[themeIndex].width / 2 - 1][themeLoc[themeIndex].y + themeLoc[themeIndex].height - 1] = 57;
+                dungeon[themeLoc[themeIndex].x + themeLoc[themeIndex].width / 2][themeLoc[themeIndex].y + themeLoc[themeIndex].height - 1] = 6;
+                dungeon[themeLoc[themeIndex].x + themeLoc[themeIndex].width / 2 + 1][themeLoc[themeIndex].y + themeLoc[themeIndex].height - 1] = 56;
+                dungeon[themeLoc[themeIndex].x + themeLoc[themeIndex].width / 2][themeLoc[themeIndex].y + themeLoc[themeIndex].height - 2] = 59;
+                dungeon[themeLoc[themeIndex].x + themeLoc[themeIndex].width / 2 - 1][themeLoc[themeIndex].y + themeLoc[themeIndex].height - 2] = 58;
                 break;
         }
     }
@@ -1124,8 +1095,7 @@ void DRLG_PlaceThemeRooms(int minSize, int maxSize, int floor, int freq, int rnd
     {
         for (i = 0; i < DMAXX; i++)
         {
-            if (dungeon[i][j] == floor && !random_(0, freq) &&
-                DRLG_WillThemeRoomFit(floor, i, j, minSize, maxSize, &themeW, &themeH))
+            if (dungeon[i][j] == floor && !random_(0, freq) && DRLG_WillThemeRoomFit(floor, i, j, minSize, maxSize, &themeW, &themeH))
             {
                 if (rndSize)
                 {
@@ -1186,8 +1156,7 @@ BOOL SkipThemeRoom(int x, int y)
 
     for (i = 0; i < themeCount; i++)
     {
-        if (x >= themeLoc[i].x - 2 && x <= themeLoc[i].x + themeLoc[i].width + 2 && y >= themeLoc[i].y - 2 &&
-            y <= themeLoc[i].y + themeLoc[i].height + 2)
+        if (x >= themeLoc[i].x - 2 && x <= themeLoc[i].x + themeLoc[i].width + 2 && y >= themeLoc[i].y - 2 && y <= themeLoc[i].y + themeLoc[i].height + 2)
             return FALSE;
     }
 

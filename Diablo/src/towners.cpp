@@ -25,8 +25,7 @@ TownerStruct towner[NUM_TOWNERS];
  */
 const int snSFX[3][NUM_CLASSES] = {
 #ifdef HELLFIRE
-    {PS_WARR52, PS_ROGUE52, PS_MAGE52, PS_MONK52,
-     0}, // BUGFIX: add warrior sounds for barbarian instead of 0 - walk sound
+    {PS_WARR52, PS_ROGUE52, PS_MAGE52, PS_MONK52, 0}, // BUGFIX: add warrior sounds for barbarian instead of 0 - walk sound
     {PS_WARR49, PS_ROGUE49, PS_MAGE49, PS_MONK49, 0},
     {PS_WARR50, PS_ROGUE50, PS_MAGE50, PS_MONK50, 0},
 #else
@@ -40,28 +39,22 @@ const int snSFX[3][NUM_CLASSES] = {
 /* data */
 /** Specifies the animation frame sequence of a given NPC. */
 char AnimOrder[6][148] = {
-    {5,  6,  7,  8,  9,  10, 11, 12, 13, 14, 14, 13, 12, 11, 10, 9,  8,  7,  6,  5,  5,  6,  7,  8,  9,  10, 11,
-     12, 13, 14, 14, 13, 12, 11, 10, 9,  8,  7,  6,  5,  5,  6,  7,  8,  9,  10, 11, 12, 13, 14, 14, 13, 12, 11,
-     10, 9,  8,  7,  6,  5,  5,  6,  7,  8,  9,  10, 11, 12, 13, 14, 14, 13, 12, 11, 10, 9,  8,  7,  6,  5,  5,
-     6,  7,  8,  9,  10, 11, 12, 13, 14, 14, 13, 12, 11, 10, 9,  8,  7,  6,  5,  5,  6,  7,  8,  9,  10, 11, 12,
-     13, 14, 15, 5,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  2,  3,  4,  -1},
-    {1,  2,  3,  3,  2,  1,  20, 19, 19, 20, 1,  2,  3, 3,  2,  1,  20, 19, 19, 20, 1,  2,  3,  3,  2,  1,  20, 19,
-     19, 20, 1,  2,  3,  3,  2,  1,  20, 19, 19, 20, 1, 2,  3,  4,  5,  6,  7,  8,  9,  10, 11, 12, 13, 14, 15, 16,
-     15, 14, 13, 12, 11, 10, 9,  8,  7,  6,  5,  4,  5, 6,  7,  8,  9,  10, 11, 12, 13, 14, 15, 16, 15, 14, 13, 12,
-     11, 10, 9,  8,  7,  6,  5,  4,  5,  6,  7,  8,  9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, -1},
+    {5,  6,  7,  8,  9,  10, 11, 12, 13, 14, 14, 13, 12, 11, 10, 9, 8, 7,  6,  5,  5,  6,  7,  8,  9,  10, 11, 12, 13, 14, 14, 13, 12, 11, 10, 9, 8, 7, 6, 5, 5, 6,  7,  8,
+     9,  10, 11, 12, 13, 14, 14, 13, 12, 11, 10, 9,  8,  7,  6,  5, 5, 6,  7,  8,  9,  10, 11, 12, 13, 14, 14, 13, 12, 11, 10, 9,  8,  7,  6,  5, 5, 6, 7, 8, 9, 10, 11, 12,
+     13, 14, 14, 13, 12, 11, 10, 9,  8,  7,  6,  5,  5,  6,  7,  8, 9, 10, 11, 12, 13, 14, 15, 5,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1, 1, 1, 1, 2, 3, 4,  -1},
+    {1,  2,  3,  3,  2,  1,  20, 19, 19, 20, 1,  2,  3,  3,  2,  1,  20, 19, 19, 20, 1,  2,  3,  3,  2,  1,  20, 19, 19, 20, 1,  2,  3,  3,  2, 1, 20,
+     19, 19, 20, 1,  2,  3,  4,  5,  6,  7,  8,  9,  10, 11, 12, 13, 14, 15, 16, 15, 14, 13, 12, 11, 10, 9,  8,  7,  6,  5,  4,  5,  6,  7,  8, 9, 10,
+     11, 12, 13, 14, 15, 16, 15, 14, 13, 12, 11, 10, 9,  8,  7,  6,  5,  4,  5,  6,  7,  8,  9,  10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, -1},
     {1, 1, 25, 25, 24, 23, 22, 21, 20, 19, 18, 17, 16, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 25, 25, 1, 1, 1, 25,
      1, 2, 3,  4,  5,  6,  7,  8,  9,  10, 11, 12, 13, 14, 15, 14, 13, 12, 11, 10, 9,  8,  7,  6,  5,  4,  3, 2, 1, -1},
-    {1,  2,  3,  3,  2,  1,  16, 15, 14, 14, 16, 1,  2,  3,  3,  2,  1,  16, 15, 14, 14, 15, 16, 1,  2,  3,  3,  2,
-     1,  16, 15, 14, 14, 15, 16, 1,  2,  3,  3,  2,  1,  16, 15, 14, 14, 15, 16, 1,  2,  3,  3,  2,  1,  16, 15, 14,
-     14, 15, 16, 1,  2,  3,  3,  2,  1,  16, 15, 14, 14, 15, 16, 1,  2,  3,  3,  2,  1,  16, 15, 14, 14, 15, 16, 1,
-     2,  3,  2,  1,  16, 15, 14, 14, 15, 16, 1,  2,  3,  4,  5,  6,  7,  8,  9,  10, 11, 12, 13, 14, 15, 16, -1},
+    {1, 2, 3, 3,  2,  1,  16, 15, 14, 14, 16, 1, 2, 3, 3,  2,  1,  16, 15, 14, 14, 15, 16, 1, 2, 3, 3, 2, 1,  16, 15, 14, 14, 15, 16, 1,  2,
+     3, 3, 2, 1,  16, 15, 14, 14, 15, 16, 1,  2, 3, 3, 2,  1,  16, 15, 14, 14, 15, 16, 1,  2, 3, 3, 2, 1, 16, 15, 14, 14, 15, 16, 1,  2,  3,
+     3, 2, 1, 16, 15, 14, 14, 15, 16, 1,  2,  3, 2, 1, 16, 15, 14, 14, 15, 16, 1,  2,  3,  4, 5, 6, 7, 8, 9,  10, 11, 12, 13, 14, 15, 16, -1},
     {1,  1,  1,  2,  3,  4,  5,  6,  7,  8,  9,  10, 11, 11, 11, 11, 12, 13, 14, 15, 16, 17, 18, 18, 1, 1, 1, 18,
      17, 16, 15, 14, 13, 12, 11, 10, 11, 12, 13, 14, 15, 16, 17, 18, 1,  2,  3,  4,  5,  5,  5,  4,  3, 2, -1},
-    {4,  4,  4,  5,  6,  6,  6,  5,  4,  15, 14, 13, 13, 13, 14, 15, 4,  5,  6,  6,  6,  5,  4,  4,  4,  5,  6,  6,  6,
-     5,  4,  15, 14, 13, 13, 13, 14, 15, 4,  5,  6,  6,  6,  5,  4,  4,  4,  5,  6,  6,  6,  5,  4,  15, 14, 13, 13, 13,
-     14, 15, 4,  5,  6,  6,  6,  5,  4,  3,  2,  1,  19, 18, 19, 1,  2,  1,  19, 18, 19, 1,  2,  1,  2,  3,  4,  5,  6,
-     7,  8,  9,  10, 11, 12, 13, 14, 15, 15, 15, 14, 13, 13, 13, 13, 14, 15, 15, 15, 14, 13, 12, 12, 12, 11, 10, 10, 10,
-     9,  8,  9,  10, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 1,  2,  1,  19, 18, 19, 1,  2,  1,  2,  3,  -1}};
+    {4,  4,  4,  5,  6,  6,  6,  5,  4,  15, 14, 13, 13, 13, 14, 15, 4,  5,  6,  6,  6, 5, 4,  4,  4,  5,  6,  6,  6,  5,  4,  15, 14, 13, 13, 13, 14, 15, 4,  5,  6, 6, 6,  5,  4,  4,  4,  5,
+     6,  6,  6,  5,  4,  15, 14, 13, 13, 13, 14, 15, 4,  5,  6,  6,  6,  5,  4,  3,  2, 1, 19, 18, 19, 1,  2,  1,  19, 18, 19, 1,  2,  1,  2,  3,  4,  5,  6,  7,  8, 9, 10, 11, 12, 13, 14, 15,
+     15, 15, 14, 13, 13, 13, 13, 14, 15, 15, 15, 14, 13, 12, 12, 12, 11, 10, 10, 10, 9, 8, 9,  10, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 1,  2,  1,  19, 18, 19, 1, 2, 1,  2,  3,  -1}};
 /** Specifies the start X-coordinates of the cows in Tristram. */
 int TownCowX[] = {58, 56, 59};
 /** Specifies the start Y-coordinates of the cows in Tristram. */
@@ -82,34 +75,34 @@ int cowoffy[8] = {-1, -1, -1, 0, -1, -1, -1, 0};
 QuestTalkData Qtalklist[] = {
 // clang-format off
 #ifdef HELLFIRE
-	// _qinfra,      _qblkm,       _qgarb,      _qzhar,      _qveil,      _qmod,       _qbutch,      _qbol,         _qblind,      _qblood,      _qanvil,      _qwarlrd,      _qking,       _qpw,           _qbone,      _qvb,         _qgrv,        _qfarm, _qgirl, _qtrade, _qdefiler, _qnakrul, _qjersy, _qhf8
-	{ TEXT_INFRA6,  TEXT_MUSH6,  -1,          -1,          TEXT_VEIL5, -1,          TEXT_BUTCH5, TEXT_BANNER6, TEXT_BLIND5, TEXT_BLOOD5, TEXT_ANVIL6, TEXT_WARLRD5, TEXT_KING7,  TEXT_POISON7,  TEXT_BONE5, TEXT_VILE9,  TEXT_GRAVE2, -1,     -1,     -1,      -1,        -1,       -1,      -1 },
-	{ TEXT_INFRA3,  -1,           -1,          -1,          TEXT_VEIL3, -1,          TEXT_BUTCH3, TEXT_BANNER4, TEXT_BLIND3, TEXT_BLOOD3, TEXT_ANVIL3, TEXT_WARLRD3, TEXT_KING5,  TEXT_POISON4,  TEXT_BONE3, TEXT_VILE7,  TEXT_GRAVE3, -1,     -1,     -1,      -1,        -1,       -1,      -1 },
-	{ -1,            -1,           -1,          -1,          -1,          -1,          -1,           -1,            -1,           -1,           -1,           -1,            -1,           -1,             -1,          -1,           -1,           -1,     -1,     -1,      -1,        -1,       -1,      -1 },
-	{ TEXT_INFRA2,  TEXT_MUSH2,  -1,          -1,          TEXT_VEIL2, -1,          TEXT_BUTCH2, -1,            TEXT_BLIND2, TEXT_BLOOD2, TEXT_ANVIL2, TEXT_WARLRD2, TEXT_KING3,  TEXT_POISON2,  TEXT_BONE2, TEXT_VILE4,  TEXT_GRAVE5, -1,     -1,     -1,      -1,        -1,       -1,      -1 },
-	{ TEXT_INFRA1,  TEXT_MUSH1,  -1,          -1,          TEXT_VEIL1, TEXT_VILE3, TEXT_BUTCH1, TEXT_BANNER1, TEXT_BLIND1, TEXT_BLOOD1, TEXT_ANVIL1, TEXT_WARLRD1, TEXT_KING1,  TEXT_POISON1,  TEXT_BONE1, TEXT_VILE2,  TEXT_GRAVE6, -1,     -1,     -1,      -1,        -1,       -1,      -1 },
-	{ TEXT_INFRA8,  TEXT_MUSH7,  -1,          -1,          TEXT_VEIL6, -1,          TEXT_BUTCH6, TEXT_BANNER7, TEXT_BLIND6, TEXT_BLOOD6, TEXT_ANVIL8, TEXT_WARLRD6, TEXT_KING8,  TEXT_POISON8,  TEXT_BONE6, TEXT_VILE10, TEXT_GRAVE7, -1,     -1,     -1,      -1,        -1,       -1,      -1 },
-	{ TEXT_INFRA9,  TEXT_MUSH9,  -1,          -1,          TEXT_VEIL7, -1,          TEXT_BUTCH7, TEXT_BANNER8, TEXT_BLIND7, TEXT_BLOOD7, TEXT_ANVIL9, TEXT_WARLRD7, TEXT_KING9,  TEXT_POISON9,  TEXT_BONE7, TEXT_VILE11, TEXT_GRAVE1, -1,     -1,     -1,      -1,        -1,       -1,      -1 },
-	{ TEXT_INFRA4,  TEXT_MUSH5,  -1,          -1,          TEXT_VEIL4, -1,          TEXT_BUTCH4, TEXT_BANNER5, TEXT_BLIND4, TEXT_BLOOD4, TEXT_ANVIL4, TEXT_WARLRD4, TEXT_KING6,  TEXT_POISON6,  TEXT_BONE4, TEXT_VILE8,  TEXT_GRAVE8, -1,     -1,     -1,      -1,        -1,       -1,      -1 },
-	{ TEXT_INFRA10, TEXT_MUSH13, -1,          -1,          TEXT_VEIL8, -1,          TEXT_BUTCH8, TEXT_BANNER9, TEXT_BLIND8, TEXT_BLOOD8, TEXT_ANVIL10,TEXT_WARLRD8, TEXT_KING10, TEXT_POISON10, TEXT_BONE8, TEXT_VILE12, TEXT_GRAVE9, -1,     -1,     -1,      -1,        -1,       -1,      -1 },
-	{ -1,            -1,           -1,          -1,          -1,          -1,          -1,           -1,            -1,           -1,           -1,           -1,            -1,           -1,             -1,          -1,           -1,           -1,     -1,     -1,      -1,        -1,       -1,      -1 },
-	{ -1,            -1,           -1,          -1,          -1,          -1,          -1,           -1,            -1,           -1,           -1,           -1,            -1,           -1,             -1,          -1,           -1,           -1,     -1,     -1,      -1,        -1,       -1,      -1 },
-	{ -1,            -1,           -1,          -1,          -1,          -1,          -1,           -1,            -1,           -1,           -1,           -1,            -1,           -1,             -1,          -1,           -1,           -1,     -1,     -1,      -1,        -1,       -1,      -1 },
-	{ -1,            -1,           -1,          -1,          -1,          -1,          -1,           -1,            -1,           -1,           -1,           -1,            -1,           -1,             -1,          -1,           -1,           -1,     -1,     -1,      -1,        -1,       -1,      -1 },
-	{ -1,            -1,           -1,          -1,          -1,          -1,          -1,           -1,            -1,           -1,           -1,           -1,            -1,           -1,             -1,          -1,           -1,           -1,     -1,     -1,      -1,        -1,       -1,      -1 },
+    // _qinfra,      _qblkm,       _qgarb,      _qzhar,      _qveil,      _qmod,       _qbutch,      _qbol,         _qblind,      _qblood,      _qanvil,      _qwarlrd,      _qking,       _qpw,           _qbone,      _qvb,         _qgrv,        _qfarm, _qgirl, _qtrade, _qdefiler, _qnakrul, _qjersy, _qhf8
+    { TEXT_INFRA6,  TEXT_MUSH6,  -1,          -1,          TEXT_VEIL5, -1,          TEXT_BUTCH5, TEXT_BANNER6, TEXT_BLIND5, TEXT_BLOOD5, TEXT_ANVIL6, TEXT_WARLRD5, TEXT_KING7,  TEXT_POISON7,  TEXT_BONE5, TEXT_VILE9,  TEXT_GRAVE2, -1,     -1,     -1,      -1,        -1,       -1,      -1 },
+    { TEXT_INFRA3,  -1,           -1,          -1,          TEXT_VEIL3, -1,          TEXT_BUTCH3, TEXT_BANNER4, TEXT_BLIND3, TEXT_BLOOD3, TEXT_ANVIL3, TEXT_WARLRD3, TEXT_KING5,  TEXT_POISON4,  TEXT_BONE3, TEXT_VILE7,  TEXT_GRAVE3, -1,     -1,     -1,      -1,        -1,       -1,      -1 },
+    { -1,            -1,           -1,          -1,          -1,          -1,          -1,           -1,            -1,           -1,           -1,           -1,            -1,           -1,             -1,          -1,           -1,           -1,     -1,     -1,      -1,        -1,       -1,      -1 },
+    { TEXT_INFRA2,  TEXT_MUSH2,  -1,          -1,          TEXT_VEIL2, -1,          TEXT_BUTCH2, -1,            TEXT_BLIND2, TEXT_BLOOD2, TEXT_ANVIL2, TEXT_WARLRD2, TEXT_KING3,  TEXT_POISON2,  TEXT_BONE2, TEXT_VILE4,  TEXT_GRAVE5, -1,     -1,     -1,      -1,        -1,       -1,      -1 },
+    { TEXT_INFRA1,  TEXT_MUSH1,  -1,          -1,          TEXT_VEIL1, TEXT_VILE3, TEXT_BUTCH1, TEXT_BANNER1, TEXT_BLIND1, TEXT_BLOOD1, TEXT_ANVIL1, TEXT_WARLRD1, TEXT_KING1,  TEXT_POISON1,  TEXT_BONE1, TEXT_VILE2,  TEXT_GRAVE6, -1,     -1,     -1,      -1,        -1,       -1,      -1 },
+    { TEXT_INFRA8,  TEXT_MUSH7,  -1,          -1,          TEXT_VEIL6, -1,          TEXT_BUTCH6, TEXT_BANNER7, TEXT_BLIND6, TEXT_BLOOD6, TEXT_ANVIL8, TEXT_WARLRD6, TEXT_KING8,  TEXT_POISON8,  TEXT_BONE6, TEXT_VILE10, TEXT_GRAVE7, -1,     -1,     -1,      -1,        -1,       -1,      -1 },
+    { TEXT_INFRA9,  TEXT_MUSH9,  -1,          -1,          TEXT_VEIL7, -1,          TEXT_BUTCH7, TEXT_BANNER8, TEXT_BLIND7, TEXT_BLOOD7, TEXT_ANVIL9, TEXT_WARLRD7, TEXT_KING9,  TEXT_POISON9,  TEXT_BONE7, TEXT_VILE11, TEXT_GRAVE1, -1,     -1,     -1,      -1,        -1,       -1,      -1 },
+    { TEXT_INFRA4,  TEXT_MUSH5,  -1,          -1,          TEXT_VEIL4, -1,          TEXT_BUTCH4, TEXT_BANNER5, TEXT_BLIND4, TEXT_BLOOD4, TEXT_ANVIL4, TEXT_WARLRD4, TEXT_KING6,  TEXT_POISON6,  TEXT_BONE4, TEXT_VILE8,  TEXT_GRAVE8, -1,     -1,     -1,      -1,        -1,       -1,      -1 },
+    { TEXT_INFRA10, TEXT_MUSH13, -1,          -1,          TEXT_VEIL8, -1,          TEXT_BUTCH8, TEXT_BANNER9, TEXT_BLIND8, TEXT_BLOOD8, TEXT_ANVIL10,TEXT_WARLRD8, TEXT_KING10, TEXT_POISON10, TEXT_BONE8, TEXT_VILE12, TEXT_GRAVE9, -1,     -1,     -1,      -1,        -1,       -1,      -1 },
+    { -1,            -1,           -1,          -1,          -1,          -1,          -1,           -1,            -1,           -1,           -1,           -1,            -1,           -1,             -1,          -1,           -1,           -1,     -1,     -1,      -1,        -1,       -1,      -1 },
+    { -1,            -1,           -1,          -1,          -1,          -1,          -1,           -1,            -1,           -1,           -1,           -1,            -1,           -1,             -1,          -1,           -1,           -1,     -1,     -1,      -1,        -1,       -1,      -1 },
+    { -1,            -1,           -1,          -1,          -1,          -1,          -1,           -1,            -1,           -1,           -1,           -1,            -1,           -1,             -1,          -1,           -1,           -1,     -1,     -1,      -1,        -1,       -1,      -1 },
+    { -1,            -1,           -1,          -1,          -1,          -1,          -1,           -1,            -1,           -1,           -1,           -1,            -1,           -1,             -1,          -1,           -1,           -1,     -1,     -1,      -1,        -1,       -1,      -1 },
+    { -1,            -1,           -1,          -1,          -1,          -1,          -1,           -1,            -1,           -1,           -1,           -1,            -1,           -1,             -1,          -1,           -1,           -1,     -1,     -1,      -1,        -1,       -1,      -1 },
 #else
-	// _qinfra,      _qblkm,       _qgarb,      _qzhar,      _qveil,      _qmod,       _qbutch,      _qbol,         _qblind,      _qblood,      _qanvil,      _qwarlrd,      _qking,       _qpw,           _qbone,      _qvb
-	{ TEXT_INFRA6,  TEXT_MUSH6,  -1,          -1,          TEXT_VEIL5, -1,          TEXT_BUTCH5, TEXT_BANNER6, TEXT_BLIND5, TEXT_BLOOD5, TEXT_ANVIL6, TEXT_WARLRD5, TEXT_KING7,  TEXT_POISON7,  TEXT_BONE5, TEXT_VILE9  },
-	{ TEXT_INFRA3,  -1,           -1,          -1,          TEXT_VEIL3, -1,          TEXT_BUTCH3, TEXT_BANNER4, TEXT_BLIND3, TEXT_BLOOD3, TEXT_ANVIL3, TEXT_WARLRD3, TEXT_KING5,  TEXT_POISON4,  TEXT_BONE3, TEXT_VILE7  },
-	{ -1,            -1,           -1,          -1,          -1,          -1,          -1,           -1,            -1,           -1,           -1,           -1,            -1,           -1,             -1,          -1           },
-	{ TEXT_INFRA2,  TEXT_MUSH2,  -1,          -1,          TEXT_VEIL2, -1,          TEXT_BUTCH2, -1,            TEXT_BLIND2, TEXT_BLOOD2, TEXT_ANVIL2, TEXT_WARLRD2, TEXT_KING3,  TEXT_POISON2,  TEXT_BONE2, TEXT_VILE4  },
-	{ TEXT_INFRA1,  TEXT_MUSH1,  -1,          -1,          TEXT_VEIL1, TEXT_VILE3, TEXT_BUTCH1, TEXT_BANNER1, TEXT_BLIND1, TEXT_BLOOD1, TEXT_ANVIL1, TEXT_WARLRD1, TEXT_KING1,  TEXT_POISON1,  TEXT_BONE1, TEXT_VILE2  },
-	{ TEXT_INFRA8,  TEXT_MUSH7,  -1,          -1,          TEXT_VEIL6, -1,          TEXT_BUTCH6, TEXT_BANNER7, TEXT_BLIND6, TEXT_BLOOD6, TEXT_ANVIL8, TEXT_WARLRD6, TEXT_KING8,  TEXT_POISON8,  TEXT_BONE6, TEXT_VILE10 },
-	{ TEXT_INFRA9,  TEXT_MUSH9,  -1,          -1,          TEXT_VEIL7, -1,          TEXT_BUTCH7, TEXT_BANNER8, TEXT_BLIND7, TEXT_BLOOD7, TEXT_ANVIL9, TEXT_WARLRD7, TEXT_KING9,  TEXT_POISON9,  TEXT_BONE7, TEXT_VILE11 },
-	{ TEXT_INFRA4,  TEXT_MUSH5,  -1,          -1,          TEXT_VEIL4, -1,          TEXT_BUTCH4, TEXT_BANNER5, TEXT_BLIND4, TEXT_BLOOD4, TEXT_ANVIL4, TEXT_WARLRD4, TEXT_KING6,  TEXT_POISON6,  TEXT_BONE4, TEXT_VILE8  },
-	{ TEXT_INFRA10, TEXT_MUSH13, -1,          -1,          TEXT_VEIL8, -1,          TEXT_BUTCH8, TEXT_BANNER9, TEXT_BLIND8, TEXT_BLOOD8, TEXT_ANVIL10,TEXT_WARLRD8, TEXT_KING10, TEXT_POISON10, TEXT_BONE8, TEXT_VILE12 },
-	{ -1,            -1,           -1,          -1,          -1,          -1,          -1,           -1,            -1,           -1,           -1,           -1,            -1,           -1,             -1,          -1           },
-	{ TEXT_KING1,   TEXT_KING1,  TEXT_KING1, TEXT_KING1, TEXT_KING1, TEXT_KING1, TEXT_KING1,  TEXT_KING1,   TEXT_KING1,  TEXT_KING1,  TEXT_KING1,  TEXT_KING1,   TEXT_KING1,  TEXT_KING1,    TEXT_KING1, TEXT_KING1  }
+    // _qinfra,      _qblkm,       _qgarb,      _qzhar,      _qveil,      _qmod,       _qbutch,      _qbol,         _qblind,      _qblood,      _qanvil,      _qwarlrd,      _qking,       _qpw,           _qbone,      _qvb
+    { TEXT_INFRA6,  TEXT_MUSH6,  -1,          -1,          TEXT_VEIL5, -1,          TEXT_BUTCH5, TEXT_BANNER6, TEXT_BLIND5, TEXT_BLOOD5, TEXT_ANVIL6, TEXT_WARLRD5, TEXT_KING7,  TEXT_POISON7,  TEXT_BONE5, TEXT_VILE9  },
+    { TEXT_INFRA3,  -1,           -1,          -1,          TEXT_VEIL3, -1,          TEXT_BUTCH3, TEXT_BANNER4, TEXT_BLIND3, TEXT_BLOOD3, TEXT_ANVIL3, TEXT_WARLRD3, TEXT_KING5,  TEXT_POISON4,  TEXT_BONE3, TEXT_VILE7  },
+    { -1,            -1,           -1,          -1,          -1,          -1,          -1,           -1,            -1,           -1,           -1,           -1,            -1,           -1,             -1,          -1           },
+    { TEXT_INFRA2,  TEXT_MUSH2,  -1,          -1,          TEXT_VEIL2, -1,          TEXT_BUTCH2, -1,            TEXT_BLIND2, TEXT_BLOOD2, TEXT_ANVIL2, TEXT_WARLRD2, TEXT_KING3,  TEXT_POISON2,  TEXT_BONE2, TEXT_VILE4  },
+    { TEXT_INFRA1,  TEXT_MUSH1,  -1,          -1,          TEXT_VEIL1, TEXT_VILE3, TEXT_BUTCH1, TEXT_BANNER1, TEXT_BLIND1, TEXT_BLOOD1, TEXT_ANVIL1, TEXT_WARLRD1, TEXT_KING1,  TEXT_POISON1,  TEXT_BONE1, TEXT_VILE2  },
+    { TEXT_INFRA8,  TEXT_MUSH7,  -1,          -1,          TEXT_VEIL6, -1,          TEXT_BUTCH6, TEXT_BANNER7, TEXT_BLIND6, TEXT_BLOOD6, TEXT_ANVIL8, TEXT_WARLRD6, TEXT_KING8,  TEXT_POISON8,  TEXT_BONE6, TEXT_VILE10 },
+    { TEXT_INFRA9,  TEXT_MUSH9,  -1,          -1,          TEXT_VEIL7, -1,          TEXT_BUTCH7, TEXT_BANNER8, TEXT_BLIND7, TEXT_BLOOD7, TEXT_ANVIL9, TEXT_WARLRD7, TEXT_KING9,  TEXT_POISON9,  TEXT_BONE7, TEXT_VILE11 },
+    { TEXT_INFRA4,  TEXT_MUSH5,  -1,          -1,          TEXT_VEIL4, -1,          TEXT_BUTCH4, TEXT_BANNER5, TEXT_BLIND4, TEXT_BLOOD4, TEXT_ANVIL4, TEXT_WARLRD4, TEXT_KING6,  TEXT_POISON6,  TEXT_BONE4, TEXT_VILE8  },
+    { TEXT_INFRA10, TEXT_MUSH13, -1,          -1,          TEXT_VEIL8, -1,          TEXT_BUTCH8, TEXT_BANNER9, TEXT_BLIND8, TEXT_BLOOD8, TEXT_ANVIL10,TEXT_WARLRD8, TEXT_KING10, TEXT_POISON10, TEXT_BONE8, TEXT_VILE12 },
+    { -1,            -1,           -1,          -1,          -1,          -1,          -1,           -1,            -1,           -1,           -1,           -1,            -1,           -1,             -1,          -1           },
+    { TEXT_KING1,   TEXT_KING1,  TEXT_KING1, TEXT_KING1, TEXT_KING1, TEXT_KING1, TEXT_KING1,  TEXT_KING1,   TEXT_KING1,  TEXT_KING1,  TEXT_KING1,  TEXT_KING1,   TEXT_KING1,  TEXT_KING1,    TEXT_KING1, TEXT_KING1  }
 #endif
     // clang-format on
 };
@@ -173,14 +166,14 @@ void SetTownerGPtrs(BYTE* pData, BYTE** pAnim)
     {
         src = pData;
         __asm {
-			mov		eax, src
-			mov		ebx, eax
-			mov		edx, i
-			shl		edx, 2
-			add		ebx, edx
-			mov		edx, [ebx]
-			add		eax, edx
-			mov		src, eax
+            mov        eax, src
+            mov        ebx, eax
+            mov        edx, i
+            shl        edx, 2
+            add        ebx, edx
+            mov        edx, [ebx]
+            add        eax, edx
+            mov        src, eax
         }
         pAnim[i] = src;
     }
@@ -403,7 +396,7 @@ void InitCows()
     int x, y, xo, yo;
 
     // if ( pCowCels )
-    //	assertion_failed(300, "C:\\Diablo\\Direct\\towners.cpp", "! pCowCels");
+    //    assertion_failed(300, "C:\\Diablo\\Direct\\towners.cpp", "! pCowCels");
     pCowCels = LoadFileInMem("Towners\\Animals\\Cow.CEL", NULL);
     for (i = 0; i < 3; i++)
     {
@@ -875,8 +868,7 @@ void TalkToTowner(int p, int t)
         {
             if (plr[p]._pLvlVisited[3] && quests[Q_LTBANNER]._qactive != QUEST_NOTAVAIL)
             {
-                if ((quests[Q_LTBANNER]._qactive == QUEST_INIT || quests[Q_LTBANNER]._qactive == QUEST_ACTIVE) &&
-                    quests[Q_LTBANNER]._qvar2 == 0 && !towner[t]._tMsgSaid)
+                if ((quests[Q_LTBANNER]._qactive == QUEST_INIT || quests[Q_LTBANNER]._qactive == QUEST_ACTIVE) && quests[Q_LTBANNER]._qvar2 == 0 && !towner[t]._tMsgSaid)
                 {
                     quests[Q_LTBANNER]._qvar2 = 1;
                     if (quests[Q_LTBANNER]._qactive == QUEST_INIT)
@@ -964,9 +956,7 @@ else if (t == GetActiveTowner(TOWN_DEADGUY))
         towner[t]._tVar1 = p;
         towner[t]._tMsgSaid = TRUE;
     }
-    else if (
-        quests[Q_BUTCHER]._qactive == QUEST_INIT ||
-        quests[Q_BUTCHER]._qactive == QUEST_ACTIVE && quests[Q_BUTCHER]._qvar1 == 0)
+    else if (quests[Q_BUTCHER]._qactive == QUEST_INIT || quests[Q_BUTCHER]._qactive == QUEST_ACTIVE && quests[Q_BUTCHER]._qvar1 == 0)
     {
         quests[Q_BUTCHER]._qactive = QUEST_ACTIVE;
         quests[Q_BUTCHER]._qlog = TRUE;
@@ -1026,8 +1016,7 @@ else if (t == GetActiveTowner(TOWN_SMITH))
 #endif
     if (plr[p]._pLvlVisited[9] && quests[Q_ANVIL]._qactive != QUEST_NOTAVAIL)
     {
-        if ((quests[Q_ANVIL]._qactive == QUEST_INIT || quests[Q_ANVIL]._qactive == QUEST_ACTIVE) &&
-            quests[Q_ANVIL]._qvar2 == 0 && !towner[t]._tMsgSaid)
+        if ((quests[Q_ANVIL]._qactive == QUEST_INIT || quests[Q_ANVIL]._qactive == QUEST_ACTIVE) && quests[Q_ANVIL]._qvar2 == 0 && !towner[t]._tMsgSaid)
         {
             if (quests[Q_ROCK]._qvar2 == 2 || quests[Q_ROCK]._qactive == QUEST_ACTIVE && quests[Q_ROCK]._qvar2 == 1)
             {
@@ -1214,8 +1203,7 @@ else if (t == GetActiveTowner(TOWN_HEALER))
                 }
             }
         }
-        if (quests[Q_MUSHROOM]._qactive == QUEST_ACTIVE && quests[Q_MUSHROOM]._qmsg == TEXT_MUSH10 &&
-            PlrHasItem(p, IDI_BRAIN, i) != NULL)
+        if (quests[Q_MUSHROOM]._qactive == QUEST_ACTIVE && quests[Q_MUSHROOM]._qmsg == TEXT_MUSH10 && PlrHasItem(p, IDI_BRAIN, i) != NULL)
         {
             RemoveInvItem(p, i);
             SpawnQuestItem(IDI_SPECELIX, towner[t]._tx, towner[t]._ty + 1, 0, 0);

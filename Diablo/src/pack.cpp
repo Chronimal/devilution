@@ -157,9 +157,7 @@ static
     {
         if (is->idx == IDI_EAR)
         {
-            RecreateEar(
-                MAXITEMS, is->iCreateInfo, is->iSeed, is->bId, is->bDur, is->bMDur, is->bCh, is->bMCh, is->wValue,
-                is->dwBuff);
+            RecreateEar(MAXITEMS, is->iCreateInfo, is->iSeed, is->bId, is->bDur, is->bMDur, is->bCh, is->bMCh, is->wValue, is->dwBuff);
         }
         else
         {
@@ -187,8 +185,7 @@ void VerifyGoldSeeds(PlayerStruct* pPlayer)
             {
                 if (i != j)
                 {
-                    if (pPlayer->InvList[j].IDidx == IDI_GOLD &&
-                        pPlayer->InvList[i]._iSeed == pPlayer->InvList[j]._iSeed)
+                    if (pPlayer->InvList[j].IDidx == IDI_GOLD && pPlayer->InvList[i]._iSeed == pPlayer->InvList[j]._iSeed)
                     {
                         pPlayer->InvList[i]._iSeed = GetRndSeed();
                         j = -1;

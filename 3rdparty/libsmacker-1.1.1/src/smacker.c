@@ -306,7 +306,7 @@ static smk smk_open_generic(
         but calling application might. */
     for (temp_l = 0; temp_l < 4; temp_l++)
     {
-        /*		smk_read_ul(s->video.tree_size[temp_u]); */
+        /*        smk_read_ul(s->video.tree_size[temp_u]); */
         smk_read_ul(temp_u);
     }
 

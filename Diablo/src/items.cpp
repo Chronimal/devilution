@@ -5,7 +5,7 @@
  */
 #include "all.h"
 #ifdef HELLFIRE
-#include "storm/storm.h"
+#include "../3rdParty/Storm/Source/storm.h"
 #endif
 
 int itemactive[MAXITEMS];
@@ -88,24 +88,35 @@ int ItemInvSnds[] = {
 #endif
 };
 #ifdef HELLFIRE
-const char* off_4A5AC4 = "SItem";
+char* off_4A5AC4 = "SItem";
 #endif
 /** Specifies the current Y-coordinate used for validation of items on ground. */
 int idoppely = 16;
 /** Maps from Griswold premium item number to a quality level delta as added to the base quality level. */
 int premiumlvladd[SMITH_PREMIUM_ITEMS] = {
-    -1, -1,
+    // clang-format off
+    -1,
+    -1,
 #ifdef HELLFIRE
     -1,
 #endif
-    0,  0,
+     0,
+     0,
 #ifdef HELLFIRE
-    0,  0,  1, 1, 1,
+     0,
+     0,
+     1,
+     1,
+     1,
 #endif
-    1,  2,
+     1,
+     2,
 #ifdef HELLFIRE
-    2,  3,  3,
+     2,
+     3,
+     3,
 #endif
+    // clang-format on
 };
 
 #ifdef HELLFIRE
@@ -376,13 +387,13 @@ void AddInitItems()
         item[i]._iSeed = GetRndSeed();
         SetRndSeed(item[i]._iSeed);
 #ifdef HELLFIRE
-        if (random_(12, 2))
+        if (random_(12, 2) != 0)
             GetItemAttrs(i, IDI_HEAL, curlv);
         else
             GetItemAttrs(i, IDI_MANA, curlv);
         item[i]._iCreateInfo = curlv - CF_PREGEN;
 #else
-        if (random_(12, 2))
+        if (random_(12, 2) != 0)
             GetItemAttrs(i, IDI_HEAL, currlevel);
         else
             GetItemAttrs(i, IDI_MANA, currlevel);
@@ -537,7 +548,7 @@ void CalcPlrItemVals(int p, BOOL Loadgfx)
 
             if (itm->_iSpell != SPL_NULL)
             {
-                spl |= (unsigned __int64)1 << (itm->_iSpell - 1);
+                spl |= SPELLBIT(itm->_iSpell);
             }
 
             if (itm->_iMagical == ITEM_QUALITY_NORMAL || itm->_iIdentified)
@@ -761,7 +772,7 @@ void CalcPlrItemVals(int p, BOOL Loadgfx)
     plr[p]._pISpells = spl;
 
     // check if the current RSplType is a valid/allowed spell
-    if (plr[p]._pRSplType == RSPLTYPE_CHARGES && !(spl & ((unsigned __int64)1 << (plr[p]._pRSpell - 1))))
+    if (plr[p]._pRSplType == RSPLTYPE_CHARGES && !(spl & SPELLBIT(plr[p]._pRSpell)))
     {
         plr[p]._pRSpell = SPL_INVALID;
         plr[p]._pRSplType = RSPLTYPE_INVALID;
@@ -842,13 +853,7 @@ void CalcPlrItemVals(int p, BOOL Loadgfx)
 #ifdef HELLFIRE
     else if (plr[p]._pClass == PC_BARD)
     {
-        // TODO: Original code is "madd += madd >> 2 + madd >> 1" which doesn't make any sense
-        // and causes a compiler warning. To avoid a warning and keep the same behavior
-        // parenthesis need to be set like "madd += madd >> (2 + madd) >> 1".
-        // I suspect the correct code should b "madd += (madd >> 2) + (madd >> 1)"
-        // but at this point in time I have no way to test it so some work for
-        // future.
-        madd += madd >> (2 + madd) >> 1;
+        madd += madd >> 2 + madd >> 1;
     }
 #endif
     imana += (madd << 6);
@@ -1053,7 +1058,7 @@ void CalcPlrScrolls(int p)
         if (plr[p].InvList[i]._itype != ITYPE_NONE && (plr[p].InvList[i]._iMiscId == IMISC_SCROLL || plr[p].InvList[i]._iMiscId == IMISC_SCROLLT))
         {
             if (plr[p].InvList[i]._iStatFlag)
-                plr[p]._pScrlSpells |= (__int64)1 << (plr[p].InvList[i]._iSpell - 1);
+                plr[p]._pScrlSpells |= SPELLBIT(plr[p].InvList[i]._iSpell);
         }
     }
 
@@ -1062,13 +1067,13 @@ void CalcPlrScrolls(int p)
         if (plr[p].SpdList[j]._itype != ITYPE_NONE && (plr[p].SpdList[j]._iMiscId == IMISC_SCROLL || plr[p].SpdList[j]._iMiscId == IMISC_SCROLLT))
         {
             if (plr[p].SpdList[j]._iStatFlag)
-                plr[p]._pScrlSpells |= (__int64)1 << (plr[p].SpdList[j]._iSpell - 1);
+                plr[p]._pScrlSpells |= SPELLBIT(plr[p].SpdList[j]._iSpell);
         }
     }
     if (plr[p]._pRSplType == RSPLTYPE_SCROLL)
     {
         if (!(plr[p]._pScrlSpells & 1 << (plr[p]._pRSpell - 1)))
-        {
+        { // BUGFIX: apply SPELLBIT macro
             plr[p]._pRSpell = SPL_INVALID;
             plr[p]._pRSplType = RSPLTYPE_INVALID;
             force_redraw = 255;
@@ -1081,7 +1086,7 @@ void CalcPlrStaff(int p)
     plr[p]._pISpells = 0;
     if (plr[p].InvBody[INVLOC_HAND_LEFT]._itype != ITYPE_NONE && plr[p].InvBody[INVLOC_HAND_LEFT]._iStatFlag && plr[p].InvBody[INVLOC_HAND_LEFT]._iCharges > 0)
     {
-        plr[p]._pISpells |= (__int64)1 << (plr[p].InvBody[INVLOC_HAND_LEFT]._iSpell - 1);
+        plr[p]._pISpells |= SPELLBIT(plr[p].InvBody[INVLOC_HAND_LEFT]._iSpell);
     }
 }
 
@@ -1773,7 +1778,7 @@ void GetStaffSpell(int i, int lvl, BOOL onlygood)
     char istr[64];
 
 #ifndef HELLFIRE
-    if (!random_(17, 4))
+    if (random_(17, 4) == 0)
     {
         GetItemPower(i, lvl >> 1, lvl, PLT_STAFF, onlygood);
     }
@@ -2426,24 +2431,24 @@ void GetItemPower(int i, int minlvl, int maxlvl, int flgs, BOOL onlygood)
     post = random_(23, 3);
     if (pre != 0 && post == 0)
     {
-        if (random_(23, 2))
+        if (random_(23, 2) != 0)
             post = 1;
         else
             pre = 0;
     }
     preidx = -1;
     sufidx = -1;
-    goe = 0;
-    if (!onlygood && random_(0, 3))
+    goe = GOE_ANY;
+    if (!onlygood && random_(0, 3) != 0)
         onlygood = TRUE;
-    if (!pre)
+    if (pre == 0)
     {
         nt = 0;
         for (j = 0; PL_Prefix[j].PLPower != -1; j++)
         {
             if (flgs & PL_Prefix[j].PLIType)
             {
-                if (PL_Prefix[j].PLMinLvl >= minlvl && PL_Prefix[j].PLMinLvl <= maxlvl && (!onlygood || PL_Prefix[j].PLOk) && (flgs != 256 || PL_Prefix[j].PLPower != 15))
+                if (PL_Prefix[j].PLMinLvl >= minlvl && PL_Prefix[j].PLMinLvl <= maxlvl && (!onlygood || PL_Prefix[j].PLOk) && (flgs != PLT_STAFF || PL_Prefix[j].PLPower != IPL_CHARGES))
                 {
                     l[nt] = j;
                     nt++;
@@ -2471,7 +2476,8 @@ void GetItemPower(int i, int minlvl, int maxlvl, int flgs, BOOL onlygood)
         nl = 0;
         for (j = 0; PL_Suffix[j].PLPower != -1; j++)
         {
-            if (PL_Suffix[j].PLIType & flgs && PL_Suffix[j].PLMinLvl >= minlvl && PL_Suffix[j].PLMinLvl <= maxlvl && (goe | PL_Suffix[j].PLGOE) != 0x11 && (!onlygood || PL_Suffix[j].PLOk))
+            if (PL_Suffix[j].PLIType & flgs && PL_Suffix[j].PLMinLvl >= minlvl && PL_Suffix[j].PLMinLvl <= maxlvl && (goe | PL_Suffix[j].PLGOE) != (GOE_GOOD | GOE_EVIL) &&
+                (!onlygood || PL_Suffix[j].PLOk))
             {
                 l[nl] = j;
                 nl++;
@@ -2931,7 +2937,7 @@ void SetupAllItems(int ii, int idx, int iseed, int lvl, int uper, BOOL onlygood,
         {
             // uid = CheckUnique(ii, iblvl, uper, recreate);
             // if (uid != UITYPE_INVALID) {
-            //	GetUniqueItem(ii, uid);
+            //    GetUniqueItem(ii, uid);
             //}
             GetUniqueItem(ii, iseed); // BUG: the second argument to GetUniqueItem should be uid.
         }
@@ -3096,12 +3102,12 @@ void SetupAllUseful(int ii, int iseed, int lvl)
             break;
     }
 #else
-    if (random_(34, 2))
+    if (random_(34, 2) != 0)
         idx = IDI_HEAL;
     else
         idx = IDI_MANA;
 
-    if (lvl > 1 && !random_(34, 3))
+    if (lvl > 1 && random_(34, 3) == 0)
         idx = IDI_PORTAL;
 #endif
 
@@ -4424,20 +4430,20 @@ void DrawULine(int y)
     yy = PitchTbl[SStringY[y] + 198] + 26 + PANEL_X;
 
     __asm {
-		mov		esi, gpBuffer
-		mov		edi, esi
-		add		esi, SCREENXY(PANEL_LEFT + 26, 25)
-		add		edi, yy
-		mov		ebx, BUFFER_WIDTH - 266
-		mov		edx, 3
-	copyline:
-		mov		ecx, 266 / 4
-		rep movsd
-		movsw
-		add		esi, ebx
-		add		edi, ebx
-		dec		edx
-		jnz		copyline
+        mov        esi, gpBuffer
+        mov        edi, esi
+        add        esi, SCREENXY(PANEL_LEFT + 26, 25)
+        add        edi, yy
+        mov        ebx, BUFFER_WIDTH - 266
+        mov        edx, 3
+    copyline:
+        mov        ecx, 266 / 4
+        rep movsd
+        movsw
+        add        esi, ebx
+        add        edi, ebx
+        dec        edx
+        jnz        copyline
     }
 #else
     int i;
@@ -4848,8 +4854,8 @@ void UseItem(int p, int Mid, int spl)
             }
             break;
         case IMISC_BOOK:
-            plr[p]._pMemSpells |= (__int64)1 << (spl - 1);
-            if (plr[p]._pSplLvl[spl] < 15)
+            plr[p]._pMemSpells |= SPELLBIT(spl);
+            if (plr[p]._pSplLvl[spl] < MAX_SPELL_LEVEL)
                 plr[p]._pSplLvl[spl]++;
             plr[p]._pMana += spelldata[spl].sManaCost << 6;
             if (plr[p]._pMana > plr[p]._pMaxMana)
@@ -5417,7 +5423,7 @@ void SpawnBoy(int lvl)
 {
     int itype;
 
-    if (boylevel < lvl >> 1 || boyitem._itype == ITYPE_NONE)
+    if (boylevel < (lvl >> 1) || boyitem._itype == ITYPE_NONE)
     {
         do
         {

@@ -44,8 +44,7 @@ int stextdown;
 char stextscrlubtn;
 char stextflag;
 
-int SStringY[24] = {0,   12,  24,  36,  48,  60,  72,  84,  96,  108, 120, 132,
-                    144, 156, 168, 180, 192, 204, 216, 228, 240, 252, 264, 276};
+int SStringY[24] = {0, 12, 24, 36, 48, 60, 72, 84, 96, 108, 120, 132, 144, 156, 168, 180, 192, 204, 216, 228, 240, 252, 264, 276};
 /** Maps from towner IDs to NPC names. */
 const char* const talkname[9] = {"Griswold", "Pepin", "", "Ogden", "Cain", "Farnham", "Adria", "Gillian", "Wirt"};
 
@@ -210,20 +209,20 @@ void DrawSLine(int y)
 
 #ifdef USE_ASM
     __asm {
-		mov		esi, gpBuffer
-		mov		edi, esi
-		add		esi, xy
-		add		edi, yy
-		mov		ebx, line
-		mov		edx, 3
-	copyline:
-		mov		ecx, width
-		rep movsd
-		movsw
-		add		esi, ebx
-		add		edi, ebx
-		dec		edx
-		jnz		copyline
+        mov        esi, gpBuffer
+        mov        edi, esi
+        add        esi, xy
+        add        edi, yy
+        mov        ebx, line
+        mov        edx, 3
+    copyline:
+        mov        ecx, width
+        rep movsd
+        movsw
+        add        esi, ebx
+        add        edi, ebx
+        dec        edx
+        jnz        copyline
     }
 #else
     int i;
@@ -850,26 +849,22 @@ void S_StartSRepair()
     storenumh = 0;
     for (i = 0; i < 48; i++)
         storehold[i]._itype = ITYPE_NONE;
-    if (plr[myplr].InvBody[INVLOC_HEAD]._itype != ITYPE_NONE &&
-        plr[myplr].InvBody[INVLOC_HEAD]._iDurability != plr[myplr].InvBody[INVLOC_HEAD]._iMaxDur)
+    if (plr[myplr].InvBody[INVLOC_HEAD]._itype != ITYPE_NONE && plr[myplr].InvBody[INVLOC_HEAD]._iDurability != plr[myplr].InvBody[INVLOC_HEAD]._iMaxDur)
     {
         repairok = TRUE;
         AddStoreHoldRepair(plr[myplr].InvBody, -1);
     }
-    if (plr[myplr].InvBody[INVLOC_CHEST]._itype != ITYPE_NONE &&
-        plr[myplr].InvBody[INVLOC_CHEST]._iDurability != plr[myplr].InvBody[INVLOC_CHEST]._iMaxDur)
+    if (plr[myplr].InvBody[INVLOC_CHEST]._itype != ITYPE_NONE && plr[myplr].InvBody[INVLOC_CHEST]._iDurability != plr[myplr].InvBody[INVLOC_CHEST]._iMaxDur)
     {
         repairok = TRUE;
         AddStoreHoldRepair(&plr[myplr].InvBody[INVLOC_CHEST], -2);
     }
-    if (plr[myplr].InvBody[INVLOC_HAND_LEFT]._itype != ITYPE_NONE &&
-        plr[myplr].InvBody[INVLOC_HAND_LEFT]._iDurability != plr[myplr].InvBody[INVLOC_HAND_LEFT]._iMaxDur)
+    if (plr[myplr].InvBody[INVLOC_HAND_LEFT]._itype != ITYPE_NONE && plr[myplr].InvBody[INVLOC_HAND_LEFT]._iDurability != plr[myplr].InvBody[INVLOC_HAND_LEFT]._iMaxDur)
     {
         repairok = TRUE;
         AddStoreHoldRepair(&plr[myplr].InvBody[INVLOC_HAND_LEFT], -3);
     }
-    if (plr[myplr].InvBody[INVLOC_HAND_RIGHT]._itype != ITYPE_NONE &&
-        plr[myplr].InvBody[INVLOC_HAND_RIGHT]._iDurability != plr[myplr].InvBody[INVLOC_HAND_RIGHT]._iMaxDur)
+    if (plr[myplr].InvBody[INVLOC_HAND_RIGHT]._itype != ITYPE_NONE && plr[myplr].InvBody[INVLOC_HAND_RIGHT]._iDurability != plr[myplr].InvBody[INVLOC_HAND_RIGHT]._iMaxDur)
     {
         repairok = TRUE;
         AddStoreHoldRepair(&plr[myplr].InvBody[INVLOC_HAND_RIGHT], -4);
@@ -1104,8 +1099,7 @@ BOOL WitchRechargeOk(int i)
     BOOL rv;
 
     rv = FALSE;
-    if (plr[myplr].InvList[i]._itype == ITYPE_STAFF &&
-        plr[myplr].InvList[i]._iCharges != plr[myplr].InvList[i]._iMaxCharges)
+    if (plr[myplr].InvList[i]._itype == ITYPE_STAFF && plr[myplr].InvList[i]._iCharges != plr[myplr].InvList[i]._iMaxCharges)
     {
         rv = TRUE;
     }
@@ -1116,11 +1110,7 @@ void AddStoreHoldRecharge(ItemStruct itm, int i)
 {
     storehold[storenumh] = itm;
     storehold[storenumh]._ivalue += spelldata[itm._iSpell].sStaffCost;
-    storehold[storenumh]._ivalue = storehold[storenumh]._ivalue *
-                                       (100 * (storehold[storenumh]._iMaxCharges - storehold[storenumh]._iCharges) /
-                                        storehold[storenumh]._iMaxCharges) /
-                                       100 >>
-                                   1;
+    storehold[storenumh]._ivalue = storehold[storenumh]._ivalue * (100 * (storehold[storenumh]._iMaxCharges - storehold[storenumh]._iCharges) / storehold[storenumh]._iMaxCharges) / 100 >> 1;
     storehold[storenumh]._iIvalue = storehold[storenumh]._ivalue;
     storehidx[storenumh] = i;
     storenumh++;
@@ -1141,8 +1131,7 @@ void S_StartWRecharge()
     }
 
 #ifdef HELLFIRE
-    if ((plr[myplr].InvBody[INVLOC_HAND_LEFT]._itype == ITYPE_STAFF ||
-         plr[myplr].InvBody[INVLOC_HAND_LEFT]._iMiscId == IMISC_UNIQUE)
+    if ((plr[myplr].InvBody[INVLOC_HAND_LEFT]._itype == ITYPE_STAFF || plr[myplr].InvBody[INVLOC_HAND_LEFT]._iMiscId == IMISC_UNIQUE)
 #else
     if (plr[myplr].InvBody[INVLOC_HAND_LEFT]._itype == ITYPE_STAFF
 #endif

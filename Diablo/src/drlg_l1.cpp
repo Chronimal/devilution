@@ -27,212 +27,205 @@ int IsUberLeverActivated;
 int UberDiabloMonsterIndex;
 #endif
 /** Specifies whether to generate a vertical room at position 1 in the Cathedral. */
-int VR1;
+BOOL VR1;
 /** Specifies whether to generate a vertical room at position 2 in the Cathedral. */
-int VR2;
+BOOL VR2;
 /** Specifies whether to generate a vertical room at position 3 in the Cathedral. */
-int VR3;
+BOOL VR3;
 /** Contains the contents of the single player quest DUN file. */
 BYTE* L5pSetPiece;
 
 /** Contains shadows for 2x2 blocks of base tile IDs in the Cathedral. */
 const ShadowStruct SPATS[37] = {
     // clang-format off
-	// strig, s1, s2, s3, nv1, nv2, nv3
-	{      7, 13,  0, 13, 144,   0, 142 },
-	{     16, 13,  0, 13, 144,   0, 142 },
-	{     15, 13,  0, 13, 145,   0, 142 },
-	{      5, 13, 13, 13, 152, 140, 139 },
-	{      5, 13,  1, 13, 143, 146, 139 },
-	{      5, 13, 13,  2, 143, 140, 148 },
-	{      5,  0,  1,  2,   0, 146, 148 },
-	{      5, 13, 11, 13, 143, 147, 139 },
-	{      5, 13, 13, 12, 143, 140, 149 },
-	{      5, 13, 11, 12, 150, 147, 149 },
-	{      5, 13,  1, 12, 143, 146, 149 },
-	{      5, 13, 11,  2, 143, 147, 148 },
-	{      9, 13, 13, 13, 144, 140, 142 },
-	{      9, 13,  1, 13, 144, 146, 142 },
-	{      9, 13, 11, 13, 151, 147, 142 },
-	{      8, 13,  0, 13, 144,   0, 139 },
-	{      8, 13,  0, 12, 143,   0, 149 },
-	{      8,  0,  0,  2,   0,   0, 148 },
-	{     11,  0,  0, 13,   0,   0, 139 },
-	{     11, 13,  0, 13, 139,   0, 139 },
-	{     11,  2,  0, 13, 148,   0, 139 },
-	{     11, 12,  0, 13, 149,   0, 139 },
-	{     11, 13, 11, 12, 139,   0, 149 },
-	{     14,  0,  0, 13,   0,   0, 139 },
-	{     14, 13,  0, 13, 139,   0, 139 },
-	{     14,  2,  0, 13, 148,   0, 139 },
-	{     14, 12,  0, 13, 149,   0, 139 },
-	{     14, 13, 11, 12, 139,   0, 149 },
-	{     10,  0, 13,  0,   0, 140,   0 },
-	{     10, 13, 13,  0, 140, 140,   0 },
-	{     10,  0,  1,  0,   0, 146,   0 },
-	{     10, 13, 11,  0, 140, 147,   0 },
-	{     12,  0, 13,  0,   0, 140,   0 },
-	{     12, 13, 13,  0, 140, 140,   0 },
-	{     12,  0,  1,  0,   0, 146,   0 },
-	{     12, 13, 11,  0, 140, 147,   0 },
-	{      3, 13, 11, 12, 150,   0,   0 }
+    // strig, s1, s2, s3, nv1, nv2, nv3
+    {      7, 13,  0, 13, 144,   0, 142 },
+    {     16, 13,  0, 13, 144,   0, 142 },
+    {     15, 13,  0, 13, 145,   0, 142 },
+    {      5, 13, 13, 13, 152, 140, 139 },
+    {      5, 13,  1, 13, 143, 146, 139 },
+    {      5, 13, 13,  2, 143, 140, 148 },
+    {      5,  0,  1,  2,   0, 146, 148 },
+    {      5, 13, 11, 13, 143, 147, 139 },
+    {      5, 13, 13, 12, 143, 140, 149 },
+    {      5, 13, 11, 12, 150, 147, 149 },
+    {      5, 13,  1, 12, 143, 146, 149 },
+    {      5, 13, 11,  2, 143, 147, 148 },
+    {      9, 13, 13, 13, 144, 140, 142 },
+    {      9, 13,  1, 13, 144, 146, 142 },
+    {      9, 13, 11, 13, 151, 147, 142 },
+    {      8, 13,  0, 13, 144,   0, 139 },
+    {      8, 13,  0, 12, 143,   0, 149 },
+    {      8,  0,  0,  2,   0,   0, 148 },
+    {     11,  0,  0, 13,   0,   0, 139 },
+    {     11, 13,  0, 13, 139,   0, 139 },
+    {     11,  2,  0, 13, 148,   0, 139 },
+    {     11, 12,  0, 13, 149,   0, 139 },
+    {     11, 13, 11, 12, 139,   0, 149 },
+    {     14,  0,  0, 13,   0,   0, 139 },
+    {     14, 13,  0, 13, 139,   0, 139 },
+    {     14,  2,  0, 13, 148,   0, 139 },
+    {     14, 12,  0, 13, 149,   0, 139 },
+    {     14, 13, 11, 12, 139,   0, 149 },
+    {     10,  0, 13,  0,   0, 140,   0 },
+    {     10, 13, 13,  0, 140, 140,   0 },
+    {     10,  0,  1,  0,   0, 146,   0 },
+    {     10, 13, 11,  0, 140, 147,   0 },
+    {     12,  0, 13,  0,   0, 140,   0 },
+    {     12, 13, 13,  0, 140, 140,   0 },
+    {     12,  0,  1,  0,   0, 146,   0 },
+    {     12, 13, 11,  0, 140, 147,   0 },
+    {      3, 13, 11, 12, 150,   0,   0 }
     // clang-format on
 };
 
 // BUGFIX: This array should contain an additional 0 (207 elements).
 /** Maps tile IDs to their corresponding base tile ID. */
-const BYTE BSTYPES[206] = {0,  1,  2,  3,  4,  5,  6,  7,  8,  9,  10, 11, 12, 13, 14, 15, 16, 17, 0,  0,  0,  0,  0,
-                           0,  0,  1,  2,  10, 4,  5,  6,  7,  8,  9,  10, 11, 12, 14, 5,  14, 10, 4,  14, 4,  5,  0,
-                           0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,
-                           0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  1,  2,  3,  4,  1,  6,  7,  16, 17, 2,  1,  1,  2,
-                           2,  1,  1,  2,  2,  2,  2,  2,  1,  1,  11, 1,  13, 13, 13, 1,  2,  1,  2,  1,  2,  1,  2,
-                           2,  2,  2,  12, 0,  0,  11, 1,  11, 1,  13, 0,  0,  0,  0,  0,  0,  0,  13, 13, 13, 13, 13,
-                           13, 13, 13, 13, 13, 13, 13, 13, 1,  11, 2,  12, 13, 13, 13, 12, 2,  1,  2,  2,  4,  14, 4,
-                           10, 13, 13, 4,  4,  1,  1,  4,  2,  2,  13, 13, 13, 13, 25, 26, 28, 30, 31, 41, 43, 40, 41,
-                           42, 43, 25, 41, 43, 28, 28, 1,  2,  25, 26, 22, 22, 25, 26, 0,  0,  0,  0,  0,  0,  0};
+const BYTE BSTYPES[206] = {0,  1, 2,  3,  4,  5,  6,  7,  8,  9,  10, 11, 12, 13, 14, 15, 16, 17, 0,  0,  0,  0,  0,  0,  0,  1,  2,  10, 4,  5,  6,  7, 8, 9,  10, 11, 12, 14, 5, 14, 10, 4,
+                           14, 4, 5,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0, 0, 0,  0,  0,  0,  1,  2, 3,  4,  1,
+                           6,  7, 16, 17, 2,  1,  1,  2,  2,  1,  1,  2,  2,  2,  2,  2,  1,  1,  11, 1,  13, 13, 13, 1,  2,  1,  2,  1,  2,  1,  2,  2, 2, 2,  12, 0,  0,  11, 1, 11, 1,  13,
+                           0,  0, 0,  0,  0,  0,  0,  13, 13, 13, 13, 13, 13, 13, 13, 13, 13, 13, 13, 13, 1,  11, 2,  12, 13, 13, 13, 12, 2,  1,  2,  2, 4, 14, 4,  10, 13, 13, 4, 4,  1,  1,
+                           4,  2, 2,  13, 13, 13, 13, 25, 26, 28, 30, 31, 41, 43, 40, 41, 42, 43, 25, 41, 43, 28, 28, 1,  2,  25, 26, 22, 22, 25, 26, 0, 0, 0,  0,  0,  0,  0};
 
 // BUGFIX: This array should contain an additional 0 (207 elements).
 /** Maps tile IDs to their corresponding undecorated tile ID. */
-const BYTE L5BTYPES[206] = {
-    0,  1,  2, 3,  4,  5,  6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 0,  0,  0,  0, 0,  0, 0, 25, 26, 0, 28, 0,
-    30, 31, 0, 0,  0,  0,  0, 0, 0, 0, 40, 41, 42, 43, 0,  0,  0,  0,  0,  0,  0,  0, 0,  0, 0, 0,  0,  0, 0,  0,
-    0,  0,  0, 0,  0,  0,  0, 0, 0, 0, 0,  0,  0,  0,  0,  0,  0,  0,  0,  79, 80, 0, 82, 0, 0, 0,  0,  0, 0,  79,
-    0,  80, 0, 0,  79, 80, 0, 2, 2, 2, 1,  1,  11, 25, 13, 13, 13, 1,  2,  1,  2,  1, 2,  1, 2, 2,  2,  2, 12, 0,
-    0,  11, 1, 11, 1,  13, 0, 0, 0, 0, 0,  0,  0,  13, 13, 13, 13, 13, 13, 0,  0,  0, 0,  0, 0, 0,  0,  0, 0,  0,
-    0,  0,  0, 0,  0,  0,  0, 0, 0, 0, 0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0, 0,  0, 0, 0,  0,  0, 0,  0,
-    0,  0,  0, 0,  0,  0,  0, 0, 0, 0, 0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0, 0,  0, 0, 0};
+const BYTE L5BTYPES[206] = {0,  1,  2, 3, 4, 5,  6, 7,  8,  9,  10, 11, 12, 13, 14, 15, 16, 17, 0,  0,  0,  0,  0,  0, 0, 25, 26, 0, 28, 0, 30, 31, 0, 0, 0,  0, 0, 0,  0,  0,  40, 41,
+                            42, 43, 0, 0, 0, 0,  0, 0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0, 0, 0,  0,  0, 0,  0, 0,  0,  0, 0, 0,  0, 0, 79, 80, 0,  82, 0,
+                            0,  0,  0, 0, 0, 79, 0, 80, 0,  0,  79, 80, 0,  2,  2,  2,  1,  1,  11, 25, 13, 13, 13, 1, 2, 1,  2,  1, 2,  1, 2,  2,  2, 2, 12, 0, 0, 11, 1,  11, 1,  13,
+                            0,  0,  0, 0, 0, 0,  0, 13, 13, 13, 13, 13, 13, 0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0, 0, 0,  0,  0, 0,  0, 0,  0,  0, 0, 0,  0, 0, 0,  0,  0,  0,  0,
+                            0,  0,  0, 0, 0, 0,  0, 0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0, 0, 0,  0,  0, 0,  0, 0,  0,  0, 0, 0,  0, 0, 0};
 /** Miniset: stairs up on a corner wall. */
 const BYTE STAIRSUP[] = {
     // clang-format off
-	4, 4, // width, height
+    4, 4, // width, height
 
-	13, 13, 13, 13, // search
-	 2,  2,  2,  2,
-	13, 13, 13, 13,
-	13, 13, 13, 13,
+    13, 13, 13, 13, // search
+     2,  2,  2,  2,
+    13, 13, 13, 13,
+    13, 13, 13, 13,
 
-	 0, 66,  6,  0, // replace
-	63, 64, 65,  0,
-	 0, 67, 68,  0,
-	 0,  0,  0,  0,
+     0, 66,  6,  0, // replace
+    63, 64, 65,  0,
+     0, 67, 68,  0,
+     0,  0,  0,  0,
     // clang-format on
 };
 #ifdef HELLFIRE
 const BYTE L5STAIRSUP[] = {
     // clang-format off
-	4, 5, // width, height
+    4, 5, // width, height
 
-	22, 22, 22, 22, // search
-	22, 22, 22, 22,
-	 2,  2,  2,  2,
-	13, 13, 13, 13,
-	13, 13, 13, 13,
+    22, 22, 22, 22, // search
+    22, 22, 22, 22,
+     2,  2,  2,  2,
+    13, 13, 13, 13,
+    13, 13, 13, 13,
 
-	 0, 54, 23,  0, // replace
-	 0, 53, 18,  0,
-	55, 56, 57,  0,
-	58, 59, 60,  0,
-	 0,  0,  0,  0
+     0, 54, 23,  0, // replace
+     0, 53, 18,  0,
+    55, 56, 57,  0,
+    58, 59, 60,  0,
+     0,  0,  0,  0
     // clang-format on
 };
 #else
 /** Miniset: stairs up. */
 const BYTE L5STAIRSUP[] = {
     // clang-format off
-	4, 4, // width, height
+    4, 4, // width, height
 
-	22, 22, 22, 22, // search
-	 2,  2,  2,  2,
-	13, 13, 13, 13,
-	13, 13, 13, 13,
+    22, 22, 22, 22, // search
+     2,  2,  2,  2,
+    13, 13, 13, 13,
+    13, 13, 13, 13,
 
-	 0, 66, 23,  0, // replace
-	63, 64, 65,  0,
-	 0, 67, 68,  0,
-	 0,  0,  0,  0,
+     0, 66, 23,  0, // replace
+    63, 64, 65,  0,
+     0, 67, 68,  0,
+     0,  0,  0,  0,
     // clang-format on
 };
 #endif
 /** Miniset: stairs down. */
 const BYTE STAIRSDOWN[] = {
     // clang-format off
-	4, 3, // width, height
+    4, 3, // width, height
 
-	13, 13, 13, 13, // search
-	13, 13, 13, 13,
-	13, 13, 13, 13,
+    13, 13, 13, 13, // search
+    13, 13, 13, 13,
+    13, 13, 13, 13,
 
-	62, 57, 58,  0, // replace
-	61, 59, 60,  0,
-	 0,  0,  0,  0,
+    62, 57, 58,  0, // replace
+    61, 59, 60,  0,
+     0,  0,  0,  0,
     // clang-format on
 };
 #ifdef HELLFIRE
 const BYTE L5STAIRSDOWN[] = {
     // clang-format off
-	4, 5, // width, height
+    4, 5, // width, height
 
-	13, 13, 13, 13, // search
-	13, 13, 13, 13,
-	13, 13, 13, 13,
-	13, 13, 13, 13,
-	13, 13, 13, 13,
+    13, 13, 13, 13, // search
+    13, 13, 13, 13,
+    13, 13, 13, 13,
+    13, 13, 13, 13,
+    13, 13, 13, 13,
 
-	 0,  0, 52,  0, // replace
-	 0, 48, 51,  0,
-	 0, 47, 50,  0,
-	45, 46, 49,  0,
-	 0,  0,  0,  0,
+     0,  0, 52,  0, // replace
+     0, 48, 51,  0,
+     0, 47, 50,  0,
+    45, 46, 49,  0,
+     0,  0,  0,  0,
     // clang-format on
 };
 const BYTE L5STAIRSTOWN[] = {
     // clang-format off
-	4, 5, // width, height
+    4, 5, // width, height
 
-	22, 22, 22, 22, // search
-	22, 22, 22, 22,
-	 2,  2,  2,  2,
-	13, 13, 13, 13,
-	13, 13, 13, 13,
+    22, 22, 22, 22, // search
+    22, 22, 22, 22,
+     2,  2,  2,  2,
+    13, 13, 13, 13,
+    13, 13, 13, 13,
 
-	 0, 62, 23,  0, // replace
-	 0, 61, 18,  0,
-	63, 64, 65,  0,
-	66, 67, 68,  0,
-	 0,  0,  0,  0,
+     0, 62, 23,  0, // replace
+     0, 61, 18,  0,
+    63, 64, 65,  0,
+    66, 67, 68,  0,
+     0,  0,  0,  0,
     // clang-format on
 };
 #endif
 /** Miniset: candlestick. */
 const BYTE LAMPS[] = {
     // clang-format off
-	2, 2, // width, height
+    2, 2, // width, height
 
-	13,  0, // search
-	13, 13,
+    13,  0, // search
+    13, 13,
 
-	129,   0, // replace
-	130, 128,
+    129,   0, // replace
+    130, 128,
     // clang-format on
 };
 /** Miniset: Poisoned Water Supply entrance. */
 const BYTE PWATERIN[] = {
     // clang-format off
-	6, 6, // width, height
+    6, 6, // width, height
 
-	13, 13, 13, 13, 13, 13, // search
-	13, 13, 13, 13, 13, 13,
-	13, 13, 13, 13, 13, 13,
-	13, 13, 13, 13, 13, 13,
-	13, 13, 13, 13, 13, 13,
-	13, 13, 13, 13, 13, 13,
+    13, 13, 13, 13, 13, 13, // search
+    13, 13, 13, 13, 13, 13,
+    13, 13, 13, 13, 13, 13,
+    13, 13, 13, 13, 13, 13,
+    13, 13, 13, 13, 13, 13,
+    13, 13, 13, 13, 13, 13,
 
-	 0,   0,   0,   0,   0, 0, // replace
-	 0, 202, 200, 200,  84, 0,
-	 0, 199, 203, 203,  83, 0,
-	 0,  85, 206,  80,  81, 0,
-	 0,   0, 134, 135,   0, 0,
-	 0,   0,   0,   0,   0, 0,
+     0,   0,   0,   0,   0, 0, // replace
+     0, 202, 200, 200,  84, 0,
+     0, 199, 203, 203,  83, 0,
+     0,  85, 206,  80,  81, 0,
+     0,   0, 134, 135,   0, 0,
+     0,   0,   0,   0,   0, 0,
     // clang-format on
 };
 #ifdef HELLFIRE
@@ -240,24 +233,24 @@ const BYTE byte_48A1B4[4] = {1, 1, 11, 95};
 const BYTE byte_48A1B8[8] = {1, 1, 12, 96};
 const BYTE byte_48A1C0[8] = {
     // clang-format off
-	1, 3, // width, height
+    1, 3, // width, height
 
-	1, // search
-	1,
-	1,
+    1, // search
+    1,
+    1,
 
-	91, // replace
-	90,
-	89,
+    91, // replace
+    90,
+    89,
     // clang-format on
 };
 const BYTE byte_48A1C8[8] = {
     // clang-format off
-	3, 1, // width, height
+    3, 1, // width, height
 
-	 2,  2,  2, // search
+     2,  2,  2, // search
 
-	94, 93, 92, // replace
+    94, 93, 92, // replace
     // clang-format on
 };
 const BYTE byte_48A1D0[4] = {1, 1, 13, 97};
@@ -266,15 +259,15 @@ const BYTE byte_48A1D8[4] = {1, 1, 13, 99};
 const BYTE byte_48A1DC[4] = {1, 1, 13, 100};
 const BYTE byte_48A1E0[20] = {
     // clang-format off
-	3, 3, // width, height
+    3, 3, // width, height
 
-	13, 13, 13, // search
-	13, 13, 13,
-	13, 13, 13,
+    13, 13, 13, // search
+    13, 13, 13,
+    13, 13, 13,
 
-	0,   0, 0, // replace
-	0, 101, 0,
-	0,   0, 0,
+    0,   0, 0, // replace
+    0, 101, 0,
+    0,   0, 0,
     // clang-format on
 };
 const BYTE byte_48A1F4[4] = {1, 1, 11, 185};
@@ -305,79 +298,79 @@ const BYTE byte_48A254[4] = {1, 1, 101, 197};
 const BYTE byte_48A258[8] = {1, 1, 101, 198};
 const BYTE byte_48A260[24] = {
     // clang-format off
-	3, 3, // width, height
+    3, 3, // width, height
 
-	13, 13, 13, // search
-	13, 13, 13,
-	13, 13, 13,
+    13, 13, 13, // search
+    13, 13, 13,
+    13, 13, 13,
 
-	0,   0, 0, // replace
-	0, 167, 0,
-	0,   0, 0,
+    0,   0, 0, // replace
+    0, 167, 0,
+    0,   0, 0,
     // clang-format on
 };
 const BYTE byte_48A278[24] = {
     // clang-format off
-	3, 3, // width, height
+    3, 3, // width, height
 
-	13, 13, 13, // search
-	13, 13, 13,
-	13, 13, 13,
+    13, 13, 13, // search
+    13, 13, 13,
+    13, 13, 13,
 
-	0,   0, 0, // replace
-	0, 168, 0,
-	0,   0, 0,
+    0,   0, 0, // replace
+    0, 168, 0,
+    0,   0, 0,
     // clang-format on
 };
 const BYTE byte_48A290[24] = {
     // clang-format off
-	3, 3, // width, height
+    3, 3, // width, height
 
-	13, 13, 13, // search
-	13, 13, 13,
-	13, 13, 13,
+    13, 13, 13, // search
+    13, 13, 13,
+    13, 13, 13,
 
-	0,   0, 0, // replace
-	0, 169, 0,
-	0,   0, 0,
+    0,   0, 0, // replace
+    0, 169, 0,
+    0,   0, 0,
 };
 const BYTE byte_48A2A8[24] = {
-	// clang-format off
-	3, 3, // width, height
+    // clang-format off
+    3, 3, // width, height
 
-	13, 13, 13, // search
-	13, 13, 13,
-	13, 13, 13,
+    13, 13, 13, // search
+    13, 13, 13,
+    13, 13, 13,
 
-	0,   0, 0, // replace
-	0, 170, 0,
-	0,   0, 0,
+    0,   0, 0, // replace
+    0, 170, 0,
+    0,   0, 0,
     // clang-format on
 };
 const BYTE byte_48A2C0[24] = {
     // clang-format off
-	3, 3, // width, height
+    3, 3, // width, height
 
-	13, 13, 13, // search
-	13, 13, 13,
-	13, 13, 13,
+    13, 13, 13, // search
+    13, 13, 13,
+    13, 13, 13,
 
-	0,   0, 0, // replace
-	0, 171, 0,
-	0,   0, 0,
+    0,   0, 0, // replace
+    0, 171, 0,
+    0,   0, 0,
     // clang-format on
 };
 const BYTE byte_48A2D8[20] = {
     // clang-format off
-	3, 3, // width, height
+    3, 3, // width, height
 
-	13, 13, 13, // search
-	13, 13, 13,
-	13, 13, 13,
+    13, 13, 13, // search
+    13, 13, 13,
+    13, 13, 13,
 
-	 0,   0, 0, // replace
-	 0, 172, 0,
-	 0,   0, 0,
+     0,   0, 0, // replace
+     0, 172, 0,
+     0,   0, 0,
     // clang-format on
 };
 const BYTE byte_48A2EC[4] = {1, 1, 13, 163};
@@ -444,10 +437,8 @@ const BYTE byte_48A3D4[4] = {1, 1, 2, 202};
 /* data */
 
 #ifdef HELLFIRE
-BYTE UberRoomPattern[32] = {4,   6,  115, 130, 6, 13, 129, 108, 1, 13, 1, 107, 103, 13, 146, 106,
-                            102, 13, 129, 168, 1, 13, 7,   2,   3, 13, 0, 0,   0,   0,  0,   0};
-BYTE CornerstoneRoomPattern[32] = {5,  5, 4, 2, 2, 2, 6, 1, 111, 172, 0, 1, 1, 172, 0, 0,
-                                   25, 1, 0, 0, 0, 1, 7, 2, 2,   2,   3, 0, 0, 0,   0, 0};
+BYTE UberRoomPattern[32] = {4, 6, 115, 130, 6, 13, 129, 108, 1, 13, 1, 107, 103, 13, 146, 106, 102, 13, 129, 168, 1, 13, 7, 2, 3, 13, 0, 0, 0, 0, 0, 0};
+BYTE CornerstoneRoomPattern[32] = {5, 5, 4, 2, 2, 2, 6, 1, 111, 172, 0, 1, 1, 172, 0, 0, 25, 1, 0, 0, 0, 1, 7, 2, 2, 2, 3, 0, 0, 0, 0, 0};
 #endif
 /**
  * A lookup table for the 16 possible patterns of a 2x2 area,
@@ -940,15 +931,7 @@ static void DRLG_L1Shadows()
     }
 }
 
-static int DRLG_PlaceMiniSet(
-    const BYTE* miniset,
-    int tmin,
-    int tmax,
-    int cx,
-    int cy,
-    BOOL setview,
-    int noquad,
-    int ldir)
+static int DRLG_PlaceMiniSet(const BYTE* miniset, int tmin, int tmax, int cx, int cy, BOOL setview, int noquad, int ldir)
 {
     int sx, sy, sw, sh, xx, yy, i, ii, numt, found, t;
     BOOL abort;
@@ -1106,23 +1089,23 @@ static void DRLG_L1Pass3()
 
 #ifdef USE_ASM
     __asm {
-		mov		esi, pMegaTiles
-		mov		eax, lv
-		shl		eax, 3
-		add		esi, eax
-		xor		eax, eax
-		lodsw
-		inc		eax
-		mov		v1, eax
-		lodsw
-		inc		eax
-		mov		v2, eax
-		lodsw
-		inc		eax
-		mov		v3, eax
-		lodsw
-		inc		eax
-		mov		v4, eax
+        mov        esi, pMegaTiles
+        mov        eax, lv
+        shl        eax, 3
+        add        esi, eax
+        xor        eax, eax
+        lodsw
+        inc        eax
+        mov        v1, eax
+        lodsw
+        inc        eax
+        mov        v2, eax
+        lodsw
+        inc        eax
+        mov        v3, eax
+        lodsw
+        inc        eax
+        mov        v4, eax
     }
 #else
     v1 = *((WORD*)&pMegaTiles[lv * 8] + 0) + 1;
@@ -1152,23 +1135,23 @@ static void DRLG_L1Pass3()
             /// ASSERT: assert(lv >= 0);
 #ifdef USE_ASM
             __asm {
-				mov		esi, pMegaTiles
-				mov		eax, lv
-				shl		eax, 3
-				add		esi, eax
-				xor		eax, eax
-				lodsw
-				inc		eax
-				mov		v1, eax
-				lodsw
-				inc		eax
-				mov		v2, eax
-				lodsw
-				inc		eax
-				mov		v3, eax
-				lodsw
-				inc		eax
-				mov		v4, eax
+                mov        esi, pMegaTiles
+                mov        eax, lv
+                shl        eax, 3
+                add        esi, eax
+                xor        eax, eax
+                lodsw
+                inc        eax
+                mov        v1, eax
+                lodsw
+                inc        eax
+                mov        v2, eax
+                lodsw
+                inc        eax
+                mov        v3, eax
+                lodsw
+                inc        eax
+                mov        v4, eax
             }
 #else
             v1 = *((WORD*)&pMegaTiles[lv * 8] + 0) + 1;
@@ -1695,8 +1678,7 @@ static void L5makeDmt()
     {
         for (i = 0, dmtx = 1; dmtx <= 77; i++, dmtx += 2)
         {
-            val = 8 * L5dungeon[dmtx + 1][dmty + 1] + 4 * L5dungeon[dmtx][dmty + 1] + 2 * L5dungeon[dmtx + 1][dmty] +
-                  L5dungeon[dmtx][dmty];
+            val = 8 * L5dungeon[dmtx + 1][dmty + 1] + 4 * L5dungeon[dmtx][dmty + 1] + 2 * L5dungeon[dmtx + 1][dmty] + L5dungeon[dmtx][dmty];
             idx = L5ConvTbl[val];
             dungeon[i][j] = idx;
         }
@@ -2200,7 +2182,7 @@ static void DRLG_L5Subs()
     {
         for (x = 0; x < DMAXX; x++)
         {
-            if (!random_(0, 4))
+            if (random_(0, 4) == 0)
             {
                 BYTE c = L5BTYPES[dungeon[x][y]];
 
@@ -2330,14 +2312,14 @@ static void L5FillChambers()
         if (VR1 || VR2 || VR3)
         {
             c = 1;
-            if (!VR1 && VR2 && VR3 && random_(0, 2))
+            if (!VR1 && VR2 && VR3 && random_(0, 2) != 0)
                 c = 2;
-            if (VR1 && VR2 && !VR3 && random_(0, 2))
+            if (VR1 && VR2 && !VR3 && random_(0, 2) != 0)
                 c = 0;
 
             if (VR1 && !VR2 && VR3)
             {
-                if (random_(0, 2))
+                if (random_(0, 2) != 0)
                     c = 0;
                 else
                     c = 2;
@@ -2362,14 +2344,14 @@ static void L5FillChambers()
         else
         {
             c = 1;
-            if (!HR1 && HR2 && HR3 && random_(0, 2))
+            if (!HR1 && HR2 && HR3 && random_(0, 2) != 0)
                 c = 2;
-            if (HR1 && HR2 && !HR3 && random_(0, 2))
+            if (HR1 && HR2 && !HR3 && random_(0, 2) != 0)
                 c = 0;
 
             if (HR1 && !HR2 && HR3)
             {
-                if (random_(0, 2))
+                if (random_(0, 2) != 0)
                     c = 0;
                 else
                     c = 2;
@@ -2397,14 +2379,14 @@ static void L5FillChambers()
         if (VR1 || VR2 || VR3)
         {
             c = 1;
-            if (!VR1 && VR2 && VR3 && random_(0, 2))
+            if (!VR1 && VR2 && VR3 && random_(0, 2) != 0)
                 c = 2;
-            if (VR1 && VR2 && !VR3 && random_(0, 2))
+            if (VR1 && VR2 && !VR3 && random_(0, 2) != 0)
                 c = 0;
 
             if (VR1 && !VR2 && VR3)
             {
-                if (random_(0, 2))
+                if (random_(0, 2) != 0)
                     c = 0;
                 else
                     c = 2;
@@ -2465,14 +2447,14 @@ static void L5FillChambers()
         if (VR1 || VR2 || VR3)
         {
             c = 1;
-            if (!VR1 && VR2 && VR3 && random_(0, 2))
+            if (!VR1 && VR2 && VR3 && random_(0, 2) != 0)
                 c = 2;
-            if (VR1 && VR2 && !VR3 && random_(0, 2))
+            if (VR1 && VR2 && !VR3 && random_(0, 2) != 0)
                 c = 0;
 
             if (VR1 && !VR2 && VR3)
             {
-                if (random_(0, 2))
+                if (random_(0, 2) != 0)
                     c = 0;
                 else
                     c = 2;
@@ -2497,14 +2479,14 @@ static void L5FillChambers()
         else
         {
             c = 1;
-            if (!HR1 && HR2 && HR3 && random_(0, 2))
+            if (!HR1 && HR2 && HR3 && random_(0, 2) != 0)
                 c = 2;
-            if (HR1 && HR2 && !HR3 && random_(0, 2))
+            if (HR1 && HR2 && !HR3 && random_(0, 2) != 0)
                 c = 0;
 
             if (HR1 && !HR2 && HR3)
             {
-                if (random_(0, 2))
+                if (random_(0, 2) != 0)
                     c = 0;
                 else
                     c = 2;
@@ -2794,8 +2776,7 @@ static void DRLG_L5CornerFix()
     {
         for (i = 1; i < DMAXX - 1; i++)
         {
-            if (!(L5dflags[i][j] & DLRG_PROTECTED) && dungeon[i][j] == 17 && dungeon[i - 1][j] == 13 &&
-                dungeon[i][j - 1] == 1)
+            if (!(L5dflags[i][j] & DLRG_PROTECTED) && dungeon[i][j] == 17 && dungeon[i - 1][j] == 13 && dungeon[i][j - 1] == 1)
             {
                 dungeon[i][j] = 16;
                 L5dflags[i][j - 1] &= DLRG_PROTECTED;
