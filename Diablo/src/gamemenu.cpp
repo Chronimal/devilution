@@ -68,11 +68,11 @@ const char* const sound_toggle_names[] = {
     "Sound Disabled",
 };
 #ifdef HELLFIRE
-char* jogging_toggle_names[] = {
+const char* jogging_toggle_names[] = {
     "Jog",
     "Walk",
 };
-char* jogging_title = "Fast Walk";
+const char* jogging_title = "Fast Walk";
 #endif
 #ifndef HELLFIRE
 /** Specifies the menu names for colour cycling disabled and enabled. */

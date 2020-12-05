@@ -157,7 +157,8 @@ void FillSolidBlockTbls()
 {
     BYTE bv;
     DWORD dwTiles;
-    BYTE *pSBFile, *pTmp;
+    BYTE* pSBFile = nullptr;
+    BYTE* pTmp = nullptr;
     int i;
 
     memset(nBlockTable, 0, sizeof(nBlockTable));
@@ -205,7 +206,7 @@ void FillSolidBlockTbls()
             app_fatal("FillSolidBlockTbls");
     }
 
-    pTmp = pSBFile = nullptr;
+    pTmp = pSBFile;
 
     for (i = 1; i <= dwTiles; i++)
     {

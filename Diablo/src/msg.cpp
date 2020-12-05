@@ -5,7 +5,11 @@
  */
 #include "all.h"
 #include "storm/storm.h"
+#ifndef HELLFIRE
 #include "ui/diabloui.h"
+#else // HELLFIRE
+#include "hellfrui/hellfrui.h"
+#endif // HELLFIRE
 
 static DWORD sgdwOwnerWait;
 static DWORD sgdwRecvOffset;

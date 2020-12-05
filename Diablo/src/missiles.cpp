@@ -3773,7 +3773,7 @@ void AddDiabApoca(int mi, int sx, int sy, int dx, int dy, int midir, char mienem
 
 int AddMissile(int sx, int sy, int dx, int dy, int midir, int mitype, char micaster, int id, int midam, int spllvl)
 {
-    int i, mi;
+    int mi;
 
 #ifdef HELLFIRE
     if (nummissiles >= MAXMISSILES - 1)
@@ -3788,7 +3788,7 @@ int AddMissile(int sx, int sy, int dx, int dy, int midir, int mitype, char micas
         if (currlevel != plr[id].plrlevel)
             return -1;
 
-        for (i = 0; i < nummissiles; i++)
+        for (int i = 0; i < nummissiles; i++)
         {
             mi = missileactive[i];
             if (missile[mi]._mitype == MIS_MANASHIELD && missile[mi]._misource == id)

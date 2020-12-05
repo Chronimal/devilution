@@ -5,7 +5,11 @@
  */
 #include "all.h"
 #include "storm/storm.h"
+#ifndef HELLFIRE
 #include "ui/diabloui.h"
+#else // HELLFIRE
+#include "hellfrui/hellfrui.h"
+#endif // HELLFIRE
 
 HWND ghMainWnd;
 DWORD glSeedTbl[NUMLEVELS];
@@ -672,11 +676,12 @@ int APIENTRY WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLi
 {
     HINSTANCE hInst;
     int nData;
-    char szFileName[MAX_PATH];
     BOOL bNoEvent;
 #ifdef HELLFIRE
     char content[256];
     FILE* file;
+#else
+    char szFileName[MAX_PATH];
 #endif
 
     hInst = hInstance;
@@ -1628,7 +1633,7 @@ static void PressChar(int vkey)
 #ifndef HELLFIRE
             NetSendCmdString(1 << myplr, gszProductName);
 #else
-            char* local_10[3];
+            const char* local_10[3];
             char pszStr[120];
             local_10[0] = "Normal";
             local_10[1] = "Nightmare";

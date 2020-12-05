@@ -187,9 +187,9 @@ static int gmenu_get_lfont(TMenuItem* pItem)
 
 static void gmenu_draw_menu_item(TMenuItem* pItem, int y)
 {
-    DWORD w, x, nSteps, step, pos, t;
+    DWORD w, x, nSteps, step, pos;
 #ifndef HELLFIRE
-    t = y - 2;
+    DWORD t = y - 2;
 #endif
     w = gmenu_get_lfont(pItem);
     if (pItem->dwFlags & GMENU_SLIDER)

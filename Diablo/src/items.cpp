@@ -5,7 +5,7 @@
  */
 #include "all.h"
 #ifdef HELLFIRE
-#include "../3rdParty/Storm/Source/storm.h"
+#include "storm/storm.h"
 #endif
 
 int itemactive[MAXITEMS];
@@ -88,7 +88,7 @@ int ItemInvSnds[] = {
 #endif
 };
 #ifdef HELLFIRE
-char* off_4A5AC4 = "SItem";
+const char* off_4A5AC4 = "SItem";
 #endif
 /** Specifies the current Y-coordinate used for validation of items on ground. */
 int idoppely = 16;
