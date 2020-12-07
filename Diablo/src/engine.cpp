@@ -1959,8 +1959,7 @@ void CelBlitWidth(BYTE* pBuff, int x, int y, int wdt, BYTE* pCelBuff, int nCel, 
 }
 
 /**
- * @brief Blit a solid colder shape one pixel larger then the given sprite shape, to the back buffer at the given
- * coordianates
+ * @brief Blit a solid colder shape one pixel larger then the given sprite shape, to the back buffer at the given coordianates
  * @param col Color index from current palette
  * @param sx Back buffer coordinate
  * @param sy Back buffer coordinate
@@ -2405,8 +2404,8 @@ void engine_draw_pixel(int sx, int sy)
  * by Brian Wyvill
  * from "Graphics Gems", Academic Press, 1990
  *
- * Exact copy from
- * https://github.com/erich666/GraphicsGems/blob/dad26f941e12c8bf1f96ea21c1c04cd2206ae7c9/gems/DoubleLine.c Except:
+ * Exact copy from https://github.com/erich666/GraphicsGems/blob/dad26f941e12c8bf1f96ea21c1c04cd2206ae7c9/gems/DoubleLine.c
+ * Except:
  * - not in view checks
  * - global variable instead of reverse flag
  * - condition for pixels_left < 0 removed
@@ -2873,9 +2872,9 @@ void Cl2ApplyTrans(BYTE* p, BYTE* ttbl, int nCel)
 
     for (i = 1; i <= nCel; i++)
     {
-        pFrameTable = (DWORD*)&p[4 * i];
-        dst = &p[pFrameTable[0] + 10];
-        nDataSize = CelGetFrameSize(p, i) - 10;
+        pFrameTable = (DWORD*)p;
+        dst = &p[SwapLE32(pFrameTable[i]) + 10];
+        nDataSize = SwapLE32(pFrameTable[i + 1]) - SwapLE32(pFrameTable[i]) - 10;
         while (nDataSize)
         {
             width = *dst++;
@@ -2895,11 +2894,10 @@ void Cl2ApplyTrans(BYTE* p, BYTE* ttbl, int nCel)
                 {
                     nDataSize -= width;
                     assert(nDataSize >= 0);
-                    while (width)
+                    while (width--)
                     {
                         *dst = ttbl[*dst];
                         dst++;
-                        width--;
                     }
                 }
             }
@@ -4040,8 +4038,7 @@ void Cl2Draw(int sx, int sy, BYTE* pCelBuff, int nCel, int nWidth, int CelSkip, 
 }
 
 /**
- * @brief Blit a solid colder shape one pixel larger then the given sprite shape, to the back buffer at the given
- * coordianates
+ * @brief Blit a solid colder shape one pixel larger then the given sprite shape, to the back buffer at the given coordianates
  * @param col Color index from current palette
  * @param sx Back buffer coordinate
  * @param sy Back buffer coordinate

@@ -458,19 +458,23 @@ void GetMissileVel(int i, int sx, int sy, int dx, int dy, int v)
 {
     double dxp, dyp, dr;
 
+#ifndef HELLFIRE
     if (dx != sx || dy != sy)
     {
+#endif
         dxp = (dx + sy - sx - dy) << 21;
         dyp = (dy + dx - sx - sy) << 21;
         dr = sqrt(dxp * dxp + dyp * dyp);
         missile[i]._mixvel = (dxp * (v << 16)) / dr;
         missile[i]._miyvel = (dyp * (v << 15)) / dr;
+#ifndef HELLFIRE
     }
     else
     {
         missile[i]._mixvel = 0;
         missile[i]._miyvel = 0;
     }
+#endif
 }
 
 void PutMissile(int i)
@@ -2489,15 +2493,22 @@ void miss_null_33(int mi, int sx, int sy, int dx, int dy, int midir, char mienem
 void AddTeleport(int mi, int sx, int sy, int dx, int dy, int midir, char mienemy, int id, int dam)
 {
     int i, pn, k, j, tx, ty;
+#ifndef HELLFIRE
     int CrawlNum[6] = {0, 3, 12, 45, 94, 159};
+#endif
 
     missile[mi]._miDelFlag = TRUE;
     for (i = 0; i < 6; i++)
     {
         k = CrawlNum[i];
         pn = k + 2;
+#ifdef HELLFIRE
+        for (j = CrawlTable[k]; j > 0; j--)
+        { // BUGFIX: should cast to BYTE or CrawlTable header will be wrong
+#else
         for (j = (BYTE)CrawlTable[k]; j > 0; j--)
         {
+#endif
             tx = dx + CrawlTable[pn - 1];
             ty = dy + CrawlTable[pn];
             if (0 < tx && tx < MAXDUNX && 0 < ty && ty < MAXDUNY)
@@ -3773,7 +3784,7 @@ void AddDiabApoca(int mi, int sx, int sy, int dx, int dy, int midir, char mienem
 
 int AddMissile(int sx, int sy, int dx, int dy, int midir, int mitype, char micaster, int id, int midam, int spllvl)
 {
-    int mi;
+    int i, mi;
 
 #ifdef HELLFIRE
     if (nummissiles >= MAXMISSILES - 1)
@@ -3788,7 +3799,7 @@ int AddMissile(int sx, int sy, int dx, int dy, int midir, int mitype, char micas
         if (currlevel != plr[id].plrlevel)
             return -1;
 
-        for (int i = 0; i < nummissiles; i++)
+        for (i = 0; i < nummissiles; i++)
         {
             mi = missileactive[i];
             if (missile[mi]._mitype == MIS_MANASHIELD && missile[mi]._misource == id)
@@ -6297,7 +6308,7 @@ void MI_Bonespirit(int i)
         }
         if (missile[i]._mirange == 0)
         {
-            SetMissDir(i, DIR_OMNI);
+            SetMissDir(i, 8);
             missile[i]._mirange = 7;
         }
         PutMissile(i);

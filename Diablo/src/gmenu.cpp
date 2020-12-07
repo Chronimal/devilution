@@ -187,9 +187,9 @@ static int gmenu_get_lfont(TMenuItem* pItem)
 
 static void gmenu_draw_menu_item(TMenuItem* pItem, int y)
 {
-    DWORD w, x, nSteps, step, pos;
+    DWORD w, x, nSteps, step, pos, t;
 #ifndef HELLFIRE
-    DWORD t = y - 2;
+    t = y - 2;
 #endif
     w = gmenu_get_lfont(pItem);
     if (pItem->dwFlags & GMENU_SLIDER)
@@ -272,27 +272,28 @@ void gmenu_draw()
 
 static void gmenu_left_right(BOOL isRight)
 {
-    int step;
+    int step, steps;
 
-    if (sgpCurrItem->dwFlags & GMENU_SLIDER)
+    if (!(sgpCurrItem->dwFlags & GMENU_SLIDER))
+        return;
+
+    step = sgpCurrItem->dwFlags & 0xFFF;
+    steps = (int)(sgpCurrItem->dwFlags & 0xFFF000) >> 12;
+    if (isRight)
     {
-        step = sgpCurrItem->dwFlags & 0xFFF;
-        if (isRight)
-        {
-            if (step == (int)(sgpCurrItem->dwFlags & 0xFFF000) >> 12)
-                return;
-            step++;
-        }
-        else
-        {
-            if (!step)
-                return;
-            step--;
-        }
-        sgpCurrItem->dwFlags &= 0xFFFFF000;
-        sgpCurrItem->dwFlags |= step;
-        sgpCurrItem->fnMenu(FALSE);
+        if (step == steps)
+            return;
+        step++;
     }
+    else
+    {
+        if (step == 0)
+            return;
+        step--;
+    }
+    sgpCurrItem->dwFlags &= 0xFFFFF000;
+    sgpCurrItem->dwFlags |= step;
+    sgpCurrItem->fnMenu(FALSE);
 }
 
 BOOL gmenu_presskeys(int vkey)
