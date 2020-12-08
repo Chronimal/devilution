@@ -139,9 +139,9 @@ void DeviceResources::createWindowSizeDependentResources(const SIZE& windowSize)
     d3dRenderTargetView_.Reset();
     d3dDeviceContext_->Flush();
 
+    // clang-format off
     if (d3dSwapChain_) // If the swap chain already exists, resize it
     {
-        // clang-format off
         auto hr = d3dSwapChain_->ResizeBuffers(2,
                                                windowSize_.cx,
                                                windowSize_.cy,
@@ -186,15 +186,14 @@ void DeviceResources::createWindowSizeDependentResources(const SIZE& windowSize)
         DXGI_SWAP_CHAIN_FULLSCREEN_DESC swapChainFullscreenDesc = {};
         swapChainFullscreenDesc.Windowed = TRUE;
 
-        // clang-format off
-(dxgiFactory->CreateSwapChainForHwnd(d3dDevice_.Get(),
-                                                                hwnd_,
-                                                                &swapChainDesc,
-                                                                &swapChainFullscreenDesc,
-                                                                nullptr,
-                                                                d3dSwapChain_.ReleaseAndGetAddressOf()));
-        // clang-format on
+        dxgiFactory->CreateSwapChainForHwnd(d3dDevice_.Get(),
+                                            hwnd_,
+                                            &swapChainDesc,
+                                            &swapChainFullscreenDesc,
+                                            nullptr,
+                                            d3dSwapChain_.ReleaseAndGetAddressOf());
     }
+    // clang-format on
 
     // Create frame buffer render target
     ComPtr<ID3D11Texture2D> d3dFrameBuffer;

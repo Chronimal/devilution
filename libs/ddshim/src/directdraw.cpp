@@ -7,6 +7,7 @@ using Microsoft::WRL::ComPtr;
 using namespace DirectX;
 
 DDS_BEGIN_NS
+DDS_BEGIN_ANON_NS
 
 struct Viewport : public D3D11_VIEWPORT
 {
@@ -21,8 +22,7 @@ struct Viewport : public D3D11_VIEWPORT
     }
 };
 
-DDS_BEGIN_ANON_NS
-
+// Pull shader global vars into an anonymous namespace
 #include "pixelshader.h"
 #include "vertexshader.h"
 
