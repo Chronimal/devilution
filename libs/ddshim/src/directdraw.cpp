@@ -2,6 +2,7 @@
 #include "directdrawsurface.hpp"
 #include "directdrawpalette.hpp"
 #include "directdraw.hpp"
+#include <bit>
 
 using Microsoft::WRL::ComPtr;
 using namespace DirectX;
@@ -11,7 +12,7 @@ DDS_BEGIN_ANON_NS
 
 struct Viewport : public D3D11_VIEWPORT
 {
-    Viewport(const XMFLOAT2& size) noexcept
+    explicit Viewport(const XMFLOAT2& size) noexcept
     {
         TopLeftX = 0.0f;
         TopLeftY = 0.0f;
@@ -20,6 +21,37 @@ struct Viewport : public D3D11_VIEWPORT
         MinDepth = 0.0f;
         MaxDepth = 1.0f;
     }
+};
+
+class ScopedHDC
+{
+public:
+    ScopedHDC(const ScopedHDC&) = delete;
+    ScopedHDC operator= (const ScopedHDC&) = delete;
+
+    explicit ScopedHDC(HWND hwnd)
+        : hdc_{ GetDC(hwnd) }
+        , hwnd_{hwnd}
+    {
+        if (hdc_ == nullptr)
+        {
+            DDS_THROW(HRESULT_FROM_WIN32(GetLastError()));
+        }
+    }
+
+    ~ScopedHDC()
+    {
+        ReleaseDC(hwnd_, hdc_);
+    }
+
+    HDC get() const noexcept
+    {
+        return hdc_;
+    }
+
+private:
+    HWND hwnd_;
+    HDC hdc_;
 };
 
 // Pull shader global vars into an anonymous namespace
@@ -201,25 +233,19 @@ HRESULT DirectDraw::GetMonitorFrequency(LPDWORD lpdwFrequency)
 
 HRESULT DirectDraw::GetScanLine(LPDWORD lpdwScanLine)
 {
-    _ASSERT(false);
-    return E_NOTIMPL;
+    D3DKMT_GETSCANLINE gsl{.hAdapter = adapter_.Get(), .VidPnSourceId = vidPnSourceId_};
+    auto status = D3DKMTGetScanLine(&gsl);
+    *lpdwScanLine = gsl.ScanLine;
+    _ASSERT(status == 0);
+    return DD_OK;
 }
 
 HRESULT DirectDraw::GetVerticalBlankStatus(LPBOOL lpbIsInVB)
 {
-    // Should use D3DKMTGetScanLine() instead of the hack below
-    *lpbIsInVB = FALSE;
-    DWM_TIMING_INFO ti{.cbSize = sizeof(ti)};
-    if (SUCCEEDED(DwmGetCompositionTimingInfo(nullptr, &ti)))
-    {
-        LARGE_INTEGER counter;
-        LARGE_INTEGER frequency;
-        if (QueryPerformanceFrequency(&frequency) && QueryPerformanceCounter(&counter))
-        {
-            auto nextBlankIn = static_cast<double>(ti.qpcVBlank - counter.QuadPart) / frequency.QuadPart;
-            *lpbIsInVB = nextBlankIn <= 0.001;
-        }
-    }
+    D3DKMT_GETSCANLINE gsl{.hAdapter = adapter_.Get(), .VidPnSourceId = vidPnSourceId_};
+    auto status = D3DKMTGetScanLine(&gsl);
+    *lpbIsInVB = gsl.InVerticalBlank;
+    _ASSERT(status == 0);
     return DD_OK;
 }
 
@@ -266,14 +292,9 @@ HRESULT DirectDraw::WaitForVerticalBlank(DWORD flags, HANDLE)
         {
             DDS_THROW(DDERR_UNSUPPORTED);
         }
-        auto swapChain = deviceResources_->getSwapChain();
-        if (swapChain == nullptr)
-        {
-            DDS_THROW(DDERR_D3DNOTINITIALIZED);
-        }
-        ComPtr<IDXGIOutput> output;
-        DDS_THROW_IF_FAILED(swapChain->GetContainingOutput(output.GetAddressOf()));
-        DDS_THROW_IF_FAILED(output->WaitForVBlank());
+        D3DKMT_WAITFORVERTICALBLANKEVENT wb{ .hAdapter = adapter_.Get(), .VidPnSourceId = vidPnSourceId_ };
+        auto status = D3DKMTWaitForVerticalBlankEvent(&wb);
+        _ASSERT(status == 0);
     }
     catch (...)
     {
@@ -282,7 +303,7 @@ HRESULT DirectDraw::WaitForVerticalBlank(DWORD flags, HANDLE)
     return DD_OK;
 }
 
-// --- Help methods ---
+// --- Helper methods ---
 
 void DirectDraw::createDeviceDependentResources()
 {
@@ -339,6 +360,16 @@ void DirectDraw::createDeviceDependentResources()
     samplerDesc.AddressW = D3D11_TEXTURE_ADDRESS_BORDER;
     samplerDesc.ComparisonFunc = D3D11_COMPARISON_NEVER;
     DDS_THROW_IF_FAILED(device->CreateSamplerState(&samplerDesc, samplerState_.ReleaseAndGetAddressOf()));
+
+    ScopedHDC hdc{deviceResources_->getHWND()};
+    D3DKMT_OPENADAPTERFROMHDC oa{.hDc = hdc.get()};
+    auto status = D3DKMTOpenAdapterFromHdc(&oa);
+    if (status != 0)
+    {
+        DDS_THROW(HRESULT_FROM_NT(status));
+    }
+    vidPnSourceId_ = oa.VidPnSourceId;
+    adapter_.Attach(oa.hAdapter);
 }
 
 void DirectDraw::createWindowSizeDependentResources()
@@ -347,6 +378,9 @@ void DirectDraw::createWindowSizeDependentResources()
 
 void DirectDraw::onDeviceLost()
 {
+    vidPnSourceId_ = 0;
+    adapter_.Close();
+
     inputLayout_.Reset();
     vertexBuffer_.Reset();
     vertexShader_.Reset();
@@ -383,7 +417,7 @@ void DirectDraw::onWindowMessage(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lPar
 
 void DirectDraw::onGetMinMaxInfo(HWND hwnd, WPARAM wParam, LPARAM lParam)
 {
-    auto info = reinterpret_cast<MINMAXINFO*>(lParam);
+    auto info = std::bit_cast<MINMAXINFO*>(lParam);
     info->ptMinTrackSize.x = 320;
     info->ptMinTrackSize.y = 200;
 }
@@ -422,7 +456,7 @@ void DirectDraw::onExitSizeMove(HWND hwnd, WPARAM wParam, LPARAM lParam)
 
 LRESULT DirectDraw::subclassProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam, UINT_PTR subclassID, DWORD_PTR)
 {
-    auto self = reinterpret_cast<DirectDraw*>(subclassID);
+    auto self = std::bit_cast<DirectDraw*>(subclassID);
     self->onWindowMessage(hwnd, msg, wParam, lParam);
     switch (msg)
     {
@@ -438,7 +472,7 @@ void DirectDraw::subclassWindow(HWND hwnd)
 {
     if (!isSubclassed_ && IsWindow(hwnd))
     {
-        if (!SetWindowSubclass(hwnd, &DirectDraw::subclassProc, reinterpret_cast<UINT_PTR>(this), 0))
+        if (!SetWindowSubclass(hwnd, &DirectDraw::subclassProc, std::bit_cast<UINT_PTR>(this), 0))
         {
             DDS_THROW(HRESULT_FROM_WIN32(GetLastError()));
         }
@@ -450,7 +484,7 @@ void DirectDraw::unsubclassWindow(HWND hwnd) noexcept
 {
     if (isSubclassed_ && IsWindow(hwnd))
     {
-        if (::RemoveWindowSubclass(hwnd, &DirectDraw::subclassProc, reinterpret_cast<UINT_PTR>(this)))
+        if (::RemoveWindowSubclass(hwnd, &DirectDraw::subclassProc, std::bit_cast<UINT_PTR>(this)))
         {
             isSubclassed_ = false;
         }

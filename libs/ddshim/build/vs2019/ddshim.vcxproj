@@ -27,6 +27,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\include\ddshim\ddshim.hpp" />
+    <ClInclude Include="..\..\src\d3dkmt.hpp" />
     <ClInclude Include="..\..\src\deviceresources.hpp" />
     <ClInclude Include="..\..\src\directdraw.hpp" />
     <ClInclude Include="..\..\src\directdrawpalette.hpp" />

@@ -1,6 +1,7 @@
 
 #include "deviceresources.hpp"
 #include <algorithm>
+#include <bit>
 
 using Microsoft::WRL::ComPtr;
 using namespace DirectX;
@@ -78,7 +79,7 @@ ID3D11RenderTargetView* DeviceResources::getRenderTargetView() const noexcept
     return d3dRenderTargetView_.Get();
 }
 
-const XMFLOAT2 DeviceResources::getViewportSize() const noexcept
+XMFLOAT2 DeviceResources::getViewportSize() const noexcept
 {
     return {static_cast<FLOAT>(windowSize_.cx), static_cast<FLOAT>(windowSize_.cy)};
 }
@@ -197,7 +198,7 @@ void DeviceResources::createWindowSizeDependentResources(const SIZE& windowSize)
 
     // Create frame buffer render target
     ComPtr<ID3D11Texture2D> d3dFrameBuffer;
-    DDS_THROW_IF_FAILED(d3dSwapChain_->GetBuffer(0, __uuidof(ID3D11Texture2D), reinterpret_cast<void**>(d3dFrameBuffer.GetAddressOf())));
+    DDS_THROW_IF_FAILED(d3dSwapChain_->GetBuffer(0, __uuidof(ID3D11Texture2D), std::bit_cast<void**>(d3dFrameBuffer.GetAddressOf())));
     DDS_THROW_IF_FAILED(d3dDevice_->CreateRenderTargetView(d3dFrameBuffer.Get(), 0, d3dRenderTargetView_.ReleaseAndGetAddressOf()));
 }
 

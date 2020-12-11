@@ -4,14 +4,15 @@
 #define DDS_DDSINTERNAL_HPP_INCLUDED
 
 #include "../include/ddshim/ddshim.hpp"
+#include <wrl/wrappers/corewrappers.h>
 #include <wrl/client.h>
 
-#include <dwmapi.h>
 #include <d3d11.h>
 #include <d3d11_1.h>
 #include <dxgidebug.h>
 #include <directxmath.h>
 
+#include <winternl.h>
 #include <commctrl.h>
 #include <comdef.h>
 
@@ -22,7 +23,7 @@
 
 // Include libraries used in the platform specific part of the code base
 #pragma comment(lib, "Comctl32.lib")
-#pragma comment(lib, "Dwmapi.lib")
+#pragma comment(lib, "Gdi32.lib")
 #pragma comment(lib, "dxguid.lib")
 #pragma comment(lib, "d3d11.lib")
 #pragma comment(lib, "dxgi.lib")

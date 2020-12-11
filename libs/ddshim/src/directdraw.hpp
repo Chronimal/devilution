@@ -4,6 +4,7 @@
 #define DDS_DIRECTDRAW_HPP_INCLUDED
 
 #include "ddsinternal.hpp"
+#include "d3dkmt.hpp"
 
 DDS_BEGIN_NS
 
@@ -25,6 +26,23 @@ public:
     ULONG __stdcall Release() override;
 
 private:
+    struct D3DKMT_HANDLETraits
+    {
+        using Type = D3DKMT_HANDLE;
+
+        inline static bool Close(Type h) noexcept
+        {
+            D3DKMT_CLOSEADAPTER ca{.hAdapter = h};
+            return D3DKMTCloseAdapter(&ca) >= 0;
+        }
+
+        inline static Type GetInvalidValue() noexcept
+        {
+            return static_cast<Type>(0);
+        }
+    };
+    using D3DKMTHandle = Microsoft::WRL::Wrappers::HandleT<D3DKMT_HANDLETraits>;
+
     std::shared_ptr<DeviceResources> deviceResources_;
     Microsoft::WRL::ComPtr<ID3D11Buffer> vertexBuffer_;
     Microsoft::WRL::ComPtr<ID3D11InputLayout> inputLayout_;
@@ -38,6 +56,8 @@ private:
 
     ULONG refCount_{1};
     VirtualDisplayMode vdm_;
+    D3DKMTHandle adapter_;
+    UINT vidPnSourceId_{};
     bool isSubclassed_{};
     bool inSizeMove_{};
 

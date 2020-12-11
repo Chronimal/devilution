@@ -22,7 +22,7 @@ public:
     ID3D11DeviceContext1* getDeviceContext() const noexcept;
     ID3D11RenderTargetView* getRenderTargetView() const noexcept;
 
-    const DirectX::XMFLOAT2 getViewportSize() const noexcept;
+    DirectX::XMFLOAT2 getViewportSize() const noexcept;
 
     void present();
 
@@ -65,7 +65,7 @@ private:
                     std::invoke(restored_, instance_);
                 }
 
-                bool isInstance(void* instance) override
+                bool isInstance(void* instance) const noexcept override
                 {
                     return static_cast<void*>(instance_) == instance;
                 }
@@ -88,8 +88,9 @@ private:
         {
             virtual void deviceLost() = 0;
             virtual void deviceRestored() = 0;
-            virtual bool isInstance(void* instance) = 0;
-            ~IDeviceEventSinks() = default;
+            virtual bool isInstance(void* instance) const noexcept = 0;
+
+            virtual ~IDeviceEventSinks() = default;
         };
         std::vector<std::unique_ptr<IDeviceEventSinks>> deviceEventSinks_;
     };
