@@ -495,10 +495,11 @@ BOOL StartGame(BOOL bNewGame, BOOL bSinglePlayer)
         NetClose();
 #ifndef HELLFIRE
         pfile_create_player_description(0, 0);
-    } while (gbRunGameResult);
 #else
-    } while (gbMaxPlayers == 1 || !gbRunGameResult);
+        if (gbMaxPlayers == 1)
+            break;
 #endif
+    } while (gbRunGameResult);
 
     SNetDestroy();
     return gbRunGameResult;
@@ -645,7 +646,7 @@ static void diablo_reload_process(HINSTANCE hInstance)
             }
             hWnd = hPrev;
         }
-        while (1)
+        do
         {
             GetWindowThreadProcessId(hWnd, &dwProcessId);
             if (dwProcessId == plMap[1])
@@ -654,11 +655,7 @@ static void diablo_reload_process(HINSTANCE hInstance)
                 break;
             }
             hWnd = GetWindow(hWnd, GW_HWNDNEXT);
-            if (hWnd == NULL)
-            {
-                break;
-            }
-        }
+        } while (hWnd != NULL);
         UnmapViewOfFile(plMap);
         CloseHandle(hMap);
         ExitProcess(0);
@@ -676,12 +673,11 @@ int APIENTRY WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLi
 {
     HINSTANCE hInst;
     int nData;
+    char szFileName[MAX_PATH];
     BOOL bNoEvent;
 #ifdef HELLFIRE
     char content[256];
     FILE* file;
-#else
-    char szFileName[MAX_PATH];
 #endif
 
     hInst = hInstance;
@@ -923,7 +919,7 @@ static BOOL TryIconCurs()
         if (pcursinvitem != -1)
             DoOil(myplr, pcursinvitem);
         else
-            SetCursor_(CURSOR_HAND);
+            NewCursor(CURSOR_HAND);
         return TRUE;
     }
 
@@ -1492,7 +1488,7 @@ static void PressKey(int vkey)
 /**
  * @internal `return` must be used instead of `break` to be bin exact as C++
  */
-static void PressChar(int vkey)
+static void PressChar(WPARAM vkey)
 {
     if (gmenu_is_active() || control_talk_last_key(vkey) || sgnTimeoutCurs != CURSOR_NONE || deathflag)
     {
@@ -1633,7 +1629,7 @@ static void PressChar(int vkey)
 #ifndef HELLFIRE
             NetSendCmdString(1 << myplr, gszProductName);
 #else
-            const char* local_10[3];
+            char* local_10[3];
             char pszStr[120];
             local_10[0] = "Normal";
             local_10[1] = "Nightmare";
