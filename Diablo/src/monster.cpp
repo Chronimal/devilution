@@ -2971,7 +2971,7 @@ BOOL M_DoRSpAttack(int i)
 #endif
             monster[i]._menemyx, monster[i]._menemyy, monster[i]._mdir, monster[i]._mVar1, TARGET_PLAYERS, i, monster[i]._mVar3, 0);
 #ifdef HELLFIRE
-        if (Monsters[i].Snds[3][0] != 0)
+        if (Monsters[i].Snds[3][0] != 0) // BUGFIX `Monsters[i].` should be `monster[i].MType->`
 #endif
             PlayEffect(i, 3);
     }
@@ -3212,7 +3212,7 @@ void M_Teleport(int i)
         return;
 #else
         app_fatal("M_Teleport: Invalid monster %d", i);
-#endif;
+#endif
 
     done = FALSE;
 
@@ -6804,7 +6804,7 @@ BOOLEAN monster_posok(int i, int x, int y)
 
 BOOL PosOkMonst2(int i, int x, int y)
 {
-    int oi;
+    int oi, mi, j;
 #ifdef HELLFIRE
     BOOL ret;
 
@@ -6833,7 +6833,7 @@ BOOL PosOkMonst2(int i, int x, int y)
 
     if (ret && dMissile[x][y] && i >= 0)
     {
-        int mi = dMissile[x][y];
+        mi = dMissile[x][y];
         if (mi > 0)
         {
             if (missile[mi]._mitype == MIS_FIREWALL)
@@ -6842,7 +6842,7 @@ BOOL PosOkMonst2(int i, int x, int y)
             }
             else
             {
-                for (int j = 0; j < nummissiles; j++)
+                for (j = 0; j < nummissiles; j++)
                 {
                     if (missile[missileactive[j]]._mitype == MIS_FIREWALL)
                         fire = TRUE;
@@ -6859,7 +6859,7 @@ BOOL PosOkMonst2(int i, int x, int y)
 
 BOOL PosOkMonst3(int i, int x, int y)
 {
-    int oi, objtype;
+    int j, oi, objtype, mi;
 #ifdef HELLFIRE
     BOOL ret;
     DIABOOL isdoor;
@@ -6907,7 +6907,7 @@ BOOL PosOkMonst3(int i, int x, int y)
     }
     if (ret && dMissile[x][y] != 0 && i >= 0)
     {
-        int mi = dMissile[x][y];
+        mi = dMissile[x][y];
         if (mi > 0)
         {
             if (missile[mi]._mitype == MIS_FIREWALL)
@@ -6916,7 +6916,7 @@ BOOL PosOkMonst3(int i, int x, int y)
             }
             else
             {
-                for (int j = 0; j < nummissiles; j++)
+                for (j = 0; j < nummissiles; j++)
                 {
                     mi = missileactive[j];
                     if (missile[mi]._mitype == MIS_FIREWALL)

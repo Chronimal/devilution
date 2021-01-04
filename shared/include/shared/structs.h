@@ -4,29 +4,6 @@
  * Various global structures.
  */
 
-#pragma once
-
-#ifndef SHARED_STRUCTS_H_INCLUDED
-#define SHARED_STRUCTS_H_INCLUDED
-
-#include <SDKDDKVer.h>
-
-#ifndef WIN32_LEAN_AND_MEAN
-#define WIN32_LEAN_AND_MEAN
-#endif // WIN32_LEAN_AND_MEAN
-
-#ifndef NOMINMAX
-#define NOMINMAX
-#endif // NOMINMAX
-
-#ifndef STRICT
-#define STRICT
-#endif // STRICT
-
-#include <windows.h>
-#include <mmeapi.h>
-#include <dsound.h>
-
 //////////////////////////////////////////////////
 // control
 //////////////////////////////////////////////////
@@ -668,7 +645,11 @@ typedef struct MonsterStruct
     unsigned char mHit2;
     unsigned char mMinDamage2;
     unsigned char mMaxDamage2;
+#ifdef HELLFIRE
+    char mArmorClass;
+#else
     unsigned char mArmorClass;
+#endif
     char falign_CB;
     unsigned short mMagicRes;
     int mtalkmsg;
@@ -1800,5 +1781,3 @@ typedef struct TDataInfo
     DWORD destOffset;
     DWORD size;
 } TDataInfo;
-
-#endif // SHARED_STRUCTS_H_INCLUDED

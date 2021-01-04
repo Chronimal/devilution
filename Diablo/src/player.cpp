@@ -79,13 +79,13 @@ int StrengthTbl[NUM_CLASSES] = {
 /** Maps from player_class to starting stat in magic. */
 int MagicTbl[NUM_CLASSES] = {
     // clang-format off
-    10,
-    15,
-    35,
+	10,
+	15,
+	35,
 #ifdef HELLFIRE
-    15,
-    20,
-     0,
+	15,
+	20,
+	 0,
 #endif
     // clang-format on
 };
@@ -119,13 +119,13 @@ const char* const ClassStrTblOld[] = {
 /** Maps from player_class to maximum stats. */
 int MaxStats[NUM_CLASSES][4] = {
     // clang-format off
-    { 250,  50,  60, 100 },
-    {  55,  70, 250,  80 },
-    {  45, 250,  85,  80 },
+	{ 250,  50,  60, 100 },
+	{  55,  70, 250,  80 },
+	{  45, 250,  85,  80 },
 #ifdef HELLFIRE
-    { 150,  80, 150,  80 },
-    { 120, 120, 120, 100 },
-    { 255,   0,  55, 150 },
+	{ 150,  80, 150,  80 },
+	{ 120, 120, 120, 100 },
+	{ 255,   0,  55, 150 },
 #endif
     // clang-format on
 };
@@ -161,7 +161,7 @@ void LoadPlrGFX(int pnum, player_graphic gfxflag)
     PlayerStruct* p;
     const char* cs;
     BYTE* pData = nullptr;
-    BYTE* pAnim = nullptr;
+    BYTE *pAnim = nullptr;
     DWORD i;
 
     if ((DWORD)pnum >= MAX_PLRS)
@@ -4698,7 +4698,7 @@ void MakePlrPath(int pnum, int xx, int yy, BOOL endspace)
 
 void CheckPlrSpell()
 {
-    BOOL addflag;
+    BOOL addflag = FALSE;
     int rspell, sd, sl;
 
     if ((DWORD)myplr >= MAX_PLRS)
@@ -4722,6 +4722,20 @@ void CheckPlrSpell()
         {
             PlaySFX(PS_MAGE34);
 #endif
+#ifdef HELLFIRE
+        }
+        else if (plr[myplr]._pClass == PC_MONK)
+        {
+            PlaySFX(PS_MONK34);
+        }
+        else if (plr[myplr]._pClass == PC_BARD)
+        {
+            PlaySFX(PS_ROGUE34);
+        }
+        else if (plr[myplr]._pClass == PC_BARBARIAN)
+        {
+            PlaySFX(PS_WARR34);
+#endif
         }
         return;
     }
@@ -4741,17 +4755,33 @@ void CheckPlrSpell()
         {
             PlaySFX(PS_MAGE27);
 #endif
+#ifdef HELLFIRE
+        }
+        else if (plr[myplr]._pClass == PC_MONK)
+        {
+            PlaySFX(PS_MONK27);
+        }
+        else if (plr[myplr]._pClass == PC_BARD)
+        {
+            PlaySFX(PS_ROGUE27);
+        }
+        else if (plr[myplr]._pClass == PC_BARBARIAN)
+        {
+            PlaySFX(PS_WARR27);
+#endif
         }
         return;
     }
 
-    if (pcurs != CURSOR_HAND || MouseY >= PANEL_TOP ||
-        (chrflag && MouseX < SPANEL_WIDTH || invflag && MouseX > RIGHT_PANEL) && rspell != SPL_HEAL && rspell != SPL_IDENTIFY && rspell != SPL_REPAIR && rspell != SPL_INFRA && rspell != SPL_RECHARGE)
+    if (pcurs != CURSOR_HAND)
+        return;
+
+    if (((MouseY >= PANEL_TOP) || (chrflag && MouseX < SPANEL_WIDTH) || (invflag && MouseX > RIGHT_PANEL)) &&
+        ((MouseY >= PANEL_TOP) || (rspell != SPL_HEAL && rspell != SPL_IDENTIFY && rspell != SPL_REPAIR && rspell != SPL_INFRA && rspell != SPL_RECHARGE)))
     {
         return;
     }
 
-    addflag = FALSE;
     switch (plr[myplr]._pRSplType)
     {
         case RSPLTYPE_SKILL:
@@ -4768,7 +4798,11 @@ void CheckPlrSpell()
 
     if (addflag)
     {
-        if (plr[myplr]._pRSpell == SPL_FIREWALL)
+        if (plr[myplr]._pRSpell == SPL_FIREWALL
+#ifdef HELLFIRE
+            || plr[myplr]._pRSpell == SPL_LIGHTWALL
+#endif
+        )
         {
             sd = GetDirection(plr[myplr]._px, plr[myplr]._py, cursmx, cursmy);
             sl = GetSpellLevel(myplr, plr[myplr]._pRSpell);
@@ -4806,6 +4840,20 @@ void CheckPlrSpell()
         else if (plr[myplr]._pClass == PC_SORCERER)
         {
             PlaySFX(PS_MAGE35);
+#endif
+#ifdef HELLFIRE
+        }
+        else if (plr[myplr]._pClass == PC_MONK)
+        {
+            PlaySFX(PS_MONK35);
+        }
+        else if (plr[myplr]._pClass == PC_BARD)
+        {
+            PlaySFX(PS_ROGUE35);
+        }
+        else if (plr[myplr]._pClass == PC_BARBARIAN)
+        {
+            PlaySFX(PS_WARR35);
 #endif
         }
     }
@@ -4872,8 +4920,9 @@ void SyncPlrAnim(int pnum)
 
 void SyncInitPlrPos(int pnum)
 {
-    int x, y;
+    int x, y, xx, yy, range;
     DWORD i;
+    BOOL posOk;
 
     plr[pnum]._ptargx = plr[pnum]._px;
     plr[pnum]._ptargy = plr[pnum]._py;
@@ -4900,13 +4949,13 @@ void SyncInitPlrPos(int pnum)
 #else
     if (!PosOkPlayer(pnum, x, y))
     {
-        BOOL posOk = FALSE;
-        for (int range = 1; range < 50 && !posOk; range++)
+        posOk = FALSE;
+        for (range = 1; range < 50 && !posOk; range++)
         {
-            for (int yy = -range; yy <= range && !posOk; yy++)
+            for (yy = -range; yy <= range && !posOk; yy++)
             {
                 y = yy + plr[pnum]._py;
-                for (int xx = -range; xx <= range && !posOk; xx++)
+                for (xx = -range; xx <= range && !posOk; xx++)
                 {
                     x = xx + plr[pnum]._px;
                     if (PosOkPlayer(pnum, x, y) && !PosOkPortal(currlevel, x, y))
@@ -5205,6 +5254,8 @@ void SetPlayerHitPoints(int pnum, int val)
 
 void SetPlrStr(int p, int v)
 {
+    int dm;
+
     if ((DWORD)p >= MAX_PLRS)
     {
         app_fatal("SetPlrStr: illegal player %d", p);
@@ -5214,7 +5265,6 @@ void SetPlrStr(int p, int v)
     CalcPlrInv(p, TRUE);
 
 #ifndef HELLFIRE
-    int dm;
     if (plr[p]._pClass == PC_ROGUE)
     {
         dm = plr[p]._pLevel * (plr[p]._pStrength + plr[p]._pDexterity) / 200;
@@ -5258,6 +5308,8 @@ void SetPlrMag(int p, int v)
 
 void SetPlrDex(int p, int v)
 {
+    int dm;
+
     if ((DWORD)p >= MAX_PLRS)
     {
         app_fatal("SetPlrDex: illegal player %d", p);
@@ -5267,7 +5319,6 @@ void SetPlrDex(int p, int v)
     CalcPlrInv(p, TRUE);
 
 #ifndef HELLFIRE
-    int dm;
     if (plr[p]._pClass == PC_ROGUE)
     {
         dm = plr[p]._pLevel * (plr[p]._pStrength + plr[p]._pDexterity) / 200;
@@ -5536,17 +5587,17 @@ void PlayDungMsgs()
 }
 
 #ifdef HELLFIRE
-int player_45EFA1(int i)
+int get_max_strength(int i)
 {
     return MaxStats[i][ATTRIB_STR];
 }
 
-int player_45EFAB(int i)
+int get_max_magic(int i)
 {
     return MaxStats[i][ATTRIB_MAG];
 }
 
-int player_45EFB5(int i)
+int get_max_dexterity(int i)
 {
     return MaxStats[i][ATTRIB_DEX];
 }

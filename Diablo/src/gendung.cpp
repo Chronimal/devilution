@@ -171,7 +171,7 @@ void FillSolidBlockTbls()
     {
         case DTYPE_TOWN:
 #ifdef HELLFIRE
-            pSBFile = LoadFileInMem("NLevels\    ownData\\Town.SOL", &dwTiles);
+            pSBFile = LoadFileInMem("NLevels\\TownData\\Town.SOL", &dwTiles);
 #else
             pSBFile = LoadFileInMem("Levels\\TownData\\Town.SOL", &dwTiles);
 #endif
@@ -309,11 +309,11 @@ void MakeSpeedCels()
         }
     }
 
-#if defined HELLFIRE and defined USE_ASM
+#if defined HELLFIRE && defined USE_ASM
     __asm {
-        mov        ebx, pDungeonCels
-        mov        eax, [ebx]
-        mov        nDataSize, eax
+		mov		ebx, pDungeonCels
+		mov		eax, [ebx]
+		mov		nDataSize, eax
     }
 #else
     pFrameTable = (DWORD*)pDungeonCels;
@@ -331,13 +331,13 @@ void MakeSpeedCels()
         z = i;
 #ifdef USE_ASM
         __asm {
-            mov        ebx, pDungeonCels
-            mov        eax, z
-            shl        eax, 2
-            add        ebx, eax
-            mov        eax, [ebx+4]
-            sub        eax, [ebx]
-            mov        nDataSize, eax
+			mov		ebx, pDungeonCels
+			mov		eax, z
+			shl		eax, 2
+			add		ebx, eax
+			mov		eax, [ebx+4]
+			sub		eax, [ebx]
+			mov		nDataSize, eax
         }
 #else
         nDataSize = pFrameTable[i + 1] - pFrameTable[i];
@@ -364,26 +364,26 @@ void MakeSpeedCels()
 #ifdef USE_ASM
                     t = level_frame_sizes[i];
                     __asm {
-                        mov        ebx, pDungeonCels
-                        mov        eax, z
-                        shl        eax, 2
-                        add        ebx, eax
-                        mov        esi, pDungeonCels
-                        add        esi, [ebx]
-                        xor        ebx, ebx
-                        mov        ecx, t
-                        jecxz    l1_label3
-                    l1_label1:
-                        lodsb
-                        cmp        al, 0
-                        jz        l1_label2
-                        cmp        al, 32
-                        jnb        l1_label2
-                        mov        blood_flag, ebx
-                    l1_label2:
-                        loop    l1_label1
-                    l1_label3:
-                        nop
+						mov		ebx, pDungeonCels
+						mov		eax, z
+						shl		eax, 2
+						add		ebx, eax
+						mov		esi, pDungeonCels
+						add		esi, [ebx]
+						xor		ebx, ebx
+						mov		ecx, t
+						jecxz	l1_label3
+					l1_label1:
+						lodsb
+						cmp		al, 0
+						jz		l1_label2
+						cmp		al, 32
+						jnb		l1_label2
+						mov		blood_flag, ebx
+					l1_label2:
+						loop	l1_label1
+					l1_label3:
+						nop
                     }
 #else
                     src = &pDungeonCels[pFrameTable[i]];
@@ -399,43 +399,43 @@ void MakeSpeedCels()
                 {
 #ifdef USE_ASM
                     __asm {
-                        mov        ebx, pDungeonCels
-                        mov        eax, z
-                        shl        eax, 2
-                        add        ebx, eax
-                        mov        esi, pDungeonCels
-                        add        esi, [ebx]
-                        xor        ebx, ebx
-                        mov        ecx, 32
-                    l2_label1:
-                        push    ecx
-                        mov        edx, 32
-                    l2_label2:
-                        xor        eax, eax
-                        lodsb
-                        or        al, al
-                        js        l2_label5
-                        sub        edx, eax
-                        mov        ecx, eax
-                    l2_label3:
-                        lodsb
-                        cmp        al, 0
-                        jz        l2_label4
-                        cmp        al, 32
-                        jnb        l2_label4
-                        mov        blood_flag, ebx
-                    l2_label4:
-                        loop    l2_label3
-                        or        edx, edx
-                        jz        l2_label6
-                        jmp        l2_label2
-                    l2_label5:
-                        neg        al
-                        sub        edx, eax
-                        jnz        l2_label2
-                    l2_label6:
-                        pop        ecx
-                        loop    l2_label1
+						mov		ebx, pDungeonCels
+						mov		eax, z
+						shl		eax, 2
+						add		ebx, eax
+						mov		esi, pDungeonCels
+						add		esi, [ebx]
+						xor		ebx, ebx
+						mov		ecx, 32
+					l2_label1:
+						push	ecx
+						mov		edx, 32
+					l2_label2:
+						xor		eax, eax
+						lodsb
+						or		al, al
+						js		l2_label5
+						sub		edx, eax
+						mov		ecx, eax
+					l2_label3:
+						lodsb
+						cmp		al, 0
+						jz		l2_label4
+						cmp		al, 32
+						jnb		l2_label4
+						mov		blood_flag, ebx
+					l2_label4:
+						loop	l2_label3
+						or		edx, edx
+						jz		l2_label6
+						jmp		l2_label2
+					l2_label5:
+						neg		al
+						sub		edx, eax
+						jnz		l2_label2
+					l2_label6:
+						pop		ecx
+						loop	l2_label1
                     }
 #else
                     src = &pDungeonCels[pFrameTable[i]];
@@ -514,26 +514,26 @@ void MakeSpeedCels()
                 SpeedFrameTbl[i][j] = frameidx;
 #ifdef USE_ASM
                 __asm {
-                    mov        ebx, pDungeonCels
-                    mov        eax, z
-                    shl        eax, 2
-                    add        ebx, eax
-                    mov        esi, pDungeonCels
-                    add        esi, [ebx]
-                    mov        edi, pSpeedCels
-                    add        edi, frameidx
-                    mov        ebx, j
-                    shl        ebx, 8
-                    add        ebx, pLightTbl
-                    mov        ecx, t
-                    jecxz    l3_label2
-                l3_label1:
-                    lodsb
-                    xlat
-                    stosb
-                    loop    l3_label1
-                l3_label2:
-                    nop
+					mov		ebx, pDungeonCels
+					mov		eax, z
+					shl		eax, 2
+					add		ebx, eax
+					mov		esi, pDungeonCels
+					add		esi, [ebx]
+					mov		edi, pSpeedCels
+					add		edi, frameidx
+					mov		ebx, j
+					shl		ebx, 8
+					add		ebx, pLightTbl
+					mov		ecx, t
+					jecxz	l3_label2
+				l3_label1:
+					lodsb
+					xlat
+					stosb
+					loop	l3_label1
+				l3_label2:
+					nop
                 }
 #else
                 src = &pDungeonCels[pFrameTable[z]];
@@ -554,44 +554,44 @@ void MakeSpeedCels()
                 SpeedFrameTbl[i][j] = frameidx;
 #ifdef USE_ASM
                 __asm {
-                    mov        ebx, pDungeonCels
-                    mov        eax, z
-                    shl        eax, 2
-                    add        ebx, eax
-                    mov        esi, pDungeonCels
-                    add        esi, [ebx]
-                    mov        edi, pSpeedCels
-                    add        edi, frameidx
-                    mov        ebx, j
-                    shl        ebx, 8
-                    add        ebx, pLightTbl
-                    mov        ecx, 32
-                l4_label1:
-                    push    ecx
-                    mov        edx, 32
-                l4_label2:
-                    xor        eax, eax
-                    lodsb
-                    stosb
-                    or        al, al
-                    js        l4_label4
-                    sub        edx, eax
-                    mov        ecx, eax
-                l4_label3:
-                    lodsb
-                    xlat
-                    stosb
-                    loop    l4_label3
-                    or        edx, edx
-                    jz        l4_label5
-                    jmp        l4_label2
-                l4_label4:
-                    neg        al
-                    sub        edx, eax
-                    jnz        l4_label2
-                l4_label5:
-                    pop        ecx
-                    loop    l4_label1
+					mov		ebx, pDungeonCels
+					mov		eax, z
+					shl		eax, 2
+					add		ebx, eax
+					mov		esi, pDungeonCels
+					add		esi, [ebx]
+					mov		edi, pSpeedCels
+					add		edi, frameidx
+					mov		ebx, j
+					shl		ebx, 8
+					add		ebx, pLightTbl
+					mov		ecx, 32
+				l4_label1:
+					push	ecx
+					mov		edx, 32
+				l4_label2:
+					xor		eax, eax
+					lodsb
+					stosb
+					or		al, al
+					js		l4_label4
+					sub		edx, eax
+					mov		ecx, eax
+				l4_label3:
+					lodsb
+					xlat
+					stosb
+					loop	l4_label3
+					or		edx, edx
+					jz		l4_label5
+					jmp		l4_label2
+				l4_label4:
+					neg		al
+					sub		edx, eax
+					jnz		l4_label2
+				l4_label5:
+					pop		ecx
+					loop	l4_label1
                 }
 #else
                 src = &pDungeonCels[pFrameTable[z]];

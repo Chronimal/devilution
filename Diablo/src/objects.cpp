@@ -720,14 +720,15 @@ void AddChestTraps()
 
 void LoadMapObjects(BYTE* pMap, int startx, int starty, int x1, int y1, int w, int h, int leveridx)
 {
-    int rw, rh, i, j, oi;
+    int rw, rh, i, j, oi, type;
     BYTE* lm;
     long mapoff;
 
     InitObjFlag = TRUE;
 
-    lm = pMap + 2;
-    rw = pMap[0];
+    lm = pMap;
+    rw = *lm;
+    lm += 2;
     rh = *lm;
     mapoff = (rw * rh + 1) * 2;
     rw <<= 1;
@@ -741,7 +742,8 @@ void LoadMapObjects(BYTE* pMap, int startx, int starty, int x1, int y1, int w, i
         {
             if (*lm)
             {
-                AddObject(ObjTypeConv[*lm], startx + 16 + i, starty + 16 + j);
+                type = *lm;
+                AddObject(ObjTypeConv[type], startx + 16 + i, starty + 16 + j);
                 oi = ObjIndex(startx + 16 + i, starty + 16 + j);
                 SetObjMapRange(oi, x1, y1, x1 + w, y1 + h, leveridx);
             }
@@ -2472,18 +2474,18 @@ void objects_set_door_piece(int x, int y)
 
 #ifdef USE_ASM
     __asm {
-    mov        esi, pLevelPieces
-    xor        eax, eax
-    mov        ax, word ptr pn
-    mov        ebx, 20
-    mul        ebx
-    add        esi, eax
-    add        esi, 16
-    xor        eax, eax
-    lodsw
-    mov        word ptr v1, ax
-    lodsw
-    mov        word ptr v2, ax
+	mov		esi, pLevelPieces
+	xor		eax, eax
+	mov		ax, word ptr pn
+	mov		ebx, 20
+	mul		ebx
+	add		esi, eax
+	add		esi, 16
+	xor		eax, eax
+	lodsw
+	mov		word ptr v1, ax
+	lodsw
+	mov		word ptr v2, ax
     }
 #else
     v1 = *((WORD*)pLevelPieces + 10 * pn + 8);
@@ -2500,25 +2502,25 @@ void ObjSetMini(int x, int y, int v)
 
 #ifdef USE_ASM
     __asm {
-        mov        esi, pMegaTiles
-        xor        eax, eax
-        mov        ax, word ptr v
-        dec        eax
-        shl        eax, 3
-        add        esi, eax
-        xor        eax, eax
-        lodsw
-        inc        eax
-        mov        v1, eax
-        lodsw
-        inc        eax
-        mov        v2, eax
-        lodsw
-        inc        eax
-        mov        v3, eax
-        lodsw
-        inc        eax
-        mov        v4, eax
+		mov		esi, pMegaTiles
+		xor		eax, eax
+		mov		ax, word ptr v
+		dec		eax
+		shl		eax, 3
+		add		esi, eax
+		xor		eax, eax
+		lodsw
+		inc		eax
+		mov		v1, eax
+		lodsw
+		inc		eax
+		mov		v2, eax
+		lodsw
+		inc		eax
+		mov		v3, eax
+		lodsw
+		inc		eax
+		mov		v4, eax
     }
 #else
     v1 = *((WORD*)&pMegaTiles[((WORD)v - 1) * 8]) + 1;
@@ -5434,8 +5436,14 @@ void BreakBarrel(int pnum, int i, int dam, BOOL forcebreak, BOOL sendmsg)
             {
                 if (dMonster[xp][yp] > 0)
                     MonsterTrapHit(dMonster[xp][yp] - 1, 1, 4, 0, MIS_FIREBOLT, FALSE);
+#ifdef HELLFIRE
+                BOOLEAN unused;
+                if (dPlayer[xp][yp] > 0)
+                    PlayerMHit(dPlayer[xp][yp] - 1, -1, 0, 8, 16, MIS_FIREBOLT, FALSE, 0, &unused);
+#else
                 if (dPlayer[xp][yp] > 0)
                     PlayerMHit(dPlayer[xp][yp] - 1, -1, 0, 8, 16, MIS_FIREBOLT, FALSE, 0);
+#endif
                 if (dObject[xp][yp] > 0)
                 {
                     oi = dObject[xp][yp] - 1;
@@ -5708,13 +5716,14 @@ void GetObjectStr(int i)
 {
     switch (object[i]._otype)
     {
+        case OBJ_CRUX1:
+        case OBJ_CRUX2:
+        case OBJ_CRUX3:
+            strcpy(infostr, "Crucified Skeleton");
+            break;
         case OBJ_LEVER:
         case OBJ_FLAMELVR:
             strcpy(infostr, "Lever");
-            break;
-        case OBJ_CHEST1:
-        case OBJ_TCHEST1:
-            strcpy(infostr, "Small Chest");
             break;
         case OBJ_L1LDOOR:
         case OBJ_L1RDOOR:
@@ -5748,7 +5757,10 @@ void GetObjectStr(int i)
         case OBJ_BOOK2R:
             strcpy(infostr, "Mythical Book");
             break;
-
+        case OBJ_CHEST1:
+        case OBJ_TCHEST1:
+            strcpy(infostr, "Small Chest");
+            break;
         case OBJ_CHEST2:
         case OBJ_TCHEST2:
             strcpy(infostr, "Chest");
@@ -5758,39 +5770,34 @@ void GetObjectStr(int i)
         case OBJ_SIGNCHEST:
             strcpy(infostr, "Large Chest");
             break;
-        case OBJ_CRUX1:
-        case OBJ_CRUX2:
-        case OBJ_CRUX3:
-            strcpy(infostr, "Crucified Skeleton");
-            break;
         case OBJ_SARC:
             strcpy(infostr, "Sarcophagus");
             break;
         case OBJ_BOOKSHELF:
             strcpy(infostr, "Bookshelf");
             break;
+        case OBJ_BOOKCASEL:
+        case OBJ_BOOKCASER:
+            strcpy(infostr, "Bookcase");
+            break;
         case OBJ_BARREL:
         case OBJ_BARRELEX:
 #ifdef HELLFIRE
-            if (currlevel > 16 && currlevel < 21)      // for hive levels
-                strcpy(infostr, "Pod");                // Then a barrel is called a pod
-            else if (currlevel > 20 && currlevel < 25) // for crypt levels
-                strcpy(infostr, "Urn");                // Then a barrel is called an urn
+            if (currlevel >= 17 && currlevel <= 20)      // for hive levels
+                strcpy(infostr, "Pod");                  // Then a barrel is called a pod
+            else if (currlevel >= 21 && currlevel <= 24) // for crypt levels
+                strcpy(infostr, "Urn");                  // Then a barrel is called an urn
             else
 #endif
                 strcpy(infostr, "Barrel");
-            break;
-        case OBJ_SKELBOOK:
-            strcpy(infostr, "Skeleton Tome");
             break;
         case OBJ_SHRINEL:
         case OBJ_SHRINER:
             sprintf(tempstr, "%s Shrine", shrinestrs[object[i]._oVar1]);
             strcpy(infostr, tempstr);
             break;
-        case OBJ_BOOKCASEL:
-        case OBJ_BOOKCASER:
-            strcpy(infostr, "Bookcase");
+        case OBJ_SKELBOOK:
+            strcpy(infostr, "Skeleton Tome");
             break;
         case OBJ_BOOKSTAND:
             strcpy(infostr, "Library Book");
@@ -5807,15 +5814,15 @@ void GetObjectStr(int i)
         case OBJ_BLOODBOOK:
             strcpy(infostr, "Book of Blood");
             break;
-        case OBJ_PEDISTAL:
-            strcpy(infostr, "Pedestal of Blood");
-            break;
         case OBJ_PURIFYINGFTN:
             strcpy(infostr, "Purifying Spring");
             break;
         case OBJ_ARMORSTAND:
         case OBJ_WARARMOR:
             strcpy(infostr, "Armor");
+            break;
+        case OBJ_WARWEAP:
+            strcpy(infostr, "Weapon Rack");
             break;
         case OBJ_GOATSHRINE:
             strcpy(infostr, "Goat Shrine");
@@ -5832,10 +5839,12 @@ void GetObjectStr(int i)
         case OBJ_STEELTOME:
             strcpy(infostr, "Steel Tome");
             break;
+        case OBJ_PEDISTAL:
+            strcpy(infostr, "Pedestal of Blood");
+            break;
         case OBJ_STORYBOOK:
             strcpy(infostr, StoryBookName[object[i]._oVar3]);
             break;
-        case OBJ_WARWEAP:
         case OBJ_WEAPONRACK:
             strcpy(infostr, "Weapon Rack");
             break;

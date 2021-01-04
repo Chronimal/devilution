@@ -1,15 +1,11 @@
 /**
  * @file multi.cpp
  *
- * Implementation of functions for keeping multiplayer games in sync.
+ * Implementation of functions for keeping multiplaye games in sync.
  */
 #include "all.h"
 #include "storm/storm.h"
-#ifdef HELLFIRE
-#include <hellfrui/hellfrui.h>
-#else // HELLFFIRE
 #include "ui/diabloui.h"
-#endif // HELLFIRE
 
 BOOLEAN gbSomebodyWonGameKludge;
 #ifdef _DEBUG
@@ -646,22 +642,22 @@ void multi_send_zero_packet(int pnum, BYTE bCmd, BYTE* pbSrc, DWORD dwLen)
             return;
         }
 #if 0
-        if((DWORD)pnum >= MAX_PLRS) {
-            if(myplr != 0) {
-                debug_plr_tbl[0]++;
-            }
-            if(myplr != 1) {
-                debug_plr_tbl[1]++;
-            }
-            if(myplr != 2) {
-                debug_plr_tbl[2]++;
-            }
-            if(myplr != 3) {
-                debug_plr_tbl[3]++;
-            }
-        } else {
-            debug_plr_tbl[pnum]++;
-        }
+		if((DWORD)pnum >= MAX_PLRS) {
+			if(myplr != 0) {
+				debug_plr_tbl[0]++;
+			}
+			if(myplr != 1) {
+				debug_plr_tbl[1]++;
+			}
+			if(myplr != 2) {
+				debug_plr_tbl[2]++;
+			}
+			if(myplr != 3) {
+				debug_plr_tbl[3]++;
+			}
+		} else {
+			debug_plr_tbl[pnum]++;
+		}
 #endif
         pbSrc += p->wBytes;
         dwLen -= p->wBytes;
@@ -673,7 +669,11 @@ static void multi_send_pinfo(int pnum, char cmd)
 {
     PkPlayerStruct pkplr;
 
+#ifdef HELLFIRE
+    PackPlayer(&pkplr, myplr);
+#else
     PackPlayer(&pkplr, myplr, TRUE);
+#endif
     dthread_send_delta(pnum, cmd, &pkplr, sizeof(pkplr));
 }
 
@@ -885,11 +885,7 @@ BOOL NetInit(BOOL bSinglePlayer, BOOL* pfExitProgram)
         UiData.changenamecallback = (void (*)())mainmenu_change_name;
         UiData.profilebitmapcallback = (void (*)())UiProfileDraw;
         UiData.profilecallback = (void (*)())UiProfileCallback;
-#ifdef HELLFIRE
-        UiData.profilefields = NULL;
-#else  // HELLFIRE
         UiData.profilefields = UiProfileGetString();
-#endif // HELLFIRE
         memset(sgbPlayerTurnBitTbl, 0, sizeof(sgbPlayerTurnBitTbl));
         gbGameDestroyed = FALSE;
         memset(sgbPlayerLeftGameTbl, 0, sizeof(sgbPlayerLeftGameTbl));
@@ -901,16 +897,12 @@ BOOL NetInit(BOOL bSinglePlayer, BOOL* pfExitProgram)
         if (bSinglePlayer)
         {
             if (!multi_init_single(&ProgramData, &plrdata, &UiData))
-            {
                 return FALSE;
-            }
         }
         else
         {
             if (!multi_init_multi(&ProgramData, &plrdata, &UiData, pfExitProgram))
-            {
                 return FALSE;
-            }
         }
 #ifdef _DEBUG
         gdwHistTicks = GetTickCount();

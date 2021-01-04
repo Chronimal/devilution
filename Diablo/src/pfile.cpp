@@ -5,11 +5,7 @@
  */
 #include "all.h"
 #include "storm/storm.h"
-#ifdef HELLFIRE
-#include <hellfrui/hellfrui.h>
-#else // HELLFFIRE
 #include "ui/diabloui.h"
-#endif // HELLFIRE
 
 #ifdef SPAWN
 #define PASSWORD_SINGLE "adslhfb1"
@@ -20,7 +16,11 @@
 #endif
 
 /** List of character names for the character selection screen. */
+#ifdef HELLFIRE
+static char hero_names[MAX_CHARACTERS + 1][PLR_NAME_LEN];
+#else
 static char hero_names[MAX_CHARACTERS][PLR_NAME_LEN];
+#endif
 BOOL gbValidSaveFile;
 
 static void pfile_check_available_space(char* pszDir)
@@ -109,28 +109,55 @@ static char* GetSaveDirectory(char* dst, int dst_size, DWORD save_num)
     return _strlwr(dst);
 }
 
+#ifdef HELLFIRE
+static void pfile_get_save_path(char* pszBuf, DWORD dwBufSize, DWORD save_num, BOOL hellfire)
+#else
 static void pfile_get_save_path(char* pszBuf, DWORD dwBufSize, DWORD save_num)
+#endif
 {
+    const char* fmt;
     DWORD plen;
     char* s;
     char path[MAX_PATH];
+
+#ifdef HELLFIRE
+    if (gbMaxPlayers > 1)
+    {
+        if (!hellfire)
+            fmt = "\\dlinfo_%d.drv";
+        else
+            fmt = "\\hrinfo_%d.drv";
+
+        plen = GetWindowsDirectory(pszBuf, MAX_PATH);
+    }
+    else
+    {
+        if (!hellfire)
+            fmt = "\\single_%d.sv";
+        else
+            fmt = "\\single_%d.hsv";
+#else
 #ifdef SPAWN
-    const char* fmt = "\\share_%d.sv";
+    fmt = "\\share_%d.sv";
 
     if (gbMaxPlayers <= 1)
         fmt = "\\spawn%d.sv";
 #else
-    const char* fmt = "\\multi_%d.sv";
+    fmt = "\\multi_%d.sv";
 
     if (gbMaxPlayers <= 1)
         fmt = "\\single_%d.sv";
 #endif
+#endif
 
-    // BUGFIX: ignores dwBufSize and uses MAX_PATH instead
-    plen = GetModuleFileName(ghInst, pszBuf, MAX_PATH);
-    s = strrchr(pszBuf, '\\');
-    if (s)
-        *s = '\0';
+        // BUGFIX: ignores dwBufSize and uses MAX_PATH instead
+        plen = GetModuleFileName(ghInst, pszBuf, MAX_PATH);
+        s = strrchr(pszBuf, '\\');
+        if (s)
+            *s = '\0';
+#ifdef HELLFIRE
+    }
+#endif
 
     if (!plen)
         app_fatal("Unable to get save directory");
@@ -166,12 +193,17 @@ static BOOL pfile_read_hero(HANDLE archive, PkPlayerStruct* pPack)
     }
     else
     {
+        buf = NULL;
         BOOL ret = FALSE;
         char password[16] = PASSWORD_SINGLE;
         nSize = 16;
 
         if (gbMaxPlayers > 1)
+#ifdef HELLFIRE
+            GetComputerName(password, &nSize);
+#else
             strcpy(password, PASSWORD_MULTI);
+#endif
 
         dwlen = SFileGetFileSize(file, NULL);
         if (dwlen)
@@ -182,6 +214,7 @@ static BOOL pfile_read_hero(HANDLE archive, PkPlayerStruct* pPack)
             {
                 decoded = TRUE;
                 read = codec_decode(buf, dwlen, password);
+#ifndef HELLFIRE
                 if (!read && gbMaxPlayers > 1)
                 {
                     GetComputerName(password, &nSize);
@@ -190,15 +223,16 @@ static BOOL pfile_read_hero(HANDLE archive, PkPlayerStruct* pPack)
                     else
                         read = codec_decode(buf, dwlen, password);
                 }
+#endif
                 if (decoded && read == sizeof(*pPack))
                 {
                     memcpy(pPack, buf, sizeof(*pPack));
                     ret = TRUE;
                 }
             }
-            if (buf)
-                mem_free_dbg(buf);
         }
+        if (buf)
+            mem_free_dbg(buf);
         SFileCloseFile(file);
         return ret;
     }
@@ -210,8 +244,14 @@ static void pfile_encode_hero(const PkPlayerStruct* pPack)
     DWORD packed_len;
     char password[16] = PASSWORD_SINGLE;
 
+#ifdef HELLFIRE
+    DWORD size = 161;
+    if (gbMaxPlayers > 1)
+        GetComputerName(password, &size);
+#else
     if (gbMaxPlayers > 1)
         strcpy(password, PASSWORD_MULTI);
+#endif
 
     packed_len = codec_get_encoded_len(sizeof(*pPack));
     packed = (BYTE*)DiabloAllocPtr(packed_len);
@@ -225,8 +265,13 @@ static BOOL pfile_open_archive(BOOL update, DWORD save_num)
 {
     char FileName[MAX_PATH];
 
+#ifdef HELLFIRE
+    pfile_get_save_path(FileName, sizeof(FileName), save_num, TRUE);
+    if (OpenMPQ(FileName, gbMaxPlayers > 1, save_num))
+#else
     pfile_get_save_path(FileName, sizeof(FileName), save_num);
     if (OpenMPQ(FileName, FALSE, save_num))
+#endif
         return TRUE;
 
     if (update && gbMaxPlayers > 1)
@@ -238,7 +283,12 @@ static void pfile_flush(BOOL is_single_player, DWORD save_num)
 {
     char FileName[MAX_PATH];
 
+#ifdef HELLFIRE
+    pfile_get_save_path(FileName, sizeof(FileName), save_num, TRUE);
+#else
     pfile_get_save_path(FileName, sizeof(FileName), save_num);
+#endif
+
     mpqapi_flush_and_close(FileName, is_single_player, save_num);
 }
 
@@ -250,7 +300,11 @@ static HANDLE pfile_open_save_archive(BOOL* showFixedMsg, DWORD save_num)
     char SrcStr[MAX_PATH];
     HANDLE archive;
 
+#ifdef HELLFIRE
+    pfile_get_save_path(SrcStr, sizeof(SrcStr), save_num, TRUE);
+#else
     pfile_get_save_path(SrcStr, sizeof(SrcStr), save_num);
+#endif
     if (SFileOpenArchive(SrcStr, 0x7000, FS_PC, &archive))
         return archive;
     return NULL;
@@ -269,7 +323,11 @@ void pfile_write_hero()
     save_num = pfile_get_save_num_from_name(plr[myplr]._pName);
     if (pfile_open_archive(TRUE, save_num))
     {
+#ifdef HELLFIRE
+        PackPlayer(&pkplr, myplr);
+#else
         PackPlayer(&pkplr, myplr, gbMaxPlayers == 1);
+#endif
         pfile_encode_hero(&pkplr);
         pfile_flush(gbMaxPlayers == 1, save_num);
     }
@@ -405,6 +463,7 @@ BOOL __stdcall pfile_ui_set_hero_infos(BOOL(__stdcall* ui_add_hero_info)(_uihero
     BOOL showFixedMsg;
 
     memset(hero_names, 0, sizeof(hero_names));
+#ifndef HELLFIRE
     if (gbMaxPlayers > 1)
     {
         for (i = 0, save_num = 0; i < MAX_CHARACTERS && save_num < MAX_CHARACTERS; i++)
@@ -442,6 +501,7 @@ BOOL __stdcall pfile_ui_set_hero_infos(BOOL(__stdcall* ui_add_hero_info)(_uihero
             }
         }
     }
+#endif
 
     showFixedMsg = TRUE;
     for (i = 0; i < MAX_CHARACTERS; i++)
@@ -469,14 +529,60 @@ BOOL pfile_archive_contains_game(HANDLE hsArchive, DWORD save_num)
 {
     HANDLE file;
 
+#ifdef HELLFIRE
+    DWORD read, size;
+    BOOL ret = FALSE;
+    gbLoadGame = FALSE;
+#endif
+
     if (gbMaxPlayers != 1)
         return FALSE;
 
     if (!SFileOpenFileEx(hsArchive, "game", 0, &file))
         return FALSE;
 
+#ifdef HELLFIRE
+    DWORD dwlen = SFileGetFileSize(file, NULL);
+    if (!dwlen)
+        app_fatal("Invalid save file");
+
+    BYTE* ptr = DiabloAllocPtr(dwlen + 8);
+    BYTE* buf = ptr + 4;
+
+    if (SFileReadFile(file, buf, dwlen, &read, NULL))
+    {
+        if (read == dwlen)
+        {
+            char password[16] = PASSWORD_SINGLE;
+            size = 16;
+            if (gbMaxPlayers > 1)
+                GetComputerName(password, &size);
+            gbLoadGame = TRUE;
+            if (codec_decode(buf, dwlen, password))
+            {
+                int magic = *buf << 24;
+                buf++;
+                magic |= *buf << 16;
+                buf++;
+                magic |= *buf << 8;
+                buf++;
+                magic |= *buf;
+                if (magic == 'HELF')
+                {
+                    ret = TRUE;
+                }
+            }
+        }
+    }
+
+    if (ptr)
+        mem_free_dbg(ptr);
+    SFileCloseFile(file);
+    return ret;
+#else
     SFileCloseFile(file);
     return TRUE;
+#endif
 }
 
 BOOL __stdcall pfile_ui_set_class_stats(unsigned int player_class_nr, _uidefaultstats* class_stats)
@@ -498,14 +604,23 @@ BOOL __stdcall pfile_ui_save_create(_uiheroinfo* heroinfo)
     PkPlayerStruct pkplr;
 
     save_num = pfile_get_save_num_from_name(heroinfo->name);
+#ifdef HELLFIRE
+    if (save_num >= MAX_CHARACTERS)
+    {
+#else
     if (save_num == MAX_CHARACTERS)
     {
+#endif
         for (save_num = 0; save_num < MAX_CHARACTERS; save_num++)
         {
             if (!hero_names[save_num][0])
                 break;
         }
+#ifdef HELLFIRE
+        if (save_num >= MAX_CHARACTERS)
+#else
         if (save_num == MAX_CHARACTERS)
+#endif
             return FALSE;
     }
     if (!pfile_open_archive(FALSE, save_num))
@@ -517,7 +632,11 @@ BOOL __stdcall pfile_ui_save_create(_uiheroinfo* heroinfo)
     CreatePlayer(0, cl);
     strncpy(plr[0]._pName, heroinfo->name, PLR_NAME_LEN);
     plr[0]._pName[PLR_NAME_LEN - 1] = '\0';
+#ifdef HELLFIRE
+    PackPlayer(&pkplr, 0);
+#else
     PackPlayer(&pkplr, 0, TRUE);
+#endif
     pfile_encode_hero(&pkplr);
     game_2_ui_player(&plr[0], heroinfo, FALSE);
     pfile_flush(TRUE, save_num);
@@ -536,16 +655,16 @@ BOOL __stdcall pfile_get_file_name(DWORD lvl, char* dst)
     }
     else
     {
-        if (lvl < 17)
+        if (lvl < NUMLEVELS)
             fmt = "perml%02d";
-        else if (lvl < 34)
+        else if (lvl < NUMLEVELS * 2)
         {
-            lvl -= 17;
+            lvl -= NUMLEVELS;
             fmt = "perms%02d";
         }
-        else if (lvl == 34)
+        else if (lvl == NUMLEVELS * 2)
             fmt = "game";
-        else if (lvl == 35)
+        else if (lvl == NUMLEVELS * 2 + 1)
             fmt = "hero";
         else
             return FALSE;
@@ -563,7 +682,11 @@ BOOL __stdcall pfile_delete_save(_uiheroinfo* hero_info)
     if (save_num < MAX_CHARACTERS)
     {
         hero_names[save_num][0] = '\0';
+#ifdef HELLFIRE
+        pfile_get_save_path(FileName, sizeof(FileName), save_num, TRUE);
+#else
         pfile_get_save_path(FileName, sizeof(FileName), save_num);
+#endif
         DeleteFile(FileName);
     }
     return TRUE;
@@ -707,20 +830,33 @@ void pfile_rename_temp_to_perm()
 void pfile_write_save_file(const char* pszName, BYTE* pbData, DWORD dwLen, DWORD qwLen)
 {
     DWORD save_num;
+#ifndef HELLFIRE
     char FileName[MAX_PATH];
 
     pfile_strcpy(FileName, pszName);
+#endif
     save_num = pfile_get_save_num_from_name(plr[myplr]._pName);
     {
         char password[16] = PASSWORD_SINGLE;
+#ifdef HELLFIRE
+        DWORD size = 16;
+        if (gbMaxPlayers > 1)
+            GetComputerName(password, &size);
+#else
         if (gbMaxPlayers > 1)
             strcpy(password, PASSWORD_MULTI);
+#endif
 
         codec_encode(pbData, dwLen, qwLen, password);
     }
     if (!pfile_open_archive(FALSE, save_num))
+#ifdef HELLFIRE
+        app_fatal("Unable to write to save file archive");
+    mpqapi_write_file(pszName, pbData, qwLen);
+#else
         app_fatal("Unable to write so save file archive");
     mpqapi_write_file(FileName, pbData, qwLen);
+#endif
     pfile_flush(TRUE, save_num);
 }
 
@@ -736,50 +872,60 @@ BYTE* pfile_read(const char* pszName, DWORD* pdwLen)
     HANDLE archive, save;
     BYTE* buf;
 
+#ifndef HELLFIRE
     pfile_strcpy(FileName, pszName);
+#endif
     save_num = pfile_get_save_num_from_name(plr[myplr]._pName);
     archive = pfile_open_save_archive(NULL, save_num);
     if (archive == NULL)
         app_fatal("Unable to open save file archive");
 
+#ifdef HELLFIRE
+    if (!SFileOpenFileEx(archive, pszName, 0, &save))
+#else
     if (!SFileOpenFileEx(archive, FileName, 0, &save))
+#endif
         app_fatal("Unable to open save file");
 
     *pdwLen = SFileGetFileSize(save, NULL);
     if (*pdwLen == 0)
         app_fatal("Invalid save file");
 
-    buf = (BYTE*)DiabloAllocPtr(*pdwLen);
+    buf = DiabloAllocPtr(*pdwLen);
     if (!SFileReadFile(save, buf, *pdwLen, &nread, NULL))
         app_fatal("Unable to read save file");
     SFileCloseFile(save);
     pfile_SFileCloseArchive(archive);
 
+    char password[16] = PASSWORD_SINGLE;
+    DWORD nSize = 16;
+
+    if (gbMaxPlayers > 1)
+#ifdef HELLFIRE
+        GetComputerName(password, &nSize);
     {
-        char password[16] = PASSWORD_SINGLE;
-        DWORD nSize = 16;
-
-        if (gbMaxPlayers > 1)
-            strcpy(password, PASSWORD_MULTI);
-
-        *pdwLen = codec_decode(buf, *pdwLen, password);
-        if (*pdwLen == 0)
         {
-            // BUGFIFX: *pdwLen has already been overwritten with zero and the savefile has been closed
-            // there is no way this can work correctly
-            if (gbMaxPlayers > 1)
-            {
-                GetComputerName(password, &nSize);
-                if (SFileSetFilePointer(save, 0, NULL, FILE_BEGIN))
-                    app_fatal("Unable to read save file");
+#else
+        strcpy(password, PASSWORD_MULTI);
 
-                if (!SFileReadFile(save, buf, *pdwLen, &nread, NULL))
-                    app_fatal("Unable to read save file");
-                *pdwLen = codec_decode(buf, *pdwLen, password);
-            }
-            if (*pdwLen == 0)
-                app_fatal("Invalid save file");
+    *pdwLen = codec_decode(buf, *pdwLen, password);
+    if (*pdwLen == 0)
+    {
+        // BUGFIFX: *pdwLen has already been overwritten with zero and the savefile has been closed
+        // there is no way this can work correctly
+        if (gbMaxPlayers > 1)
+        {
+            GetComputerName(password, &nSize);
+            if (SFileSetFilePointer(save, 0, NULL, FILE_BEGIN))
+                app_fatal("Unable to read save file");
+
+            if (!SFileReadFile(save, buf, *pdwLen, &nread, NULL))
+                app_fatal("Unable to read save file");
+#endif
+            *pdwLen = codec_decode(buf, *pdwLen, password);
         }
+        if (*pdwLen == 0)
+            app_fatal("Invalid save file");
     }
     return buf;
 }
