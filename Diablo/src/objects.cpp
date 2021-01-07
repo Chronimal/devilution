@@ -3913,7 +3913,7 @@ void OperateShrine(int pnum, int i, int sType)
     DWORD lv, t;
     int xx, yy;
     int v1, v2, v3, v4;
-    unsigned __int64 spell, spells;
+    unsigned __int64 spell;
 
     if (dropGoldFlag)
     {
@@ -3937,8 +3937,8 @@ void OperateShrine(int pnum, int i, int sType)
     }
     else
     {
-        object[i]._oAnimFlag = 0;
         object[i]._oAnimFrame = object[i]._oAnimLen;
+        object[i]._oAnimFlag = 0;
     }
     switch (object[i]._oVar1)
     {
@@ -3997,8 +3997,11 @@ void OperateShrine(int pnum, int i, int sType)
                     cnt = 0;
                     for (j = 0; j < NUM_INVLOC; j++)
                     {
-                        if (plr[pnum].InvBody[j]._itype != ITYPE_NONE && plr[pnum].InvBody[j]._iMaxDur != DUR_INDESTRUCTIBLE && plr[pnum].InvBody[j]._iMaxDur != 0)
-                            cnt++;
+                        if (plr[pnum].InvBody[j]._itype != ITYPE_NONE)
+#ifndef HELLFIRE
+                            if (plr[pnum].InvBody[j]._iMaxDur != DUR_INDESTRUCTIBLE && plr[pnum].InvBody[j]._iMaxDur != 0)
+#endif
+                                cnt++;
                     }
                     if (cnt == 0)
                         break;
@@ -4066,8 +4069,8 @@ void OperateShrine(int pnum, int i, int sType)
                             plr[pnum].InvList[j]._iMaxDam = plr[pnum].InvList[j]._iMinDam;
                         break;
                     case ITYPE_SHIELD:
-                    case ITYPE_LARMOR:
                     case ITYPE_HELM:
+                    case ITYPE_LARMOR:
                     case ITYPE_MARMOR:
                     case ITYPE_HARMOR:
                         plr[pnum].InvList[j]._iAC += 2;
@@ -4155,10 +4158,9 @@ void OperateShrine(int pnum, int i, int sType)
                 return;
             cnt = 0;
             spell = 1;
-            spells = plr[pnum]._pMemSpells;
             for (j = 0; j < MAX_SPELLS; j++)
             {
-                if (spell & spells)
+                if (spell & plr[pnum]._pMemSpells)
                     cnt++;
                 spell <<= 1;
             }
@@ -4178,10 +4180,10 @@ void OperateShrine(int pnum, int i, int sType)
                 {
                     r = random_(0, MAX_SPELLS);
                 } while (!(plr[pnum]._pMemSpells & SPELLBIT(r + 1)));
-                if (plr[pnum]._pSplLvl[r] >= 2)
-                    plr[pnum]._pSplLvl[r] -= 2;
+                if (plr[pnum]._pSplLvl[r + 1] >= 2)
+                    plr[pnum]._pSplLvl[r + 1] -= 2;
                 else
-                    plr[pnum]._pSplLvl[r] = 0;
+                    plr[pnum]._pSplLvl[r + 1] = 0;
             }
             InitDiabloMsg(EMSG_SHRINE_ENCHANTED);
             break;
@@ -4193,8 +4195,8 @@ void OperateShrine(int pnum, int i, int sType)
                 if ((object[v1]._otype == OBJ_CHEST1 || object[v1]._otype == OBJ_CHEST2 || object[v1]._otype == OBJ_CHEST3) && object[v1]._oSelFlag == 0)
                 {
                     object[v1]._oRndSeed = GetRndSeed();
-                    object[v1]._oAnimFrame -= 2;
                     object[v1]._oSelFlag = 1;
+                    object[v1]._oAnimFrame -= 2;
                 }
             }
             if (deltaload)
@@ -4222,13 +4224,13 @@ void OperateShrine(int pnum, int i, int sType)
             plr[pnum]._pMaxManaBase -= t;
             if (plr[pnum]._pMana >> 6 <= 0)
             {
-                plr[pnum]._pManaBase = 0;
                 plr[pnum]._pMana = v1;
+                plr[pnum]._pManaBase = 0;
             }
             if (plr[pnum]._pMaxMana >> 6 <= 0)
             {
-                plr[pnum]._pMaxManaBase = 0;
                 plr[pnum]._pMaxMana = v2;
+                plr[pnum]._pMaxManaBase = 0;
             }
             InitDiabloMsg(EMSG_SHRINE_FASCINATING);
             break;
@@ -4327,10 +4329,10 @@ void OperateShrine(int pnum, int i, int sType)
             {
                 xx = random_(159, MAXDUNX);
                 yy = random_(159, MAXDUNY);
-                j++;
-                if (j > MAXDUNX * 112)
-                    break;
                 lv = dPiece[xx][yy];
+                j++;
+                if (j > MAXDUNX * MAXDUNY)
+                    break;
             } while (nSolidTable[lv] || dObject[xx][yy] != 0 || dMonster[xx][yy] != 0);
             AddMissile(plr[pnum]._px, plr[pnum]._py, xx, yy, plr[pnum]._pdir, MIS_RNDTELEPORT, -1, pnum, 0, 2 * leveltype);
             if (pnum != myplr)
@@ -4554,6 +4556,9 @@ void OperateShrine(int pnum, int i, int sType)
                 case PC_SORCERER:
                     ModifyPlrMag(myplr, 2);
                     break;
+                case PC_BARBARIAN:
+                    ModifyPlrVit(myplr, 2);
+                    break;
                 case PC_MONK:
                     ModifyPlrStr(myplr, 1);
                     ModifyPlrDex(myplr, 1);
@@ -4562,11 +4567,8 @@ void OperateShrine(int pnum, int i, int sType)
                     ModifyPlrDex(myplr, 1);
                     ModifyPlrMag(myplr, 1);
                     break;
-                case PC_BARBARIAN:
-                    ModifyPlrVit(myplr, 2);
-                    break;
             }
-            CheckStats(myplr);
+            CheckStats(pnum);
             AddMissile(object[i]._ox, object[i]._oy, plr[myplr]._px, plr[myplr]._py, plr[myplr]._pdir, MIS_FIREWALL, TARGET_PLAYERS, 0, 2 * currlevel + 2, 0);
             break;
 
@@ -4585,25 +4587,27 @@ void OperateShrine(int pnum, int i, int sType)
             }
             else
             {
-                xpLoss = 0;
                 magicGain = playerXP / 1000;
+                xpLoss = 0;
             }
             ModifyPlrMag(myplr, magicGain);
             plr[myplr]._pExperience = xpLoss;
-            CheckStats(myplr);
+            CheckStats(pnum);
         }
         break;
 
-        case SHRINE_MENDICANT:
+        case SHRINE_MENDICANT: {
             if (deltaload)
                 return;
             if (pnum != myplr)
                 return;
             InitDiabloMsg(EMSG_SHRINE_MENDICANT);
-            AddPlrExperience(myplr, plr[myplr]._pLevel, plr[myplr]._pGold / 2);
-            TakePlrsMoney(plr[myplr]._pGold / 2);
-            CheckStats(myplr);
-            break;
+            int gold = plr[myplr]._pGold / 2;
+            AddPlrExperience(myplr, plr[myplr]._pLevel, gold);
+            TakePlrsMoney(gold);
+            CheckStats(pnum);
+        }
+        break;
         case SHRINE_SPARKLING:
             if (deltaload)
                 return;
@@ -4612,7 +4616,7 @@ void OperateShrine(int pnum, int i, int sType)
             InitDiabloMsg(EMSG_SHRINE_SPARKLING);
             AddPlrExperience(myplr, plr[myplr]._pLevel, 1000 * currlevel);
             AddMissile(object[i]._ox, object[i]._oy, plr[myplr]._px, plr[myplr]._py, plr[myplr]._pdir, MIS_FLASH, TARGET_PLAYERS, 0, 3 * currlevel + 2, 0);
-            CheckStats(myplr);
+            CheckStats(pnum);
             break;
         case SHRINE_TOWN:
             if (deltaload)
@@ -4628,8 +4632,8 @@ void OperateShrine(int pnum, int i, int sType)
             if (pnum != myplr)
                 return;
             InitDiabloMsg(EMSG_SHRINE_SHIMMERING);
-            plr[myplr]._pMana = plr[myplr]._pMaxMana;
-            plr[myplr]._pManaBase = plr[myplr]._pMaxManaBase;
+            plr[pnum]._pMana = plr[pnum]._pMaxMana;
+            plr[pnum]._pManaBase = plr[pnum]._pMaxManaBase;
             break;
 
         case SHRINE_SOLAR: {
@@ -4644,28 +4648,22 @@ void OperateShrine(int pnum, int i, int sType)
                 InitDiabloMsg(EMSG_SHRINE_SOLAR4);
                 ModifyPlrVit(myplr, 2);
             }
-            else if (hour <= 18)
-            {
-                if (hour <= 12)
-                {
-                    if (hour > 4)
-                    {
-                        InitDiabloMsg(EMSG_SHRINE_SOLAR1);
-                        ModifyPlrDex(myplr, 2);
-                    }
-                }
-                else
-                {
-                    InitDiabloMsg(EMSG_SHRINE_SOLAR2);
-                    ModifyPlrStr(myplr, 2);
-                }
-            }
-            else
+            else if (hour > 18)
             {
                 InitDiabloMsg(EMSG_SHRINE_SOLAR3);
                 ModifyPlrMag(myplr, 2);
             }
-            CheckStats(myplr);
+            else if (hour > 12)
+            {
+                InitDiabloMsg(EMSG_SHRINE_SOLAR2);
+                ModifyPlrStr(myplr, 2);
+            }
+            else if (hour > 4)
+            {
+                InitDiabloMsg(EMSG_SHRINE_SOLAR1);
+                ModifyPlrDex(myplr, 2);
+            }
+            CheckStats(pnum);
         }
         break;
 
@@ -4675,16 +4673,17 @@ void OperateShrine(int pnum, int i, int sType)
             if (pnum != myplr)
                 return;
             InitDiabloMsg(EMSG_SHRINE_MURPHYS);
-            BOOLEAN broke = FALSE;
+            BOOL broke = FALSE;
             for (int j = 0; j < NUM_INVLOC; j++)
             {
-                if (plr[pnum].InvBody[j]._itype != ITYPE_NONE && random_(0, 3) == 0)
+                ItemStruct* item = &plr[myplr].InvBody[j];
+                if (item->_itype != ITYPE_NONE && random_(0, 3) == 0)
                 {
-                    if (plr[pnum].InvBody[j]._iDurability != DUR_INDESTRUCTIBLE)
+                    if (item->_iDurability != DUR_INDESTRUCTIBLE)
                     {
-                        if (plr[pnum].InvBody[j]._iDurability)
+                        if (item->_iDurability)
                         {
-                            plr[pnum].InvBody[j]._iDurability /= 2;
+                            item->_iDurability /= 2;
                             broke = TRUE;
                             break;
                         }
@@ -5522,28 +5521,58 @@ void SyncL1Doors(int i)
         object[i]._oMissFlag = FALSE;
         return;
     }
+#ifdef HELLFIRE
+    else
+#endif
+        object[i]._oMissFlag = TRUE;
 
     x = object[i]._ox;
     y = object[i]._oy;
-    object[i]._oMissFlag = TRUE;
     object[i]._oSelFlag = 2;
-    if (object[i]._otype == OBJ_L1LDOOR)
+#ifdef HELLFIRE
+    if (currlevel < 17)
     {
-        if (object[i]._oVar1 == 214)
-            ObjSetMicro(x, y, 408);
+#endif
+        if (object[i]._otype == OBJ_L1LDOOR)
+        {
+            if (object[i]._oVar1 == 214)
+                ObjSetMicro(x, y, 408);
+            else
+                ObjSetMicro(x, y, 393);
+            dSpecial[x][y] = 7;
+            objects_set_door_piece(x - 1, y);
+            y--;
+        }
         else
-            ObjSetMicro(x, y, 393);
-        dSpecial[x][y] = 7;
-        objects_set_door_piece(x - 1, y);
-        y--;
+        {
+            ObjSetMicro(x, y, 395);
+#ifdef HELLFIRE
+            if (currlevel < 17)
+#endif
+                dSpecial[x][y] = 8;
+            objects_set_door_piece(x, y - 1);
+            x--;
+        }
+#ifdef HELLFIRE
     }
     else
     {
-        ObjSetMicro(x, y, 395);
-        dSpecial[x][y] = 8;
-        objects_set_door_piece(x, y - 1);
-        x--;
+        if (object[i]._otype == OBJ_L1LDOOR)
+        {
+            ObjSetMicro(x, y, 206);
+            dSpecial[x][y] = 1;
+            objects_set_door_piece(x - 1, y);
+            y--;
+        }
+        else
+        {
+            ObjSetMicro(x, y, 209);
+            dSpecial[x][y] = 2;
+            objects_set_door_piece(x, y - 1);
+            x--;
+        }
     }
+#endif
     DoorSet(i, x, y);
 }
 
