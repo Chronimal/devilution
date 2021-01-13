@@ -1908,26 +1908,39 @@ void M_StartHit(int i, int pnum, int dam)
     if (pnum == myplr)
     {
         delta_monster_hp(i, monster[i]._mhitpoints, currlevel);
+#ifdef HELLFIRE
+        NetSendCmdMonDmg(FALSE, i, dam);
+#else
         NetSendCmdParam2(FALSE, CMD_MONSTDAMAGE, i, dam);
+#endif
     }
     PlayEffect(i, 1);
     if (monster[i].MType->mtype >= MT_SNEAK && monster[i].MType->mtype <= MT_ILLWEAV || dam >> 6 >= monster[i].mLevel + 3)
     {
         if (pnum >= 0)
         {
-            monster[i]._mFlags &= ~MFLAG_TARGETS_MONSTER;
             monster[i]._menemy = pnum;
             monster[i]._menemyx = plr[pnum]._pfutx;
             monster[i]._menemyy = plr[pnum]._pfuty;
+            monster[i]._mFlags &= ~MFLAG_TARGETS_MONSTER;
             monster[i]._mdir = M_GetDir(i);
         }
         if (monster[i].MType->mtype == MT_BLINK)
         {
             M_Teleport(i);
         }
-        else if (monster[i].MType->mtype >= MT_NSCAV && monster[i].MType->mtype <= MT_YSCAV)
+        else if (
+            (monster[i].MType->mtype >= MT_NSCAV && monster[i].MType->mtype <= MT_YSCAV)
+#ifdef HELLFIRE
+            || monster[i].MType->mtype == MT_GRAVEDIG
+#endif
+        )
         {
             monster[i]._mgoal = MGOAL_NORMAL;
+#ifdef HELLFIRE
+            monster[i]._mgoalvar1 = 0;
+            monster[i]._mgoalvar2 = 0;
+#endif
         }
         if (monster[i]._mmode != MM_STONE)
         {
@@ -1939,6 +1952,8 @@ void M_StartHit(int i, int pnum, int dam)
             monster[i]._my = monster[i]._moldy;
             monster[i]._mfutx = monster[i]._moldx;
             monster[i]._mfuty = monster[i]._moldy;
+            monster[i]._moldx = monster[i]._mx;
+            monster[i]._moldy = monster[i]._my;
             M_CheckEFlag(i);
             M_ClearSquares(i);
             dMonster[monster[i]._mx][monster[i]._my] = i + 1;
@@ -2045,8 +2060,8 @@ void SpawnLoot(int i, BOOL sendmsg)
         CreateMagicWeapon(Monst->_mx, Monst->_my, ITYPE_BOW, ICURS_LONG_WAR_BOW, FALSE, TRUE);
         CreateSpellBook(Monst->_mx, Monst->_my, SPL_APOCA, FALSE, TRUE);
     }
-    else if (i > 3)
-    {
+    else if (i > MAX_PLRS - 1)
+    { // Golems should not spawn loot
         SpawnItem(i, Monst->_mx, Monst->_my, sendmsg);
     }
 }
@@ -2119,7 +2134,7 @@ void MonstStartKill(int i, int pnum, BOOL sendmsg)
         app_fatal("MonstStartKill: Invalid monster %d", i);
 #endif
     }
-    if (!monster[i].MType)
+    if (monster[i].MType == NULL)
     {
 #ifdef HELLFIRE
         return;
@@ -2195,7 +2210,7 @@ void M2MStartKill(int i, int mid)
     { /// BUGFIX: should check `mid`
         app_fatal("M2MStartKill: Invalid monster (killed) %d", mid);
     }
-    if (!monster[i].MType)
+    if (monster[i].MType == NULL)
         app_fatal("M2MStartKill: Monster %d \"%s\" MType NULL", mid, monster[mid].mName);
 
     delta_kill_monster(mid, monster[mid]._mx, monster[mid]._my, currlevel);
@@ -4383,7 +4398,7 @@ void MAI_Fallen(int i)
 
     if ((DWORD)i >= MAXMONSTERS)
     {
-#if HELLFIRE
+#ifdef HELLFIRE
         return;
 #else
         app_fatal("MAI_Fallen: Invalid monster %d", i);

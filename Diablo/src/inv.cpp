@@ -28,80 +28,80 @@ int sgdwLastTime; // check name
  */
 const InvXY InvRect[] = {
     // clang-format off
-    //  X,   Y
-    { RIGHT_PANEL + 132,  31 }, // helmet
-    { RIGHT_PANEL + 160,  31 }, // helmet
-    { RIGHT_PANEL + 132,  59 }, // helmet
-    { RIGHT_PANEL + 160,  59 }, // helmet
-    { RIGHT_PANEL + 45,  205 }, // left ring
-    { RIGHT_PANEL + 247, 205 }, // right ring
-    { RIGHT_PANEL + 204,  59 }, // amulet
-    { RIGHT_PANEL + 17,  104 }, // left hand
-    { RIGHT_PANEL + 46,  104 }, // left hand
-    { RIGHT_PANEL + 17,  132 }, // left hand
-    { RIGHT_PANEL + 46,  132 }, // left hand
-    { RIGHT_PANEL + 17,  160 }, // left hand
-    { RIGHT_PANEL + 46,  160 }, // left hand
-    { RIGHT_PANEL + 247, 104 }, // right hand
-    { RIGHT_PANEL + 276, 104 }, // right hand
-    { RIGHT_PANEL + 247, 132 }, // right hand
-    { RIGHT_PANEL + 276, 132 }, // right hand
-    { RIGHT_PANEL + 247, 160 }, // right hand
-    { RIGHT_PANEL + 276, 160 }, // right hand
-    { RIGHT_PANEL + 132, 104 }, // chest
-    { RIGHT_PANEL + 160, 104 }, // chest
-    { RIGHT_PANEL + 132, 132 }, // chest
-    { RIGHT_PANEL + 160, 132 }, // chest
-    { RIGHT_PANEL + 132, 160 }, // chest
-    { RIGHT_PANEL + 160, 160 }, // chest
-    { RIGHT_PANEL + 17,  250 }, // inv row 1
-    { RIGHT_PANEL + 46,  250 }, // inv row 1
-    { RIGHT_PANEL + 74,  250 }, // inv row 1
-    { RIGHT_PANEL + 103, 250 }, // inv row 1
-    { RIGHT_PANEL + 131, 250 }, // inv row 1
-    { RIGHT_PANEL + 160, 250 }, // inv row 1
-    { RIGHT_PANEL + 189, 250 }, // inv row 1
-    { RIGHT_PANEL + 218, 250 }, // inv row 1
-    { RIGHT_PANEL + 247, 250 }, // inv row 1
-    { RIGHT_PANEL + 276, 250 }, // inv row 1
-    { RIGHT_PANEL + 17,  279 }, // inv row 2
-    { RIGHT_PANEL + 46,  279 }, // inv row 2
-    { RIGHT_PANEL + 74,  279 }, // inv row 2
-    { RIGHT_PANEL + 103, 279 }, // inv row 2
-    { RIGHT_PANEL + 131, 279 }, // inv row 2
-    { RIGHT_PANEL + 160, 279 }, // inv row 2
-    { RIGHT_PANEL + 189, 279 }, // inv row 2
-    { RIGHT_PANEL + 218, 279 }, // inv row 2
-    { RIGHT_PANEL + 247, 279 }, // inv row 2
-    { RIGHT_PANEL + 276, 279 }, // inv row 2
-    { RIGHT_PANEL + 17,  308 }, // inv row 3
-    { RIGHT_PANEL + 46,  308 }, // inv row 3
-    { RIGHT_PANEL + 74,  308 }, // inv row 3
-    { RIGHT_PANEL + 103, 308 }, // inv row 3
-    { RIGHT_PANEL + 131, 308 }, // inv row 3
-    { RIGHT_PANEL + 160, 308 }, // inv row 3
-    { RIGHT_PANEL + 189, 308 }, // inv row 3
-    { RIGHT_PANEL + 218, 308 }, // inv row 3
-    { RIGHT_PANEL + 247, 308 }, // inv row 3
-    { RIGHT_PANEL + 276, 308 }, // inv row 3
-    { RIGHT_PANEL + 17,  336 }, // inv row 4
-    { RIGHT_PANEL + 46,  336 }, // inv row 4
-    { RIGHT_PANEL + 74,  336 }, // inv row 4
-    { RIGHT_PANEL + 103, 336 }, // inv row 4
-    { RIGHT_PANEL + 131, 336 }, // inv row 4
-    { RIGHT_PANEL + 160, 336 }, // inv row 4
-    { RIGHT_PANEL + 189, 336 }, // inv row 4
-    { RIGHT_PANEL + 218, 336 }, // inv row 4
-    { RIGHT_PANEL + 247, 336 }, // inv row 4
-    { RIGHT_PANEL + 276, 336 }, // inv row 4
-    { PANEL_LEFT + 205, PANEL_TOP + 33 }, // belt
-    { PANEL_LEFT + 234, PANEL_TOP + 33 }, // belt
-    { PANEL_LEFT + 263, PANEL_TOP + 33 }, // belt
-    { PANEL_LEFT + 292, PANEL_TOP + 33 }, // belt
-    { PANEL_LEFT + 321, PANEL_TOP + 33 }, // belt
-    { PANEL_LEFT + 350, PANEL_TOP + 33 }, // belt
-    { PANEL_LEFT + 379, PANEL_TOP + 33 }, // belt
-    { PANEL_LEFT + 408, PANEL_TOP + 33 }  // belt
+	//  X,   Y
+	{ RIGHT_PANEL + 132,  31 }, // helmet
+	{ RIGHT_PANEL + 160,  31 }, // helmet
+	{ RIGHT_PANEL + 132,  59 }, // helmet
+	{ RIGHT_PANEL + 160,  59 }, // helmet
+	{ RIGHT_PANEL + 45,  205 }, // left ring
+	{ RIGHT_PANEL + 247, 205 }, // right ring
+	{ RIGHT_PANEL + 204,  59 }, // amulet
+	{ RIGHT_PANEL + 17,  104 }, // left hand
+	{ RIGHT_PANEL + 46,  104 }, // left hand
+	{ RIGHT_PANEL + 17,  132 }, // left hand
+	{ RIGHT_PANEL + 46,  132 }, // left hand
+	{ RIGHT_PANEL + 17,  160 }, // left hand
+	{ RIGHT_PANEL + 46,  160 }, // left hand
+	{ RIGHT_PANEL + 247, 104 }, // right hand
+	{ RIGHT_PANEL + 276, 104 }, // right hand
+	{ RIGHT_PANEL + 247, 132 }, // right hand
+	{ RIGHT_PANEL + 276, 132 }, // right hand
+	{ RIGHT_PANEL + 247, 160 }, // right hand
+	{ RIGHT_PANEL + 276, 160 }, // right hand
+	{ RIGHT_PANEL + 132, 104 }, // chest
+	{ RIGHT_PANEL + 160, 104 }, // chest
+	{ RIGHT_PANEL + 132, 132 }, // chest
+	{ RIGHT_PANEL + 160, 132 }, // chest
+	{ RIGHT_PANEL + 132, 160 }, // chest
+	{ RIGHT_PANEL + 160, 160 }, // chest
+	{ RIGHT_PANEL + 17,  250 }, // inv row 1
+	{ RIGHT_PANEL + 46,  250 }, // inv row 1
+	{ RIGHT_PANEL + 74,  250 }, // inv row 1
+	{ RIGHT_PANEL + 103, 250 }, // inv row 1
+	{ RIGHT_PANEL + 131, 250 }, // inv row 1
+	{ RIGHT_PANEL + 160, 250 }, // inv row 1
+	{ RIGHT_PANEL + 189, 250 }, // inv row 1
+	{ RIGHT_PANEL + 218, 250 }, // inv row 1
+	{ RIGHT_PANEL + 247, 250 }, // inv row 1
+	{ RIGHT_PANEL + 276, 250 }, // inv row 1
+	{ RIGHT_PANEL + 17,  279 }, // inv row 2
+	{ RIGHT_PANEL + 46,  279 }, // inv row 2
+	{ RIGHT_PANEL + 74,  279 }, // inv row 2
+	{ RIGHT_PANEL + 103, 279 }, // inv row 2
+	{ RIGHT_PANEL + 131, 279 }, // inv row 2
+	{ RIGHT_PANEL + 160, 279 }, // inv row 2
+	{ RIGHT_PANEL + 189, 279 }, // inv row 2
+	{ RIGHT_PANEL + 218, 279 }, // inv row 2
+	{ RIGHT_PANEL + 247, 279 }, // inv row 2
+	{ RIGHT_PANEL + 276, 279 }, // inv row 2
+	{ RIGHT_PANEL + 17,  308 }, // inv row 3
+	{ RIGHT_PANEL + 46,  308 }, // inv row 3
+	{ RIGHT_PANEL + 74,  308 }, // inv row 3
+	{ RIGHT_PANEL + 103, 308 }, // inv row 3
+	{ RIGHT_PANEL + 131, 308 }, // inv row 3
+	{ RIGHT_PANEL + 160, 308 }, // inv row 3
+	{ RIGHT_PANEL + 189, 308 }, // inv row 3
+	{ RIGHT_PANEL + 218, 308 }, // inv row 3
+	{ RIGHT_PANEL + 247, 308 }, // inv row 3
+	{ RIGHT_PANEL + 276, 308 }, // inv row 3
+	{ RIGHT_PANEL + 17,  336 }, // inv row 4
+	{ RIGHT_PANEL + 46,  336 }, // inv row 4
+	{ RIGHT_PANEL + 74,  336 }, // inv row 4
+	{ RIGHT_PANEL + 103, 336 }, // inv row 4
+	{ RIGHT_PANEL + 131, 336 }, // inv row 4
+	{ RIGHT_PANEL + 160, 336 }, // inv row 4
+	{ RIGHT_PANEL + 189, 336 }, // inv row 4
+	{ RIGHT_PANEL + 218, 336 }, // inv row 4
+	{ RIGHT_PANEL + 247, 336 }, // inv row 4
+	{ RIGHT_PANEL + 276, 336 }, // inv row 4
+	{ PANEL_LEFT + 205, PANEL_TOP + 33 }, // belt
+	{ PANEL_LEFT + 234, PANEL_TOP + 33 }, // belt
+	{ PANEL_LEFT + 263, PANEL_TOP + 33 }, // belt
+	{ PANEL_LEFT + 292, PANEL_TOP + 33 }, // belt
+	{ PANEL_LEFT + 321, PANEL_TOP + 33 }, // belt
+	{ PANEL_LEFT + 350, PANEL_TOP + 33 }, // belt
+	{ PANEL_LEFT + 379, PANEL_TOP + 33 }, // belt
+	{ PANEL_LEFT + 408, PANEL_TOP + 33 }  // belt
     // clang-format on
 };
 
@@ -163,34 +163,34 @@ void InvDrawSlotBack(int X, int Y, int W, int H)
 
 #ifdef USE_ASM
     __asm {
-        mov        edi, dst
-        xor        edx, edx
-        xor        ebx, ebx
-        mov        dx, word ptr H
-        mov        bx, word ptr W
-    label1:
-        mov        ecx, ebx
-    label2:
-        mov        al, [edi]
-        cmp        al, PAL16_BLUE
-        jb        label5
-        cmp        al, PAL16_BLUE + 15
-        ja        label3
-        sub        al, PAL16_BLUE - PAL16_BEIGE
-        jmp        label4
-    label3:
-        cmp        al, PAL16_GRAY
-        jb        label5
-        sub        al, PAL16_GRAY - PAL16_BEIGE
-    label4:
-        mov        [edi], al
-    label5:
-        inc        edi
-        loop    label2
-        sub        edi, BUFFER_WIDTH
-        sub        edi, ebx
-        dec        edx
-        jnz        label1
+		mov		edi, dst
+		xor		edx, edx
+		xor		ebx, ebx
+		mov		dx, word ptr H
+		mov		bx, word ptr W
+	label1:
+		mov		ecx, ebx
+	label2:
+		mov		al, [edi]
+		cmp		al, PAL16_BLUE
+		jb		label5
+		cmp		al, PAL16_BLUE + 15
+		ja		label3
+		sub		al, PAL16_BLUE - PAL16_BEIGE
+		jmp		label4
+	label3:
+		cmp		al, PAL16_GRAY
+		jb		label5
+		sub		al, PAL16_GRAY - PAL16_BEIGE
+	label4:
+		mov		[edi], al
+	label5:
+		inc		edi
+		loop	label2
+		sub		edi, BUFFER_WIDTH
+		sub		edi, ebx
+		dec		edx
+		jnz		label1
     }
 #else
     int wdt, hgt;
@@ -1018,85 +1018,10 @@ BOOL SpecialAutoPlace(int pnum, int ii, int sx, int sy, BOOL saveflag)
     return done;
 }
 
-#ifndef HELLFIRE
-BOOL GoldAutoPlace(int pnum)
-{
-    BOOL done;
-    int i, ii;
-    int xx, yy;
-
-    done = FALSE;
-    for (i = 0; i < plr[pnum]._pNumInv && !done; i++)
-    {
-        if (plr[pnum].InvList[i]._itype == ITYPE_GOLD)
-        {
-            if (plr[pnum].HoldItem._ivalue + plr[pnum].InvList[i]._ivalue <= GOLD_MAX_LIMIT)
-            {
-                plr[pnum].InvList[i]._ivalue = plr[pnum].HoldItem._ivalue + plr[pnum].InvList[i]._ivalue;
-                if (plr[pnum].InvList[i]._ivalue >= GOLD_MEDIUM_LIMIT)
-                    plr[pnum].InvList[i]._iCurs = ICURS_GOLD_LARGE;
-                else if (plr[pnum].InvList[i]._ivalue <= GOLD_SMALL_LIMIT)
-                    plr[pnum].InvList[i]._iCurs = ICURS_GOLD_SMALL;
-                else
-                    plr[pnum].InvList[i]._iCurs = ICURS_GOLD_MEDIUM;
-                plr[pnum]._pGold = CalculateGold(pnum);
-                done = TRUE;
-            }
-        }
-    }
-    if (done)
-        return done;
-
-    for (i = 0; i < plr[pnum]._pNumInv && !done; i++)
-    {
-        if (plr[pnum].InvList[i]._itype == ITYPE_GOLD && plr[pnum].InvList[i]._ivalue < GOLD_MAX_LIMIT)
-        {
-            if (plr[pnum].HoldItem._ivalue + plr[pnum].InvList[i]._ivalue <= GOLD_MAX_LIMIT)
-            {
-                plr[pnum].InvList[i]._ivalue = plr[pnum].HoldItem._ivalue + plr[pnum].InvList[i]._ivalue;
-                if (plr[pnum].InvList[i]._ivalue >= GOLD_MEDIUM_LIMIT)
-                    plr[pnum].InvList[i]._iCurs = ICURS_GOLD_LARGE;
-                else if (plr[pnum].InvList[i]._ivalue <= GOLD_SMALL_LIMIT)
-                    plr[pnum].InvList[i]._iCurs = ICURS_GOLD_SMALL;
-                else
-                    plr[pnum].InvList[i]._iCurs = ICURS_GOLD_MEDIUM;
-                plr[pnum]._pGold = CalculateGold(pnum);
-                done = TRUE;
-            }
-        }
-    }
-    if (done)
-        return done;
-
-    for (i = 39; i >= 0 && !done; i--)
-    {
-        yy = 10 * (i / 10);
-        xx = i % 10;
-        if (plr[pnum].InvGrid[xx + yy] == 0)
-        {
-            ii = plr[pnum]._pNumInv;
-            plr[pnum].InvList[ii] = plr[pnum].HoldItem;
-            plr[pnum]._pNumInv = plr[pnum]._pNumInv + 1;
-            plr[pnum].InvGrid[xx + yy] = plr[pnum]._pNumInv;
-            if (plr[pnum].HoldItem._ivalue >= GOLD_MEDIUM_LIMIT)
-                plr[pnum].InvList[ii]._iCurs = ICURS_GOLD_LARGE;
-            else if (plr[pnum].HoldItem._ivalue <= GOLD_SMALL_LIMIT)
-                plr[pnum].InvList[ii]._iCurs = ICURS_GOLD_SMALL;
-            else
-                plr[pnum].InvList[ii]._iCurs = ICURS_GOLD_MEDIUM;
-            plr[pnum]._pGold = CalculateGold(pnum);
-            done = TRUE;
-        }
-    }
-
-    return done;
-}
-#else
 BOOL GoldAutoPlace(int pnum)
 {
     int ii;
     int xx, yy;
-    int max_gold, gold;
     BOOL done;
 
     done = FALSE;
@@ -1104,9 +1029,14 @@ BOOL GoldAutoPlace(int pnum)
     {
         if (plr[pnum].InvList[i]._itype == ITYPE_GOLD)
         {
-            gold = plr[pnum].InvList[i]._ivalue + plr[pnum].HoldItem._ivalue;
+            int gold = plr[pnum].InvList[i]._ivalue + plr[pnum].HoldItem._ivalue;
+#ifdef HELLFIRE
             if (gold <= MaxGold)
             {
+#else
+            if (plr[pnum].HoldItem._ivalue + plr[pnum].InvList[i]._ivalue <= GOLD_MAX_LIMIT)
+            {
+#endif
                 plr[pnum].InvList[i]._ivalue = gold;
                 if (gold >= GOLD_MEDIUM_LIMIT)
                     plr[pnum].InvList[i]._iCurs = ICURS_GOLD_LARGE;
@@ -1116,14 +1046,15 @@ BOOL GoldAutoPlace(int pnum)
                     plr[pnum].InvList[i]._iCurs = ICURS_GOLD_MEDIUM;
                 plr[pnum]._pGold = CalculateGold(pnum);
                 done = TRUE;
+#ifdef HELLFIRE
                 plr[pnum].HoldItem._ivalue = 0;
             }
             else
             {
-                max_gold = MaxGold;
+                int max_gold = MaxGold;
                 if (plr[pnum].InvList[i]._ivalue < max_gold)
                 {
-                    gold = max_gold - plr[pnum].InvList[i]._ivalue;
+                    int gold = max_gold - plr[pnum].InvList[i]._ivalue;
                     plr[pnum].InvList[i]._ivalue = max_gold;
                     plr[pnum].InvList[i]._iCurs = ICURS_GOLD_LARGE;
                     plr[pnum].HoldItem._ivalue -= gold;
@@ -1136,9 +1067,33 @@ BOOL GoldAutoPlace(int pnum)
                     control_set_gold_curs(pnum);
                     plr[pnum]._pGold = CalculateGold(pnum);
                 }
+#endif
             }
         }
     }
+
+#ifndef HELLFIRE
+    if (!done)
+        for (int i = 0; i < plr[pnum]._pNumInv && !done; i++)
+        {
+            if (plr[pnum].InvList[i]._itype == ITYPE_GOLD && plr[pnum].InvList[i]._ivalue < GOLD_MAX_LIMIT)
+            {
+                if (plr[pnum].HoldItem._ivalue + plr[pnum].InvList[i]._ivalue <= GOLD_MAX_LIMIT)
+                {
+                    plr[pnum].InvList[i]._ivalue = plr[pnum].HoldItem._ivalue + plr[pnum].InvList[i]._ivalue;
+                    if (plr[pnum].InvList[i]._ivalue >= GOLD_MEDIUM_LIMIT)
+                        plr[pnum].InvList[i]._iCurs = ICURS_GOLD_LARGE;
+                    else if (plr[pnum].InvList[i]._ivalue <= GOLD_SMALL_LIMIT)
+                        plr[pnum].InvList[i]._iCurs = ICURS_GOLD_SMALL;
+                    else
+                        plr[pnum].InvList[i]._iCurs = ICURS_GOLD_MEDIUM;
+                    plr[pnum]._pGold = CalculateGold(pnum);
+                    done = TRUE;
+                }
+            }
+        }
+#endif
+
     if (!done)
         for (int i = 39; i >= 0 && !done; i--)
         {
@@ -1156,8 +1111,8 @@ BOOL GoldAutoPlace(int pnum)
                     plr[pnum].InvList[ii]._iCurs = ICURS_GOLD_SMALL;
                 else
                     plr[pnum].InvList[ii]._iCurs = ICURS_GOLD_MEDIUM;
-
-                gold = plr[pnum].HoldItem._ivalue;
+#ifdef HELLFIRE
+                int gold = plr[pnum].HoldItem._ivalue;
                 if (gold > MaxGold)
                 {
                     gold -= MaxGold;
@@ -1172,11 +1127,15 @@ BOOL GoldAutoPlace(int pnum)
                     plr[pnum]._pGold = CalculateGold(pnum);
                     SetCursor_(CURSOR_HAND);
                 }
+#else
+                plr[pnum]._pGold = CalculateGold(pnum);
+                done = TRUE;
+#endif
             }
         }
+
     return done;
 }
-#endif
 
 BOOL WeaponAutoPlace(int pnum)
 {
@@ -2984,7 +2943,7 @@ int InvPutItem(int pnum, int x, int y)
     }
 #endif
     CanPut(x, y); // if (!CanPut(x, y)) {
-    //    assertion_failed(1524, "C:\\Diablo\\Direct\\inv.cpp", "CanPut(x,y)");
+    //	assertion_failed(1524, "C:\\Diablo\\Direct\\inv.cpp", "CanPut(x,y)");
     //}
 
     ii = itemavail[0];

@@ -5,11 +5,7 @@
  */
 #include "all.h"
 #include "storm/storm.h"
-#ifndef HELLFIRE
 #include "ui/diabloui.h"
-#else // HELLFIRE
-#include "hellfrui/hellfrui.h"
-#endif // HELLFIRE
 
 static DWORD sgdwOwnerWait;
 static DWORD sgdwRecvOffset;
@@ -1125,6 +1121,14 @@ void NetSendCmdGItem(BOOL bHiPri, BYTE bCmd, BYTE mast, BYTE pnum, BYTE ii)
         cmd.bCh = item[ii]._iCharges;
         cmd.bMCh = item[ii]._iMaxCharges;
         cmd.wValue = item[ii]._ivalue;
+#ifdef HELLFIRE
+        cmd.wToHit = item[ii]._iPLToHit;
+        cmd.wMaxDam = item[ii]._iMaxDam;
+        cmd.bMinStr = item[ii]._iMinStr;
+        cmd.bMinMag = item[ii]._iMinMag;
+        cmd.bMinDex = item[ii]._iMinDex;
+        cmd.bAC = item[ii]._iAC;
+#endif
     }
 
     if (bHiPri)

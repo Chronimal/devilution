@@ -213,7 +213,7 @@ void multi_send_msg_packet(int pmask, BYTE* src, BYTE len)
     {
         if (v & pmask)
         {
-            if (!SNetSendMessage(p, &pkt.hdr, t) && SErrGetLastError() != STORM_ERROR_INVALID_PLAYER)
+            if (!SNetSendMessage(p, &pkt.hdr, t) && DERROR() != STORM_ERROR_INVALID_PLAYER)
             {
                 nthread_terminate_game("SNetSendMessage");
                 return;
@@ -593,7 +593,7 @@ void multi_process_network_packets()
         }
         multi_handle_all_packets(dwID, (BYTE*)(pkt + 1), dwMsgSize - sizeof(TPktHdr));
     }
-    if (SErrGetLastError() != STORM_ERROR_NO_MESSAGES_WAITING)
+    if (DERROR() != STORM_ERROR_NO_MESSAGES_WAITING)
         nthread_terminate_game("SNetReceiveMsg");
 }
 
@@ -850,6 +850,9 @@ BOOL NetInit(BOOL bSinglePlayer, BOOL* pfExitProgram)
     while (1)
     {
         *pfExitProgram = FALSE;
+#ifdef HELLFIRE
+        pfile_create_player_description(NULL, 0);
+#endif
         SetRndSeed(0);
         sgGameInitInfo.dwSeed = time(NULL);
         sgGameInitInfo.bDiff = gnDifficulty;
@@ -867,7 +870,9 @@ BOOL NetInit(BOOL bSinglePlayer, BOOL* pfExitProgram)
         ProgramData.initdata = &sgGameInitInfo;
         ProgramData.initdatabytes = sizeof(sgGameInitInfo);
         ProgramData.optcategorybits = 15;
+#ifndef HELLFIRE
         ProgramData.lcid = 1033; /* LANG_ENGLISH */
+#endif
         memset(&plrdata, 0, sizeof(plrdata));
         plrdata.size = sizeof(plrdata);
         memset(&UiData, 0, sizeof(UiData));
@@ -926,8 +931,8 @@ BOOL NetInit(BOOL bSinglePlayer, BOOL* pfExitProgram)
         nthread_send_and_recv_turn(0, 0);
         SetupLocalCoords();
         multi_send_pinfo(-2, CMD_SEND_PLRINFO);
-        gbActivePlayers = 1;
         plr[myplr].plractive = TRUE;
+        gbActivePlayers = 1;
         if (sgbPlayerTurnBitTbl[myplr] == FALSE || msg_wait_resync())
             break;
         NetClose();
@@ -955,7 +960,7 @@ BOOL multi_init_single(_SNETPROGRAMDATA* client_info, _SNETPLAYERDATA* user_info
 
     if (!SNetInitializeProvider(0, client_info, user_info, ui_info, &fileinfo))
     {
-        SErrGetLastError();
+        DERROR();
         return FALSE;
     }
 
@@ -982,7 +987,7 @@ BOOL multi_init_multi(_SNETPROGRAMDATA* client_info, _SNETPLAYERDATA* user_info,
         type = 0x00;
         if (gbSelectProvider)
         {
-            if (!UiSelectProvider(0, client_info, user_info, ui_info, &fileinfo, &type) && (!first || SErrGetLastError() != STORM_ERROR_REQUIRES_UPGRADE || !multi_upgrade(pfExitProgram)))
+            if (!UiSelectProvider(0, client_info, user_info, ui_info, &fileinfo, &type) && (!first || DERROR() != STORM_ERROR_REQUIRES_UPGRADE || !multi_upgrade(pfExitProgram)))
             {
                 return FALSE;
             }

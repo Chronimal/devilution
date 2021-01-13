@@ -2569,7 +2569,7 @@ void GetItemBonus(int i, int idata, int minlvl, int maxlvl, BOOL onlygood)
                     GetStaffSpell(i, maxlvl, onlygood);
 #ifdef HELLFIRE
                 else
-                    GetItemPower(i, minlvl, maxlvl, 0x100, onlygood);
+                    GetItemPower(i, minlvl, maxlvl, PLT_STAFF, onlygood);
 #endif
                 break;
             case ITYPE_RING:
@@ -2690,7 +2690,7 @@ int RndUItem(int m)
             okflag = FALSE;
         if (AllItemsList[i].itype == ITYPE_GOLD)
             okflag = FALSE;
-        if (AllItemsList[i].itype == ITYPE_MEAT)
+        if (AllItemsList[i].itype == ITYPE_FOOD)
             okflag = FALSE;
         if (AllItemsList[i].iMiscId == IMISC_BOOK)
             okflag = TRUE;
@@ -4605,7 +4605,7 @@ void PrintItemDetails(ItemStruct* x)
 #ifdef HELLFIRE
         if (x->_iMinDam == x->_iMaxDam)
         {
-            if (x->_iMaxDur == 255)
+            if (x->_iMaxDur == DUR_INDESTRUCTIBLE)
                 sprintf(tempstr, "damage: %i  Indestructible", x->_iMinDam);
             else
                 sprintf(tempstr, "damage: %i  Dur: %i/%i", x->_iMinDam, x->_iDurability, x->_iMaxDur);
@@ -4681,7 +4681,7 @@ void PrintItemDur(ItemStruct* x)
 #ifdef HELLFIRE
         if (x->_iMinDam == x->_iMaxDam)
         {
-            if (x->_iMaxDur == 255)
+            if (x->_iMaxDur == DUR_INDESTRUCTIBLE)
                 sprintf(tempstr, "damage: %i  Indestructible", x->_iMinDam);
             else
                 sprintf(tempstr, "damage: %i  Dur: %i/%i", x->_iMinDam, x->_iDurability, x->_iMaxDur);
@@ -4743,7 +4743,7 @@ void UseItem(int p, int Mid, int spl)
     switch (Mid)
     {
         case IMISC_HEAL:
-        case IMISC_MEAT:
+        case IMISC_FOOD:
             j = plr[p]._pMaxHP >> 8;
             l = ((j >> 1) + random_(39, j)) << 6;
 #ifdef HELLFIRE
@@ -5020,7 +5020,7 @@ BOOL SmithItemOk(int i)
         rv = FALSE;
     if (AllItemsList[i].itype == ITYPE_GOLD)
         rv = FALSE;
-    if (AllItemsList[i].itype == ITYPE_MEAT)
+    if (AllItemsList[i].itype == ITYPE_FOOD)
         rv = FALSE;
 #ifdef HELLFIRE
     if (AllItemsList[i].itype == ITYPE_STAFF && AllItemsList[i].iSpell)
@@ -5141,7 +5141,7 @@ BOOL PremiumItemOk(int i)
 
     rv = TRUE;
 #ifdef HELLFIRE
-    if (AllItemsList[i].itype == ITYPE_MISC || AllItemsList[i].itype == ITYPE_GOLD || AllItemsList[i].itype == ITYPE_MEAT)
+    if (AllItemsList[i].itype == ITYPE_MISC || AllItemsList[i].itype == ITYPE_GOLD || AllItemsList[i].itype == ITYPE_FOOD)
         rv = FALSE;
 
     if (gbMaxPlayers != 1)
@@ -5154,7 +5154,7 @@ BOOL PremiumItemOk(int i)
         rv = FALSE;
     if (AllItemsList[i].itype == ITYPE_GOLD)
         rv = FALSE;
-    if (AllItemsList[i].itype == ITYPE_MEAT)
+    if (AllItemsList[i].itype == ITYPE_FOOD)
         rv = FALSE;
     if (AllItemsList[i].itype == ITYPE_STAFF)
         rv = FALSE;
@@ -5479,7 +5479,7 @@ void SpawnWitch(int lvl)
 
     j = 3;
 #ifdef HELLFIRE
-    iCnt = random_(51, 15) + 10;
+    iCnt = random_(51, WITCH_ITEMS - 10) + 10;
     int books = random_(3, 4);
 #endif
 

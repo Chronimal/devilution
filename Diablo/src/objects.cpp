@@ -3913,7 +3913,7 @@ void OperateShrine(int pnum, int i, int sType)
     DWORD lv, t;
     int xx, yy;
     int v1, v2, v3, v4;
-    unsigned __int64 spell;
+    unsigned __int64 spell, spells;
 
     if (dropGoldFlag)
     {
@@ -4158,9 +4158,14 @@ void OperateShrine(int pnum, int i, int sType)
                 return;
             cnt = 0;
             spell = 1;
+            spells = plr[pnum]._pMemSpells;
             for (j = 0; j < MAX_SPELLS; j++)
             {
+#ifdef HELLFIRE
                 if (spell & plr[pnum]._pMemSpells)
+#else
+                if (spell & spells)
+#endif
                     cnt++;
                 spell <<= 1;
             }
