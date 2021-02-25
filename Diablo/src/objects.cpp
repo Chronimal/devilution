@@ -801,7 +801,7 @@ void AddDiabObjs()
 }
 
 #ifdef HELLFIRE
-void objects_add_lv22(int s)
+void AddCryptStoryBook(int s)
 {
     DIABOOL exit;
     int xp, yp, cnt, m, n;
@@ -828,7 +828,7 @@ void objects_add_lv22(int s)
                 return;
         }
     }
-    objects_44D8C5(OBJ_STORYBOOK, s, xp, yp);
+    AddCryptBook(OBJ_STORYBOOK, s, xp, yp);
     AddObject(OBJ_STORYCANDLE, xp - 2, yp + 1);
     AddObject(OBJ_STORYCANDLE, xp - 2, yp);
     AddObject(OBJ_STORYCANDLE, xp - 1, yp - 1);
@@ -837,47 +837,47 @@ void objects_add_lv22(int s)
     AddObject(OBJ_STORYCANDLE, xp + 2, yp + 1);
 }
 
-void objects_add_lv24()
+void AddNakrulGate()
 {
-    objects_rnd_454BEA();
+    AddNakrulLeaver();
     switch (random_(0, 6))
     {
         case 0:
-            objects_454AF0(6, UberRow + 3, UberCol);
-            objects_454AF0(7, UberRow + 2, UberCol - 3);
-            objects_454AF0(8, UberRow + 2, UberCol + 2);
+            AddNakrulBook(6, UberRow + 3, UberCol);
+            AddNakrulBook(7, UberRow + 2, UberCol - 3);
+            AddNakrulBook(8, UberRow + 2, UberCol + 2);
             break;
         case 1:
-            objects_454AF0(6, UberRow + 3, UberCol);
-            objects_454AF0(8, UberRow + 2, UberCol - 3);
-            objects_454AF0(7, UberRow + 2, UberCol + 2);
+            AddNakrulBook(6, UberRow + 3, UberCol);
+            AddNakrulBook(8, UberRow + 2, UberCol - 3);
+            AddNakrulBook(7, UberRow + 2, UberCol + 2);
             break;
         case 2:
-            objects_454AF0(7, UberRow + 3, UberCol);
-            objects_454AF0(6, UberRow + 2, UberCol - 3);
-            objects_454AF0(8, UberRow + 2, UberCol + 2);
+            AddNakrulBook(7, UberRow + 3, UberCol);
+            AddNakrulBook(6, UberRow + 2, UberCol - 3);
+            AddNakrulBook(8, UberRow + 2, UberCol + 2);
             break;
         case 3:
-            objects_454AF0(7, UberRow + 3, UberCol);
-            objects_454AF0(8, UberRow + 2, UberCol - 3);
-            objects_454AF0(6, UberRow + 2, UberCol + 2);
+            AddNakrulBook(7, UberRow + 3, UberCol);
+            AddNakrulBook(8, UberRow + 2, UberCol - 3);
+            AddNakrulBook(6, UberRow + 2, UberCol + 2);
             break;
         case 4:
-            objects_454AF0(8, UberRow + 3, UberCol);
-            objects_454AF0(7, UberRow + 2, UberCol - 3);
-            objects_454AF0(6, UberRow + 2, UberCol + 2);
+            AddNakrulBook(8, UberRow + 3, UberCol);
+            AddNakrulBook(7, UberRow + 2, UberCol - 3);
+            AddNakrulBook(6, UberRow + 2, UberCol + 2);
             break;
         case 5:
-            objects_454AF0(8, UberRow + 3, UberCol);
-            objects_454AF0(6, UberRow + 2, UberCol - 3);
-            objects_454AF0(7, UberRow + 2, UberCol + 2);
+            AddNakrulBook(8, UberRow + 3, UberCol);
+            AddNakrulBook(6, UberRow + 2, UberCol - 3);
+            AddNakrulBook(7, UberRow + 2, UberCol + 2);
             break;
     }
 }
 
-void objects_454AF0(int a1, int a2, int a3)
+void AddNakrulBook(int a1, int a2, int a3)
 {
-    objects_44D8C5(OBJ_STORYBOOK, a1, a2, a3);
+    AddCryptBook(OBJ_STORYBOOK, a1, a2, a3);
 }
 #endif
 
@@ -1050,21 +1050,21 @@ void InitObjects()
             AddStoryBooks();
         if (currlevel == 21)
         {
-            objects_add_lv22(1);
+            AddCryptStoryBook(1);
         }
         else if (currlevel == 22)
         {
-            objects_add_lv22(2);
-            objects_add_lv22(3);
+            AddCryptStoryBook(2);
+            AddCryptStoryBook(3);
         }
         else if (currlevel == 23)
         {
-            objects_add_lv22(4);
-            objects_add_lv22(5);
+            AddCryptStoryBook(4);
+            AddCryptStoryBook(5);
         }
         if (currlevel == 24)
         {
-            objects_add_lv24();
+            AddNakrulGate();
         }
 #else
         if (currlevel == 4)
@@ -1756,7 +1756,7 @@ void AddSlainHero()
 }
 
 #ifdef HELLFIRE
-void objects_44D8C5(int ot, int v2, int ox, int oy)
+void AddCryptBook(int ot, int v2, int ox, int oy)
 {
     int oi;
 
@@ -1768,12 +1768,12 @@ void objects_44D8C5(int ot, int v2, int ox, int oy)
     objectactive[nobjects] = oi;
     dObject[ox][oy] = oi + 1;
     SetupObject(oi, ox, oy, ot);
-    objects_44DA68(oi, v2);
+    AddCryptObject(oi, v2);
     object[oi]._oAnimWidth2 = (object[oi]._oAnimWidth - 64) >> 1;
     nobjects++;
 }
 
-void objects_44DA68(int i, int a2)
+void AddCryptObject(int i, int a2)
 {
     int v8, v9;
     if (a2 > 5)
@@ -2097,7 +2097,7 @@ void Obj_Circle(int i)
         {
             object[i]._oVar6 = 4;
             ObjChangeMapResync(object[i]._oVar1, object[i]._oVar2, object[i]._oVar3, object[i]._oVar4);
-            if (quests[Q_BETRAYER]._qactive == QUEST_ACTIVE)
+            if (quests[Q_BETRAYER]._qactive == QUEST_ACTIVE) // BUGFIX stepping on the circle again will break the quest state
                 quests[Q_BETRAYER]._qvar1 = 4;
             AddMissile(plr[myplr]._px, plr[myplr]._py, 35, 46, plr[myplr]._pdir, MIS_RNDTELEPORT, TARGET_MONSTERS, myplr, 0, 0);
             track_repeat_walk(FALSE);
@@ -3321,10 +3321,10 @@ void OperateLever(int pnum, int i)
 #ifdef HELLFIRE
         if (currlevel == 24)
         {
-            operate_lv24_lever();
+            OperateNakrulLever();
             IsUberLeverActivated = 1;
             mapflag = FALSE;
-            quests[Q_NAKRUL]._qactive = 3;
+            quests[Q_NAKRUL]._qactive = QUEST_DONE;
         }
 #endif
         if (mapflag)
@@ -5034,7 +5034,7 @@ void OperateStoryBook(int pnum, int i)
 #ifdef HELLFIRE
         if (object[i]._oVar8 != 0 && currlevel == 24)
         {
-            if (IsUberLeverActivated != 1 && quests[Q_NAKRUL]._qactive != 3 && objects_lv_24_454B04(object[i]._oVar8))
+            if (IsUberLeverActivated != 1 && quests[Q_NAKRUL]._qactive != QUEST_DONE && OperateNakrulBook(object[i]._oVar8))
             {
                 NetSendCmd(FALSE, CMD_NAKRUL);
                 return;
@@ -5042,8 +5042,8 @@ void OperateStoryBook(int pnum, int i)
         }
         else if (currlevel >= 21)
         {
-            quests[Q_NAKRUL]._qactive = 2;
-            quests[Q_NAKRUL]._qlog = 1;
+            quests[Q_NAKRUL]._qactive = QUEST_ACTIVE;
+            quests[Q_NAKRUL]._qlog = TRUE;
             quests[Q_NAKRUL]._qmsg = object[i]._oVar2;
         }
 #endif
@@ -5259,9 +5259,9 @@ void SyncOpL3Door(int pnum, int cmd, int i)
     if (do_sync)
     {
         if (object[i]._otype == OBJ_L3LDOOR)
-            OperateL2LDoor(-1, i, FALSE);
+            OperateL3LDoor(-1, i, FALSE);
         if (object[i]._otype == OBJ_L3RDOOR)
-            OperateL2RDoor(-1, i, FALSE);
+            OperateL3RDoor(-1, i, FALSE);
     }
 }
 
@@ -5904,12 +5904,12 @@ void GetObjectStr(int i)
 }
 
 #ifdef HELLFIRE
-void operate_lv24_lever()
+void OperateNakrulLever()
 {
     if (currlevel == 24)
     {
         PlaySfxLoc(IS_CROPEN, UberRow, UberCol);
-        // the part below is the same as objects_454BA8
+        // the part below is the same as SyncNakrulRoom
         dPiece[UberRow][UberCol] = 298;
         dPiece[UberRow][UberCol - 1] = 301;
         dPiece[UberRow][UberCol - 2] = 300;
@@ -5918,7 +5918,7 @@ void operate_lv24_lever()
     }
 }
 
-void objects_454BA8()
+void SyncNakrulRoom()
 {
     dPiece[UberRow][UberCol] = 298;
     dPiece[UberRow][UberCol - 1] = 301;
@@ -5928,7 +5928,7 @@ void objects_454BA8()
     SetDungeonMicros();
 }
 
-void objects_rnd_454BEA()
+void AddNakrulLeaver()
 {
     int xp, yp;
 
@@ -5947,7 +5947,7 @@ void objects_rnd_454BEA()
     AddObject(OBJ_LEVER, UberRow + 3, UberCol - 1);
 }
 
-DIABOOL objects_lv_24_454B04(int s)
+DIABOOL OperateNakrulBook(int s)
 {
     switch (s)
     {

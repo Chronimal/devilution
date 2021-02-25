@@ -2922,7 +2922,7 @@ int InvPutItem(int pnum, int x, int y)
         if (plr[pnum].HoldItem._iCurs == ICURS_RUNE_BOMB && xp >= 79 && xp <= 82 && yp >= 61 && yp <= 64)
         {
             NetSendCmdLocParam2(0, CMD_OPENHIVE, plr[pnum]._px, plr[pnum]._py, xx, yy);
-            quests[Q_FARMER]._qactive = 3;
+            quests[Q_FARMER]._qactive = QUEST_DONE;
             if (gbMaxPlayers != 1)
             {
                 NetSendCmdQuest(TRUE, Q_FARMER);
@@ -2933,7 +2933,7 @@ int InvPutItem(int pnum, int x, int y)
         if (plr[pnum].HoldItem.IDidx == IDI_MAPOFDOOM && xp >= 35 && xp <= 38 && yp >= 20 && yp <= 24)
         {
             NetSendCmd(FALSE, CMD_OPENCRYPT);
-            quests[Q_GRAVE]._qactive = 3;
+            quests[Q_GRAVE]._qactive = QUEST_DONE;
             if (gbMaxPlayers != 1)
             {
                 NetSendCmdQuest(TRUE, Q_GRAVE);
@@ -3091,8 +3091,8 @@ int SyncPutItem(
     {
         CornerStone.item = item[ii];
         InitQTextMsg(296);
-        quests[Q_CORNSTN]._qlog = 0;
-        quests[Q_CORNSTN]._qactive = 3;
+        quests[Q_CORNSTN]._qlog = FALSE;
+        quests[Q_CORNSTN]._qactive = QUEST_DONE;
     }
 #endif
     return ii;

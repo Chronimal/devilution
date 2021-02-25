@@ -1653,7 +1653,7 @@ void InitMissiles()
         }
     }
 #ifdef HELLFIRE
-    plr[myplr].wReflection = FALSE;
+    plr[myplr].wReflections = 0;
 #endif
 }
 
@@ -1831,7 +1831,7 @@ void missiles_reflection(int mi, int sx, int sy, int dx, int dy, int midir, char
             lvl = missile[mi]._mispllvl;
         else
             lvl = 2;
-        plr[id].wReflection += lvl * plr[id]._pLevel;
+        plr[id].wReflections += lvl * plr[id]._pLevel;
         UseMana(id, SPL_REFLECT);
     }
     missile[mi]._mirange = 0;
@@ -1893,7 +1893,7 @@ void missiles_berserk(int mi, int sx, int sy, int dx, int dy, int midir, char mi
     missile[mi]._miDelFlag = TRUE;
 }
 
-void missiles_430624(int mi, int sx, int sy, int dx, int dy, int midir, char mienemy, int id, int dam)
+void missiles_hork_spawn(int mi, int sx, int sy, int dx, int dy, int midir, char mienemy, int id, int dam)
 {
     GetMissileVel(mi, sx, sy, dx, dy, 8);
     missile[mi]._mirange = 9;
@@ -4617,7 +4617,7 @@ void MI_Fireball(int i)
 }
 
 #ifdef HELLFIRE
-void missiles_4359A0(int i)
+void mi_hork_spawn(int i)
 {
     int t, j, k, tx, ty, dp;
 
@@ -4982,7 +4982,7 @@ void mi_reflect(int i)
     }
     if (src != myplr && currlevel != plr[src].plrlevel)
         missile[i]._miDelFlag = TRUE;
-    if ((WORD)plr[src].wReflection <= 0)
+    if (plr[src].wReflections <= 0)
     {
         missile[i]._miDelFlag = TRUE;
         NetSendCmd(TRUE, CMD_REFLECT);

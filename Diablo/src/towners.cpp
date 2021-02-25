@@ -75,34 +75,34 @@ int cowoffy[8] = {-1, -1, -1, 0, -1, -1, -1, 0};
 QuestTalkData Qtalklist[] = {
 // clang-format off
 #ifdef HELLFIRE
-    // _qinfra,      _qblkm,       _qgarb,      _qzhar,      _qveil,      _qmod,       _qbutch,      _qbol,         _qblind,      _qblood,      _qanvil,      _qwarlrd,      _qking,       _qpw,           _qbone,      _qvb,         _qgrv,        _qfarm, _qgirl, _qtrade, _qdefiler, _qnakrul, _qjersy, _qhf8
-    { TEXT_INFRA6,  TEXT_MUSH6,  -1,          -1,          TEXT_VEIL5, -1,          TEXT_BUTCH5, TEXT_BANNER6, TEXT_BLIND5, TEXT_BLOOD5, TEXT_ANVIL6, TEXT_WARLRD5, TEXT_KING7,  TEXT_POISON7,  TEXT_BONE5, TEXT_VILE9,  TEXT_GRAVE2, -1,     -1,     -1,      -1,        -1,       -1,      -1 },
-    { TEXT_INFRA3,  -1,           -1,          -1,          TEXT_VEIL3, -1,          TEXT_BUTCH3, TEXT_BANNER4, TEXT_BLIND3, TEXT_BLOOD3, TEXT_ANVIL3, TEXT_WARLRD3, TEXT_KING5,  TEXT_POISON4,  TEXT_BONE3, TEXT_VILE7,  TEXT_GRAVE3, -1,     -1,     -1,      -1,        -1,       -1,      -1 },
-    { -1,            -1,           -1,          -1,          -1,          -1,          -1,           -1,            -1,           -1,           -1,           -1,            -1,           -1,             -1,          -1,           -1,           -1,     -1,     -1,      -1,        -1,       -1,      -1 },
-    { TEXT_INFRA2,  TEXT_MUSH2,  -1,          -1,          TEXT_VEIL2, -1,          TEXT_BUTCH2, -1,            TEXT_BLIND2, TEXT_BLOOD2, TEXT_ANVIL2, TEXT_WARLRD2, TEXT_KING3,  TEXT_POISON2,  TEXT_BONE2, TEXT_VILE4,  TEXT_GRAVE5, -1,     -1,     -1,      -1,        -1,       -1,      -1 },
-    { TEXT_INFRA1,  TEXT_MUSH1,  -1,          -1,          TEXT_VEIL1, TEXT_VILE3, TEXT_BUTCH1, TEXT_BANNER1, TEXT_BLIND1, TEXT_BLOOD1, TEXT_ANVIL1, TEXT_WARLRD1, TEXT_KING1,  TEXT_POISON1,  TEXT_BONE1, TEXT_VILE2,  TEXT_GRAVE6, -1,     -1,     -1,      -1,        -1,       -1,      -1 },
-    { TEXT_INFRA8,  TEXT_MUSH7,  -1,          -1,          TEXT_VEIL6, -1,          TEXT_BUTCH6, TEXT_BANNER7, TEXT_BLIND6, TEXT_BLOOD6, TEXT_ANVIL8, TEXT_WARLRD6, TEXT_KING8,  TEXT_POISON8,  TEXT_BONE6, TEXT_VILE10, TEXT_GRAVE7, -1,     -1,     -1,      -1,        -1,       -1,      -1 },
-    { TEXT_INFRA9,  TEXT_MUSH9,  -1,          -1,          TEXT_VEIL7, -1,          TEXT_BUTCH7, TEXT_BANNER8, TEXT_BLIND7, TEXT_BLOOD7, TEXT_ANVIL9, TEXT_WARLRD7, TEXT_KING9,  TEXT_POISON9,  TEXT_BONE7, TEXT_VILE11, TEXT_GRAVE1, -1,     -1,     -1,      -1,        -1,       -1,      -1 },
-    { TEXT_INFRA4,  TEXT_MUSH5,  -1,          -1,          TEXT_VEIL4, -1,          TEXT_BUTCH4, TEXT_BANNER5, TEXT_BLIND4, TEXT_BLOOD4, TEXT_ANVIL4, TEXT_WARLRD4, TEXT_KING6,  TEXT_POISON6,  TEXT_BONE4, TEXT_VILE8,  TEXT_GRAVE8, -1,     -1,     -1,      -1,        -1,       -1,      -1 },
-    { TEXT_INFRA10, TEXT_MUSH13, -1,          -1,          TEXT_VEIL8, -1,          TEXT_BUTCH8, TEXT_BANNER9, TEXT_BLIND8, TEXT_BLOOD8, TEXT_ANVIL10,TEXT_WARLRD8, TEXT_KING10, TEXT_POISON10, TEXT_BONE8, TEXT_VILE12, TEXT_GRAVE9, -1,     -1,     -1,      -1,        -1,       -1,      -1 },
-    { -1,            -1,           -1,          -1,          -1,          -1,          -1,           -1,            -1,           -1,           -1,           -1,            -1,           -1,             -1,          -1,           -1,           -1,     -1,     -1,      -1,        -1,       -1,      -1 },
-    { -1,            -1,           -1,          -1,          -1,          -1,          -1,           -1,            -1,           -1,           -1,           -1,            -1,           -1,             -1,          -1,           -1,           -1,     -1,     -1,      -1,        -1,       -1,      -1 },
-    { -1,            -1,           -1,          -1,          -1,          -1,          -1,           -1,            -1,           -1,           -1,           -1,            -1,           -1,             -1,          -1,           -1,           -1,     -1,     -1,      -1,        -1,       -1,      -1 },
-    { -1,            -1,           -1,          -1,          -1,          -1,          -1,           -1,            -1,           -1,           -1,           -1,            -1,           -1,             -1,          -1,           -1,           -1,     -1,     -1,      -1,        -1,       -1,      -1 },
-    { -1,            -1,           -1,          -1,          -1,          -1,          -1,           -1,            -1,           -1,           -1,           -1,            -1,           -1,             -1,          -1,           -1,           -1,     -1,     -1,      -1,        -1,       -1,      -1 },
+	// _qinfra,      _qblkm,       _qgarb,      _qzhar,      _qveil,      _qmod,       _qbutch,      _qbol,         _qblind,      _qblood,      _qanvil,      _qwarlrd,      _qking,       _qpw,           _qbone,      _qvb,         _qgrv,        _qfarm, _qgirl, _qtrade, _qdefiler, _qnakrul, _qjersy, _qhf8
+	{ TEXT_INFRA6,  TEXT_MUSH6,  -1,          -1,          TEXT_VEIL5, -1,          TEXT_BUTCH5, TEXT_BANNER6, TEXT_BLIND5, TEXT_BLOOD5, TEXT_ANVIL6, TEXT_WARLRD5, TEXT_KING7,  TEXT_POISON7,  TEXT_BONE5, TEXT_VILE9,  TEXT_GRAVE2, -1,     -1,     -1,      -1,        -1,       -1,      -1 },
+	{ TEXT_INFRA3,  -1,           -1,          -1,          TEXT_VEIL3, -1,          TEXT_BUTCH3, TEXT_BANNER4, TEXT_BLIND3, TEXT_BLOOD3, TEXT_ANVIL3, TEXT_WARLRD3, TEXT_KING5,  TEXT_POISON4,  TEXT_BONE3, TEXT_VILE7,  TEXT_GRAVE3, -1,     -1,     -1,      -1,        -1,       -1,      -1 },
+	{ -1,            -1,           -1,          -1,          -1,          -1,          -1,           -1,            -1,           -1,           -1,           -1,            -1,           -1,             -1,          -1,           -1,           -1,     -1,     -1,      -1,        -1,       -1,      -1 },
+	{ TEXT_INFRA2,  TEXT_MUSH2,  -1,          -1,          TEXT_VEIL2, -1,          TEXT_BUTCH2, -1,            TEXT_BLIND2, TEXT_BLOOD2, TEXT_ANVIL2, TEXT_WARLRD2, TEXT_KING3,  TEXT_POISON2,  TEXT_BONE2, TEXT_VILE4,  TEXT_GRAVE5, -1,     -1,     -1,      -1,        -1,       -1,      -1 },
+	{ TEXT_INFRA1,  TEXT_MUSH1,  -1,          -1,          TEXT_VEIL1, TEXT_VILE3, TEXT_BUTCH1, TEXT_BANNER1, TEXT_BLIND1, TEXT_BLOOD1, TEXT_ANVIL1, TEXT_WARLRD1, TEXT_KING1,  TEXT_POISON1,  TEXT_BONE1, TEXT_VILE2,  TEXT_GRAVE6, -1,     -1,     -1,      -1,        -1,       -1,      -1 },
+	{ TEXT_INFRA8,  TEXT_MUSH7,  -1,          -1,          TEXT_VEIL6, -1,          TEXT_BUTCH6, TEXT_BANNER7, TEXT_BLIND6, TEXT_BLOOD6, TEXT_ANVIL8, TEXT_WARLRD6, TEXT_KING8,  TEXT_POISON8,  TEXT_BONE6, TEXT_VILE10, TEXT_GRAVE7, -1,     -1,     -1,      -1,        -1,       -1,      -1 },
+	{ TEXT_INFRA9,  TEXT_MUSH9,  -1,          -1,          TEXT_VEIL7, -1,          TEXT_BUTCH7, TEXT_BANNER8, TEXT_BLIND7, TEXT_BLOOD7, TEXT_ANVIL9, TEXT_WARLRD7, TEXT_KING9,  TEXT_POISON9,  TEXT_BONE7, TEXT_VILE11, TEXT_GRAVE1, -1,     -1,     -1,      -1,        -1,       -1,      -1 },
+	{ TEXT_INFRA4,  TEXT_MUSH5,  -1,          -1,          TEXT_VEIL4, -1,          TEXT_BUTCH4, TEXT_BANNER5, TEXT_BLIND4, TEXT_BLOOD4, TEXT_ANVIL4, TEXT_WARLRD4, TEXT_KING6,  TEXT_POISON6,  TEXT_BONE4, TEXT_VILE8,  TEXT_GRAVE8, -1,     -1,     -1,      -1,        -1,       -1,      -1 },
+	{ TEXT_INFRA10, TEXT_MUSH13, -1,          -1,          TEXT_VEIL8, -1,          TEXT_BUTCH8, TEXT_BANNER9, TEXT_BLIND8, TEXT_BLOOD8, TEXT_ANVIL10,TEXT_WARLRD8, TEXT_KING10, TEXT_POISON10, TEXT_BONE8, TEXT_VILE12, TEXT_GRAVE9, -1,     -1,     -1,      -1,        -1,       -1,      -1 },
+	{ -1,            -1,           -1,          -1,          -1,          -1,          -1,           -1,            -1,           -1,           -1,           -1,            -1,           -1,             -1,          -1,           -1,           -1,     -1,     -1,      -1,        -1,       -1,      -1 },
+	{ -1,            -1,           -1,          -1,          -1,          -1,          -1,           -1,            -1,           -1,           -1,           -1,            -1,           -1,             -1,          -1,           -1,           -1,     -1,     -1,      -1,        -1,       -1,      -1 },
+	{ -1,            -1,           -1,          -1,          -1,          -1,          -1,           -1,            -1,           -1,           -1,           -1,            -1,           -1,             -1,          -1,           -1,           -1,     -1,     -1,      -1,        -1,       -1,      -1 },
+	{ -1,            -1,           -1,          -1,          -1,          -1,          -1,           -1,            -1,           -1,           -1,           -1,            -1,           -1,             -1,          -1,           -1,           -1,     -1,     -1,      -1,        -1,       -1,      -1 },
+	{ -1,            -1,           -1,          -1,          -1,          -1,          -1,           -1,            -1,           -1,           -1,           -1,            -1,           -1,             -1,          -1,           -1,           -1,     -1,     -1,      -1,        -1,       -1,      -1 },
 #else
-    // _qinfra,      _qblkm,       _qgarb,      _qzhar,      _qveil,      _qmod,       _qbutch,      _qbol,         _qblind,      _qblood,      _qanvil,      _qwarlrd,      _qking,       _qpw,           _qbone,      _qvb
-    { TEXT_INFRA6,  TEXT_MUSH6,  -1,          -1,          TEXT_VEIL5, -1,          TEXT_BUTCH5, TEXT_BANNER6, TEXT_BLIND5, TEXT_BLOOD5, TEXT_ANVIL6, TEXT_WARLRD5, TEXT_KING7,  TEXT_POISON7,  TEXT_BONE5, TEXT_VILE9  },
-    { TEXT_INFRA3,  -1,           -1,          -1,          TEXT_VEIL3, -1,          TEXT_BUTCH3, TEXT_BANNER4, TEXT_BLIND3, TEXT_BLOOD3, TEXT_ANVIL3, TEXT_WARLRD3, TEXT_KING5,  TEXT_POISON4,  TEXT_BONE3, TEXT_VILE7  },
-    { -1,            -1,           -1,          -1,          -1,          -1,          -1,           -1,            -1,           -1,           -1,           -1,            -1,           -1,             -1,          -1           },
-    { TEXT_INFRA2,  TEXT_MUSH2,  -1,          -1,          TEXT_VEIL2, -1,          TEXT_BUTCH2, -1,            TEXT_BLIND2, TEXT_BLOOD2, TEXT_ANVIL2, TEXT_WARLRD2, TEXT_KING3,  TEXT_POISON2,  TEXT_BONE2, TEXT_VILE4  },
-    { TEXT_INFRA1,  TEXT_MUSH1,  -1,          -1,          TEXT_VEIL1, TEXT_VILE3, TEXT_BUTCH1, TEXT_BANNER1, TEXT_BLIND1, TEXT_BLOOD1, TEXT_ANVIL1, TEXT_WARLRD1, TEXT_KING1,  TEXT_POISON1,  TEXT_BONE1, TEXT_VILE2  },
-    { TEXT_INFRA8,  TEXT_MUSH7,  -1,          -1,          TEXT_VEIL6, -1,          TEXT_BUTCH6, TEXT_BANNER7, TEXT_BLIND6, TEXT_BLOOD6, TEXT_ANVIL8, TEXT_WARLRD6, TEXT_KING8,  TEXT_POISON8,  TEXT_BONE6, TEXT_VILE10 },
-    { TEXT_INFRA9,  TEXT_MUSH9,  -1,          -1,          TEXT_VEIL7, -1,          TEXT_BUTCH7, TEXT_BANNER8, TEXT_BLIND7, TEXT_BLOOD7, TEXT_ANVIL9, TEXT_WARLRD7, TEXT_KING9,  TEXT_POISON9,  TEXT_BONE7, TEXT_VILE11 },
-    { TEXT_INFRA4,  TEXT_MUSH5,  -1,          -1,          TEXT_VEIL4, -1,          TEXT_BUTCH4, TEXT_BANNER5, TEXT_BLIND4, TEXT_BLOOD4, TEXT_ANVIL4, TEXT_WARLRD4, TEXT_KING6,  TEXT_POISON6,  TEXT_BONE4, TEXT_VILE8  },
-    { TEXT_INFRA10, TEXT_MUSH13, -1,          -1,          TEXT_VEIL8, -1,          TEXT_BUTCH8, TEXT_BANNER9, TEXT_BLIND8, TEXT_BLOOD8, TEXT_ANVIL10,TEXT_WARLRD8, TEXT_KING10, TEXT_POISON10, TEXT_BONE8, TEXT_VILE12 },
-    { -1,            -1,           -1,          -1,          -1,          -1,          -1,           -1,            -1,           -1,           -1,           -1,            -1,           -1,             -1,          -1           },
-    { TEXT_KING1,   TEXT_KING1,  TEXT_KING1, TEXT_KING1, TEXT_KING1, TEXT_KING1, TEXT_KING1,  TEXT_KING1,   TEXT_KING1,  TEXT_KING1,  TEXT_KING1,  TEXT_KING1,   TEXT_KING1,  TEXT_KING1,    TEXT_KING1, TEXT_KING1  }
+	// _qinfra,      _qblkm,       _qgarb,      _qzhar,      _qveil,      _qmod,       _qbutch,      _qbol,         _qblind,      _qblood,      _qanvil,      _qwarlrd,      _qking,       _qpw,           _qbone,      _qvb
+	{ TEXT_INFRA6,  TEXT_MUSH6,  -1,          -1,          TEXT_VEIL5, -1,          TEXT_BUTCH5, TEXT_BANNER6, TEXT_BLIND5, TEXT_BLOOD5, TEXT_ANVIL6, TEXT_WARLRD5, TEXT_KING7,  TEXT_POISON7,  TEXT_BONE5, TEXT_VILE9  },
+	{ TEXT_INFRA3,  -1,           -1,          -1,          TEXT_VEIL3, -1,          TEXT_BUTCH3, TEXT_BANNER4, TEXT_BLIND3, TEXT_BLOOD3, TEXT_ANVIL3, TEXT_WARLRD3, TEXT_KING5,  TEXT_POISON4,  TEXT_BONE3, TEXT_VILE7  },
+	{ -1,            -1,           -1,          -1,          -1,          -1,          -1,           -1,            -1,           -1,           -1,           -1,            -1,           -1,             -1,          -1           },
+	{ TEXT_INFRA2,  TEXT_MUSH2,  -1,          -1,          TEXT_VEIL2, -1,          TEXT_BUTCH2, -1,            TEXT_BLIND2, TEXT_BLOOD2, TEXT_ANVIL2, TEXT_WARLRD2, TEXT_KING3,  TEXT_POISON2,  TEXT_BONE2, TEXT_VILE4  },
+	{ TEXT_INFRA1,  TEXT_MUSH1,  -1,          -1,          TEXT_VEIL1, TEXT_VILE3, TEXT_BUTCH1, TEXT_BANNER1, TEXT_BLIND1, TEXT_BLOOD1, TEXT_ANVIL1, TEXT_WARLRD1, TEXT_KING1,  TEXT_POISON1,  TEXT_BONE1, TEXT_VILE2  },
+	{ TEXT_INFRA8,  TEXT_MUSH7,  -1,          -1,          TEXT_VEIL6, -1,          TEXT_BUTCH6, TEXT_BANNER7, TEXT_BLIND6, TEXT_BLOOD6, TEXT_ANVIL8, TEXT_WARLRD6, TEXT_KING8,  TEXT_POISON8,  TEXT_BONE6, TEXT_VILE10 },
+	{ TEXT_INFRA9,  TEXT_MUSH9,  -1,          -1,          TEXT_VEIL7, -1,          TEXT_BUTCH7, TEXT_BANNER8, TEXT_BLIND7, TEXT_BLOOD7, TEXT_ANVIL9, TEXT_WARLRD7, TEXT_KING9,  TEXT_POISON9,  TEXT_BONE7, TEXT_VILE11 },
+	{ TEXT_INFRA4,  TEXT_MUSH5,  -1,          -1,          TEXT_VEIL4, -1,          TEXT_BUTCH4, TEXT_BANNER5, TEXT_BLIND4, TEXT_BLOOD4, TEXT_ANVIL4, TEXT_WARLRD4, TEXT_KING6,  TEXT_POISON6,  TEXT_BONE4, TEXT_VILE8  },
+	{ TEXT_INFRA10, TEXT_MUSH13, -1,          -1,          TEXT_VEIL8, -1,          TEXT_BUTCH8, TEXT_BANNER9, TEXT_BLIND8, TEXT_BLOOD8, TEXT_ANVIL10,TEXT_WARLRD8, TEXT_KING10, TEXT_POISON10, TEXT_BONE8, TEXT_VILE12 },
+	{ -1,            -1,           -1,          -1,          -1,          -1,          -1,           -1,            -1,           -1,           -1,           -1,            -1,           -1,             -1,          -1           },
+	{ TEXT_KING1,   TEXT_KING1,  TEXT_KING1, TEXT_KING1, TEXT_KING1, TEXT_KING1, TEXT_KING1,  TEXT_KING1,   TEXT_KING1,  TEXT_KING1,  TEXT_KING1,  TEXT_KING1,   TEXT_KING1,  TEXT_KING1,    TEXT_KING1, TEXT_KING1  }
 #endif
     // clang-format on
 };
@@ -166,14 +166,14 @@ void SetTownerGPtrs(BYTE* pData, BYTE** pAnim)
     {
         src = pData;
         __asm {
-            mov        eax, src
-            mov        ebx, eax
-            mov        edx, i
-            shl        edx, 2
-            add        ebx, edx
-            mov        edx, [ebx]
-            add        eax, edx
-            mov        src, eax
+			mov		eax, src
+			mov		ebx, eax
+			mov		edx, i
+			shl		edx, 2
+			add		ebx, edx
+			mov		edx, [ebx]
+			add		eax, edx
+			mov		src, eax
         }
         pAnim[i] = src;
     }
@@ -396,7 +396,7 @@ void InitCows()
     int x, y, xo, yo;
 
     // if ( pCowCels )
-    //    assertion_failed(300, "C:\\Diablo\\Direct\\towners.cpp", "! pCowCels");
+    //	assertion_failed(300, "C:\\Diablo\\Direct\\towners.cpp", "! pCowCels");
     pCowCels = LoadFileInMem("Towners\\Animals\\Cow.CEL", NULL);
     for (i = 0; i < 3; i++)
     {
@@ -449,7 +449,7 @@ void InitCowFarmer()
 
     InitTownerInfo(numtowners, 96, 1, TOWN_COWFARM, 61, 22, -1, 10);
     InitQstSnds(numtowners);
-    if (quests[Q_JERSEY]._qactive != 3)
+    if (quests[Q_JERSEY]._qactive != QUEST_DONE)
     {
         towner[numtowners]._tNData = LoadFileInMem("Towners\\Farmer\\cfrmrn2.CEL", NULL);
     }
@@ -473,7 +473,7 @@ void InitGirl()
 
     InitTownerInfo(numtowners, 96, 1, TOWN_GIRL, 77, 43, -1, 10);
     InitQstSnds(numtowners);
-    if (quests[Q_GIRL]._qactive != 3)
+    if (quests[Q_GIRL]._qactive != QUEST_DONE)
     {
         towner[numtowners]._tNData = LoadFileInMem("Towners\\Girl\\Girlw1.CEL", NULL);
     }
@@ -1141,8 +1141,8 @@ else if (t == GetActiveTowner(TOWN_BMAID))
 #ifdef HELLFIRE
     if (plr[p]._pLvlVisited[21] == false && PlrHasItem(p, IDI_MAPOFDOOM, i))
     {
-        quests[Q_GRAVE]._qactive = 2;
-        quests[Q_GRAVE]._qlog = 1;
+        quests[Q_GRAVE]._qactive = QUEST_ACTIVE;
+        quests[Q_GRAVE]._qlog = TRUE;
         quests[Q_GRAVE]._qmsg = TEXT_GRAVE8;
         InitQTextMsg(TEXT_GRAVE8);
         towner[t]._tMsgSaid = TRUE;
@@ -1307,9 +1307,9 @@ else if (towner[t]._ttype == TOWN_FARMER)
                 if (PlrHasItem(p, IDI_RUNEBOMB, i))
                 {
                     qt = TEXT_FARMER2;
-                    quests[Q_FARMER]._qactive = 2;
+                    quests[Q_FARMER]._qactive = QUEST_ACTIVE;
                     quests[Q_FARMER]._qvar1 = 1;
-                    quests[Q_FARMER]._qlog = 1;
+                    quests[Q_FARMER]._qlog = TRUE;
                     quests[Q_FARMER]._qmsg = TEXT_FARMER1;
                     break;
                 }
@@ -1326,9 +1326,9 @@ else if (towner[t]._ttype == TOWN_FARMER)
                 else
                 {
                     qt = TEXT_FARMER1;
-                    quests[Q_FARMER]._qactive = 2;
+                    quests[Q_FARMER]._qactive = QUEST_ACTIVE;
                     quests[Q_FARMER]._qvar1 = 1;
-                    quests[Q_FARMER]._qlog = 1;
+                    quests[Q_FARMER]._qlog = TRUE;
                     quests[Q_FARMER]._qmsg = TEXT_FARMER1;
                     SpawnRuneBomb(towner[t]._tx + 1, towner[t]._ty);
                     t2 = 1;
@@ -1344,10 +1344,10 @@ else if (towner[t]._ttype == TOWN_FARMER)
                 if (PlrHasItem(p, IDI_RUNEBOMB, i))
                 {
                     qt = TEXT_FARMER2;
-                    quests[Q_FARMER]._qactive = 2;
+                    quests[Q_FARMER]._qactive = QUEST_ACTIVE;
                     quests[Q_FARMER]._qvar1 = 1;
                     quests[Q_FARMER]._qmsg = TEXT_FARMER1;
-                    quests[Q_FARMER]._qlog = 1;
+                    quests[Q_FARMER]._qlog = TRUE;
                 }
                 else if (!plr[myplr]._pLvlVisited[9] && plr[myplr]._pLevel < 15)
                 {
@@ -1368,9 +1368,9 @@ else if (towner[t]._ttype == TOWN_FARMER)
                 else
                 {
                     qt = TEXT_FARMER1;
-                    quests[Q_FARMER]._qactive = 2;
+                    quests[Q_FARMER]._qactive = QUEST_ACTIVE;
                     quests[Q_FARMER]._qvar1 = 1;
-                    quests[Q_FARMER]._qlog = 1;
+                    quests[Q_FARMER]._qlog = TRUE;
                     quests[Q_FARMER]._qmsg = TEXT_FARMER1;
                     SpawnRuneBomb(towner[t]._tx + 1, towner[t]._ty);
                     t2 = 1;
@@ -1379,15 +1379,15 @@ else if (towner[t]._ttype == TOWN_FARMER)
             case 3:
                 qt = TEXT_FARMER4;
                 SpawnRewardItem(IDI_AURIC, towner[t]._tx + 1, towner[t]._ty);
-                quests[Q_FARMER]._qactive = 10;
-                quests[Q_FARMER]._qlog = 0;
+                quests[Q_FARMER]._qactive = QUEST_INIT;
+                quests[Q_FARMER]._qlog = FALSE;
                 t2 = 1;
                 break;
             case 10:
                 qt = -1;
                 break;
             default:
-                quests[Q_FARMER]._qactive = 0;
+                quests[Q_FARMER]._qactive = QUEST_NOTAVAIL;
                 qt = TEXT_FARMER4;
                 break;
         }
@@ -1420,15 +1420,15 @@ else if (towner[t]._ttype == TOWN_COWFARM)
             CreateItem(UITEM_BOVINE, towner[t]._tx + 1, towner[t]._ty);
             RemoveInvItem(p, i);
             qt = TEXT_JERSEY8;
-            quests[Q_JERSEY]._qactive = 3;
+            quests[Q_JERSEY]._qactive = QUEST_DONE;
         }
         else if (PlrHasItem(p, IDI_RUNEBOMB, i))
         {
             qt = TEXT_JERSEY5;
-            quests[Q_JERSEY]._qactive = 2;
+            quests[Q_JERSEY]._qactive = QUEST_ACTIVE;
             quests[Q_JERSEY]._qvar1 = 1;
             quests[Q_JERSEY]._qmsg = TEXT_JERSEY4;
-            quests[Q_JERSEY]._qlog = 1;
+            quests[Q_JERSEY]._qlog = TRUE;
         }
         else
         {
@@ -1478,17 +1478,17 @@ else if (towner[t]._ttype == TOWN_COWFARM)
                     else
                     {
                         qt = TEXT_JERSEY4;
-                        quests[Q_JERSEY]._qactive = 2;
+                        quests[Q_JERSEY]._qactive = QUEST_ACTIVE;
                         quests[Q_JERSEY]._qvar1 = 1;
                         quests[Q_JERSEY]._qmsg = TEXT_JERSEY4;
-                        quests[Q_JERSEY]._qlog = 1;
+                        quests[Q_JERSEY]._qlog = TRUE;
                         SpawnRuneBomb(towner[t]._tx + 1, towner[t]._ty);
                         t2 = 1;
                     }
                     break;
                 default:
                     qt = TEXT_JERSEY5;
-                    quests[Q_JERSEY]._qactive = 0;
+                    quests[Q_JERSEY]._qactive = QUEST_NOTAVAIL;
                     break;
             }
         }
@@ -1511,24 +1511,24 @@ else if (towner[t]._ttype == TOWN_GIRL)
     {
         qt = 282;
         t2 = 0;
-        if (!PlrHasItem(p, IDI_THEODORE, i) || quests[Q_GIRL]._qactive == 3)
+        if (!PlrHasItem(p, IDI_THEODORE, i) || quests[Q_GIRL]._qactive == QUEST_DONE)
         {
             switch (quests[Q_GIRL]._qactive)
             {
                 case 0:
                     qt = TEXT_GIRL2;
-                    quests[Q_GIRL]._qactive = 2;
+                    quests[Q_GIRL]._qactive = QUEST_ACTIVE;
                     quests[Q_GIRL]._qvar1 = 1;
-                    quests[Q_GIRL]._qlog = 1;
+                    quests[Q_GIRL]._qlog = TRUE;
                     quests[Q_GIRL]._qmsg = TEXT_GIRL2;
                     t2 = 1;
                     break;
                 case 1:
                     qt = TEXT_GIRL2;
                     quests[Q_GIRL]._qvar1 = 1;
-                    quests[Q_GIRL]._qlog = 1;
+                    quests[Q_GIRL]._qlog = TRUE;
                     quests[Q_GIRL]._qmsg = TEXT_GIRL2;
-                    quests[Q_GIRL]._qactive = 2;
+                    quests[Q_GIRL]._qactive = QUEST_ACTIVE;
                     t2 = 1;
                     break;
                 case 2:
@@ -1539,7 +1539,7 @@ else if (towner[t]._ttype == TOWN_GIRL)
                     qt = -1;
                     break;
                 default:
-                    quests[Q_GIRL]._qactive = 0;
+                    quests[Q_GIRL]._qactive = QUEST_NOTAVAIL;
                     qt = TEXT_GIRL1;
                     break;
             }
@@ -1549,8 +1549,8 @@ else if (towner[t]._ttype == TOWN_GIRL)
             qt = TEXT_GIRL4;
             RemoveInvItem(p, i);
             CreateAmulet(towner[t]._tx, towner[t]._ty, 13, 0, 1);
-            quests[Q_GIRL]._qlog = 0;
-            quests[Q_GIRL]._qactive = 3;
+            quests[Q_GIRL]._qlog = FALSE;
+            quests[Q_GIRL]._qactive = QUEST_DONE;
             t2 = 1;
         }
         if (qt != -1)

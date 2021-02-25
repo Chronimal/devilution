@@ -5,13 +5,21 @@
  */
 #include "all.h"
 
+/** Current y position of text in px */
 int qtexty;
+/** Pointer to the current text being displayed */
 const char* qtextptr;
+/** Time of last rendering of the text */
 int sgLastScroll;
+/** Specify if the quest dialog window is being shown */
 BOOLEAN qtextflag;
+/** Duplicate of qtextSpd */
 int qtextDelay;
+/** Vertical speed of the scrolling text, see qscroll_spd_tbl */
 int qtextSpd;
+/** Graphics for the medium size font */
 BYTE* pMedTextCels;
+/** Graphics for the window border */
 BYTE* pTextBoxCels;
 
 /** Maps from font index to medtexts.cel frame number. */
@@ -35,12 +43,18 @@ const BYTE mfontkern[56] = {5,  15, 10, 13, 14, 10, 9,  13, 11, 5, 5,  11, 10, 1
  */
 int qscroll_spd_tbl[9] = {2, 4, 6, 8, 0, -1, -2, -3, -4};
 
+/**
+ * @brief Free the resouces used by the quest dialog window
+ */
 void FreeQuestText()
 {
     MemFreeDbg(pMedTextCels);
     MemFreeDbg(pTextBoxCels);
 }
 
+/**
+ * @brief Load the resouces used by the quest dialog window, and initialize it's state
+ */
 void InitQuestText()
 {
     pMedTextCels = LoadFileInMem("Data\\MedTextS.CEL", NULL);
@@ -48,6 +62,10 @@ void InitQuestText()
     qtextflag = FALSE;
 }
 
+/**
+ * @brief Start the given naration
+ * @param m Index of narration from the alltext table
+ */
 void InitQTextMsg(int m)
 {
     if (alltext[m].scrlltxt)
@@ -63,6 +81,9 @@ void InitQTextMsg(int m)
     PlaySFX(alltext[m].sfxnr);
 }
 
+/**
+ * @brief Draw the quest dialog window decoration and background
+ */
 void DrawQTextBack()
 {
     CelDraw(PANEL_X + 24, SCREEN_Y + 327, pTextBoxCels, 1, 591);
@@ -74,6 +95,13 @@ void DrawQTextBack()
 #include "asm_trans_rect.inc"
 }
 
+/**
+ * @brief Print a character
+ * @param sx Back buffer coordinate
+ * @param sy Back buffer coordinate
+ * @param pCelBuff Cel data
+ * @param nCel CEL frame number
+ */
 void PrintQTextChr(int sx, int sy, BYTE* pCelBuff, int nCel)
 {
     BYTE *dst, *pStart, *pEnd, *end;
@@ -86,59 +114,59 @@ void PrintQTextChr(int sx, int sy, BYTE* pCelBuff, int nCel)
 
 #ifdef USE_ASM
     __asm {
-        mov        ebx, pCelBuff
-        mov        eax, nCel
-        shl        eax, 2
-        add        ebx, eax
-        mov        eax, [ebx+4]
-        sub        eax, [ebx]
-        mov        end, eax
-        mov        esi, pCelBuff
-        add        esi, [ebx]
-        mov        edi, dst
-        mov        ebx, end
-        add        ebx, esi
-    label1:
-        mov        edx, 22
-    label2:
-        xor        eax, eax
-        lodsb
-        or        al, al
-        js        label7
-        sub        edx, eax
-        cmp        edi, pStart
-        jb        label5
-        cmp        edi, pEnd
-        ja        label5
-        mov        ecx, eax
-        shr        ecx, 1
-        jnb        label3
-        movsb
-        jecxz    label6
-    label3:
-        shr        ecx, 1
-        jnb        label4
-        movsw
-        jecxz    label6
-    label4:
-        rep movsd
-        jmp        label6
-    label5:
-        add        esi, eax
-        add        edi, eax
-    label6:
-        or        edx, edx
-        jz        label8
-        jmp        label2
-    label7:
-        neg        al
-        add        edi, eax
-        sub        edx, eax
-        jnz        label2
-    label8:
-        sub        edi, BUFFER_WIDTH + 22
-        cmp        ebx, esi
-        jnz        label1
+		mov		ebx, pCelBuff
+		mov		eax, nCel
+		shl		eax, 2
+		add		ebx, eax
+		mov		eax, [ebx+4]
+		sub		eax, [ebx]
+		mov		end, eax
+		mov		esi, pCelBuff
+		add		esi, [ebx]
+		mov		edi, dst
+		mov		ebx, end
+		add		ebx, esi
+	label1:
+		mov		edx, 22
+	label2:
+		xor		eax, eax
+		lodsb
+		or		al, al
+		js		label7
+		sub		edx, eax
+		cmp		edi, pStart
+		jb		label5
+		cmp		edi, pEnd
+		ja		label5
+		mov		ecx, eax
+		shr		ecx, 1
+		jnb		label3
+		movsb
+		jecxz	label6
+	label3:
+		shr		ecx, 1
+		jnb		label4
+		movsw
+		jecxz	label6
+	label4:
+		rep movsd
+		jmp		label6
+	label5:
+		add		esi, eax
+		add		edi, eax
+	label6:
+		or		edx, edx
+		jz		label8
+		jmp		label2
+	label7:
+		neg		al
+		add		edi, eax
+		sub		edx, eax
+		jnz		label2
+	label8:
+		sub		edi, BUFFER_WIDTH + 22
+		cmp		ebx, esi
+		jnz		label1
     }
 #else
     int i;
@@ -202,6 +230,9 @@ void PrintQTextChr(int sx, int sy, BYTE* pCelBuff, int nCel)
 #endif
 }
 
+/**
+ * @brief Draw the quest dialog window decoration and background
+ */
 void DrawQText()
 {
     int i, l, w, tx, ty;

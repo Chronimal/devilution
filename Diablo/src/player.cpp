@@ -704,7 +704,7 @@ void ClearPlrRVars(PlayerStruct* p)
     p->bReserved[2] = 0;
 
 #ifndef HELLFIRE
-    p->wReflection = 0;
+    p->wReflections = 0;
 #endif
     p->wReserved[0] = 0;
     p->wReserved[1] = 0;
@@ -731,7 +731,6 @@ void ClearPlrRVars(PlayerStruct* p)
 void CreatePlayer(int pnum, char c)
 {
     char val;
-    int hp, mana;
     int i;
 
 #ifdef HELLFIRE
@@ -824,7 +823,7 @@ void CreatePlayer(int pnum, char c)
     {
 #else
     }
-    if (plr[pnum]._pClass == PC_ROGUE == PC_ROGUE)
+    if (plr[pnum]._pClass == PC_ROGUE)
     {
 #endif
         plr[pnum]._pHitPoints += plr[pnum]._pHitPoints >> 1;
@@ -987,7 +986,7 @@ void CreatePlayer(int pnum, char c)
     plr[pnum].pManaShield = FALSE;
 #else
     plr[pnum].pDamAcFlags = 0;
-    plr[pnum].wReflection = 0;
+    plr[pnum].wReflections = 0;
 #endif
 
     InitDungMsgs(pnum);
@@ -1660,6 +1659,9 @@ void PM_ChangeOffset(int pnum)
     PM_ChangeLightOff(pnum);
 }
 
+/**
+ * @brief Starting a move action towards NW, N, or NE
+ */
 void StartWalk(int pnum, int xvel, int yvel, int xadd, int yadd, int EndDir, int sdir)
 {
     int px, py;
@@ -1744,6 +1746,9 @@ void StartWalk(int pnum, int xvel, int yvel, int xadd, int yadd, int EndDir, int
     }
 }
 
+/**
+ * @brief Starting a move action towards SW, S, or SE
+ */
 void StartWalk2(int pnum, int xvel, int yvel, int xoff, int yoff, int xadd, int yadd, int EndDir, int sdir)
 {
     int px, py;
@@ -1780,10 +1785,10 @@ void StartWalk2(int pnum, int xvel, int yvel, int xoff, int yoff, int xadd, int 
     dPlayer[plr[pnum]._px][plr[pnum]._py] = -1 - pnum;
     plr[pnum]._pVar1 = plr[pnum]._px;
     plr[pnum]._pVar2 = plr[pnum]._py;
-    plr[pnum]._px = px;
+    plr[pnum]._px = px; // Move player to the next tile to maintain correct render order
     plr[pnum]._py = py;
     dPlayer[plr[pnum]._px][plr[pnum]._py] = pnum + 1;
-    plr[pnum]._pxoff = xoff;
+    plr[pnum]._pxoff = xoff; // Offset player sprite to align with their previous tile position
     plr[pnum]._pyoff = yoff;
 
     ChangeLightXY(plr[pnum]._plid, plr[pnum]._px, plr[pnum]._py);
@@ -1840,6 +1845,9 @@ void StartWalk2(int pnum, int xvel, int yvel, int xoff, int yoff, int xadd, int 
     }
 }
 
+/**
+ * @brief Starting a move action towards W or E
+ */
 void StartWalk3(int pnum, int xvel, int yvel, int xoff, int yoff, int xadd, int yadd, int mapx, int mapy, int EndDir, int sdir)
 {
     int px, py, x, y;
@@ -1880,7 +1888,7 @@ void StartWalk3(int pnum, int xvel, int yvel, int xoff, int yoff, int xadd, int 
     plr[pnum]._pVar4 = x;
     plr[pnum]._pVar5 = y;
     dFlags[x][y] |= BFLAG_PLAYERLR;
-    plr[pnum]._pxoff = xoff;
+    plr[pnum]._pxoff = xoff; // Offset player sprite to align with their previous tile position
     plr[pnum]._pyoff = yoff;
 
     if (leveltype != DTYPE_TOWN)
@@ -2803,6 +2811,9 @@ BOOL PM_DoStand(int pnum)
     return FALSE;
 }
 
+/**
+ * @brief Movement towards NW, N, and NE
+ */
 BOOL PM_DoWalk(int pnum)
 {
     int anim_len;
@@ -2889,6 +2900,9 @@ BOOL PM_DoWalk(int pnum)
     return rv;
 }
 
+/**
+ * @brief Movement towards SW, S, and SE
+ */
 BOOL PM_DoWalk2(int pnum)
 {
     int anim_len;
@@ -2971,6 +2985,9 @@ BOOL PM_DoWalk2(int pnum)
     return rv;
 }
 
+/**
+ * @brief Movement towards W and E
+ */
 BOOL PM_DoWalk3(int pnum)
 {
     int anim_len;
@@ -3066,7 +3083,7 @@ BOOL WeaponDur(int pnum, int durrnd)
     }
 
 #ifdef HELLFIRE
-    if (plr[pnum].InvBody[INVLOC_HAND_LEFT]._itype != ITYPE_NONE && plr[pnum].InvBody[INVLOC_HAND_LEFT]._iClass == ICLASS_WEAPON && plr[pnum].InvBody[INVLOC_HAND_LEFT]._iDamAcFlags & 2)
+    if (plr[pnum].InvBody[INVLOC_HAND_LEFT]._itype != ITYPE_NONE && plr[pnum].InvBody[INVLOC_HAND_LEFT]._iClass == ICLASS_WEAPON && plr[pnum].InvBody[INVLOC_HAND_LEFT]._iDamAcFlags & ISPLHF_DECAY)
     {
         plr[pnum].InvBody[INVLOC_HAND_LEFT]._iPLDam -= 5;
         if (plr[pnum].InvBody[INVLOC_HAND_LEFT]._iPLDam <= -100)
@@ -3079,7 +3096,7 @@ BOOL WeaponDur(int pnum, int durrnd)
         CalcPlrInv(pnum, TRUE);
     }
 
-    if (plr[pnum].InvBody[INVLOC_HAND_RIGHT]._itype != ITYPE_NONE && plr[pnum].InvBody[INVLOC_HAND_RIGHT]._iClass == ICLASS_WEAPON && plr[pnum].InvBody[INVLOC_HAND_RIGHT]._iDamAcFlags & 2)
+    if (plr[pnum].InvBody[INVLOC_HAND_RIGHT]._itype != ITYPE_NONE && plr[pnum].InvBody[INVLOC_HAND_RIGHT]._iClass == ICLASS_WEAPON && plr[pnum].InvBody[INVLOC_HAND_RIGHT]._iDamAcFlags & ISPLHF_DECAY)
     {
         plr[pnum].InvBody[INVLOC_HAND_RIGHT]._iPLDam -= 5;
         if (plr[pnum].InvBody[INVLOC_HAND_RIGHT]._iPLDam <= -100)
@@ -3357,20 +3374,20 @@ BOOL PlrHitMonst(int pnum, int m)
         }
 
 #ifdef HELLFIRE
-        if (plr[pnum].pDamAcFlags & 0x01 && random_(6, 100) < 5)
+        if (plr[pnum].pDamAcFlags & ISPLHF_DEVASTATION && random_(6, 100) < 5)
         {
             dam *= 3;
         }
 
-        if (plr[pnum].pDamAcFlags & 0x10 && monster[m].MType->mtype != MT_DIABLO && monster[m]._uniqtype == 0 && random_(6, 100) < 10)
+        if (plr[pnum].pDamAcFlags & ISPLHF_DOPPELGANGER && monster[m].MType->mtype != MT_DIABLO && monster[m]._uniqtype == 0 && random_(6, 100) < 10)
         {
-            monster_43C785(m);
+            AddDoppelganger(m);
         }
 #endif
 
         dam <<= 6;
 #ifdef HELLFIRE
-        if (plr[pnum].pDamAcFlags & 0x08)
+        if (plr[pnum].pDamAcFlags & ISPLHF_JESTERS)
         {
             int r = random_(6, 201);
             if (r >= 100)
@@ -3385,7 +3402,7 @@ BOOL PlrHitMonst(int pnum, int m)
         if (pnum == myplr)
         {
 #ifdef HELLFIRE
-            if (plr[pnum].pDamAcFlags & 0x04)
+            if (plr[pnum].pDamAcFlags & ISPLHF_PERIL)
             {
                 dam2 += plr[pnum]._pIGetHit << 6;
                 if (dam2 >= 0)
@@ -3655,7 +3672,7 @@ BOOL PlrHitObj(int pnum, int mx, int my)
 
 BOOL PM_DoAttack(int pnum)
 {
-    int frame, dir, dx, dy, m;
+    int frame, dx, dy, m;
     BOOL didhit = FALSE;
 
     if ((DWORD)pnum >= MAX_PLRS)
@@ -3997,7 +4014,7 @@ BOOL PM_DoSpell(int pnum)
 
     if (plr[pnum]._pVar8 == plr[pnum]._pSFNum)
     {
-        CastSpell(pnum, plr[pnum]._pSpell, plr[pnum]._px, plr[pnum]._py, plr[pnum]._pVar1, plr[pnum]._pVar2, 0, plr[pnum]._pVar4);
+        CastSpell(pnum, plr[pnum]._pSpell, plr[pnum]._px, plr[pnum]._py, plr[pnum]._pVar1, plr[pnum]._pVar2, TARGET_MONSTERS, plr[pnum]._pVar4);
 
         if (plr[pnum]._pSplFrom == 0)
         {
@@ -5793,8 +5810,8 @@ void PlayDungMsgs()
     {
         sfxdelay = 10;
         sfxdnum = USFX_DEFILER1;
-        quests[Q_DEFILER]._qactive = 2;
-        quests[Q_DEFILER]._qlog = 1;
+        quests[Q_DEFILER]._qactive = QUEST_ACTIVE;
+        quests[Q_DEFILER]._qlog = TRUE;
         quests[Q_DEFILER]._qmsg = 286;
         plr[myplr].pDungMsgs2 |= 1;
     }

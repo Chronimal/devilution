@@ -24,32 +24,32 @@ int ReturnLvl;
 /** Contains the data related to each quest_id. */
 QuestData questlist[MAXQUESTS] = {
     // clang-format off
-    // _qdlvl,  _qdmultlvl, _qlvlt,          _qdtype,     _qdrnd,  _qslvl,  _qflags,       _qdmsg,        _qlstr
-    {       5,         -1, DTYPE_NONE,      Q_ROCK,      100,      0,       QUEST_SINGLE,  TEXT_INFRA5,   "The Magic Rock"           },
-    {       9,         -1, DTYPE_NONE,      Q_MUSHROOM,  100,      0,       QUEST_SINGLE,  TEXT_MUSH8,    "Black Mushroom"           },
-    {       4,         -1, DTYPE_NONE,      Q_GARBUD,    100,      0,       QUEST_SINGLE,  TEXT_GARBUD1,  "Gharbad The Weak"         },
-    {       8,         -1, DTYPE_NONE,      Q_ZHAR,      100,      0,       QUEST_SINGLE,  TEXT_ZHAR1,    "Zhar the Mad"             },
-    {      14,         -1, DTYPE_NONE,      Q_VEIL,      100,      0,       QUEST_SINGLE,  TEXT_VEIL9,    "Lachdanan"                },
-    {      15,         -1, DTYPE_NONE,      Q_DIABLO,    100,      0,       QUEST_ANY,     TEXT_VILE3,    "Diablo"                   },
-    {       2,          2, DTYPE_NONE,      Q_BUTCHER,   100,      0,       QUEST_ANY,     TEXT_BUTCH9,   "The Butcher"              },
-    {       4,         -1, DTYPE_NONE,      Q_LTBANNER,  100,      0,       QUEST_SINGLE,  TEXT_BANNER2,  "Ogden's Sign"             },
-    {       7,         -1, DTYPE_NONE,      Q_BLIND,     100,      0,       QUEST_SINGLE,  TEXT_BLINDING, "Halls of the Blind"       },
-    {       5,         -1, DTYPE_NONE,      Q_BLOOD,     100,      0,       QUEST_SINGLE,  TEXT_BLOODY,   "Valor"                    },
-    {      10,         -1, DTYPE_NONE,      Q_ANVIL,     100,      0,       QUEST_SINGLE,  TEXT_ANVIL5,   "Anvil of Fury"            },
-    {      13,         -1, DTYPE_NONE,      Q_WARLORD,   100,      0,       QUEST_SINGLE,  TEXT_BLOODWAR, "Warlord of Blood"         },
-    {       3,          3, DTYPE_CATHEDRAL, Q_SKELKING,  100,      1,       QUEST_ANY,     TEXT_KING2,    "The Curse of King Leoric" },
-    {       2,         -1, DTYPE_CAVES,     Q_PWATER,    100,      4,       QUEST_SINGLE,  TEXT_POISON3,  "Poisoned Water Supply"    },
-    {       6,         -1, DTYPE_CATACOMBS, Q_SCHAMB,    100,      2,       QUEST_SINGLE,  TEXT_BONER,    "The Chamber of Bone"      },
-    {      15,         15, DTYPE_CATHEDRAL, Q_BETRAYER,  100,      5,       QUEST_ANY,     TEXT_VILE1,    "Archbishop Lazarus"       },
+	// _qdlvl,  _qdmultlvl, _qlvlt,          _qdtype,     _qdrnd,  _qslvl,  _qflags,       _qdmsg,        _qlstr
+	{       5,         -1, DTYPE_NONE,      Q_ROCK,      100,      0,       QUEST_SINGLE,  TEXT_INFRA5,   "The Magic Rock"           },
+	{       9,         -1, DTYPE_NONE,      Q_MUSHROOM,  100,      0,       QUEST_SINGLE,  TEXT_MUSH8,    "Black Mushroom"           },
+	{       4,         -1, DTYPE_NONE,      Q_GARBUD,    100,      0,       QUEST_SINGLE,  TEXT_GARBUD1,  "Gharbad The Weak"         },
+	{       8,         -1, DTYPE_NONE,      Q_ZHAR,      100,      0,       QUEST_SINGLE,  TEXT_ZHAR1,    "Zhar the Mad"             },
+	{      14,         -1, DTYPE_NONE,      Q_VEIL,      100,      0,       QUEST_SINGLE,  TEXT_VEIL9,    "Lachdanan"                },
+	{      15,         -1, DTYPE_NONE,      Q_DIABLO,    100,      0,       QUEST_ANY,     TEXT_VILE3,    "Diablo"                   },
+	{       2,          2, DTYPE_NONE,      Q_BUTCHER,   100,      0,       QUEST_ANY,     TEXT_BUTCH9,   "The Butcher"              },
+	{       4,         -1, DTYPE_NONE,      Q_LTBANNER,  100,      0,       QUEST_SINGLE,  TEXT_BANNER2,  "Ogden's Sign"             },
+	{       7,         -1, DTYPE_NONE,      Q_BLIND,     100,      0,       QUEST_SINGLE,  TEXT_BLINDING, "Halls of the Blind"       },
+	{       5,         -1, DTYPE_NONE,      Q_BLOOD,     100,      0,       QUEST_SINGLE,  TEXT_BLOODY,   "Valor"                    },
+	{      10,         -1, DTYPE_NONE,      Q_ANVIL,     100,      0,       QUEST_SINGLE,  TEXT_ANVIL5,   "Anvil of Fury"            },
+	{      13,         -1, DTYPE_NONE,      Q_WARLORD,   100,      0,       QUEST_SINGLE,  TEXT_BLOODWAR, "Warlord of Blood"         },
+	{       3,          3, DTYPE_CATHEDRAL, Q_SKELKING,  100,      1,       QUEST_ANY,     TEXT_KING2,    "The Curse of King Leoric" },
+	{       2,         -1, DTYPE_CAVES,     Q_PWATER,    100,      4,       QUEST_SINGLE,  TEXT_POISON3,  "Poisoned Water Supply"    },
+	{       6,         -1, DTYPE_CATACOMBS, Q_SCHAMB,    100,      2,       QUEST_SINGLE,  TEXT_BONER,    "The Chamber of Bone"      },
+	{      15,         15, DTYPE_CATHEDRAL, Q_BETRAYER,  100,      5,       QUEST_ANY,     TEXT_VILE1,    "Archbishop Lazarus"       },
 #ifdef HELLFIRE
-    {      17,         17, DTYPE_NONE,      Q_GRAVE,     100,      0,       QUEST_ANY,     TEXT_GRAVE7,   "Grave Matters"            },
-    {      9,           9, DTYPE_NONE,      Q_FARMER,    100,      0,       QUEST_ANY,     TEXT_FARMER1,  "Farmer's Orchard"         },
-    {      17,         -1, DTYPE_NONE,      Q_GIRL,      100,      0,       QUEST_SINGLE,  TEXT_GIRL2,    "Little Girl"              },
-    {      19,         -1, DTYPE_NONE,      Q_TRADER,    100,      0,       QUEST_SINGLE,  TEXT_TRADER,   "Wandering Trader"         },
-    {      17,         17, DTYPE_NONE,      Q_DEFILER,   100,      0,       QUEST_ANY,     TEXT_DEFILER1, "The Defiler"              },
-    {      21,         21, DTYPE_NONE,      Q_NAKRUL,    100,      0,       QUEST_ANY,     TEXT_NAKRUL1,  "Na-Krul"                  },
-    {      21,         -1, DTYPE_NONE,      Q_CORNSTN,   100,      0,       QUEST_SINGLE,  TEXT_CORNSTN,  "Cornerstone of the World" },
-    {       9,          9, DTYPE_NONE,      Q_JERSEY,    100,      0,       QUEST_ANY,     TEXT_JERSEY4,  "The Jersey's Jersey"      },
+	{      17,         17, DTYPE_NONE,      Q_GRAVE,     100,      0,       QUEST_ANY,     TEXT_GRAVE7,   "Grave Matters"            },
+	{      9,           9, DTYPE_NONE,      Q_FARMER,    100,      0,       QUEST_ANY,     TEXT_FARMER1,  "Farmer's Orchard"         },
+	{      17,         -1, DTYPE_NONE,      Q_GIRL,      100,      0,       QUEST_SINGLE,  TEXT_GIRL2,    "Little Girl"              },
+	{      19,         -1, DTYPE_NONE,      Q_TRADER,    100,      0,       QUEST_SINGLE,  TEXT_TRADER,   "Wandering Trader"         },
+	{      17,         17, DTYPE_NONE,      Q_DEFILER,   100,      0,       QUEST_ANY,     TEXT_DEFILER1, "The Defiler"              },
+	{      21,         21, DTYPE_NONE,      Q_NAKRUL,    100,      0,       QUEST_ANY,     TEXT_NAKRUL1,  "Na-Krul"                  },
+	{      21,         -1, DTYPE_NONE,      Q_CORNSTN,   100,      0,       QUEST_SINGLE,  TEXT_CORNSTN,  "Cornerstone of the World" },
+	{       9,          9, DTYPE_NONE,      Q_JERSEY,    100,      0,       QUEST_ANY,     TEXT_JERSEY4,  "The Jersey's Jersey"      },
 #endif
     // clang-format on
 };
@@ -835,24 +835,24 @@ void ResyncMPQuests()
     if (QuestStatus(Q_BETRAYER))
         AddObject(OBJ_ALTBOY, 2 * setpc_x + 20, 2 * setpc_y + 22);
 #ifdef HELLFIRE
-    if (quests[Q_GRAVE]._qactive == 1 && currlevel == quests[Q_GRAVE]._qlevel - 1)
+    if (quests[Q_GRAVE]._qactive == QUEST_INIT && currlevel == quests[Q_GRAVE]._qlevel - 1)
     {
-        quests[Q_GRAVE]._qactive = 2;
+        quests[Q_GRAVE]._qactive = QUEST_ACTIVE;
         NetSendCmdQuest(TRUE, Q_GRAVE);
     }
-    if (quests[Q_DEFILER]._qactive == 1 && currlevel == quests[Q_DEFILER]._qlevel - 1)
+    if (quests[Q_DEFILER]._qactive == QUEST_INIT && currlevel == quests[Q_DEFILER]._qlevel - 1)
     {
-        quests[Q_DEFILER]._qactive = 2;
+        quests[Q_DEFILER]._qactive = QUEST_ACTIVE;
         NetSendCmdQuest(TRUE, Q_DEFILER);
     }
-    if (quests[Q_NAKRUL]._qactive == 1 && currlevel == quests[Q_NAKRUL]._qlevel - 1)
+    if (quests[Q_NAKRUL]._qactive == QUEST_INIT && currlevel == quests[Q_NAKRUL]._qlevel - 1)
     {
-        quests[Q_NAKRUL]._qactive = 2;
+        quests[Q_NAKRUL]._qactive = QUEST_ACTIVE;
         NetSendCmdQuest(TRUE, Q_NAKRUL);
     }
-    if (quests[Q_JERSEY]._qactive == 1 && currlevel == quests[Q_JERSEY]._qlevel - 1)
+    if (quests[Q_JERSEY]._qactive == QUEST_INIT && currlevel == quests[Q_JERSEY]._qlevel - 1)
     {
-        quests[Q_JERSEY]._qactive = 2;
+        quests[Q_JERSEY]._qactive = QUEST_ACTIVE;
         NetSendCmdQuest(TRUE, Q_JERSEY);
     }
 #endif

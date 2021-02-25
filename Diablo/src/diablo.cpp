@@ -27,6 +27,7 @@ BOOL gbGameLoopStartup;
 BOOL gbRunGame;
 BOOL gbRunGameResult;
 BOOL zoomflag;
+/** Enable updating of player character, set to false once Diablo dies */
 BOOL gbProcessPlayers;
 BOOL gbLoadGame;
 HINSTANCE ghInst;
@@ -2363,11 +2364,11 @@ void LoadGameLevel(BOOL firstflag, int lvldir)
     {
         if (currlevel == 21)
         {
-            items_427ABA(CornerStone.x, CornerStone.y);
+            CornerstoneLoad(CornerStone.x, CornerStone.y);
         }
         if (quests[Q_NAKRUL]._qactive == QUEST_DONE && currlevel == 24)
         {
-            objects_454BA8();
+            SyncNakrulRoom();
         }
     }
 #endif
@@ -2471,6 +2472,9 @@ static void timeout_cursor(BOOL bTimeout)
     }
 }
 
+/**
+ * @param bStartup Process additional ticks before returning
+ */
 void game_loop(BOOL bStartup)
 {
     int i;

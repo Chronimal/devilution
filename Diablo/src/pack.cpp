@@ -129,7 +129,7 @@ void PackPlayer(PkPlayerStruct* pPack, int pnum, BOOL manashield)
     }
 
 #ifdef HELLFIRE
-    pPack->wReflection = pPlayer->wReflection;
+    pPack->wReflections = pPlayer->wReflections;
     pPack->pDiabloKillLevel = pPlayer->pDiabloKillLevel;
     pPack->pDifficulty = pPlayer->pDifficulty;
     pPack->pDamAcFlags = pPlayer->pDamAcFlags;
@@ -302,7 +302,7 @@ void UnPackPlayer(PkPlayerStruct* pPack, int pnum, BOOL killok)
 
     CalcPlrInv(pnum, FALSE);
 #ifdef HELLFIRE
-    pPlayer->wReflection = pPack->wReflection;
+    pPlayer->wReflections = pPack->wReflections;
 #endif
     pPlayer->pTownWarps = 0;
     pPlayer->pDungMsgs = 0;

@@ -14,47 +14,47 @@ BOOL jogging_opt = TRUE;
 /** Contains the game menu items of the single player menu. */
 TMenuItem sgSingleMenu[] = {
     // clang-format off
-//      dwFlags,       pszStr,         fnMenu
-    { GMENU_ENABLED, "Save Game",     &gamemenu_save_game  },
-    { GMENU_ENABLED, "Options",       &gamemenu_options    },
-    { GMENU_ENABLED, "New Game",      &gamemenu_new_game   },
-    { GMENU_ENABLED, "Load Game",     &gamemenu_load_game  },
+//	  dwFlags,       pszStr,         fnMenu
+	{ GMENU_ENABLED, "Save Game",     &gamemenu_save_game  },
+	{ GMENU_ENABLED, "Options",       &gamemenu_options    },
+	{ GMENU_ENABLED, "New Game",      &gamemenu_new_game   },
+	{ GMENU_ENABLED, "Load Game",     &gamemenu_load_game  },
 #ifndef HELLFIRE
-    { GMENU_ENABLED, "Quit Diablo",   &gamemenu_quit_game  },
+	{ GMENU_ENABLED, "Quit Diablo",   &gamemenu_quit_game  },
 #else
-    { GMENU_ENABLED, "Quit Hellfire", &gamemenu_quit_game  },
+	{ GMENU_ENABLED, "Quit Hellfire", &gamemenu_quit_game  },
 #endif
-    { GMENU_ENABLED, NULL,            NULL }
+	{ GMENU_ENABLED, NULL,            NULL }
     // clang-format on
 };
 /** Contains the game menu items of the multi player menu. */
 TMenuItem sgMultiMenu[] = {
     // clang-format off
-//      dwFlags,       pszStr,            fnMenu
-    { GMENU_ENABLED, "Options",         &gamemenu_options      },
-    { GMENU_ENABLED, "New Game",        &gamemenu_new_game     },
-    { GMENU_ENABLED, "Restart In Town", &gamemenu_restart_town },
+//	  dwFlags,       pszStr,            fnMenu
+	{ GMENU_ENABLED, "Options",         &gamemenu_options      },
+	{ GMENU_ENABLED, "New Game",        &gamemenu_new_game     },
+	{ GMENU_ENABLED, "Restart In Town", &gamemenu_restart_town },
 #ifndef HELLFIRE
-    { GMENU_ENABLED, "Quit Diablo",     &gamemenu_quit_game    },
+	{ GMENU_ENABLED, "Quit Diablo",     &gamemenu_quit_game    },
 #else
-    { GMENU_ENABLED, "Quit Hellfire",   &gamemenu_quit_game    },
+	{ GMENU_ENABLED, "Quit Hellfire",   &gamemenu_quit_game    },
 #endif
-    { GMENU_ENABLED, NULL,              NULL                   },
+	{ GMENU_ENABLED, NULL,              NULL                   },
     // clang-format on
 };
 TMenuItem sgOptionsMenu[] = {
     // clang-format off
-//      dwFlags,                      pszStr,          fnMenu
-    { GMENU_ENABLED | GMENU_SLIDER, NULL,            &gamemenu_music_volume  },
-    { GMENU_ENABLED | GMENU_SLIDER, NULL,            &gamemenu_sound_volume  },
-    { GMENU_ENABLED | GMENU_SLIDER, "Gamma",         &gamemenu_gamma         },
+//	  dwFlags,                      pszStr,          fnMenu
+	{ GMENU_ENABLED | GMENU_SLIDER, NULL,            &gamemenu_music_volume  },
+	{ GMENU_ENABLED | GMENU_SLIDER, NULL,            &gamemenu_sound_volume  },
+	{ GMENU_ENABLED | GMENU_SLIDER, "Gamma",         &gamemenu_gamma         },
 #ifndef HELLFIRE
-    { GMENU_ENABLED               , NULL,            &gamemenu_color_cycling },
+	{ GMENU_ENABLED               , NULL,            &gamemenu_color_cycling },
 #else
-    { GMENU_ENABLED | GMENU_SLIDER, NULL,            &gamemenu_loadjog       },
+	{ GMENU_ENABLED | GMENU_SLIDER, NULL,            &gamemenu_loadjog       },
 #endif
-    { GMENU_ENABLED               , "Previous Menu", &gamemenu_previous      },
-    { GMENU_ENABLED               , NULL,            NULL                    },
+	{ GMENU_ENABLED               , "Previous Menu", &gamemenu_previous      },
+	{ GMENU_ENABLED               , NULL,            NULL                    },
     // clang-format on
 };
 /** Specifies the menu names for music enabled and disabled. */
@@ -68,11 +68,11 @@ const char* const sound_toggle_names[] = {
     "Sound Disabled",
 };
 #ifdef HELLFIRE
-const char* jogging_toggle_names[] = {
+char* jogging_toggle_names[] = {
     "Jog",
     "Walk",
 };
-const char* jogging_title = "Fast Walk";
+char* jogging_title = "Fast Walk";
 #endif
 #ifndef HELLFIRE
 /** Specifies the menu names for colour cycling disabled and enabled. */
@@ -203,7 +203,7 @@ void gamemenu_save_game(BOOL bActivate)
 #ifdef HELLFIRE
     if (CornerStone.activated)
     {
-        items_427A72();
+        CornerstoneSave();
     }
 #endif
     interface_msg_pump();
