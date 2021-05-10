@@ -4743,10 +4743,10 @@ void OperateBookCase(int pnum, int i, DIABOOL sendmsg)
         {
             SetRndSeed(object[i]._oRndSeed);
             CreateTypeItem(object[i]._ox, object[i]._oy, FALSE, ITYPE_MISC, IMISC_BOOK, sendmsg, FALSE);
-            if (QuestStatus(Q_ZHAR) && monster[MAX_PLRS].mName == UniqMonst[UMT_ZHAR].mName && monster[MAX_PLRS]._msquelch == UCHAR_MAX && monster[MAX_PLRS]._mhitpoints)
+            if (QuestStatus(Q_ZHAR) && monster[MAX_PLRS].mName == UniqMonst[UMT_ZHAR].mName && monster[MAX_PLRS]._msquelch == UCHAR_MAX && monster[MAX_PLRS]._mhitpoints != 0)
             {
                 monster[MAX_PLRS].mtalkmsg = TEXT_ZHAR2;
-                M_StartStand(0, monster[MAX_PLRS]._mdir);
+                M_StartStand(0, monster[MAX_PLRS]._mdir); // BUGFIX: first parameter in call to M_StartStand should be MAX_PLRS, not 0.
                 monster[MAX_PLRS]._mgoal = MGOAL_ATTACK2;
                 monster[MAX_PLRS]._mmode = MM_TALK;
             }

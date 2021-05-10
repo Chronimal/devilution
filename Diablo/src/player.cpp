@@ -157,11 +157,10 @@ void LoadPlrGFX(int pnum, player_graphic gfxflag)
 {
     char prefix[16];
     char pszName[256];
-    const char* szCel = nullptr;
+    const char* szCel;
     PlayerStruct* p;
     const char* cs;
-    BYTE* pData = nullptr;
-    BYTE* pAnim = nullptr;
+    BYTE *pData, *pAnim;
     DWORD i;
 
     if ((DWORD)pnum >= MAX_PLRS)
@@ -661,7 +660,7 @@ void SetPlrAnims(int pnum)
         }
         else if (gn == ANIM_ID_SWORD_SHIELD || gn == ANIM_ID_SWORD)
         {
-            plr[pnum]._pAFrames = 10;
+            plr[pnum]._pAFNum = 10;
         }
     }
     else if (pc == PC_BARBARIAN)
@@ -4211,6 +4210,7 @@ void CheckNewPath(int pnum)
                     if (x < 2 && y < 2)
                     {
                         ClrPlrPath(pnum);
+                        // BUGFIX: missing check for `destAction == ACTION_ATTACKMON` in if-statement of `TalktoMonster` branch.
                         if (monster[i].mtalkmsg && monster[i].mtalkmsg != TEXT_VILE14)
                         {
                             TalktoMonster(i);

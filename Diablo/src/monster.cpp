@@ -3676,7 +3676,7 @@ BOOL M_DoStone(int i)
         app_fatal("M_DoStone: Invalid monster %d", i);
 #endif
 
-    if (!monster[i]._mhitpoints)
+    if (monster[i]._mhitpoints == 0)
     {
         dMonster[monster[i]._mx][monster[i]._my] = 0;
         monster[i]._mDelFlag = TRUE;
@@ -5288,7 +5288,7 @@ void MAI_Golum(int i)
             {
                 for (k = 0; k < 5; k++)
                 {
-                    _menemy = dMonster[monster[i]._mx + k - 2][monster[i]._my + j - 2];
+                    _menemy = dMonster[monster[i]._mx + k - 2][monster[i]._my + j - 2]; // BUGFIX: Check if indexes are between 0 and 112
                     if (_menemy > 0)
                         monster[_menemy]._msquelch = UCHAR_MAX; // BUGFIX: should be `monster[_menemy-1]`, not monster[_menemy].
                 }
@@ -6094,7 +6094,7 @@ void DeleteMonsterList()
         if (monster[monstactive[i]]._mDelFlag)
         {
             DeleteMonster(i);
-            i = 0; // TODO: check if this should be MAX_PLRS.
+            i = 0; // BUGFIX: should be `i = MAX_PLRS`, was 0 (only pseudo delete golems, their monster array indices are special and should not appear in the available monster index list).
         }
         else
         {

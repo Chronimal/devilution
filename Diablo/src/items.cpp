@@ -22,7 +22,7 @@ CornerStoneStruct CornerStone;
 BYTE* itemanims[ITEMTYPES];
 BOOL UniqueItemFlag[128];
 #ifdef HELLFIRE
-int auricGold = 10000;
+int auricGold = GOLD_MAX_LIMIT * 2;
 #endif
 int numitems;
 int gnNumGetRecords;
@@ -448,7 +448,7 @@ void InitItems()
 
     for (i = 0; i < MAXITEMS; i++)
     {
-        item[i]._itype = ITYPE_MISC;
+        item[i]._itype = ITYPE_MISC; // BUGFIX Should be ITYPE_NONE
         item[i]._ix = 0;
         item[i]._iy = 0;
         item[i]._iAnimFlag = FALSE;
@@ -489,7 +489,7 @@ void InitItems()
 
 void CalcPlrItemVals(int p, BOOL Loadgfx)
 {
-    int pvid, d;
+    int d;
 
     int mind = 0; // min damage
     int maxd = 0; // max damage

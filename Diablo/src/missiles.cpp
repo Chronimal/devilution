@@ -2115,9 +2115,9 @@ void missiles_warp(int mi, int sx, int sy, int dx, int dy, int midir, char miene
     for (i = 0; i < numtrigs && i < MAXTRIGGERS; i++)
     {
         trg = &trigs[i];
-        if (trg->_tmsg == 1032 || trg->_tmsg == 1027 || trg->_tmsg == 1026 || trg->_tmsg == 1028)
+        if (trg->_tmsg == WM_DIABTWARPUP || trg->_tmsg == WM_DIABPREVLVL || trg->_tmsg == WM_DIABNEXTLVL || trg->_tmsg == WM_DIABRTNLVL)
         {
-            if ((leveltype == 1 || leveltype == 2) && (trg->_tmsg == 1026 || trg->_tmsg == 1027 || trg->_tmsg == 1028))
+            if ((leveltype == DTYPE_CATHEDRAL || leveltype == DTYPE_CATACOMBS) && (trg->_tmsg == WM_DIABNEXTLVL || trg->_tmsg == WM_DIABPREVLVL || trg->_tmsg == WM_DIABRTNLVL))
             {
                 fx = trg->_tx;
                 fy = trg->_ty + 1;
@@ -3467,7 +3467,7 @@ void AddGolem(int mi, int sx, int sy, int dx, int dy, int midir, char mienemy, i
     missile[mi]._miVar2 = sy;
     missile[mi]._miVar4 = dx;
     missile[mi]._miVar5 = dy;
-    if ((monster[id]._mx != 1 || monster[id]._my) && id == myplr)
+    if ((monster[id]._mx != 1 || monster[id]._my != 0) && id == myplr)
         M_StartKill(id, id);
     UseMana(id, SPL_GOLEM);
 }
@@ -4133,7 +4133,7 @@ void MI_Golem(int i)
     char* ct;
 
     src = missile[i]._misource;
-    if (monster[src]._mx == 1 && !monster[src]._my)
+    if (monster[src]._mx == 1 && monster[src]._my == 0)
     {
         for (l = 0; l < 6; l++)
         {
@@ -6077,6 +6077,7 @@ void MI_Apoca(int i)
     {
         for (k = missile[i]._miVar4; k < missile[i]._miVar5 && !exit; k++)
         {
+            // BUGFIX: was `dMonster[k][j] > MAX_PLRS-1`, should be `dMonster[k][j]-1 >= MAX_PLRS`.
             if (dMonster[k][j] > MAX_PLRS - 1 && !nSolidTable[dPiece[k][j]])
             {
 #ifdef HELLFIRE

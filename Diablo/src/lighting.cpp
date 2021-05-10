@@ -430,7 +430,7 @@ void DoVision(int nXPos, int nYPos, int nRadius, BOOL doautomap, BOOL visible)
         {
             if (dFlags[nXPos][nYPos] >= 0)
             {
-                SetAutomapView(nXPos, nXPos);
+                SetAutomapView(nXPos, nXPos); // BUGFIX - second argument should be nYPos
             }
             dFlags[nXPos][nYPos] |= BFLAG_EXPLORED;
         }

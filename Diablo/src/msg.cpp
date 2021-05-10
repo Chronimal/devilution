@@ -1,7 +1,7 @@
 /**
  * @file msg.cpp
  *
- * Implementation of function for sending and reciving network messages.
+ * Implementation of function for sending and receiving network messages.
  */
 #include "all.h"
 #include "storm/storm.h"
@@ -2258,7 +2258,7 @@ static DWORD On_AWAKEGOLEM(TCmd* pCmd, int pnum)
             if (missile[mi]._mitype == MIS_GOLEM && missile[mi]._misource == pnum)
             {
                 addGolem = FALSE;
-                // BUGFIX: break, don't need to check the rest
+                // CODEFIX: break, don't need to check the rest
             }
         }
         if (addGolem)

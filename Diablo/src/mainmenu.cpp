@@ -153,7 +153,7 @@ BOOL __stdcall mainmenu_select_hero_dialog(
         {
             app_fatal("Unable to display SelHeroSing");
         }
-#else  // HELLFIRE
+#else // HELLFIRE
         if (!UiSelHeroSingDialog(pfile_ui_set_hero_infos, pfile_ui_save_create, pfile_delete_save, pfile_ui_set_class_stats, &dlgresult, gszHero, &gnDifficulty))
         {
             app_fatal("Unable to display SelHeroSing");
