@@ -21,9 +21,9 @@ public:
     void render(ID3D11ShaderResourceView* canvasView, ID3D11ShaderResourceView* paletteView);
 
     /*** IUnknown methods ***/
-    HRESULT __stdcall QueryInterface(REFIID riid, LPVOID* ppvObj) override;
-    ULONG __stdcall AddRef() override;
-    ULONG __stdcall Release() override;
+    HRESULT __stdcall QueryInterface(REFIID riid, LPVOID* ppvObj) noexcept override;
+    ULONG __stdcall AddRef() noexcept override;
+    ULONG __stdcall Release() noexcept override;
 
 private:
     struct D3DKMT_HANDLETraits
@@ -62,26 +62,26 @@ private:
     bool inSizeMove_{};
 
     /*** IDirectDraw methods ***/
-    HRESULT __stdcall Compact() override;
-    HRESULT __stdcall CreateClipper(DWORD dwFlags, LPDIRECTDRAWCLIPPER* lplpDDClipper, IUnknown* pUnkOuter) override;
-    HRESULT __stdcall CreatePalette(DWORD dwFlags, LPPALETTEENTRY lpColorTable, LPDIRECTDRAWPALETTE* lplpDDPalette, IUnknown*) override;
-    HRESULT __stdcall CreateSurface(LPDDSURFACEDESC lpDDSurfaceDesc, LPDIRECTDRAWSURFACE* lplpDDSurface, IUnknown* pUnkOuter) override;
-    HRESULT __stdcall DuplicateSurface(LPDIRECTDRAWSURFACE lpDDSurface, LPDIRECTDRAWSURFACE* lplpDupDDSurface) override;
-    HRESULT __stdcall EnumDisplayModes(DWORD dwFlags, LPDDSURFACEDESC lpDDSurfaceDesc, LPVOID lpContext, LPDDENUMMODESCALLBACK lpEnumCallback) override;
-    HRESULT __stdcall EnumSurfaces(DWORD dwFlags, LPDDSURFACEDESC lpDDSurfaceDesc, LPVOID lpContext, LPDDENUMSURFACESCALLBACK lpEnumCallback) override;
-    HRESULT __stdcall FlipToGDISurface() override;
-    HRESULT __stdcall GetCaps(LPDDCAPS lpDDDriverCaps, LPDDCAPS lpDDHELCaps) override;
-    HRESULT __stdcall GetDisplayMode(LPDDSURFACEDESC lpDDSurfaceDesc) override;
-    HRESULT __stdcall GetFourCCCodes(LPDWORD lpNumCodes, LPDWORD lpCodes) override;
-    HRESULT __stdcall GetGDISurface(LPDIRECTDRAWSURFACE* lplpGDIDDSSurface) override;
-    HRESULT __stdcall GetMonitorFrequency(LPDWORD lpdwFrequency) override;
-    HRESULT __stdcall GetScanLine(LPDWORD lpdwScanLine) override;
-    HRESULT __stdcall GetVerticalBlankStatus(LPBOOL lpbIsInVB) override;
-    HRESULT __stdcall Initialize(GUID* lpGUID) override;
-    HRESULT __stdcall RestoreDisplayMode() override;
-    HRESULT __stdcall SetCooperativeLevel(HWND hWnd, DWORD dwFlags) override;
-    HRESULT __stdcall SetDisplayMode(DWORD dwWidth, DWORD dwHeight, DWORD dwBpp) override;
-    HRESULT __stdcall WaitForVerticalBlank(DWORD dwFlags, HANDLE hEvent) override;
+    HRESULT __stdcall Compact() noexcept override;
+    HRESULT __stdcall CreateClipper(DWORD dwFlags, LPDIRECTDRAWCLIPPER* lplpDDClipper, IUnknown* pUnkOuter) noexcept override;
+    HRESULT __stdcall CreatePalette(DWORD dwFlags, LPPALETTEENTRY lpColorTable, LPDIRECTDRAWPALETTE* lplpDDPalette, IUnknown*) noexcept override;
+    HRESULT __stdcall CreateSurface(LPDDSURFACEDESC lpDDSurfaceDesc, LPDIRECTDRAWSURFACE* lplpDDSurface, IUnknown* pUnkOuter) noexcept override;
+    HRESULT __stdcall DuplicateSurface(LPDIRECTDRAWSURFACE lpDDSurface, LPDIRECTDRAWSURFACE* lplpDupDDSurface) noexcept override;
+    HRESULT __stdcall EnumDisplayModes(DWORD dwFlags, LPDDSURFACEDESC lpDDSurfaceDesc, LPVOID lpContext, LPDDENUMMODESCALLBACK lpEnumCallback) noexcept override;
+    HRESULT __stdcall EnumSurfaces(DWORD dwFlags, LPDDSURFACEDESC lpDDSurfaceDesc, LPVOID lpContext, LPDDENUMSURFACESCALLBACK lpEnumCallback) noexcept override;
+    HRESULT __stdcall FlipToGDISurface() noexcept override;
+    HRESULT __stdcall GetCaps(LPDDCAPS lpDDDriverCaps, LPDDCAPS lpDDHELCaps) noexcept override;
+    HRESULT __stdcall GetDisplayMode(LPDDSURFACEDESC lpDDSurfaceDesc) noexcept override;
+    HRESULT __stdcall GetFourCCCodes(LPDWORD lpNumCodes, LPDWORD lpCodes) noexcept override;
+    HRESULT __stdcall GetGDISurface(LPDIRECTDRAWSURFACE* lplpGDIDDSSurface) noexcept override;
+    HRESULT __stdcall GetMonitorFrequency(LPDWORD lpdwFrequency) noexcept override;
+    HRESULT __stdcall GetScanLine(LPDWORD lpdwScanLine) noexcept override;
+    HRESULT __stdcall GetVerticalBlankStatus(LPBOOL lpbIsInVB) noexcept override;
+    HRESULT __stdcall Initialize(GUID* lpGUID) noexcept override;
+    HRESULT __stdcall RestoreDisplayMode() noexcept override;
+    HRESULT __stdcall SetCooperativeLevel(HWND hWnd, DWORD dwFlags) noexcept override;
+    HRESULT __stdcall SetDisplayMode(DWORD dwWidth, DWORD dwHeight, DWORD dwBpp) noexcept override;
+    HRESULT __stdcall WaitForVerticalBlank(DWORD dwFlags, HANDLE hEvent) noexcept override;
 
     void createDeviceDependentResources();
     void createWindowSizeDependentResources();

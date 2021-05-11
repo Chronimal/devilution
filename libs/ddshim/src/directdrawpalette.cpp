@@ -45,7 +45,7 @@ ComPtr<ID3D11ShaderResourceView> DirectDrawPalette::getPaletteView() const noexc
 }
 
 /*** IUnknown methods ***/
-HRESULT DirectDrawPalette::QueryInterface(REFIID riid, LPVOID* ppvObj)
+HRESULT DirectDrawPalette::QueryInterface(REFIID riid, LPVOID* ppvObj) noexcept
 {
     if (riid == IID_IDirectDrawPalette)
     {
@@ -60,12 +60,12 @@ HRESULT DirectDrawPalette::QueryInterface(REFIID riid, LPVOID* ppvObj)
     }
 }
 
-ULONG DirectDrawPalette::AddRef()
+ULONG DirectDrawPalette::AddRef() noexcept
 {
     return InterlockedIncrement(&refCount_);
 }
 
-ULONG DirectDrawPalette::Release()
+ULONG DirectDrawPalette::Release() noexcept
 {
     auto refCount = InterlockedDecrement(&refCount_);
     if (refCount == 0)
@@ -76,25 +76,25 @@ ULONG DirectDrawPalette::Release()
 }
 
 /*** IDirectDrawPalette methods ***/
-HRESULT DirectDrawPalette::GetCaps(LPDWORD)
+HRESULT DirectDrawPalette::GetCaps(LPDWORD) noexcept
 {
     _ASSERT(false);
     return E_NOTIMPL;
 }
 
-HRESULT DirectDrawPalette::GetEntries(DWORD flags, DWORD start, DWORD count, LPPALETTEENTRY entries)
+HRESULT DirectDrawPalette::GetEntries(DWORD flags, DWORD start, DWORD count, LPPALETTEENTRY entries) noexcept
 {
     memcpy(entries, &paletteBackup_[start], count * sizeof(PALETTEENTRY));
     return DD_OK;
 }
 
-HRESULT DirectDrawPalette::Initialize(LPDIRECTDRAW, DWORD, LPPALETTEENTRY)
+HRESULT DirectDrawPalette::Initialize(LPDIRECTDRAW, DWORD, LPPALETTEENTRY) noexcept
 {
     _ASSERT(false);
     return E_NOTIMPL;
 }
 
-HRESULT DirectDrawPalette::SetEntries(DWORD flags, DWORD start, DWORD count, LPPALETTEENTRY entries)
+HRESULT DirectDrawPalette::SetEntries(DWORD flags, DWORD start, DWORD count, LPPALETTEENTRY entries) noexcept
 {
     try
     {

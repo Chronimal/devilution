@@ -19,9 +19,9 @@ public:
     Microsoft::WRL::ComPtr<ID3D11ShaderResourceView> getPaletteView() const noexcept;
 
     /*** IUnknown methods ***/
-    HRESULT __stdcall QueryInterface(REFIID riid, LPVOID* ppvObj) override;
-    ULONG __stdcall AddRef() override;
-    ULONG __stdcall Release() override;
+    HRESULT __stdcall QueryInterface(REFIID riid, LPVOID* ppvObj) noexcept override;
+    ULONG __stdcall AddRef() noexcept override;
+    ULONG __stdcall Release() noexcept override;
 
 private:
     class ScopedMappedSubresource : public D3D11_MAPPED_SUBRESOURCE
@@ -45,10 +45,10 @@ private:
     ULONG refCount_{1};
 
     /*** IDirectDrawPalette methods ***/
-    HRESULT __stdcall GetCaps(LPDWORD) override;
-    HRESULT __stdcall GetEntries(DWORD flags, DWORD start, DWORD count, LPPALETTEENTRY entries) override;
-    HRESULT __stdcall Initialize(LPDIRECTDRAW, DWORD, LPPALETTEENTRY) override;
-    HRESULT __stdcall SetEntries(DWORD flags, DWORD start, DWORD count, LPPALETTEENTRY entries) override;
+    HRESULT __stdcall GetCaps(LPDWORD) noexcept override;
+    HRESULT __stdcall GetEntries(DWORD flags, DWORD start, DWORD count, LPPALETTEENTRY entries) noexcept override;
+    HRESULT __stdcall Initialize(LPDIRECTDRAW, DWORD, LPPALETTEENTRY) noexcept override;
+    HRESULT __stdcall SetEntries(DWORD flags, DWORD start, DWORD count, LPPALETTEENTRY entries) noexcept override;
 
     void setStageEntries(DWORD start, DWORD count, LPPALETTEENTRY entries);
     void createTexturesAndView();

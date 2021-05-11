@@ -7,8 +7,8 @@ using Microsoft::WRL::ComPtr;
 DDS_BEGIN_NS
 
 DirectDrawSurface::DirectDrawSurface(Microsoft::WRL::ComPtr<DirectDraw> dd, LPDDSURFACEDESC surfaceDesc, const VirtualDisplayMode& vdm)
-    : vdm_{vdm}
-    , dd_{dd}
+    : dd_{dd}
+    , vdm_{vdm}
 {
     if ((surfaceDesc->dwFlags & DDSD_CAPS) != DDSD_CAPS)
     {
@@ -51,7 +51,7 @@ bool DirectDrawSurface::MappedSubresource::reset()
 }
 
 /*** IUnknown methods ***/
-HRESULT DirectDrawSurface::QueryInterface(REFIID riid, LPVOID* ppvObj)
+HRESULT DirectDrawSurface::QueryInterface(REFIID riid, LPVOID* ppvObj) noexcept
 {
     if (riid == IID_IDirectDrawSurface)
     {
@@ -62,12 +62,12 @@ HRESULT DirectDrawSurface::QueryInterface(REFIID riid, LPVOID* ppvObj)
     return E_NOINTERFACE;
 }
 
-ULONG DirectDrawSurface::AddRef()
+ULONG DirectDrawSurface::AddRef() noexcept
 {
     return InterlockedIncrement(&refCount_);
 }
 
-ULONG DirectDrawSurface::Release()
+ULONG DirectDrawSurface::Release() noexcept
 {
     auto refCount = InterlockedDecrement(&refCount_);
     if (refCount == 0)
@@ -78,133 +78,133 @@ ULONG DirectDrawSurface::Release()
 }
 
 /*** IDirectDrawSurface methods ***/
-HRESULT DirectDrawSurface::AddAttachedSurface(LPDIRECTDRAWSURFACE)
+HRESULT DirectDrawSurface::AddAttachedSurface(LPDIRECTDRAWSURFACE) noexcept
 {
     _ASSERT(false);
     return E_NOTIMPL;
 }
 
-HRESULT DirectDrawSurface::AddOverlayDirtyRect(LPRECT)
+HRESULT DirectDrawSurface::AddOverlayDirtyRect(LPRECT) noexcept
 {
     _ASSERT(false);
     return E_NOTIMPL;
 }
 
-HRESULT DirectDrawSurface::Blt(LPRECT, LPDIRECTDRAWSURFACE, LPRECT, DWORD, LPDDBLTFX)
+HRESULT DirectDrawSurface::Blt(LPRECT, LPDIRECTDRAWSURFACE, LPRECT, DWORD, LPDDBLTFX) noexcept
 {
     _ASSERT(false);
     return E_NOTIMPL;
 }
 
-HRESULT DirectDrawSurface::BltBatch(LPDDBLTBATCH, DWORD, DWORD)
+HRESULT DirectDrawSurface::BltBatch(LPDDBLTBATCH, DWORD, DWORD) noexcept
 {
     _ASSERT(false);
     return E_NOTIMPL;
 }
 
-HRESULT DirectDrawSurface::BltFast(DWORD, DWORD, LPDIRECTDRAWSURFACE, LPRECT, DWORD)
+HRESULT DirectDrawSurface::BltFast(DWORD, DWORD, LPDIRECTDRAWSURFACE, LPRECT, DWORD) noexcept
 {
     _ASSERT(false);
     return E_NOTIMPL;
 }
 
-HRESULT DirectDrawSurface::DeleteAttachedSurface(DWORD, LPDIRECTDRAWSURFACE)
+HRESULT DirectDrawSurface::DeleteAttachedSurface(DWORD, LPDIRECTDRAWSURFACE) noexcept
 {
     _ASSERT(false);
     return E_NOTIMPL;
 }
 
-HRESULT DirectDrawSurface::EnumAttachedSurfaces(LPVOID, LPDDENUMSURFACESCALLBACK)
+HRESULT DirectDrawSurface::EnumAttachedSurfaces(LPVOID, LPDDENUMSURFACESCALLBACK) noexcept
 {
     _ASSERT(false);
     return E_NOTIMPL;
 }
 
-HRESULT DirectDrawSurface::EnumOverlayZOrders(DWORD, LPVOID, LPDDENUMSURFACESCALLBACK)
+HRESULT DirectDrawSurface::EnumOverlayZOrders(DWORD, LPVOID, LPDDENUMSURFACESCALLBACK) noexcept
 {
     _ASSERT(false);
     return E_NOTIMPL;
 }
 
-HRESULT DirectDrawSurface::Flip(LPDIRECTDRAWSURFACE, DWORD)
+HRESULT DirectDrawSurface::Flip(LPDIRECTDRAWSURFACE, DWORD) noexcept
 {
     _ASSERT(false);
     return E_NOTIMPL;
 }
 
-HRESULT DirectDrawSurface::GetAttachedSurface(LPDDSCAPS, LPDIRECTDRAWSURFACE FAR*)
+HRESULT DirectDrawSurface::GetAttachedSurface(LPDDSCAPS, LPDIRECTDRAWSURFACE FAR*) noexcept
 {
     _ASSERT(false);
     return E_NOTIMPL;
 }
 
-HRESULT DirectDrawSurface::GetBltStatus(DWORD)
+HRESULT DirectDrawSurface::GetBltStatus(DWORD) noexcept
 {
     _ASSERT(false);
     return E_NOTIMPL;
 }
 
-HRESULT DirectDrawSurface::GetCaps(LPDDSCAPS caps)
+HRESULT DirectDrawSurface::GetCaps(LPDDSCAPS caps) noexcept
 {
     memcpy(caps, &surfaceDesc_.ddsCaps, sizeof(surfaceDesc_.ddsCaps));
     return DD_OK;
 }
 
-HRESULT DirectDrawSurface::GetClipper(LPDIRECTDRAWCLIPPER FAR*)
+HRESULT DirectDrawSurface::GetClipper(LPDIRECTDRAWCLIPPER FAR*) noexcept
 {
     _ASSERT(false);
     return E_NOTIMPL;
 }
 
-HRESULT DirectDrawSurface::GetColorKey(DWORD, LPDDCOLORKEY)
+HRESULT DirectDrawSurface::GetColorKey(DWORD, LPDDCOLORKEY) noexcept
 {
     _ASSERT(false);
     return E_NOTIMPL;
 }
 
-HRESULT DirectDrawSurface::GetDC(HDC FAR*)
+HRESULT DirectDrawSurface::GetDC(HDC FAR*) noexcept
 {
     _ASSERT(false);
     return E_NOTIMPL;
 }
 
-HRESULT DirectDrawSurface::GetFlipStatus(DWORD)
+HRESULT DirectDrawSurface::GetFlipStatus(DWORD) noexcept
 {
     _ASSERT(false);
     return E_NOTIMPL;
 }
 
-HRESULT DirectDrawSurface::GetOverlayPosition(LPLONG, LPLONG)
+HRESULT DirectDrawSurface::GetOverlayPosition(LPLONG, LPLONG) noexcept
 {
     _ASSERT(false);
     return E_NOTIMPL;
 }
 
-HRESULT DirectDrawSurface::GetPalette(LPDIRECTDRAWPALETTE FAR*)
+HRESULT DirectDrawSurface::GetPalette(LPDIRECTDRAWPALETTE FAR*) noexcept
 {
     _ASSERT(false);
     return E_NOTIMPL;
 }
 
-HRESULT DirectDrawSurface::GetPixelFormat(LPDDPIXELFORMAT)
+HRESULT DirectDrawSurface::GetPixelFormat(LPDDPIXELFORMAT) noexcept
 {
     _ASSERT(false);
     return E_NOTIMPL;
 }
 
-HRESULT DirectDrawSurface::GetSurfaceDesc(LPDDSURFACEDESC)
+HRESULT DirectDrawSurface::GetSurfaceDesc(LPDDSURFACEDESC) noexcept
 {
     _ASSERT(false);
     return E_NOTIMPL;
 }
 
-HRESULT DirectDrawSurface::Initialize(LPDIRECTDRAW, LPDDSURFACEDESC)
+HRESULT DirectDrawSurface::Initialize(LPDIRECTDRAW, LPDDSURFACEDESC) noexcept
 {
     _ASSERT(false);
     return E_NOTIMPL;
 }
 
-HRESULT DirectDrawSurface::IsLost()
+HRESULT DirectDrawSurface::IsLost() noexcept
 {
     if (!surfaceHasBeenLost_)
     {
@@ -214,7 +214,7 @@ HRESULT DirectDrawSurface::IsLost()
     return DDERR_SURFACELOST;
 }
 
-HRESULT DirectDrawSurface::Lock(LPRECT dstRect, LPDDSURFACEDESC surfaceDesc, DWORD flags, HANDLE hEvent)
+HRESULT DirectDrawSurface::Lock(LPRECT dstRect, LPDDSURFACEDESC surfaceDesc, DWORD flags, HANDLE hEvent) noexcept
 {
     try
     {
@@ -240,7 +240,7 @@ HRESULT DirectDrawSurface::Lock(LPRECT dstRect, LPDDSURFACEDESC surfaceDesc, DWO
     return DD_OK;
 }
 
-HRESULT DirectDrawSurface::Unlock(LPVOID surfaceData)
+HRESULT DirectDrawSurface::Unlock(LPVOID surfaceData) noexcept
 {
     try
     {
@@ -265,55 +265,55 @@ HRESULT DirectDrawSurface::Unlock(LPVOID surfaceData)
     return DD_OK;
 }
 
-HRESULT DirectDrawSurface::ReleaseDC(HDC)
+HRESULT DirectDrawSurface::ReleaseDC(HDC) noexcept
 {
     _ASSERT(false);
     return E_NOTIMPL;
 }
 
-HRESULT DirectDrawSurface::Restore()
+HRESULT DirectDrawSurface::Restore() noexcept
 {
     return DD_OK;
 }
 
-HRESULT DirectDrawSurface::SetClipper(LPDIRECTDRAWCLIPPER)
+HRESULT DirectDrawSurface::SetClipper(LPDIRECTDRAWCLIPPER) noexcept
 {
     _ASSERT(false);
     return E_NOTIMPL;
 }
 
-HRESULT DirectDrawSurface::SetColorKey(DWORD, LPDDCOLORKEY)
+HRESULT DirectDrawSurface::SetColorKey(DWORD, LPDDCOLORKEY) noexcept
 {
     _ASSERT(false);
     return E_NOTIMPL;
 }
 
-HRESULT DirectDrawSurface::SetOverlayPosition(LONG, LONG)
+HRESULT DirectDrawSurface::SetOverlayPosition(LONG, LONG) noexcept
 {
     _ASSERT(false);
     return E_NOTIMPL;
 }
 
-HRESULT DirectDrawSurface::SetPalette(LPDIRECTDRAWPALETTE lpDDPalette)
+HRESULT DirectDrawSurface::SetPalette(LPDIRECTDRAWPALETTE lpDDPalette) noexcept
 {
     ComPtr<DirectDrawPalette> palette(static_cast<DirectDrawPalette*>(lpDDPalette));
     ddPalette_.Swap(palette);
     return DD_OK;
 }
 
-HRESULT DirectDrawSurface::UpdateOverlay(LPRECT, LPDIRECTDRAWSURFACE, LPRECT, DWORD, LPDDOVERLAYFX)
+HRESULT DirectDrawSurface::UpdateOverlay(LPRECT, LPDIRECTDRAWSURFACE, LPRECT, DWORD, LPDDOVERLAYFX) noexcept
 {
     _ASSERT(false);
     return E_NOTIMPL;
 }
 
-HRESULT DirectDrawSurface::UpdateOverlayDisplay(DWORD)
+HRESULT DirectDrawSurface::UpdateOverlayDisplay(DWORD) noexcept
 {
     _ASSERT(false);
     return E_NOTIMPL;
 }
 
-HRESULT DirectDrawSurface::UpdateOverlayZOrder(DWORD, LPDIRECTDRAWSURFACE)
+HRESULT DirectDrawSurface::UpdateOverlayZOrder(DWORD, LPDIRECTDRAWSURFACE) noexcept
 {
     _ASSERT(false);
     return E_NOTIMPL;

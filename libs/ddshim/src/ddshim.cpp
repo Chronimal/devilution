@@ -22,8 +22,8 @@ const char* ComRuntimeError::formatError(HRESULT hr) noexcept
 }
 
 VirtualDisplayMode::VirtualDisplayMode(UINT width, UINT height, UINT bpp) noexcept
-    : height{height}
-    , width{width}
+    : width{width}
+    , height{height}
     , bpp{bpp}
 {
 }

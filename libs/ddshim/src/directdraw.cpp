@@ -30,8 +30,8 @@ public:
     ScopedHDC operator= (const ScopedHDC&) = delete;
 
     explicit ScopedHDC(HWND hwnd)
-        : hdc_{ GetDC(hwnd) }
-        , hwnd_{hwnd}
+        : hwnd_{hwnd}
+        , hdc_{GetDC(hwnd)}
     {
         if (hdc_ == nullptr)
         {
@@ -112,7 +112,7 @@ void DirectDraw::render(ID3D11ShaderResourceView* canvasView, ID3D11ShaderResour
 }
 
 /*** IUnknown methods ***/
-HRESULT DirectDraw::QueryInterface(REFIID riid, LPVOID* ppvObj)
+HRESULT DirectDraw::QueryInterface(REFIID riid, LPVOID* ppvObj) noexcept
 {
     if (riid == IID_IDirectDraw || riid == IID_IDirectDraw2 || riid == IID_IDirectDraw4 || riid == IID_IDirectDraw7)
     {
@@ -123,12 +123,12 @@ HRESULT DirectDraw::QueryInterface(REFIID riid, LPVOID* ppvObj)
     return E_NOINTERFACE;
 }
 
-ULONG DirectDraw::AddRef()
+ULONG DirectDraw::AddRef() noexcept
 {
     return InterlockedIncrement(&refCount_);
 }
 
-ULONG DirectDraw::Release()
+ULONG DirectDraw::Release() noexcept
 {
     auto refCount = InterlockedDecrement(&refCount_);
     if (refCount == 0)
@@ -139,19 +139,19 @@ ULONG DirectDraw::Release()
 }
 
 /*** IDirectDraw methods ***/
-HRESULT DirectDraw::Compact()
+HRESULT DirectDraw::Compact() noexcept
 {
     _ASSERT(false);
     return E_NOTIMPL;
 }
 
-HRESULT DirectDraw::CreateClipper(DWORD dwFlags, LPDIRECTDRAWCLIPPER* lplpDDClipper, IUnknown* pUnkOuter)
+HRESULT DirectDraw::CreateClipper(DWORD dwFlags, LPDIRECTDRAWCLIPPER* lplpDDClipper, IUnknown* pUnkOuter) noexcept
 {
     _ASSERT(false);
     return E_NOTIMPL;
 }
 
-HRESULT DirectDraw::CreatePalette(DWORD dwFlags, LPPALETTEENTRY lpColorTable, LPDIRECTDRAWPALETTE* lplpDDPalette, IUnknown*)
+HRESULT DirectDraw::CreatePalette(DWORD dwFlags, LPPALETTEENTRY lpColorTable, LPDIRECTDRAWPALETTE* lplpDDPalette, IUnknown*) noexcept
 {
     try
     {
@@ -164,7 +164,7 @@ HRESULT DirectDraw::CreatePalette(DWORD dwFlags, LPPALETTEENTRY lpColorTable, LP
     return DD_OK;
 }
 
-HRESULT DirectDraw::CreateSurface(LPDDSURFACEDESC lpDDSurfaceDesc, LPDIRECTDRAWSURFACE* lplpDDSurface, IUnknown* pUnkOuter)
+HRESULT DirectDraw::CreateSurface(LPDDSURFACEDESC lpDDSurfaceDesc, LPDIRECTDRAWSURFACE* lplpDDSurface, IUnknown* pUnkOuter) noexcept
 {
     try
     {
@@ -177,91 +177,91 @@ HRESULT DirectDraw::CreateSurface(LPDDSURFACEDESC lpDDSurfaceDesc, LPDIRECTDRAWS
     return DD_OK;
 }
 
-HRESULT DirectDraw::DuplicateSurface(LPDIRECTDRAWSURFACE lpDDSurface, LPDIRECTDRAWSURFACE* lplpDupDDSurface)
+HRESULT DirectDraw::DuplicateSurface(LPDIRECTDRAWSURFACE lpDDSurface, LPDIRECTDRAWSURFACE* lplpDupDDSurface) noexcept
 {
     _ASSERT(false);
     return E_NOTIMPL;
 }
 
-HRESULT DirectDraw::EnumDisplayModes(DWORD dwFlags, LPDDSURFACEDESC lpDDSurfaceDesc, LPVOID lpContext, LPDDENUMMODESCALLBACK lpEnumCallback)
+HRESULT DirectDraw::EnumDisplayModes(DWORD dwFlags, LPDDSURFACEDESC lpDDSurfaceDesc, LPVOID lpContext, LPDDENUMMODESCALLBACK lpEnumCallback) noexcept
 {
     _ASSERT(false);
     return E_NOTIMPL;
 }
 
-HRESULT DirectDraw::EnumSurfaces(DWORD dwFlags, LPDDSURFACEDESC lpDDSurfaceDesc, LPVOID lpContext, LPDDENUMSURFACESCALLBACK lpEnumCallback)
+HRESULT DirectDraw::EnumSurfaces(DWORD dwFlags, LPDDSURFACEDESC lpDDSurfaceDesc, LPVOID lpContext, LPDDENUMSURFACESCALLBACK lpEnumCallback) noexcept
 {
     _ASSERT(false);
     return E_NOTIMPL;
 }
 
-HRESULT DirectDraw::FlipToGDISurface()
+HRESULT DirectDraw::FlipToGDISurface() noexcept
 {
     _ASSERT(false);
     return E_NOTIMPL;
 }
 
-HRESULT DirectDraw::GetCaps(LPDDCAPS lpDDDriverCaps, LPDDCAPS lpDDHELCaps)
+HRESULT DirectDraw::GetCaps(LPDDCAPS lpDDDriverCaps, LPDDCAPS lpDDHELCaps) noexcept
 {
     _ASSERT(false);
     return E_NOTIMPL;
 }
 
-HRESULT DirectDraw::GetDisplayMode(LPDDSURFACEDESC lpDDSurfaceDesc)
+HRESULT DirectDraw::GetDisplayMode(LPDDSURFACEDESC lpDDSurfaceDesc) noexcept
 {
     _ASSERT(false);
     return E_NOTIMPL;
 }
 
-HRESULT DirectDraw::GetFourCCCodes(LPDWORD lpNumCodes, LPDWORD lpCodes)
+HRESULT DirectDraw::GetFourCCCodes(LPDWORD lpNumCodes, LPDWORD lpCodes) noexcept
 {
     _ASSERT(false);
     return E_NOTIMPL;
 }
 
-HRESULT DirectDraw::GetGDISurface(LPDIRECTDRAWSURFACE* lplpGDIDDSSurface)
+HRESULT DirectDraw::GetGDISurface(LPDIRECTDRAWSURFACE* lplpGDIDDSSurface) noexcept
 {
     _ASSERT(false);
     return E_NOTIMPL;
 }
 
-HRESULT DirectDraw::GetMonitorFrequency(LPDWORD lpdwFrequency)
+HRESULT DirectDraw::GetMonitorFrequency(LPDWORD lpdwFrequency) noexcept
 {
     _ASSERT(false);
     return E_NOTIMPL;
 }
 
-HRESULT DirectDraw::GetScanLine(LPDWORD lpdwScanLine)
+HRESULT DirectDraw::GetScanLine(LPDWORD lpdwScanLine) noexcept
 {
     D3DKMT_GETSCANLINE gsl{.hAdapter = adapter_.Get(), .VidPnSourceId = vidPnSourceId_};
-    auto status = D3DKMTGetScanLine(&gsl);
+    [[maybe_unused]] auto status = D3DKMTGetScanLine(&gsl);
     *lpdwScanLine = gsl.ScanLine;
     _ASSERT(status == 0);
     return DD_OK;
 }
 
-HRESULT DirectDraw::GetVerticalBlankStatus(LPBOOL lpbIsInVB)
+HRESULT DirectDraw::GetVerticalBlankStatus(LPBOOL lpbIsInVB) noexcept
 {
     D3DKMT_GETSCANLINE gsl{.hAdapter = adapter_.Get(), .VidPnSourceId = vidPnSourceId_};
-    auto status = D3DKMTGetScanLine(&gsl);
+    [[maybe_unused]] auto status = D3DKMTGetScanLine(&gsl);
     *lpbIsInVB = gsl.InVerticalBlank;
     _ASSERT(status == 0);
     return DD_OK;
 }
 
-HRESULT DirectDraw::Initialize(GUID* lpGUID)
+HRESULT DirectDraw::Initialize(GUID* lpGUID) noexcept
 {
     _ASSERT(false);
     return E_NOTIMPL;
 }
 
-HRESULT DirectDraw::RestoreDisplayMode()
+HRESULT DirectDraw::RestoreDisplayMode() noexcept
 {
     _ASSERT(false);
     return E_NOTIMPL;
 }
 
-HRESULT DirectDraw::SetCooperativeLevel(HWND hWnd, DWORD dwFlags)
+HRESULT DirectDraw::SetCooperativeLevel(HWND hWnd, DWORD dwFlags) noexcept
 {
     try
     {
@@ -278,13 +278,13 @@ HRESULT DirectDraw::SetCooperativeLevel(HWND hWnd, DWORD dwFlags)
     return DD_OK;
 }
 
-HRESULT DirectDraw::SetDisplayMode(DWORD width, DWORD height, DWORD bpp)
+HRESULT DirectDraw::SetDisplayMode(DWORD width, DWORD height, DWORD bpp) noexcept
 {
     vdm_ = {width, height, bpp};
     return DD_OK;
 }
 
-HRESULT DirectDraw::WaitForVerticalBlank(DWORD flags, HANDLE)
+HRESULT DirectDraw::WaitForVerticalBlank(DWORD flags, HANDLE) noexcept
 {
     try
     {
@@ -293,7 +293,7 @@ HRESULT DirectDraw::WaitForVerticalBlank(DWORD flags, HANDLE)
             DDS_THROW(DDERR_UNSUPPORTED);
         }
         D3DKMT_WAITFORVERTICALBLANKEVENT wb{ .hAdapter = adapter_.Get(), .VidPnSourceId = vidPnSourceId_ };
-        auto status = D3DKMTWaitForVerticalBlankEvent(&wb);
+        [[maybe_unused]] auto status = D3DKMTWaitForVerticalBlankEvent(&wb);
         _ASSERT(status == 0);
     }
     catch (...)
