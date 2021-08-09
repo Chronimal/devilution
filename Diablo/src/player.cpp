@@ -157,10 +157,11 @@ void LoadPlrGFX(int pnum, player_graphic gfxflag)
 {
     char prefix[16];
     char pszName[256];
-    const char* szCel;
+    const char* szCel = NULL;
     PlayerStruct* p;
     const char* cs;
-    BYTE *pData, *pAnim;
+    BYTE* pData = NULL;
+    BYTE* pAnim = NULL;
     DWORD i;
 
     if ((DWORD)pnum >= MAX_PLRS)
