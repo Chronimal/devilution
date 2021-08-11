@@ -68,21 +68,6 @@ inline HRESULT toHRESULT(std::exception_ptr ep) noexcept
     }
 }
 
-//--- The one and only public interface function --
-
-HRESULT directDrawCreate(GUID* guid, LPDIRECTDRAW* dd, IUnknown*) noexcept
-{
-    try
-    {
-        *dd = std::make_unique<DirectDraw>(guid).release();
-    }
-    catch (...)
-    {
-        return toHRESULT(std::current_exception());
-    }
-    return DD_OK;
-}
-
 DDS_END_NS
 
 HRESULT WINAPI DirectDrawCreate(GUID FAR* lpGUID, LPDIRECTDRAW FAR* lplpDD, IUnknown FAR* pUnkOuter)
