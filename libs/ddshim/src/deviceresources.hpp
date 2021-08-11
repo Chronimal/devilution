@@ -1,6 +1,6 @@
 #pragma once
 
-#include "ddsinternal.hpp"
+#include "ddshim.hpp"
 #include <vector>
 
 DDS_BEGIN_NS

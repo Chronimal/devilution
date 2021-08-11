@@ -5,39 +5,32 @@
       <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
       <Extensions>cpp;c;cc;cxx;c++;cppm;ixx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
     </Filter>
-    <Filter Include="Public Header Files">
-      <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
-      <Extensions>h;hh;hpp;hxx;h++;hm;inl;inc;ipp;xsd</Extensions>
-    </Filter>
-    <Filter Include="Private Header Files">
-      <UniqueIdentifier>{91db1f87-1061-4601-b32d-5819df4e1fd5}</UniqueIdentifier>
-      <Extensions>h;hh;hpp;hxx;h++;hm;inl;inc;ipp;xsd</Extensions>
-    </Filter>
     <Filter Include="Source Files\Shaders">
       <UniqueIdentifier>{63cc6d56-3fe8-40b6-a462-3480f7968aaf}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files">
+      <UniqueIdentifier>{91db1f87-1061-4601-b32d-5819df4e1fd5}</UniqueIdentifier>
+      <Extensions>h;hh;hpp;hxx;h++;hm;inl;inc;ipp;xsd</Extensions>
     </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\src\directdraw.hpp">
-      <Filter>Private Header Files</Filter>
+      <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="..\..\src\directdrawpalette.hpp">
-      <Filter>Private Header Files</Filter>
+      <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="..\..\src\directdrawsurface.hpp">
-      <Filter>Private Header Files</Filter>
+      <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="..\..\src\deviceresources.hpp">
-      <Filter>Private Header Files</Filter>
+      <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\include\ddshim\ddshim.hpp">
-      <Filter>Public Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\src\ddsinternal.hpp">
-      <Filter>Private Header Files</Filter>
+    <ClInclude Include="..\..\src\ddshim.hpp">
+      <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="..\..\src\d3dkmt.hpp">
-      <Filter>Private Header Files</Filter>
+      <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

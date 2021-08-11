@@ -3,7 +3,7 @@
 #ifndef DDS_DIRECTDRAW_HPP_INCLUDED
 #define DDS_DIRECTDRAW_HPP_INCLUDED
 
-#include "ddsinternal.hpp"
+#include "ddshim.hpp"
 #include "d3dkmt.hpp"
 
 DDS_BEGIN_NS
@@ -58,8 +58,10 @@ private:
     VirtualDisplayMode vdm_{640, 480, 8};
     D3DKMTHandle adapter_;
     UINT vidPnSourceId_{};
+    int cursorCount{0};
     bool isSubclassed_{};
     bool inSizeMove_{};
+    bool inClient{};
 
     /*** IDirectDraw methods ***/
     HRESULT __stdcall Compact() noexcept override;
@@ -96,6 +98,8 @@ private:
     void onSize(HWND hwnd, WPARAM wParam, LPARAM lParam);
     void onEnterSizeMove(HWND hwnd, WPARAM wParam, LPARAM lParam);
     void onExitSizeMove(HWND hwnd, WPARAM wParam, LPARAM lParam);
+    void onMouseMove(HWND hwnd, WPARAM wParam, LPARAM lParam);
+    void onMouseLeave(HWND hwnd, WPARAM wParam, LPARAM lParam);
 
     static LRESULT CALLBACK subclassProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam, UINT_PTR subclassID, DWORD_PTR userData);
     void unsubclassWindow(HWND hwnd) noexcept;

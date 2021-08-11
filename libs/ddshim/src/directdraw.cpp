@@ -412,6 +412,10 @@ void DirectDraw::onWindowMessage(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lPar
             return onEnterSizeMove(hwnd, wParam, lParam);
         case WM_EXITSIZEMOVE:
             return onExitSizeMove(hwnd, wParam, lParam);
+        case WM_MOUSEMOVE:
+            return onMouseMove(hwnd, wParam, lParam);
+        case WM_MOUSELEAVE:
+            return onMouseLeave(hwnd, wParam, lParam);
     }
 }
 
@@ -452,6 +456,35 @@ void DirectDraw::onExitSizeMove(HWND hwnd, WPARAM wParam, LPARAM lParam)
 {
     inSizeMove_ = false;
     deviceResources_->windowSizeChanged(getClientSize(hwnd));
+}
+
+void DirectDraw::onMouseMove(HWND hwnd, WPARAM /* wParam */, LPARAM /* lParam */)
+{
+    if (!inClient)
+    {
+        inClient = true;
+        TRACKMOUSEEVENT tme{ .cbSize = sizeof(tme) };
+        tme.dwFlags = TME_LEAVE;
+        tme.hwndTrack = hwnd;
+        TrackMouseEvent(&tme);
+
+        while (cursorCount > 0)
+        {
+            ShowCursor(FALSE);
+            --cursorCount;
+        }
+    }
+}
+
+void DirectDraw::onMouseLeave(HWND /* hwnd */, WPARAM /* wParam */, LPARAM /* lParam */)
+{
+    inClient = false;
+    CURSORINFO cursorinfo{.cbSize = sizeof(cursorinfo)};
+    while (GetCursorInfo(&cursorinfo) && cursorinfo.flags == 0)
+    {
+        ++cursorCount;
+        ShowCursor(TRUE);
+    }
 }
 
 LRESULT DirectDraw::subclassProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam, UINT_PTR subclassID, DWORD_PTR)

@@ -3,7 +3,7 @@
 #ifndef DDS_DIRECTDRAWPALETTE_HPP_INCLUDED
 #define DDS_DIRECTDRAWPALETTE_HPP_INCLUDED
 
-#include "ddsinternal.hpp"
+#include "ddshim.hpp"
 
 DDS_BEGIN_NS
 
