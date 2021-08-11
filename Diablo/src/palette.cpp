@@ -104,20 +104,21 @@ static void LoadSysPal()
     if (!fullscreen)
     {
         hDC = GetDC(NULL);
-
-        gdwPalEntries = GetDeviceCaps(hDC, NUMRESERVED) / 2;
-        GetSystemPaletteEntries(hDC, 0, gdwPalEntries, system_palette);
-        for (i = 0; i < gdwPalEntries; i++)
-            system_palette[i].peFlags = 0;
-
-        iStartIndex = 256 - gdwPalEntries;
-        GetSystemPaletteEntries(hDC, iStartIndex, gdwPalEntries, &system_palette[iStartIndex]);
-        if (iStartIndex < 256)
+        if ((GetDeviceCaps(hDC, RASTERCAPS) & RC_PALETTE) == RC_PALETTE)
         {
-            for (i = iStartIndex; i < 256; i++)
+            gdwPalEntries = GetDeviceCaps(hDC, NUMRESERVED) / 2;
+            GetSystemPaletteEntries(hDC, 0, gdwPalEntries, system_palette);
+            for (i = 0; i < gdwPalEntries; i++)
                 system_palette[i].peFlags = 0;
-        }
 
+            iStartIndex = 256 - gdwPalEntries;
+            GetSystemPaletteEntries(hDC, iStartIndex, gdwPalEntries, &system_palette[iStartIndex]);
+            if (iStartIndex < 256)
+            {
+                for (i = iStartIndex; i < 256; i++)
+                    system_palette[i].peFlags = 0;
+            }
+        }
         ReleaseDC(NULL, hDC);
     }
 }

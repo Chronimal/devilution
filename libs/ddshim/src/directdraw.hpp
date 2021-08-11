@@ -55,7 +55,7 @@ private:
     UINT numVerts_{};
 
     ULONG refCount_{1};
-    VirtualDisplayMode vdm_;
+    VirtualDisplayMode vdm_{640, 480, 8};
     D3DKMTHandle adapter_;
     UINT vidPnSourceId_{};
     bool isSubclassed_{};

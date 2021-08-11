@@ -21,10 +21,4 @@
 #define DDS_BEGIN_NS namespace ddw {
 #define DDS_END_NS }
 
-DDS_BEGIN_NS
-
-HRESULT directDrawCreate(GUID* guid, LPDIRECTDRAW* dd, IUnknown* unkOuter) noexcept;
-
-DDS_END_NS
-
 #endif // DDS_SHIM_HPP_INCLUDED

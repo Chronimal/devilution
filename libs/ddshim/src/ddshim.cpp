@@ -84,3 +84,16 @@ HRESULT directDrawCreate(GUID* guid, LPDIRECTDRAW* dd, IUnknown*) noexcept
 }
 
 DDS_END_NS
+
+HRESULT WINAPI DirectDrawCreate(GUID FAR* lpGUID, LPDIRECTDRAW FAR* lplpDD, IUnknown FAR* pUnkOuter)
+{
+    try
+    {
+        *lplpDD = std::make_unique<ddw::DirectDraw>(lpGUID).release();
+    }
+    catch (...)
+    {
+        return ddw::toHRESULT(std::current_exception());
+    }
+    return DD_OK;
+}

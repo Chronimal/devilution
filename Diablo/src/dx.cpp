@@ -5,7 +5,6 @@
  */
 #include "all.h"
 #include "storm/storm.h"
-#include "ddshim/ddshim.hpp"
 
 BYTE* sgpBackBuf;
 LPDIRECTDRAW lpDDInterface;
@@ -30,9 +29,7 @@ static void dx_create_back_buffer()
 
     error_code = lpDDSPrimary->GetCaps(&caps);
     if (error_code != DD_OK)
-    {
         DDErrMsg(error_code, 59, "C:\\Src\\Diablo\\Source\\dx.cpp");
-    }
 
     if (!gbBackBuf)
     {
@@ -45,9 +42,7 @@ static void dx_create_back_buffer()
             return;
         }
         if (error_code != DDERR_CANTLOCKSURFACE)
-        {
             ErrDlg(IDD_DIALOG1, error_code, "C:\\Src\\Diablo\\Source\\dx.cpp", 81);
-        }
     }
 
     memset(&ddsd, 0, sizeof(ddsd));
@@ -60,14 +55,10 @@ static void dx_create_back_buffer()
     ddsd.ddpfPixelFormat.dwSize = sizeof(ddsd.ddpfPixelFormat);
     error_code = lpDDSPrimary->GetPixelFormat(&ddsd.ddpfPixelFormat);
     if (error_code != DD_OK)
-    {
         ErrDlg(IDD_DIALOG1, error_code, "C:\\Src\\Diablo\\Source\\dx.cpp", 94);
-    }
     error_code = lpDDInterface->CreateSurface(&ddsd, &lpDDSBackBuf, NULL);
     if (error_code != DD_OK)
-    {
         ErrDlg(IDD_DIALOG1, error_code, "C:\\Src\\Diablo\\Source\\dx.cpp", 96);
-    }
 }
 
 static void dx_create_primary_surface()
@@ -81,9 +72,7 @@ static void dx_create_primary_surface()
     ddsd.ddsCaps.dwCaps = DDSCAPS_PRIMARYSURFACE;
     error_code = lpDDInterface->CreateSurface(&ddsd, &lpDDSPrimary, NULL);
     if (error_code != DD_OK)
-    {
         ErrDlg(IDD_DIALOG1, error_code, "C:\\Src\\Diablo\\Source\\dx.cpp", 109);
-    }
 }
 
 void dx_init(HWND hWnd)
@@ -105,7 +94,7 @@ void dx_init(HWND hWnd)
     {
         lpGUID = (GUID*)DDCREATE_EMULATIONONLY;
     }
-    hDDVal = ddw::directDrawCreate(lpGUID, &lpDDInterface, nullptr);
+    hDDVal = DirectDrawCreate(lpGUID, &lpDDInterface, NULL);
     if (hDDVal != DD_OK)
     {
         ErrDlg(IDD_DIALOG1, hDDVal, "C:\\Src\\Diablo\\Source\\dx.cpp", 149);
@@ -196,9 +185,7 @@ static void lock_buf_priv()
     ddsd.dwSize = sizeof(ddsd);
     error_code = lpDDSBackBuf->Lock(NULL, &ddsd, DDLOCK_WAIT, NULL);
     if (error_code != DD_OK)
-    {
         DDErrMsg(error_code, 235, "C:\\Src\\Diablo\\Source\\dx.cpp");
-    }
 
     gpBuffer = (BYTE*)ddsd.lpSurface;
     gpBufEnd += (size_t)ddsd.lpSurface;
@@ -218,13 +205,9 @@ static void unlock_buf_priv()
     HRESULT error_code;
 
     if (sgdwLockCount == 0)
-    {
         app_fatal("draw main unlock error");
-    }
     if (gpBuffer == NULL)
-    {
         app_fatal("draw consistency error");
-    }
 
     sgdwLockCount--;
     if (sgdwLockCount == 0)
@@ -235,9 +218,7 @@ static void unlock_buf_priv()
         {
             error_code = lpDDSBackBuf->Unlock(NULL);
             if (error_code != DD_OK)
-            {
                 DDErrMsg(error_code, 273, "C:\\Src\\Diablo\\Source\\dx.cpp");
-            }
         }
     }
     sgMemCrit.Leave();
@@ -247,9 +228,7 @@ void unlock_buf(BYTE idx)
 {
 #ifdef _DEBUG
     if (!locktbl[idx])
-    {
         app_fatal("Draw lock underflow: 0x%x", idx);
-    }
     --locktbl[idx];
 #endif
     unlock_buf_priv();
@@ -258,9 +237,7 @@ void unlock_buf(BYTE idx)
 void dx_cleanup()
 {
     if (ghMainWnd)
-    {
         ShowWindow(ghMainWnd, SW_HIDE);
-    }
     SDrawDestroy();
     sgMemCrit.Enter();
     if (sgpBackBuf != NULL)
@@ -290,4 +267,35 @@ void dx_cleanup()
         lpDDInterface->Release();
         lpDDInterface = NULL;
     }
+}
+
+void dx_reinit()
+{
+    int lockCount;
+
+    sgMemCrit.Enter();
+    ClearCursor();
+    lockCount = sgdwLockCount;
+
+    while (sgdwLockCount != 0)
+        unlock_buf_priv();
+
+    dx_cleanup();
+
+    force_redraw = 255;
+
+    dx_init(ghMainWnd);
+
+    while (lockCount-- != 0)
+    {
+        lock_buf_priv();
+    }
+
+    sgMemCrit.Leave();
+}
+
+/* check extern remove stub */
+void j_dx_reinit()
+{
+    dx_reinit();
 }
