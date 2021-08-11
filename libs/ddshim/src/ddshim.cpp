@@ -70,7 +70,7 @@ inline HRESULT toHRESULT(std::exception_ptr ep) noexcept
 
 DDS_END_NS
 
-HRESULT WINAPI DirectDrawCreate(GUID FAR* lpGUID, LPDIRECTDRAW FAR* lplpDD, IUnknown FAR* pUnkOuter)
+_Check_return_ HRESULT WINAPI DirectDrawCreate(GUID FAR* lpGUID, LPDIRECTDRAW FAR* lplpDD, IUnknown FAR* pUnkOuter)
 {
     try
     {
