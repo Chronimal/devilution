@@ -10,11 +10,13 @@ Given the fact the restructuring touched pretty much every file in the code base
 # Compiling
 Diablo was developed on Windows 95 using Visual C++ 4.20 and later 5.10 and 6 for newer patches. However, the code restructuring was done with Visual Studio 2019 in mind and ties to older versions have been cut.
 
-### Building with Visual Studio 2019
-- Open the project solution `Diablo\build\vs2019\Diablo.sln`, choose `Debug` or `Release` and `x86` (x64) is not supported yet), and then `Build Diablo`.
+### Building with CMake
+- From the project root directory create a directory `build`
+- Change into the new `build` directory
+- Execute the command `cmake ..`
 
 # Installing
-Once compiled, the Devilution binary will serve as a replacement for `Diablo.exe`. The following files from the original game patched to 1.09(b) need to be present: `DIABDAT.MPQ`, `DiabloUI.dll`, `SmackW32.dll`, `Standard.snp`, and `Storm.dll`.
+If Diablo is installed on the build machine, then the cmake script attempts to extract the installation directory of Diablo from the registry and sets the working directory in the generated Visual Studio project file accordingly. Simply hitting F5 in Visula Studio should run Diablo in debug mode.
 
 # Credits
 - All credit goes to the team at [diasurgical's devilution](https://github.com/diasurgical/devilution). I'm just a guy who plays around with the result of their hard work.
