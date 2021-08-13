@@ -35,6 +35,7 @@
 
 // Include libraries used in the platform specific part of the code base
 #pragma comment(lib, "Comctl32.lib")
+#pragma comment(lib, "Version.lib")
 #pragma comment(lib, "Gdi32.lib")
 #pragma comment(lib, "dxguid.lib")
 #pragma comment(lib, "d3d11.lib")
