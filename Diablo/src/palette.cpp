@@ -75,7 +75,9 @@ static void LoadGamma()
 
     value = gamma_correction;
     if (!SRegLoadValue(APP_NAME, "Gamma Correction", 0, &value))
+    {
         value = 100;
+    }
     gamma_value = value;
     if (value < 30)
     {
@@ -88,7 +90,9 @@ static void LoadGamma()
     gamma_correction = gamma_value - gamma_value % 5;
 #ifndef HELLFIRE
     if (!SRegLoadValue(APP_NAME, "Color Cycling", 0, &value))
+    {
         value = 1;
+    }
     color_cycling_enabled = value;
 #endif
 }
@@ -99,7 +103,9 @@ static void LoadSysPal()
     int i, iStartIndex;
 
     for (i = 0; i < 256; i++)
+    {
         system_palette[i].peFlags = PC_NOCOLLAPSE | PC_RESERVED;
+    }
 
     if (!fullscreen)
     {
@@ -109,14 +115,18 @@ static void LoadSysPal()
             gdwPalEntries = GetDeviceCaps(hDC, NUMRESERVED) / 2;
             GetSystemPaletteEntries(hDC, 0, gdwPalEntries, system_palette);
             for (i = 0; i < gdwPalEntries; i++)
+            {
                 system_palette[i].peFlags = 0;
+            }
 
             iStartIndex = 256 - gdwPalEntries;
             GetSystemPaletteEntries(hDC, iStartIndex, gdwPalEntries, &system_palette[iStartIndex]);
             if (iStartIndex < 256)
             {
                 for (i = iStartIndex; i < 256; i++)
+                {
                     system_palette[i].peFlags = 0;
+                }
             }
         }
         ReleaseDC(NULL, hDC);
@@ -136,11 +146,15 @@ void palette_init()
     error_code = lpDDInterface->CreatePalette(DDPCAPS_ALLOW256 | DDPCAPS_8BIT, system_palette, &lpDDPalette, NULL);
 #endif
     if (error_code)
+    {
         ErrDlg(IDD_DIALOG8, error_code, "C:\\Src\\Diablo\\Source\\PALETTE.CPP", 143);
+    }
     error_code = lpDDSPrimary->SetPalette(lpDDPalette);
 #ifndef RGBMODE
     if (error_code)
+    {
         ErrDlg(IDD_DIALOG8, error_code, "C:\\Src\\Diablo\\Source\\PALETTE.CPP", 146);
+    }
 #endif
 }
 
@@ -210,7 +224,9 @@ void IncreaseGamma()
     {
         gamma_correction += 5;
         if (gamma_correction > 100)
+        {
             gamma_correction = 100;
+        }
         ApplyGamma(system_palette, logical_palette, 256);
         palette_update();
     }
@@ -222,7 +238,9 @@ void DecreaseGamma()
     {
         gamma_correction -= 5;
         if (gamma_correction < 30)
+        {
             gamma_correction = 30;
+        }
         ApplyGamma(system_palette, logical_palette, 256);
         palette_update();
     }

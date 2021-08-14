@@ -78,12 +78,16 @@ void InitDiabloMsg(char e)
     for (i = 0; i < msgcnt; i++)
     {
         if (msgtable[i] == e)
+        {
             return;
+        }
     }
 
     msgtable[msgcnt] = e; // BUGFIX: missing out-of-bounds check
     if (msgcnt < (BYTE)sizeof(msgtable))
+    {
         msgcnt++;
+    }
 
     msgflag = msgtable[0];
     msgdelay = 70;
@@ -94,7 +98,9 @@ void ClrDiabloMsg()
     int i;
 
     for (i = 0; i < sizeof(msgtable); i++)
+    {
         msgtable[i] = 0;
+    }
 
     msgflag = 0;
     msgcnt = 0;

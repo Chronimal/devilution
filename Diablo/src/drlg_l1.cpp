@@ -504,53 +504,95 @@ static void DRLG_PlaceDoor(int x, int y)
         if (df == 1)
         {
             if (y != 1 && c == 2)
+            {
                 dungeon[x][y] = 26;
+            }
             if (y != 1 && c == 7)
+            {
                 dungeon[x][y] = 31;
+            }
             if (y != 1 && c == 14)
+            {
                 dungeon[x][y] = 42;
+            }
             if (y != 1 && c == 4)
+            {
                 dungeon[x][y] = 43;
+            }
             if (x != 1 && c == 1)
+            {
                 dungeon[x][y] = 25;
+            }
             if (x != 1 && c == 10)
+            {
                 dungeon[x][y] = 40;
+            }
             if (x != 1 && c == 6)
+            {
                 dungeon[x][y] = 30;
+            }
         }
         if (df == 2)
         {
             if (x != 1 && c == 1)
+            {
                 dungeon[x][y] = 25;
+            }
             if (x != 1 && c == 6)
+            {
                 dungeon[x][y] = 30;
+            }
             if (x != 1 && c == 10)
+            {
                 dungeon[x][y] = 40;
+            }
             if (x != 1 && c == 4)
+            {
                 dungeon[x][y] = 41;
+            }
             if (y != 1 && c == 2)
+            {
                 dungeon[x][y] = 26;
+            }
             if (y != 1 && c == 14)
+            {
                 dungeon[x][y] = 42;
+            }
             if (y != 1 && c == 7)
+            {
                 dungeon[x][y] = 31;
+            }
         }
         if (df == 3)
         {
             if (x != 1 && y != 1 && c == 4)
+            {
                 dungeon[x][y] = 28;
+            }
             if (x != 1 && c == 10)
+            {
                 dungeon[x][y] = 40;
+            }
             if (y != 1 && c == 14)
+            {
                 dungeon[x][y] = 42;
+            }
             if (y != 1 && c == 2)
+            {
                 dungeon[x][y] = 26;
+            }
             if (x != 1 && c == 1)
+            {
                 dungeon[x][y] = 25;
+            }
             if (y != 1 && c == 7)
+            {
                 dungeon[x][y] = 31;
+            }
             if (x != 1 && c == 6)
+            {
                 dungeon[x][y] = 30;
+            }
         }
     }
 
@@ -874,19 +916,31 @@ static void DRLG_L1Shadows()
                 {
                     patflag = TRUE;
                     if (SPATS[i].s1 && SPATS[i].s1 != sd[1][1])
+                    {
                         patflag = FALSE;
+                    }
                     if (SPATS[i].s2 && SPATS[i].s2 != sd[0][1])
+                    {
                         patflag = FALSE;
+                    }
                     if (SPATS[i].s3 && SPATS[i].s3 != sd[1][0])
+                    {
                         patflag = FALSE;
+                    }
                     if (patflag == TRUE)
                     {
                         if (SPATS[i].nv1 && !L5dflags[x - 1][y - 1])
+                        {
                             dungeon[x - 1][y - 1] = SPATS[i].nv1;
+                        }
                         if (SPATS[i].nv2 && !L5dflags[x][y - 1])
+                        {
                             dungeon[x][y - 1] = SPATS[i].nv2;
+                        }
                         if (SPATS[i].nv3 && !L5dflags[x - 1][y])
+                        {
                             dungeon[x - 1][y] = SPATS[i].nv3;
+                        }
                     }
                 }
             }
@@ -901,51 +955,87 @@ static void DRLG_L1Shadows()
             {
                 tnv3 = 139;
                 if (dungeon[x][y] == 29)
+                {
                     tnv3 = 141;
+                }
                 if (dungeon[x][y] == 32)
+                {
                     tnv3 = 141;
+                }
                 if (dungeon[x][y] == 35)
+                {
                     tnv3 = 141;
+                }
                 if (dungeon[x][y] == 37)
+                {
                     tnv3 = 141;
+                }
                 if (dungeon[x][y] == 38)
+                {
                     tnv3 = 141;
+                }
                 if (dungeon[x][y] == 39)
+                {
                     tnv3 = 141;
+                }
                 dungeon[x - 1][y] = tnv3;
             }
             if (dungeon[x - 1][y] == 149 && !L5dflags[x - 1][y])
             {
                 tnv3 = 149;
                 if (dungeon[x][y] == 29)
+                {
                     tnv3 = 153;
+                }
                 if (dungeon[x][y] == 32)
+                {
                     tnv3 = 153;
+                }
                 if (dungeon[x][y] == 35)
+                {
                     tnv3 = 153;
+                }
                 if (dungeon[x][y] == 37)
+                {
                     tnv3 = 153;
+                }
                 if (dungeon[x][y] == 38)
+                {
                     tnv3 = 153;
+                }
                 if (dungeon[x][y] == 39)
+                {
                     tnv3 = 153;
+                }
                 dungeon[x - 1][y] = tnv3;
             }
             if (dungeon[x - 1][y] == 148 && !L5dflags[x - 1][y])
             {
                 tnv3 = 148;
                 if (dungeon[x][y] == 29)
+                {
                     tnv3 = 154;
+                }
                 if (dungeon[x][y] == 32)
+                {
                     tnv3 = 154;
+                }
                 if (dungeon[x][y] == 35)
+                {
                     tnv3 = 154;
+                }
                 if (dungeon[x][y] == 37)
+                {
                     tnv3 = 154;
+                }
                 if (dungeon[x][y] == 38)
+                {
                     tnv3 = 154;
+                }
                 if (dungeon[x][y] == 39)
+                {
                     tnv3 = 154;
+                }
                 dungeon[x - 1][y] = tnv3;
             }
         }
@@ -961,9 +1051,13 @@ static int DRLG_PlaceMiniSet(const BYTE* miniset, int tmin, int tmax, int cx, in
     sh = miniset[1];
 
     if (tmax - tmin == 0)
+    {
         numt = 1;
+    }
     else
+    {
         numt = random_(0, tmax - tmin) + tmin;
+    }
 
     for (i = 0; i < numt; i++)
     {
@@ -990,19 +1084,27 @@ static int DRLG_PlaceMiniSet(const BYTE* miniset, int tmin, int tmax, int cx, in
             {
                 case 0:
                     if (sx < cx && sy < cy)
+                    {
                         abort = FALSE;
+                    }
                     break;
                 case 1:
                     if (sx > cx && sy < cy)
+                    {
                         abort = FALSE;
+                    }
                     break;
                 case 2:
                     if (sx < cx && sy > cy)
+                    {
                         abort = FALSE;
+                    }
                     break;
                 case 3:
                     if (sx > cx && sy > cy)
+                    {
                         abort = FALSE;
+                    }
                     break;
             }
 
@@ -1013,9 +1115,13 @@ static int DRLG_PlaceMiniSet(const BYTE* miniset, int tmin, int tmax, int cx, in
                 for (xx = 0; xx < sw && abort == TRUE; xx++)
                 {
                     if (miniset[ii] && dungeon[xx + sx][sy + yy] != miniset[ii])
+                    {
                         abort = FALSE;
+                    }
                     if (L5dflags[xx + sx][sy + yy])
+                    {
                         abort = FALSE;
+                    }
                     ii++;
                 }
             }
@@ -1026,10 +1132,14 @@ static int DRLG_PlaceMiniSet(const BYTE* miniset, int tmin, int tmax, int cx, in
                 {
                     sx = 0;
                     if (++sy == DMAXY - sh)
+                    {
                         sy = 0;
+                    }
                 }
                 if (++found > 4000)
+                {
                     return -1;
+                }
             }
         }
 
@@ -1040,7 +1150,9 @@ static int DRLG_PlaceMiniSet(const BYTE* miniset, int tmin, int tmax, int cx, in
             for (xx = 0; xx < sw; xx++)
             {
                 if (miniset[ii])
+                {
                     dungeon[xx + sx][sy + yy] = miniset[ii];
+                }
                 ii++;
             }
         }
@@ -1070,13 +1182,21 @@ static int DRLG_PlaceMiniSet(const BYTE* miniset, int tmin, int tmax, int cx, in
     }
 
     if (sx < cx && sy < cy)
+    {
         return 0;
+    }
     if (sx > cx && sy < cy)
+    {
         return 1;
+    }
     if (sx < cx && sy > cy)
+    {
         return 2;
+    }
     else
+    {
         return 3;
+    }
 }
 
 static void DRLG_L1Floor()
@@ -1093,9 +1213,13 @@ static void DRLG_L1Floor()
                 rv = random_(0, 3);
 
                 if (rv == 1)
+                {
                     dungeon[i][j] = 162;
+                }
                 if (rv == 2)
+                {
                     dungeon[i][j] = 163;
+                }
             }
         }
     }
@@ -1230,9 +1354,13 @@ void DRLG_Init_Globals()
     if (!lightflag)
     {
         if (light4flag)
+        {
             c = 3;
+        }
         else
+        {
             c = 15;
+        }
     }
     else
     {
@@ -1481,9 +1609,13 @@ static BOOL L5checkRoom(int x, int y, int width, int height)
         for (i = 0; i < width; i++)
         {
             if (i + x < 0 || i + x >= DMAXX || j + y < 0 || j + y >= DMAXY)
+            {
                 return FALSE;
+            }
             if (dungeon[i + x][j + y])
+            {
                 return FALSE;
+            }
         }
     }
 
@@ -1514,15 +1646,23 @@ static void L5roomGen(int x, int y, int w, int h, int dir)
             } while (ran == FALSE && num < 20);
 
             if (ran == TRUE)
+            {
                 L5drawRoom(cx1, cy1, cw, ch);
+            }
             cx2 = x + w;
             ran2 = L5checkRoom(cx2, cy1 - 1, cw + 1, ch + 2);
             if (ran2 == TRUE)
+            {
                 L5drawRoom(cx2, cy1, cw, ch);
+            }
             if (ran == TRUE)
+            {
                 L5roomGen(cx1, cy1, cw, ch, 1);
+            }
             if (ran2 == TRUE)
+            {
                 L5roomGen(cx2, cy1, cw, ch, 1);
+            }
             break;
         case TRUE:
             num = 0;
@@ -1537,15 +1677,23 @@ static void L5roomGen(int x, int y, int w, int h, int dir)
             } while (ran == FALSE && num < 20);
 
             if (ran == TRUE)
+            {
                 L5drawRoom(rx, ry, width, height);
+            }
             ry2 = y + h;
             ran2 = L5checkRoom(rx - 1, ry2, width + 2, height + 1);
             if (ran2 == TRUE)
+            {
                 L5drawRoom(rx, ry2, width, height);
+            }
             if (ran == TRUE)
+            {
                 L5roomGen(rx, ry, width, height, 0);
+            }
             if (ran2 == TRUE)
+            {
                 L5roomGen(rx, ry2, width, height, 0);
+            }
             break;
     }
 }
@@ -1565,18 +1713,30 @@ static void L5firstRoom()
         VR3 = random_(0, 2);
 
         if (VR1 + VR3 <= 1)
+        {
             VR2 = 1;
+        }
         if (VR1)
+        {
             L5drawRoom(15, 1, 10, 10);
+        }
         else
+        {
             ys = 18;
+        }
 
         if (VR2)
+        {
             L5drawRoom(15, 15, 10, 10);
+        }
         if (VR3)
+        {
             L5drawRoom(15, 29, 10, 10);
+        }
         else
+        {
             ye = 22;
+        }
 
         for (y = ys; y < ye; y++)
         {
@@ -1589,11 +1749,17 @@ static void L5firstRoom()
         }
 
         if (VR1)
+        {
             L5roomGen(15, 1, 10, 10, 0);
+        }
         if (VR2)
+        {
             L5roomGen(15, 15, 10, 10, 0);
+        }
         if (VR3)
+        {
             L5roomGen(15, 29, 10, 10, 0);
+        }
 
         HR3 = 0;
         HR2 = 0;
@@ -1609,18 +1775,30 @@ static void L5firstRoom()
         HR3 = random_(0, 2);
 
         if (HR1 + HR3 <= 1)
+        {
             HR2 = 1;
+        }
         if (HR1)
+        {
             L5drawRoom(1, 15, 10, 10);
+        }
         else
+        {
             xs = 18;
+        }
 
         if (HR2)
+        {
             L5drawRoom(15, 15, 10, 10);
+        }
         if (HR3)
+        {
             L5drawRoom(29, 15, 10, 10);
+        }
         else
+        {
             xe = 22;
+        }
 
         for (x = xs; x < xe; x++)
         {
@@ -1633,11 +1811,17 @@ static void L5firstRoom()
         }
 
         if (HR1)
+        {
             L5roomGen(1, 15, 10, 10, 1);
+        }
         if (HR2)
+        {
             L5roomGen(15, 15, 10, 10, 1);
+        }
         if (HR3)
+        {
             L5roomGen(29, 15, 10, 10, 1);
+        }
 
         VR3 = 0;
         VR2 = 0;
@@ -1657,7 +1841,9 @@ static int L5GetArea()
         for (i = 0; i < DMAXX; i++)
         {
             if (dungeon[i][j] == 1)
+            {
                 rv++;
+            }
         }
     }
 
@@ -1714,23 +1900,37 @@ static int L5HWallOk(int i, int j)
     for (x = 1; dungeon[i + x][j] == 13; x++)
     {
         if (dungeon[i + x][j - 1] != 13 || dungeon[i + x][j + 1] != 13 || L5dflags[i + x][j])
+        {
             break;
+        }
     }
 
     wallok = FALSE;
     if (dungeon[i + x][j] >= 3 && dungeon[i + x][j] <= 7)
+    {
         wallok = TRUE;
+    }
     if (dungeon[i + x][j] >= 16 && dungeon[i + x][j] <= 24)
+    {
         wallok = TRUE;
+    }
     if (dungeon[i + x][j] == 22)
+    {
         wallok = FALSE;
+    }
     if (x == 1)
+    {
         wallok = FALSE;
+    }
 
     if (wallok)
+    {
         return x;
+    }
     else
+    {
         return -1;
+    }
 }
 
 static int L5VWallOk(int i, int j)
@@ -1741,23 +1941,37 @@ static int L5VWallOk(int i, int j)
     for (y = 1; dungeon[i][j + y] == 13; y++)
     {
         if (dungeon[i - 1][j + y] != 13 || dungeon[i + 1][j + y] != 13 || L5dflags[i][j + y])
+        {
             break;
+        }
     }
 
     wallok = FALSE;
     if (dungeon[i][j + y] >= 3 && dungeon[i][j + y] <= 7)
+    {
         wallok = TRUE;
+    }
     if (dungeon[i][j + y] >= 16 && dungeon[i][j + y] <= 24)
+    {
         wallok = TRUE;
+    }
     if (dungeon[i][j + y] == 22)
+    {
         wallok = FALSE;
+    }
     if (y == 1)
+    {
         wallok = FALSE;
+    }
 
     if (wallok)
+    {
         return y;
+    }
     else
+    {
         return -1;
+    }
 }
 
 static void L5HorizWall(int i, int j, char p, int dx)
@@ -1774,25 +1988,39 @@ static void L5HorizWall(int i, int j, char p, int dx)
         case 2:
             dt = 12;
             if (p == 2)
+            {
                 p = 12;
+            }
             if (p == 4)
+            {
                 p = 10;
+            }
             break;
         case 3:
             dt = 36;
             if (p == 2)
+            {
                 p = 36;
+            }
             if (p == 4)
+            {
                 p = 27;
+            }
             break;
     }
 
     if (random_(0, 6) == 5)
+    {
         wt = 12;
+    }
     else
+    {
         wt = 26;
+    }
     if (dt == 12)
+    {
         wt = 12;
+    }
 
     dungeon[i][j] = p;
 
@@ -1828,25 +2056,39 @@ static void L5VertWall(int i, int j, char p, int dy)
         case 2:
             dt = 11;
             if (p == 1)
+            {
                 p = 11;
+            }
             if (p == 4)
+            {
                 p = 14;
+            }
             break;
         case 3:
             dt = 35;
             if (p == 1)
+            {
                 p = 35;
+            }
             if (p == 4)
+            {
                 p = 37;
+            }
             break;
     }
 
     if (random_(0, 6) == 5)
+    {
         wt = 11;
+    }
     else
+    {
         wt = 25;
+    }
     if (dt == 11)
+    {
         wt = 11;
+    }
 
     dungeon[i][j] = p;
 
@@ -1882,37 +2124,49 @@ static void L5AddWall()
                 {
                     x = L5HWallOk(i, j);
                     if (x != -1)
+                    {
                         L5HorizWall(i, j, 2, x);
+                    }
                 }
                 if (dungeon[i][j] == 3 && random_(0, 100) < 100)
                 {
                     y = L5VWallOk(i, j);
                     if (y != -1)
+                    {
                         L5VertWall(i, j, 1, y);
+                    }
                 }
                 if (dungeon[i][j] == 6 && random_(0, 100) < 100)
                 {
                     x = L5HWallOk(i, j);
                     if (x != -1)
+                    {
                         L5HorizWall(i, j, 4, x);
+                    }
                 }
                 if (dungeon[i][j] == 7 && random_(0, 100) < 100)
                 {
                     y = L5VWallOk(i, j);
                     if (y != -1)
+                    {
                         L5VertWall(i, j, 4, y);
+                    }
                 }
                 if (dungeon[i][j] == 2 && random_(0, 100) < 100)
                 {
                     x = L5HWallOk(i, j);
                     if (x != -1)
+                    {
                         L5HorizWall(i, j, 2, x);
+                    }
                 }
                 if (dungeon[i][j] == 1 && random_(0, 100) < 100)
                 {
                     y = L5VWallOk(i, j);
                     if (y != -1)
+                    {
                         L5VertWall(i, j, 1, y);
+                    }
                 }
             }
         }
@@ -2019,19 +2273,33 @@ static void L5tileFix()
         for (i = 0; i < DMAXX; i++)
         {
             if (dungeon[i][j] == 2 && dungeon[i + 1][j] == 22)
+            {
                 dungeon[i + 1][j] = 23;
+            }
             if (dungeon[i][j] == 13 && dungeon[i + 1][j] == 22)
+            {
                 dungeon[i + 1][j] = 18;
+            }
             if (dungeon[i][j] == 13 && dungeon[i + 1][j] == 2)
+            {
                 dungeon[i + 1][j] = 7;
+            }
             if (dungeon[i][j] == 6 && dungeon[i + 1][j] == 22)
+            {
                 dungeon[i + 1][j] = 24;
+            }
             if (dungeon[i][j] == 1 && dungeon[i][j + 1] == 22)
+            {
                 dungeon[i][j + 1] = 24;
+            }
             if (dungeon[i][j] == 13 && dungeon[i][j + 1] == 1)
+            {
                 dungeon[i][j + 1] = 6;
+            }
             if (dungeon[i][j] == 13 && dungeon[i][j + 1] == 22)
+            {
                 dungeon[i][j + 1] = 19;
+            }
         }
     }
 
@@ -2040,73 +2308,141 @@ static void L5tileFix()
         for (i = 0; i < DMAXX; i++)
         {
             if (dungeon[i][j] == 13 && dungeon[i + 1][j] == 19)
+            {
                 dungeon[i + 1][j] = 21;
+            }
             if (dungeon[i][j] == 13 && dungeon[i + 1][j] == 22)
+            {
                 dungeon[i + 1][j] = 20;
+            }
             if (dungeon[i][j] == 7 && dungeon[i + 1][j] == 22)
+            {
                 dungeon[i + 1][j] = 23;
+            }
             if (dungeon[i][j] == 13 && dungeon[i + 1][j] == 24)
+            {
                 dungeon[i + 1][j] = 21;
+            }
             if (dungeon[i][j] == 19 && dungeon[i + 1][j] == 22)
+            {
                 dungeon[i + 1][j] = 20;
+            }
             if (dungeon[i][j] == 2 && dungeon[i + 1][j] == 19)
+            {
                 dungeon[i + 1][j] = 21;
+            }
             if (dungeon[i][j] == 19 && dungeon[i + 1][j] == 1)
+            {
                 dungeon[i + 1][j] = 6;
+            }
             if (dungeon[i][j] == 7 && dungeon[i + 1][j] == 19)
+            {
                 dungeon[i + 1][j] = 21;
+            }
             if (dungeon[i][j] == 2 && dungeon[i + 1][j] == 1)
+            {
                 dungeon[i + 1][j] = 6;
+            }
             if (dungeon[i][j] == 3 && dungeon[i + 1][j] == 22)
+            {
                 dungeon[i + 1][j] = 24;
+            }
             if (dungeon[i][j] == 21 && dungeon[i + 1][j] == 1)
+            {
                 dungeon[i + 1][j] = 6;
+            }
             if (dungeon[i][j] == 7 && dungeon[i + 1][j] == 1)
+            {
                 dungeon[i + 1][j] = 6;
+            }
             if (dungeon[i][j] == 7 && dungeon[i + 1][j] == 24)
+            {
                 dungeon[i + 1][j] = 21;
+            }
             if (dungeon[i][j] == 4 && dungeon[i + 1][j] == 16)
+            {
                 dungeon[i + 1][j] = 17;
+            }
             if (dungeon[i][j] == 7 && dungeon[i + 1][j] == 13)
+            {
                 dungeon[i + 1][j] = 17;
+            }
             if (dungeon[i][j] == 2 && dungeon[i + 1][j] == 24)
+            {
                 dungeon[i + 1][j] = 21;
+            }
             if (dungeon[i][j] == 2 && dungeon[i + 1][j] == 13)
+            {
                 dungeon[i + 1][j] = 17;
+            }
             if (dungeon[i][j] == 23 && dungeon[i - 1][j] == 22)
+            {
                 dungeon[i - 1][j] = 19;
+            }
             if (dungeon[i][j] == 19 && dungeon[i - 1][j] == 23)
+            {
                 dungeon[i - 1][j] = 21;
+            }
             if (dungeon[i][j] == 6 && dungeon[i - 1][j] == 22)
+            {
                 dungeon[i - 1][j] = 24;
+            }
             if (dungeon[i][j] == 6 && dungeon[i - 1][j] == 23)
+            {
                 dungeon[i - 1][j] = 21;
+            }
             if (dungeon[i][j] == 1 && dungeon[i][j + 1] == 2)
+            {
                 dungeon[i][j + 1] = 7;
+            }
             if (dungeon[i][j] == 6 && dungeon[i][j + 1] == 18)
+            {
                 dungeon[i][j + 1] = 21;
+            }
             if (dungeon[i][j] == 18 && dungeon[i][j + 1] == 2)
+            {
                 dungeon[i][j + 1] = 7;
+            }
             if (dungeon[i][j] == 6 && dungeon[i][j + 1] == 2)
+            {
                 dungeon[i][j + 1] = 7;
+            }
             if (dungeon[i][j] == 21 && dungeon[i][j + 1] == 2)
+            {
                 dungeon[i][j + 1] = 7;
+            }
             if (dungeon[i][j] == 6 && dungeon[i][j + 1] == 22)
+            {
                 dungeon[i][j + 1] = 24;
+            }
             if (dungeon[i][j] == 6 && dungeon[i][j + 1] == 13)
+            {
                 dungeon[i][j + 1] = 16;
+            }
             if (dungeon[i][j] == 1 && dungeon[i][j + 1] == 13)
+            {
                 dungeon[i][j + 1] = 16;
+            }
             if (dungeon[i][j] == 13 && dungeon[i][j + 1] == 16)
+            {
                 dungeon[i][j + 1] = 17;
+            }
             if (dungeon[i][j] == 6 && dungeon[i][j - 1] == 22)
+            {
                 dungeon[i][j - 1] = 7;
+            }
             if (dungeon[i][j] == 6 && dungeon[i][j - 1] == 22)
+            {
                 dungeon[i][j - 1] = 24;
+            }
             if (dungeon[i][j] == 7 && dungeon[i][j - 1] == 24)
+            {
                 dungeon[i][j - 1] = 21;
+            }
             if (dungeon[i][j] == 18 && dungeon[i][j - 1] == 24)
+            {
                 dungeon[i][j - 1] = 21;
+            }
         }
     }
 
@@ -2115,11 +2451,17 @@ static void L5tileFix()
         for (i = 0; i < DMAXX; i++)
         {
             if (dungeon[i][j] == 4 && dungeon[i][j + 1] == 2)
+            {
                 dungeon[i][j + 1] = 7;
+            }
             if (dungeon[i][j] == 2 && dungeon[i + 1][j] == 19)
+            {
                 dungeon[i + 1][j] = 21;
+            }
             if (dungeon[i][j] == 18 && dungeon[i][j + 1] == 22)
+            {
                 dungeon[i][j + 1] = 20;
+            }
         }
     }
 }
@@ -2215,26 +2557,38 @@ static void DRLG_L5Subs()
                     while (rv >= 0)
                     {
                         if (++i == sizeof(L5BTYPES))
+                        {
                             i = 0;
+                        }
                         if (c == L5BTYPES[i])
+                        {
                             rv--;
+                        }
                     }
 
                     // BUGFIX: Add `&& y > 0` to the if statement.
                     if (i == 89)
                     {
                         if (L5BTYPES[dungeon[x][y - 1]] != 79 || L5dflags[x][y - 1])
+                        {
                             i = 79;
+                        }
                         else
+                        {
                             dungeon[x][y - 1] = 90;
+                        }
                     }
                     // BUGFIX: Add `&& x + 1 < DMAXX` to the if statement.
                     if (i == 91)
                     {
                         if (L5BTYPES[dungeon[x + 1][y]] != 80 || L5dflags[x + 1][y])
+                        {
                             i = 80;
+                        }
                         else
+                        {
                             dungeon[x + 1][y] = 92;
+                        }
                     }
                     dungeon[x][y] = i;
                 }
@@ -2281,51 +2635,87 @@ static void L5FillChambers()
     int c;
 
     if (HR1)
+    {
         DRLG_L5GChamber(0, 14, 0, 0, 0, 1);
+    }
 
     if (HR2)
     {
         if (HR1 && !HR3)
+        {
             DRLG_L5GChamber(14, 14, 0, 0, 1, 0);
+        }
         if (!HR1 && HR3)
+        {
             DRLG_L5GChamber(14, 14, 0, 0, 0, 1);
+        }
         if (HR1 && HR3)
+        {
             DRLG_L5GChamber(14, 14, 0, 0, 1, 1);
+        }
         if (!HR1 && !HR3)
+        {
             DRLG_L5GChamber(14, 14, 0, 0, 0, 0);
+        }
     }
 
     if (HR3)
+    {
         DRLG_L5GChamber(28, 14, 0, 0, 1, 0);
+    }
     if (HR1 && HR2)
+    {
         DRLG_L5GHall(12, 18, 14, 18);
+    }
     if (HR2 && HR3)
+    {
         DRLG_L5GHall(26, 18, 28, 18);
+    }
     if (HR1 && !HR2 && HR3)
+    {
         DRLG_L5GHall(12, 18, 28, 18);
+    }
     if (VR1)
+    {
         DRLG_L5GChamber(14, 0, 0, 1, 0, 0);
+    }
 
     if (VR2)
     {
         if (VR1 && !VR3)
+        {
             DRLG_L5GChamber(14, 14, 1, 0, 0, 0);
+        }
         if (!VR1 && VR3)
+        {
             DRLG_L5GChamber(14, 14, 0, 1, 0, 0);
+        }
         if (VR1 && VR3)
+        {
             DRLG_L5GChamber(14, 14, 1, 1, 0, 0);
+        }
         if (!VR1 && !VR3)
+        {
             DRLG_L5GChamber(14, 14, 0, 0, 0, 0);
+        }
     }
 
     if (VR3)
+    {
         DRLG_L5GChamber(14, 28, 1, 0, 0, 0);
+    }
     if (VR1 && VR2)
+    {
         DRLG_L5GHall(18, 12, 18, 14);
+    }
     if (VR2 && VR3)
+    {
         DRLG_L5GHall(18, 26, 18, 28);
+    }
     if (VR1 && !VR2 && VR3)
+    {
         DRLG_L5GHall(18, 12, 18, 28);
+    }
 
 #ifdef HELLFIRE
     if (currlevel == 24)
@@ -2469,20 +2859,30 @@ static void L5FillChambers()
         {
             c = 1;
             if (!VR1 && VR2 && VR3 && random_(0, 2) != 0)
+            {
                 c = 2;
+            }
             if (VR1 && VR2 && !VR3 && random_(0, 2) != 0)
+            {
                 c = 0;
+            }
 
             if (VR1 && !VR2 && VR3)
             {
                 if (random_(0, 2) != 0)
+                {
                     c = 0;
+                }
                 else
+                {
                     c = 2;
+                }
             }
 
             if (VR1 && VR2 && VR3)
+            {
                 c = random_(0, 3);
+            }
 
             switch (c)
             {
@@ -2501,20 +2901,30 @@ static void L5FillChambers()
         {
             c = 1;
             if (!HR1 && HR2 && HR3 && random_(0, 2) != 0)
+            {
                 c = 2;
+            }
             if (HR1 && HR2 && !HR3 && random_(0, 2) != 0)
+            {
                 c = 0;
+            }
 
             if (HR1 && !HR2 && HR3)
             {
                 if (random_(0, 2) != 0)
+                {
                     c = 0;
+                }
                 else
+                {
                     c = 2;
+                }
             }
 
             if (HR1 && HR2 && HR3)
+            {
                 c = random_(0, 3);
+            }
 
             switch (c)
             {
@@ -2628,13 +3038,21 @@ static void DRLG_L5FTVR(int i, int j, int x, int y, int d)
             dTransVal[x + 1][y + 1] = TransVal;
         }
         if (d == 5)
+        {
             dTransVal[x + 1][y + 1] = TransVal;
+        }
         if (d == 6)
+        {
             dTransVal[x][y + 1] = TransVal;
+        }
         if (d == 7)
+        {
             dTransVal[x + 1][y] = TransVal;
+        }
         if (d == 8)
+        {
             dTransVal[x][y] = TransVal;
+        }
     }
     else
     {
@@ -2773,17 +3191,29 @@ static void DRLG_L5DirtFix()
         for (i = 0; i < DMAXX; i++)
         {
             if (dungeon[i][j] == 21 && dungeon[i + 1][j] != 19)
+            {
                 dungeon[i][j] = 202;
+            }
             if (dungeon[i][j] == 19 && dungeon[i + 1][j] != 19)
+            {
                 dungeon[i][j] = 200;
+            }
             if (dungeon[i][j] == 24 && dungeon[i + 1][j] != 19)
+            {
                 dungeon[i][j] = 205;
+            }
             if (dungeon[i][j] == 18 && dungeon[i][j + 1] != 18)
+            {
                 dungeon[i][j] = 199;
+            }
             if (dungeon[i][j] == 21 && dungeon[i][j + 1] != 18)
+            {
                 dungeon[i][j] = 202;
+            }
             if (dungeon[i][j] == 23 && dungeon[i][j + 1] != 18)
+            {
                 dungeon[i][j] = 204;
+            }
         }
     }
 #endif
@@ -2860,12 +3290,16 @@ static void DRLG_L5(int entry)
             if (entry == ENTRY_MAIN)
             {
                 if (DRLG_PlaceMiniSet(PWATERIN, 1, 1, 0, 0, TRUE, -1, 0) < 0)
+                {
                     doneflag = FALSE;
+                }
             }
             else
             {
                 if (DRLG_PlaceMiniSet(PWATERIN, 1, 1, 0, 0, FALSE, -1, 0) < 0)
+                {
                     doneflag = FALSE;
+                }
                 ViewY--;
             }
         }
@@ -2874,12 +3308,16 @@ static void DRLG_L5(int entry)
             if (entry == ENTRY_MAIN)
             {
                 if (DRLG_PlaceMiniSet(STAIRSUP, 1, 1, 0, 0, TRUE, -1, 0) < 0)
+                {
                     doneflag = FALSE;
+                }
             }
             else
             {
                 if (DRLG_PlaceMiniSet(STAIRSUP, 1, 1, 0, 0, FALSE, -1, 0) < 0)
+                {
                     doneflag = FALSE;
+                }
                 if (entry == ENTRY_PREV)
                 {
                     ViewX = 2 * setpc_x + 20;
@@ -2982,16 +3420,24 @@ static void DRLG_L5(int entry)
         else if (entry == ENTRY_MAIN)
         {
             if (DRLG_PlaceMiniSet(L5STAIRSUP, 1, 1, 0, 0, TRUE, -1, 0) < 0)
+            {
                 doneflag = FALSE;
+            }
             else if (DRLG_PlaceMiniSet(STAIRSDOWN, 1, 1, 0, 0, FALSE, -1, 1) < 0)
+            {
                 doneflag = FALSE;
+            }
         }
         else
         {
             if (DRLG_PlaceMiniSet(L5STAIRSUP, 1, 1, 0, 0, FALSE, -1, 0) < 0)
+            {
                 doneflag = FALSE;
+            }
             else if (DRLG_PlaceMiniSet(STAIRSDOWN, 1, 1, 0, 0, TRUE, -1, 1) < 0)
+            {
                 doneflag = FALSE;
+            }
             ViewY--;
 #endif
         }
@@ -3020,7 +3466,9 @@ static void DRLG_L5(int entry)
         for (i = 0; i < DMAXX; i++)
         {
             if (L5dflags[i][j] & 0x7F)
+            {
                 DRLG_PlaceDoor(i, j);
+            }
         }
     }
 

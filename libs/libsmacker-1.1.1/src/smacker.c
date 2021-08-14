@@ -140,9 +140,7 @@ static char smk_read_file(void* buf, const size_t size, FILE* fp)
     size_t bytesRead = fread(buf, 1, size, fp);
     if (bytesRead != size)
     {
-        fprintf(
-            stderr, "libsmacker::smk_read_file(buf,%lu,fp) - ERROR: Short read, %lu bytes returned\n\tReason: %s\n",
-            (unsigned long)size, (unsigned long)bytesRead, strerror(errno));
+        fprintf(stderr, "libsmacker::smk_read_file(buf,%lu,fp) - ERROR: Short read, %lu bytes returned\n\tReason: %s\n", (unsigned long)size, (unsigned long)bytesRead, strerror(errno));
         return -1;
     }
     return 0;
@@ -154,9 +152,7 @@ static char smk_read_memory(void* buf, const unsigned long size, unsigned char**
 {
     if (size > *p_size)
     {
-        fprintf(
-            stderr, "libsmacker::smk_read_memory(buf,%lu,p,%lu) - ERROR: Short read\n", (unsigned long)size,
-            (unsigned long)*p_size);
+        fprintf(stderr, "libsmacker::smk_read_memory(buf,%lu,p,%lu) - ERROR: Short read\n", (unsigned long)size, (unsigned long)*p_size);
         return -1;
     }
     memcpy(buf, *p, size);
@@ -168,40 +164,33 @@ static char smk_read_memory(void* buf, const unsigned long size, unsigned char**
 /* Helper functions to do the reading, plus
     byteswap from LE to host order */
 /* read n bytes from (source) into ret */
-#define smk_read(ret, n)                                                                                               \
-    {                                                                                                                  \
-        if (m)                                                                                                         \
-        {                                                                                                              \
-            r = (smk_read_file(ret, n, fp.file));                                                                      \
-        }                                                                                                              \
-        else                                                                                                           \
-        {                                                                                                              \
-            r = (smk_read_memory(ret, n, &fp.ram, &size));                                                             \
-        }                                                                                                              \
-        if (r < 0)                                                                                                     \
-        {                                                                                                              \
-            fprintf(                                                                                                   \
-                stderr, "libsmacker::smk_read(...) - Errors encountered on read, bailing out (file: %s, line: %lu)\n", \
-                __FILE__, (unsigned long)__LINE__);                                                                    \
-            goto error;                                                                                                \
-        }                                                                                                              \
+#define smk_read(ret, n)                                                                                                                                                                               \
+    {                                                                                                                                                                                                  \
+        if (m)                                                                                                                                                                                         \
+        {                                                                                                                                                                                              \
+            r = (smk_read_file(ret, n, fp.file));                                                                                                                                                      \
+        }                                                                                                                                                                                              \
+        else                                                                                                                                                                                           \
+        {                                                                                                                                                                                              \
+            r = (smk_read_memory(ret, n, &fp.ram, &size));                                                                                                                                             \
+        }                                                                                                                                                                                              \
+        if (r < 0)                                                                                                                                                                                     \
+        {                                                                                                                                                                                              \
+            fprintf(stderr, "libsmacker::smk_read(...) - Errors encountered on read, bailing out (file: %s, line: %lu)\n", __FILE__, (unsigned long)__LINE__);                                         \
+            goto error;                                                                                                                                                                                \
+        }                                                                                                                                                                                              \
     }
 
 /* Calls smk_read, but returns a ul */
-#define smk_read_ul(p)                                                                                                 \
-    {                                                                                                                  \
-        smk_read(buf, 4);                                                                                              \
-        p = ((unsigned long)buf[3] << 24) | ((unsigned long)buf[2] << 16) | ((unsigned long)buf[1] << 8) |             \
-            ((unsigned long)buf[0]);                                                                                   \
+#define smk_read_ul(p)                                                                                                                                                                                 \
+    {                                                                                                                                                                                                  \
+        smk_read(buf, 4);                                                                                                                                                                              \
+        p = ((unsigned long)buf[3] << 24) | ((unsigned long)buf[2] << 16) | ((unsigned long)buf[1] << 8) | ((unsigned long)buf[0]);                                                                    \
     }
 
 /* PUBLIC FUNCTIONS */
 /* open an smk (from a generic Source) */
-static smk smk_open_generic(
-    const unsigned char m,
-    union smk_read_t fp,
-    unsigned long size,
-    const unsigned char process_mode)
+static smk smk_open_generic(const unsigned char m, union smk_read_t fp, unsigned long size, const unsigned char process_mode)
 {
     smk s = NULL;
 
@@ -235,13 +224,16 @@ static smk smk_open_generic(
     smk_read(&s->video.v, 1);
     if (s->video.v != '2' && s->video.v != '4')
     {
-        fprintf(
-            stderr, "libsmacker::smk_open_generic - Warning: invalid SMK version %c (expected: 2 or 4)\n", s->video.v);
+        fprintf(stderr, "libsmacker::smk_open_generic - Warning: invalid SMK version %c (expected: 2 or 4)\n", s->video.v);
         /* take a guess */
         if (s->video.v < '4')
+        {
             s->video.v = '2';
+        }
         else
+        {
             s->video.v = '4';
+        }
         fprintf(stderr, "\tProcessing will continue as type %c\n", s->video.v);
     }
 
@@ -287,8 +279,7 @@ static smk smk_open_generic(
     {
         if (s->video.y_scale_mode == SMK_FLAG_Y_DOUBLE)
         {
-            fputs(
-                "libsmacker::smk_open_generic - Warning: SMK file specifies both Y-Double AND Y-Interlace.\n", stderr);
+            fputs("libsmacker::smk_open_generic - Warning: SMK file specifies both Y-Double AND Y-Interlace.\n", stderr);
         }
         s->video.y_scale_mode = SMK_FLAG_Y_INTERLACE;
     }
@@ -444,10 +435,7 @@ smk smk_open_memory(const unsigned char* buffer, const unsigned long size)
 
     if (!(s = smk_open_generic(0, fp, size, SMK_MODE_MEMORY)))
     {
-        fprintf(
-            stderr,
-            "libsmacker::smk_open_memory(buffer,%lu) - ERROR: Fatal error in smk_open_generic, returning NULL.\n",
-            size);
+        fprintf(stderr, "libsmacker::smk_open_memory(buffer,%lu) - ERROR: Fatal error in smk_open_generic, returning NULL.\n", size);
     }
 
     /* fall through, return s or null */
@@ -468,10 +456,7 @@ smk smk_open_filepointer(FILE* file, const unsigned char mode)
 
     if (!(s = smk_open_generic(1, fp, 0, mode)))
     {
-        fprintf(
-            stderr,
-            "libsmacker::smk_open_filepointer(file,%u) - ERROR: Fatal error in smk_open_generic, returning NULL.\n",
-            mode);
+        fprintf(stderr, "libsmacker::smk_open_filepointer(file,%u) - ERROR: Fatal error in smk_open_generic, returning NULL.\n", mode);
         fclose(fp.file);
         goto error;
     }
@@ -499,9 +484,7 @@ smk smk_open_file(const char* filename, const unsigned char mode)
 
     if (!(fp = fopen(filename, "rb")))
     {
-        fprintf(
-            stderr, "libsmacker::smk_open_file(%s,%u) - ERROR: could not open file (errno: %d)\n", filename, mode,
-            errno);
+        fprintf(stderr, "libsmacker::smk_open_file(%s,%u) - ERROR: could not open file (errno: %d)\n", filename, mode, errno);
         perror("\tError reported was");
         goto error;
     }
@@ -526,7 +509,9 @@ void smk_close(smk s)
         for (u = 0; u < 4; u++)
         {
             if (s->video.tree[u])
+            {
                 smk_huff16_free(s->video.tree[u]);
+            }
         }
         smk_free(s->video.frame);
     }
@@ -582,13 +567,19 @@ char smk_info_all(const smk object, unsigned long* frame, unsigned long* frame_c
         goto error;
     }
     if (frame)
+    {
         *frame = (object->cur_frame % object->f);
+    }
 
     if (frame_count)
+    {
         *frame_count = object->f;
+    }
 
     if (usf)
+    {
         *usf = object->usf;
+    }
 
     return 0;
 
@@ -610,13 +601,19 @@ char smk_info_video(const smk object, unsigned long* w, unsigned long* h, unsign
     }
 
     if (w)
+    {
         *w = object->video.w;
+    }
 
     if (h)
+    {
         *h = object->video.h;
+    }
 
     if (y_scale_mode)
+    {
         *y_scale_mode = object->video.y_scale_mode;
+    }
 
     return 0;
 
@@ -624,12 +621,7 @@ error:
     return -1;
 }
 
-char smk_info_audio(
-    const smk object,
-    unsigned char* track_mask,
-    unsigned char channels[7],
-    unsigned char bitdepth[7],
-    unsigned long audio_rate[7])
+char smk_info_audio(const smk object, unsigned char* track_mask, unsigned char channels[7], unsigned char bitdepth[7], unsigned long audio_rate[7])
 {
     unsigned char i;
 
@@ -647,9 +639,8 @@ char smk_info_audio(
     if (track_mask)
     {
         *track_mask =
-            ((object->audio[0].exists) | ((object->audio[1].exists) << 1) | ((object->audio[2].exists) << 2) |
-             ((object->audio[3].exists) << 3) | ((object->audio[4].exists) << 4) | ((object->audio[5].exists) << 5) |
-             ((object->audio[6].exists) << 6));
+            ((object->audio[0].exists) | ((object->audio[1].exists) << 1) | ((object->audio[2].exists) << 2) | ((object->audio[3].exists) << 3) | ((object->audio[4].exists) << 4) |
+             ((object->audio[5].exists) << 5) | ((object->audio[6].exists) << 6));
     }
     if (channels)
     {
@@ -775,11 +766,9 @@ static char smk_render_palette(struct smk_video_t* s, unsigned char* p, unsigned
     static unsigned char oldPalette[256][3];
 
     /* Smacker palette map: smk colors are 6-bit, this table expands them to 8. */
-    const unsigned char palmap[64] = {0x00, 0x04, 0x08, 0x0C, 0x10, 0x14, 0x18, 0x1C, 0x20, 0x24, 0x28, 0x2C, 0x30,
-                                      0x34, 0x38, 0x3C, 0x41, 0x45, 0x49, 0x4D, 0x51, 0x55, 0x59, 0x5D, 0x61, 0x65,
-                                      0x69, 0x6D, 0x71, 0x75, 0x79, 0x7D, 0x82, 0x86, 0x8A, 0x8E, 0x92, 0x96, 0x9A,
-                                      0x9E, 0xA2, 0xA6, 0xAA, 0xAE, 0xB2, 0xB6, 0xBA, 0xBE, 0xC3, 0xC7, 0xCB, 0xCF,
-                                      0xD3, 0xD7, 0xDB, 0xDF, 0xE3, 0xE7, 0xEB, 0xEF, 0xF3, 0xF7, 0xFB, 0xFF};
+    const unsigned char palmap[64] = {0x00, 0x04, 0x08, 0x0C, 0x10, 0x14, 0x18, 0x1C, 0x20, 0x24, 0x28, 0x2C, 0x30, 0x34, 0x38, 0x3C, 0x41, 0x45, 0x49, 0x4D, 0x51, 0x55,
+                                      0x59, 0x5D, 0x61, 0x65, 0x69, 0x6D, 0x71, 0x75, 0x79, 0x7D, 0x82, 0x86, 0x8A, 0x8E, 0x92, 0x96, 0x9A, 0x9E, 0xA2, 0xA6, 0xAA, 0xAE,
+                                      0xB2, 0xB6, 0xBA, 0xBE, 0xC3, 0xC7, 0xCB, 0xCF, 0xD3, 0xD7, 0xDB, 0xDF, 0xE3, 0xE7, 0xEB, 0xEF, 0xF3, 0xF7, 0xFB, 0xFF};
 
     /* sanity check */
     smk_assert(s);
@@ -802,10 +791,7 @@ static char smk_render_palette(struct smk_video_t* s, unsigned char* p, unsigned
             /* check for overflow condition */
             if (i + count > 256)
             {
-                fprintf(
-                    stderr,
-                    "libsmacker::palette_render(s,p,size) - ERROR: overflow, 0x80 attempt to skip %d entries from %d\n",
-                    count, i);
+                fprintf(stderr, "libsmacker::palette_render(s,p,size) - ERROR: overflow, 0x80 attempt to skip %d entries from %d\n", count, i);
                 goto error;
             }
 
@@ -864,9 +850,7 @@ static char smk_render_palette(struct smk_video_t* s, unsigned char* p, unsigned
             {
                 if (*p > 0x3F)
                 {
-                    fprintf(
-                        stderr, "libsmacker::palette_render - ERROR: palette index exceeds 0x3F (entry [%u][%u])\n", i,
-                        count);
+                    fprintf(stderr, "libsmacker::palette_render - ERROR: palette index exceeds 0x3F (entry [%u][%u])\n", i, count);
                     goto error;
                 }
                 s->palette[i][count] = palmap[*p];
@@ -910,10 +894,8 @@ static char smk_render_video(struct smk_video_t* s, unsigned char* p, unsigned i
     unsigned char typedata;
     char bit;
 
-    const unsigned short sizetable[64] = {1,  2,  3,  4,  5,  6,  7,  8,  9,  10, 11, 12,  13,  14,  15,   16,
-                                          17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28,  29,  30,  31,   32,
-                                          33, 34, 35, 36, 37, 38, 39, 40, 41, 42, 43, 44,  45,  46,  47,   48,
-                                          49, 50, 51, 52, 53, 54, 55, 56, 57, 58, 59, 128, 256, 512, 1024, 2048};
+    const unsigned short sizetable[64] = {1,  2,  3,  4,  5,  6,  7,  8,  9,  10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28,  29,  30,  31,   32,
+                                          33, 34, 35, 36, 37, 38, 39, 40, 41, 42, 43, 44, 45, 46, 47, 48, 49, 50, 51, 52, 53, 54, 55, 56, 57, 58, 59, 128, 256, 512, 1024, 2048};
 
     /* sanity check */
     smk_assert(s);
@@ -1103,8 +1085,7 @@ static char smk_render_audio(struct smk_audio_t* s, unsigned char* p, unsigned l
             goto error;
         }
         /* chunk is compressed (huff-compressed dpcm), retrieve unpacked buffer size */
-        s->buffer_size =
-            ((unsigned int)p[3] << 24) | ((unsigned int)p[2] << 16) | ((unsigned int)p[1] << 8) | ((unsigned int)p[0]);
+        s->buffer_size = ((unsigned int)p[3] << 24) | ((unsigned int)p[2] << 16) | ((unsigned int)p[1] << 8) | ((unsigned int)p[0]);
 
         p += 4;
         size -= 4;
@@ -1266,9 +1247,7 @@ static char smk_render(smk s)
         /* Skip to frame in file */
         if (fseek(s->source.file.fp, s->source.file.chunk_offset[s->cur_frame], SEEK_SET))
         {
-            fprintf(
-                stderr, "libsmacker::smk_render(s) - ERROR: fseek to frame %lu (offset %lu) failed.\n", s->cur_frame,
-                s->source.file.chunk_offset[s->cur_frame]);
+            fprintf(stderr, "libsmacker::smk_render(s) - ERROR: fseek to frame %lu (offset %lu) failed.\n", s->cur_frame, s->source.file.chunk_offset[s->cur_frame]);
             perror("\tError reported was");
             goto error;
         }
@@ -1279,9 +1258,7 @@ static char smk_render(smk s)
         /* Read into buffer */
         if (smk_read_file(buffer, s->chunk_size[s->cur_frame], s->source.file.fp) < 0)
         {
-            fprintf(
-                stderr, "libsmacker::smk_render(s) - ERROR: frame %lu (offset %lu): smk_read had errors.\n",
-                s->cur_frame, s->source.file.chunk_offset[s->cur_frame]);
+            fprintf(stderr, "libsmacker::smk_render(s) - ERROR: frame %lu (offset %lu): smk_read had errors.\n", s->cur_frame, s->source.file.chunk_offset[s->cur_frame]);
             goto error;
         }
     }
@@ -1290,9 +1267,7 @@ static char smk_render(smk s)
         /* Just point buffer at the right place */
         if (!s->source.chunk_data[s->cur_frame])
         {
-            fprintf(
-                stderr, "libsmacker::smk_render(s) - ERROR: frame %lu: memory chunk is a NULL pointer.\n",
-                s->cur_frame);
+            fprintf(stderr, "libsmacker::smk_render(s) - ERROR: frame %lu: memory chunk is a NULL pointer.\n", s->cur_frame);
             goto error;
         }
         buffer = s->source.chunk_data[s->cur_frame];
@@ -1306,9 +1281,7 @@ static char smk_render(smk s)
         /* need at least 1 byte to process */
         if (!i)
         {
-            fprintf(
-                stderr, "libsmacker::smk_render(s) - ERROR: frame %lu: insufficient data for a palette rec.\n",
-                s->cur_frame);
+            fprintf(stderr, "libsmacker::smk_render(s) - ERROR: frame %lu: insufficient data for a palette rec.\n", s->cur_frame);
             goto error;
         }
 
@@ -1333,17 +1306,13 @@ static char smk_render(smk s)
             /* need at least 4 byte to process */
             if (i < 4)
             {
-                fprintf(
-                    stderr, "libsmacker::smk_render(s) - ERROR: frame %lu: insufficient data for audio[%u] rec.\n",
-                    s->cur_frame, track);
+                fprintf(stderr, "libsmacker::smk_render(s) - ERROR: frame %lu: insufficient data for audio[%u] rec.\n", s->cur_frame, track);
                 goto error;
             }
 
             /* First 4 bytes in block tell how many
                 subsequent bytes are present */
-            size =
-                (((unsigned int)p[3] << 24) | ((unsigned int)p[2] << 16) | ((unsigned int)p[1] << 8) |
-                 ((unsigned int)p[0]));
+            size = (((unsigned int)p[3] << 24) | ((unsigned int)p[2] << 16) | ((unsigned int)p[1] << 8) | ((unsigned int)p[0]));
 
             /* If audio rendering enabled, kick this off for decode. */
             if (s->audio[track].enable)
@@ -1396,7 +1365,9 @@ char smk_first(smk s)
     }
 
     if (s->f == 1)
+    {
         return SMK_LAST;
+    }
     return SMK_MORE;
 
 error:
@@ -1413,8 +1384,7 @@ char smk_next(smk s)
         s->cur_frame++;
         if (smk_render(s) < 0)
         {
-            fprintf(
-                stderr, "libsmacker::smk_next(s) - Warning: frame %lu: smk_render returned errors.\n", s->cur_frame);
+            fprintf(stderr, "libsmacker::smk_next(s) - Warning: frame %lu: smk_render returned errors.\n", s->cur_frame);
             goto error;
         }
         if (s->cur_frame + 1 == (s->f + s->ring_frame))
@@ -1428,8 +1398,7 @@ char smk_next(smk s)
         s->cur_frame = 1;
         if (smk_render(s) < 0)
         {
-            fprintf(
-                stderr, "libsmacker::smk_next(s) - Warning: frame %lu: smk_render returned errors.\n", s->cur_frame);
+            fprintf(stderr, "libsmacker::smk_next(s) - Warning: frame %lu: smk_render returned errors.\n", s->cur_frame);
             goto error;
         }
         if (s->cur_frame + 1 == (s->f + s->ring_frame))
@@ -1461,9 +1430,7 @@ char smk_seek_keyframe(smk s, unsigned long f)
     /* render the frame: we're ready */
     if (smk_render(s) < 0)
     {
-        fprintf(
-            stderr, "libsmacker::smk_seek_keyframe(s,%lu) - Warning: frame %lu: smk_render returned errors.\n", f,
-            s->cur_frame);
+        fprintf(stderr, "libsmacker::smk_seek_keyframe(s,%lu) - Warning: frame %lu: smk_render returned errors.\n", f, s->cur_frame);
         goto error;
     }
 

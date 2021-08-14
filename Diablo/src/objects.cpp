@@ -199,14 +199,18 @@ void InitObjectGFX()
             for (j = 0; j < numthemes; j++)
             {
                 if (themes[j].ttype == AllObjects[i].otheme)
+                {
                     fileload[AllObjects[i].ofindex] = TRUE;
+                }
             }
         }
 
         if (AllObjects[i].oquest != -1)
         {
             if (QuestStatus(AllObjects[i].oquest))
+            {
                 fileload[AllObjects[i].ofindex] = TRUE;
+            }
         }
     }
 
@@ -242,29 +246,47 @@ void FreeObjectGFX()
 DIABOOL RndLocOk(int xp, int yp)
 {
     if (dMonster[xp][yp] != 0)
+    {
         return FALSE;
+    }
     if (dPlayer[xp][yp] != 0)
+    {
         return FALSE;
+    }
     if (dObject[xp][yp] != 0)
+    {
         return FALSE;
+    }
     if (dFlags[xp][yp] & BFLAG_POPULATED)
+    {
         return FALSE;
+    }
     if (nSolidTable[dPiece[xp][yp]])
+    {
         return FALSE;
+    }
     if (leveltype != DTYPE_CATHEDRAL || dPiece[xp][yp] <= 126 || dPiece[xp][yp] >= 144)
+    {
         return TRUE;
+    }
     return FALSE;
 }
 
 static DIABOOL WallTrapLocOkK(int xp, int yp)
 {
     if (dFlags[xp][yp] & BFLAG_POPULATED)
+    {
         return FALSE;
+    }
 
     if (nTrapTable[dPiece[xp][yp]] != FALSE)
+    {
         return TRUE;
+    }
     else
+    {
         return FALSE;
+    }
 }
 
 void InitRndLocObj(int min, int max, int objtype)
@@ -330,14 +352,18 @@ void InitRndLocObj5x5(int min, int max, int objtype)
                 for (m = -2; m <= 2; m++)
                 {
                     if (!RndLocOk(xp + m, yp + n))
+                    {
                         exit = FALSE;
+                    }
                 }
             }
             if (!exit)
             {
                 cnt++;
                 if (cnt > 20000)
+                {
                     return;
+                }
             }
         }
         AddObject(objtype, xp, yp);
@@ -438,21 +464,29 @@ void AddBookLever(int lx1, int ly1, int lx2, int ly2, int x1, int y1, int x2, in
             for (m = -2; m <= 2; m++)
             {
                 if (!RndLocOk(xp + m, yp + n))
+                {
                     exit = FALSE;
+                }
             }
         }
         if (!exit)
         {
             cnt++;
             if (cnt > 20000)
+            {
                 return;
+            }
         }
     }
 
     if (QuestStatus(Q_BLIND))
+    {
         AddObject(OBJ_BLINDBOOK, xp, yp);
+    }
     if (QuestStatus(Q_WARLORD))
+    {
         AddObject(OBJ_STEELTOME, xp, yp);
+    }
     if (QuestStatus(Q_BLOOD))
     {
         xp = 2 * setpc_x + 25;
@@ -498,14 +532,18 @@ void InitRndBarrels()
             while (TRUE)
             {
                 if (t >= 3)
+                {
                     break;
+                }
                 dir = random_(143, 8);
                 xp += bxadd[dir];
                 yp += byadd[dir];
                 found = RndLocOk(xp, yp);
                 t++;
                 if (found)
+                {
                     break;
+                }
             }
             if (found)
             {
@@ -528,11 +566,17 @@ void AddL1Objs(int x1, int y1, int x2, int y2)
         {
             pn = dPiece[i][j];
             if (pn == 270)
+            {
                 AddObject(OBJ_L1LIGHT, i, j);
+            }
             if (pn == 44 || pn == 51 || pn == 214)
+            {
                 AddObject(OBJ_L1LDOOR, i, j);
+            }
             if (pn == 46 || pn == 56)
+            {
                 AddObject(OBJ_L1RDOOR, i, j);
+            }
         }
     }
 }
@@ -566,9 +610,13 @@ void AddL2Objs(int x1, int y1, int x2, int y2)
         {
             pn = dPiece[i][j];
             if (pn == 13 || pn == 541)
+            {
                 AddObject(OBJ_L2LDOOR, i, j);
+            }
             if (pn == 17 || pn == 542)
+            {
                 AddObject(OBJ_L2RDOOR, i, j);
+            }
         }
     }
 }
@@ -583,9 +631,13 @@ void AddL3Objs(int x1, int y1, int x2, int y2)
         {
             pn = dPiece[i][j];
             if (pn == 531)
+            {
                 AddObject(OBJ_L3LDOOR, i, j);
+            }
             if (pn == 534)
+            {
                 AddObject(OBJ_L3RDOOR, i, j);
+            }
         }
     }
 }
@@ -593,7 +645,9 @@ void AddL3Objs(int x1, int y1, int x2, int y2)
 DIABOOL TorchLocOK(int xp, int yp)
 {
     if (dFlags[xp][yp] & BFLAG_POPULATED)
+    {
         return FALSE;
+    }
     return TRUE;
 }
 
@@ -606,20 +660,30 @@ void AddL2Torches()
         for (i = 0; i < MAXDUNX; i++)
         {
             if (!TorchLocOK(i, j))
+            {
                 continue;
+            }
 
             pn = dPiece[i][j];
             if (pn == 1 && random_(145, 3) == 0)
+            {
                 AddObject(OBJ_TORCHL2, i, j);
+            }
 
             if (pn == 5 && random_(145, 3) == 0)
+            {
                 AddObject(OBJ_TORCHR2, i, j);
+            }
 
             if (pn == 37 && random_(145, 10) == 0 && dObject[i - 1][j] == 0)
+            {
                 AddObject(OBJ_TORCHL, i - 1, j);
+            }
 
             if (pn == 41 && random_(145, 10) == 0 && dObject[i][j - 1] == 0)
+            {
                 AddObject(OBJ_TORCHR, i, j - 1);
+            }
         }
     }
 }
@@ -632,32 +696,48 @@ void AddObjTraps()
     int rndv;
 
     if (currlevel == 1)
+    {
         rndv = 10;
+    }
     if (currlevel >= 2)
+    {
         rndv = 15;
+    }
     if (currlevel >= 5)
+    {
         rndv = 20;
+    }
     if (currlevel >= 7)
+    {
         rndv = 25;
+    }
     for (j = 0; j < MAXDUNY; j++)
     {
         for (i = 0; i < MAXDUNX; i++)
         {
             if (dObject[i][j] <= 0 || random_(144, 100) >= rndv)
+            {
                 continue;
+            }
 
             oi = dObject[i][j] - 1;
             if (!AllObjects[object[oi]._otype].oTrapFlag)
+            {
                 continue;
+            }
 
             if (random_(144, 2) == 0)
             {
                 xp = i - 1;
                 while (!nSolidTable[dPiece[xp][j]])
+                {
                     xp--;
+                }
 
                 if (!WallTrapLocOkK(xp, j) || i - xp <= 1)
+                {
                     continue;
+                }
 
                 AddObject(OBJ_TRAPL, xp, j);
                 oi_trap = dObject[xp][j] - 1;
@@ -669,10 +749,14 @@ void AddObjTraps()
             {
                 yp = j - 1;
                 while (!nSolidTable[dPiece[i][yp]])
+                {
                     yp--;
+                }
 
                 if (!WallTrapLocOkK(i, yp) || j - yp <= 1)
+                {
                     continue;
+                }
 
                 AddObject(OBJ_TRAPR, i, yp);
                 oi_trap = dObject[i][yp] - 1;
@@ -899,14 +983,18 @@ void AddStoryBooks()
             for (xx = -3; xx <= 3; xx++)
             {
                 if (!RndLocOk(xx + xp, yy + yp))
+                {
                     done = FALSE;
+                }
             }
         }
         if (!done)
         {
             cnt++;
             if (cnt > 20000)
+            {
                 return;
+            }
         }
     }
     AddObject(OBJ_STORYBOOK, xp, yp);
@@ -929,11 +1017,17 @@ void AddHookedBodies(int freq)
         {
             ii = 16 + i * 2;
             if (dungeon[i][j] != 1 && dungeon[i][j] != 2)
+            {
                 continue;
+            }
             if (random_(0, freq) != 0)
+            {
                 continue;
+            }
             if (!SkipThemeRoom(i, j))
+            {
                 continue;
+            }
             if (dungeon[i][j] == 1 && dungeon[i + 1][j] == 6)
             {
                 switch (random_(0, 3))
@@ -998,7 +1092,9 @@ void AddLazStand()
             for (xx = -2; xx <= 3; xx++)
             {
                 if (!RndLocOk(xp + xx, yp + yy))
+                {
                     found = FALSE;
+                }
             }
         }
         if (!found)
@@ -1041,9 +1137,13 @@ void InitObjects()
         InitObjFlag = TRUE;
         GetRndSeed();
         if (currlevel == 9 && gbMaxPlayers == 1)
+        {
             AddSlainHero();
+        }
         if (currlevel == quests[Q_MUSHROOM]._qlevel && quests[Q_MUSHROOM]._qactive == QUEST_INIT)
+        {
             AddMushPatch();
+        }
 
 #ifdef HELLFIRE
         if (currlevel == 4 || currlevel == 8 || currlevel == 12)
@@ -1068,20 +1168,32 @@ void InitObjects()
         }
 #else
         if (currlevel == 4)
+        {
             AddStoryBooks();
+        }
         if (currlevel == 8)
+        {
             AddStoryBooks();
+        }
         if (currlevel == 12)
+        {
             AddStoryBooks();
+        }
 #endif
         if (leveltype == DTYPE_CATHEDRAL)
         {
             if (QuestStatus(Q_BUTCHER))
+            {
                 AddTortures();
+            }
             if (QuestStatus(Q_PWATER))
+            {
                 AddCandles();
+            }
             if (QuestStatus(Q_LTBANNER))
+            {
                 AddObject(OBJ_SIGNCHEST, 2 * setpc_x + 26, 2 * setpc_y + 19);
+            }
             InitRndLocBigObj(10, 15, OBJ_SARC);
 #ifdef HELLFIRE
             if (currlevel >= 21)
@@ -1094,9 +1206,13 @@ void InitObjects()
         if (leveltype == DTYPE_CATACOMBS)
         {
             if (QuestStatus(Q_ROCK))
+            {
                 InitRndLocObj5x5(1, 1, OBJ_STAND);
+            }
             if (QuestStatus(Q_SCHAMB))
+            {
                 InitRndLocObj5x5(1, 1, OBJ_BOOK2R);
+            }
             AddL2Objs(0, 0, MAXDUNX, MAXDUNY);
             AddL2Torches();
             if (QuestStatus(Q_BLIND))
@@ -1209,7 +1325,9 @@ void InitObjects()
                 mem_free_dbg(mem);
             }
             if (QuestStatus(Q_BETRAYER) && gbMaxPlayers == 1)
+            {
                 AddLazStand();
+            }
             InitRndBarrels();
             AddL4Goodies();
         }
@@ -1217,9 +1335,13 @@ void InitObjects()
         InitRndLocObj(3, 6, OBJ_CHEST2);
         InitRndLocObj(1, 5, OBJ_CHEST3);
         if (leveltype != DTYPE_HELL)
+        {
             AddObjTraps();
+        }
         if (leveltype > DTYPE_CATHEDRAL)
+        {
             AddChestTraps();
+        }
         InitObjFlag = FALSE;
     }
 }
@@ -1236,13 +1358,17 @@ void SetMapObjects(BYTE* pMap, int startx, int starty)
 
     ClrAllObjects();
     for (i = 0; i < 56; i++)
+    {
         fileload[i] = FALSE;
+    }
     InitObjFlag = TRUE;
 
     for (i = 0; AllObjects[i].oload != -1; i++)
     {
         if (AllObjects[i].oload == 1 && leveltype == AllObjects[i].olvltype)
+        {
             fileload[AllObjects[i].ofindex] = TRUE;
+        }
     }
 
     lm = pMap;
@@ -1271,7 +1397,9 @@ void SetMapObjects(BYTE* pMap, int startx, int starty)
     for (i = 0; i < 56; i++)
     {
         if (!fileload[i])
+        {
             continue;
+        }
 
         ObjFileList[numobjfiles] = i;
         sprintf(filestr, "Objects\\%s.CEL", ObjMasterLoadList[i]);
@@ -1285,7 +1413,9 @@ void SetMapObjects(BYTE* pMap, int startx, int starty)
         for (i = 0; i < rw; i++)
         {
             if (*lm)
+            {
                 AddObject(ObjTypeConv[*lm], startx + 16 + i, starty + 16 + j);
+            }
             lm += 2;
         }
     }
@@ -1303,7 +1433,9 @@ void DeleteObject_(int oi, int i)
     objectavail[-nobjects + MAXOBJECTS] = oi;
     nobjects--;
     if (nobjects > 0 && i != nobjects)
+    {
         objectactive[i] = objectactive[nobjects];
+    }
 }
 
 void SetupObject(int i, int x, int y, int ot)
@@ -1390,7 +1522,9 @@ void AddSCambBook(int i)
 void AddChest(int i, int t)
 {
     if (random_(147, 2) == 0)
+    {
         object[i]._oAnimFrame += 3;
+    }
     object[i]._oRndSeed = GetRndSeed();
     switch (t)
     {
@@ -1429,9 +1563,13 @@ void AddL2Door(int i, int x, int y, int ot)
 {
     object[i]._oDoorFlag = TRUE;
     if (ot == OBJ_L2LDOOR)
+    {
         ObjSetMicro(x, y, 538);
+    }
     else
+    {
         ObjSetMicro(x, y, 540);
+    }
     object[i]._oVar4 = 0;
 }
 
@@ -1439,9 +1577,13 @@ void AddL3Door(int i, int x, int y, int ot)
 {
     object[i]._oDoorFlag = TRUE;
     if (ot == OBJ_L3LDOOR)
+    {
         ObjSetMicro(x, y, 531);
+    }
     else
+    {
         ObjSetMicro(x, y, 534);
+    }
     object[i]._oVar4 = 0;
 }
 
@@ -1451,7 +1593,9 @@ void AddSarc(int i)
     object[i]._oVar1 = random_(153, 10);
     object[i]._oRndSeed = GetRndSeed();
     if (object[i]._oVar1 >= 8)
+    {
         object[i]._oVar2 = PreSpawnSkeleton();
+    }
 }
 
 void AddFlameTrap(int i)
@@ -1485,11 +1629,17 @@ void AddTrap(int i, int ot)
 #endif
     mt = random_(148, mt);
     if (mt == 0)
+    {
         object[i]._oVar3 = MIS_ARROW;
+    }
     if (mt == 1)
+    {
         object[i]._oVar3 = MIS_FIREBOLT;
+    }
     if (mt == 2)
+    {
         object[i]._oVar3 = MIS_LIGHTCTRL;
+    }
     object[i]._oVar4 = 0;
 }
 
@@ -1514,7 +1664,9 @@ void AddBarrel(int i, int t)
     object[i]._oVar3 = random_(149, 3);
 
     if (object[i]._oVar2 >= 8)
+    {
         object[i]._oVar4 = PreSpawnSkeleton();
+    }
 }
 
 void AddShrine(int i)
@@ -1667,19 +1819,25 @@ void AddStoryBook(int i)
 
     object[i]._oVar1 = random_(0, 3);
     if (currlevel == 4)
+    {
         object[i]._oVar2 = StoryText[object[i]._oVar1][0];
 #ifdef HELLFIRE
-    if (currlevel == 8)
+        if (currlevel == 8)
 #else
+    }
     else if (currlevel == 8)
+    {
 #endif
-        object[i]._oVar2 = StoryText[object[i]._oVar1][1];
+            object[i]._oVar2 = StoryText[object[i]._oVar1][1];
 #ifdef HELLFIRE
-    if (currlevel == 12)
+        if (currlevel == 12)
 #else
+    }
     else if (currlevel == 12)
+    {
 #endif
-        object[i]._oVar2 = StoryText[object[i]._oVar1][2];
+            object[i]._oVar2 = StoryText[object[i]._oVar1][2];
+    }
     object[i]._oVar3 = (currlevel >> 2) + 3 * object[i]._oVar1 - 1;
     object[i]._oAnimFrame = 5 - 2 * object[i]._oVar1;
     object[i]._oVar4 = object[i]._oAnimFrame + 1;
@@ -1708,14 +1866,18 @@ void GetRndObjLoc(int randarea, int& xx, int& yy)
     int i, j, tries;
 
     if (randarea == 0)
+    {
         return;
+    }
 
     tries = 0;
     while (1)
     {
         tries++;
         if (tries > 1000 && randarea > 1)
+        {
             randarea--;
+        }
         xx = random_(0, MAXDUNX);
         yy = random_(0, MAXDUNY);
         failed = FALSE;
@@ -1727,7 +1889,9 @@ void GetRndObjLoc(int randarea, int& xx, int& yy)
             }
         }
         if (!failed)
+        {
             break;
+        }
     }
 }
 
@@ -1885,7 +2049,9 @@ void AddObject(int ot, int ox, int oy)
     int oi;
 
     if (nobjects >= MAXOBJECTS)
+    {
         return;
+    }
 
     oi = objectavail[0];
     objectavail[0] = objectavail[MAXOBJECTS - 1 - nobjects];
@@ -2047,7 +2213,9 @@ void Obj_Light(int i, int lr)
                         dx = abs(plr[p]._px - ox);
                         dy = abs(plr[p]._py - oy);
                         if (dx < tr && dy < tr)
+                        {
                             turnon = TRUE;
+                        }
                     }
                 }
             }
@@ -2055,13 +2223,17 @@ void Obj_Light(int i, int lr)
         if (turnon)
         {
             if (object[i]._oVar1 == 0)
+            {
                 object[i]._olid = AddLight(ox, oy, lr);
+            }
             object[i]._oVar1 = 1;
         }
         else
         {
             if (object[i]._oVar1 == 1)
+            {
                 AddUnLight(object[i]._olid);
+            }
             object[i]._oVar1 = 0;
         }
     }
@@ -2078,9 +2250,13 @@ void Obj_Circle(int i)
     if (wx == ox && wy == oy)
     {
         if (object[i]._otype == OBJ_MCIRCLE1)
+        {
             object[i]._oAnimFrame = 2;
+        }
         if (object[i]._otype == OBJ_MCIRCLE2)
+        {
             object[i]._oAnimFrame = 4;
+        }
         if (ox == 45 && oy == 47)
         {
             object[i]._oVar6 = 2;
@@ -2097,8 +2273,10 @@ void Obj_Circle(int i)
         {
             object[i]._oVar6 = 4;
             ObjChangeMapResync(object[i]._oVar1, object[i]._oVar2, object[i]._oVar3, object[i]._oVar4);
-            if (quests[Q_BETRAYER]._qactive == QUEST_ACTIVE) // BUGFIX stepping on the circle again will break the quest state
+            if (quests[Q_BETRAYER]._qactive == QUEST_ACTIVE)
+            { // BUGFIX stepping on the circle again will break the quest state
                 quests[Q_BETRAYER]._qvar1 = 4;
+            }
             AddMissile(plr[myplr]._px, plr[myplr]._py, 35, 46, plr[myplr]._pdir, MIS_RNDTELEPORT, TARGET_MONSTERS, myplr, 0, 0);
             track_repeat_walk(FALSE);
             sgbMouseDown = CLICK_NONE;
@@ -2110,9 +2288,13 @@ void Obj_Circle(int i)
     else
     {
         if (object[i]._otype == OBJ_MCIRCLE1)
+        {
             object[i]._oAnimFrame = 1;
+        }
         if (object[i]._otype == OBJ_MCIRCLE2)
+        {
             object[i]._oAnimFrame = 3;
+        }
         object[i]._oVar6 = 0;
     }
 }
@@ -2153,7 +2335,9 @@ void Obj_Door(int i)
 void Obj_Sarc(int i)
 {
     if (object[i]._oAnimFrame == object[i]._oAnimLen)
+    {
         object[i]._oAnimFlag = 0;
+    }
 }
 
 void ActivateTrapLine(int ttype, int tid)
@@ -2203,7 +2387,9 @@ void Obj_FlameTrap(int i)
             for (j = 0; j < 5; j++)
             {
                 if (dPlayer[x][y] != 0 || dMonster[x][y] != 0)
+                {
                     object[i]._oVar4 = 1;
+                }
                 x++;
             }
         }
@@ -2214,19 +2400,27 @@ void Obj_FlameTrap(int i)
             for (k = 0; k < 5; k++)
             {
                 if (dPlayer[x][y] != 0 || dMonster[x][y] != 0)
+                {
                     object[i]._oVar4 = 1;
+                }
                 y++;
             }
         }
         if (object[i]._oVar4 != 0)
+        {
             ActivateTrapLine(object[i]._otype, object[i]._oVar1);
+        }
     }
     else
     {
         if (object[i]._oAnimFrame == object[i]._oAnimLen)
+        {
             object[i]._oAnimFrame = 11;
+        }
         if (object[i]._oAnimFrame <= 5)
+        {
             ChangeLightRadius(object[i]._olid, object[i]._oAnimFrame);
+        }
     }
 }
 
@@ -2249,7 +2443,9 @@ void Obj_Trap(int i)
             case OBJ_L3LDOOR:
             case OBJ_L3RDOOR:
                 if (object[oti]._oVar4 != 0)
+                {
                     otrig = TRUE;
+                }
                 break;
             case OBJ_LEVER:
             case OBJ_CHEST1:
@@ -2258,7 +2454,9 @@ void Obj_Trap(int i)
             case OBJ_SWITCHSKL:
             case OBJ_SARC:
                 if (object[oti]._oSelFlag == 0)
+                {
                     otrig = TRUE;
+                }
                 break;
         }
         if (otrig)
@@ -2296,14 +2494,20 @@ void Obj_BCrossDamage(int i)
     int damage[4] = {6, 8, 10, 12};
 
     if (plr[myplr]._pmode == PM_DEATH)
+    {
         return;
+    }
 
     fire_resist = plr[myplr]._pFireResist;
     if (fire_resist > 0)
+    {
         damage[leveltype - 1] -= fire_resist * damage[leveltype - 1] / 100;
+    }
 
     if (plr[myplr]._px != object[i]._ox || plr[myplr]._py != object[i]._oy - 1)
+    {
         return;
+    }
 
     plr[myplr]._pHitPoints -= damage[leveltype - 1];
     plr[myplr]._pHPBase -= damage[leveltype - 1];
@@ -2410,17 +2614,23 @@ void ProcessObjects()
                 break;
         }
         if (object[oi]._oAnimFlag == 0)
+        {
             continue;
+        }
 
         object[oi]._oAnimCnt++;
 
         if (object[oi]._oAnimCnt < object[oi]._oAnimDelay)
+        {
             continue;
+        }
 
         object[oi]._oAnimCnt = 0;
         object[oi]._oAnimFrame++;
         if (object[oi]._oAnimFrame > object[oi]._oAnimLen)
+        {
             object[oi]._oAnimFrame = 1;
+        }
     }
     i = 0;
     while (i < nobjects)
@@ -2547,33 +2757,61 @@ void ObjL1Special(int x1, int y1, int x2, int y2)
         {
             dSpecial[j][i] = 0;
             if (dPiece[j][i] == 12)
+            {
                 dSpecial[j][i] = 1;
+            }
             if (dPiece[j][i] == 11)
+            {
                 dSpecial[j][i] = 2;
+            }
             if (dPiece[j][i] == 71)
+            {
                 dSpecial[j][i] = 1;
+            }
             if (dPiece[j][i] == 259)
+            {
                 dSpecial[j][i] = 5;
+            }
             if (dPiece[j][i] == 249)
+            {
                 dSpecial[j][i] = 2;
+            }
             if (dPiece[j][i] == 325)
+            {
                 dSpecial[j][i] = 2;
+            }
             if (dPiece[j][i] == 321)
+            {
                 dSpecial[j][i] = 1;
+            }
             if (dPiece[j][i] == 255)
+            {
                 dSpecial[j][i] = 4;
+            }
             if (dPiece[j][i] == 211)
+            {
                 dSpecial[j][i] = 1;
+            }
             if (dPiece[j][i] == 344)
+            {
                 dSpecial[j][i] = 2;
+            }
             if (dPiece[j][i] == 341)
+            {
                 dSpecial[j][i] = 1;
+            }
             if (dPiece[j][i] == 331)
+            {
                 dSpecial[j][i] = 2;
+            }
             if (dPiece[j][i] == 418)
+            {
                 dSpecial[j][i] = 1;
+            }
             if (dPiece[j][i] == 421)
+            {
                 dSpecial[j][i] = 2;
+            }
         }
     }
 }
@@ -2588,19 +2826,33 @@ void ObjL2Special(int x1, int y1, int x2, int y2)
         {
             dSpecial[i][j] = 0;
             if (dPiece[i][j] == 541)
+            {
                 dSpecial[i][j] = 5;
+            }
             if (dPiece[i][j] == 178)
+            {
                 dSpecial[i][j] = 5;
+            }
             if (dPiece[i][j] == 551)
+            {
                 dSpecial[i][j] = 5;
+            }
             if (dPiece[i][j] == 542)
+            {
                 dSpecial[i][j] = 6;
+            }
             if (dPiece[i][j] == 553)
+            {
                 dSpecial[i][j] = 6;
+            }
             if (dPiece[i][j] == 13)
+            {
                 dSpecial[i][j] = 5;
+            }
             if (dPiece[i][j] == 17)
+            {
                 dSpecial[i][j] = 6;
+            }
         }
     }
     for (j = y1; j <= y2; j++)
@@ -2631,39 +2883,73 @@ void DoorSet(int oi, int dx, int dy)
     {
 #endif
         if (pn == 43)
+        {
             ObjSetMicro(dx, dy, 392);
+        }
         if (pn == 45)
+        {
             ObjSetMicro(dx, dy, 394);
+        }
         if (pn == 50 && object[oi]._otype == OBJ_L1LDOOR)
+        {
             ObjSetMicro(dx, dy, 411);
+        }
         if (pn == 50 && object[oi]._otype == OBJ_L1RDOOR)
+        {
             ObjSetMicro(dx, dy, 412);
+        }
         if (pn == 54)
+        {
             ObjSetMicro(dx, dy, 397);
+        }
         if (pn == 55)
+        {
             ObjSetMicro(dx, dy, 398);
+        }
         if (pn == 61)
+        {
             ObjSetMicro(dx, dy, 399);
+        }
         if (pn == 67)
+        {
             ObjSetMicro(dx, dy, 400);
+        }
         if (pn == 68)
+        {
             ObjSetMicro(dx, dy, 401);
+        }
         if (pn == 69)
+        {
             ObjSetMicro(dx, dy, 403);
+        }
         if (pn == 70)
+        {
             ObjSetMicro(dx, dy, 404);
+        }
         if (pn == 72)
+        {
             ObjSetMicro(dx, dy, 406);
+        }
         if (pn == 212)
+        {
             ObjSetMicro(dx, dy, 407);
+        }
         if (pn == 354)
+        {
             ObjSetMicro(dx, dy, 409);
+        }
         if (pn == 355)
+        {
             ObjSetMicro(dx, dy, 410);
+        }
         if (pn == 411)
+        {
             ObjSetMicro(dx, dy, 396);
+        }
         if (pn == 412)
+        {
             ObjSetMicro(dx, dy, 396);
+        }
 #ifdef HELLFIRE
     }
     else
@@ -2724,7 +3010,9 @@ void OperateL1RDoor(int pnum, int oi, DIABOOL sendflag)
     if (object[oi]._oVar4 == 2)
     {
         if (!deltaload)
+        {
             PlaySfxLoc(IS_DOORCLOS, object[oi]._ox, object[oi]._oy);
+        }
         return;
     }
 
@@ -2733,7 +3021,9 @@ void OperateL1RDoor(int pnum, int oi, DIABOOL sendflag)
     if (object[oi]._oVar4 == 0)
     {
         if (pnum == myplr && sendflag)
+        {
             NetSendCmdParam1(TRUE, CMD_OPENDOOR, oi);
+        }
 #ifdef HELLFIRE
         if (currlevel < 21)
         {
@@ -2763,7 +3053,9 @@ void OperateL1RDoor(int pnum, int oi, DIABOOL sendflag)
         }
 #else
         if (!deltaload)
+        {
             PlaySfxLoc(IS_DOOROPEN, object[oi]._ox, object[oi]._oy);
+        }
         ObjSetMicro(xp, yp, 395);
         dSpecial[xp][yp] = 8;
 #endif
@@ -2795,12 +3087,16 @@ void OperateL1RDoor(int pnum, int oi, DIABOOL sendflag)
     {
 #else
     if (!deltaload)
+    {
         PlaySfxLoc(IS_DOORCLOS, xp, object[oi]._oy);
+    }
     if (((dDead[xp][yp] != 0 ? 0 : 1) & (dMonster[xp][yp] != 0 ? 0 : 1) & (dItem[xp][yp] != 0 ? 0 : 1)) != 0)
     {
 #endif
         if (pnum == myplr && sendflag)
+        {
             NetSendCmdParam1(TRUE, CMD_CLOSEDOOR, oi);
+        }
         object[oi]._oVar4 = 0;
         object[oi]._oSelFlag = 3;
         ObjSetMicro(xp, yp, object[oi]._oVar1);
@@ -2815,9 +3111,13 @@ void OperateL1RDoor(int pnum, int oi, DIABOOL sendflag)
             else
             {
                 if (dPiece[xp - 1][yp] == 396)
+                {
                     ObjSetMicro(xp - 1, yp, 411);
+                }
                 else
+                {
                     ObjSetMicro(xp - 1, yp, 50);
+                }
             }
 #ifdef HELLFIRE
         }
@@ -2853,7 +3153,9 @@ void OperateL1LDoor(int pnum, int oi, DIABOOL sendflag)
     if (object[oi]._oVar4 == 2)
     {
         if (!deltaload)
+        {
             PlaySfxLoc(IS_DOORCLOS, object[oi]._ox, object[oi]._oy);
+        }
         return;
     }
 
@@ -2862,7 +3164,9 @@ void OperateL1LDoor(int pnum, int oi, DIABOOL sendflag)
     if (object[oi]._oVar4 == 0)
     {
         if (pnum == myplr && sendflag)
+        {
             NetSendCmdParam1(TRUE, CMD_OPENDOOR, oi);
+        }
 #ifdef HELLFIRE
         if (currlevel < 21)
         {
@@ -2895,11 +3199,17 @@ void OperateL1LDoor(int pnum, int oi, DIABOOL sendflag)
         }
 #else
         if (!deltaload)
+        {
             PlaySfxLoc(IS_DOOROPEN, object[oi]._ox, object[oi]._oy);
+        }
         if (object[oi]._oVar1 == 214)
+        {
             ObjSetMicro(xp, yp, 408);
+        }
         else
+        {
             ObjSetMicro(xp, yp, 393);
+        }
         dSpecial[xp][yp] = 7;
 #endif
         objects_set_door_piece(xp - 1, yp);
@@ -2930,12 +3240,16 @@ void OperateL1LDoor(int pnum, int oi, DIABOOL sendflag)
     {
 #else
     if (!deltaload)
+    {
         PlaySfxLoc(IS_DOORCLOS, xp, object[oi]._oy);
+    }
     if (((dDead[xp][yp] != 0 ? 0 : 1) & (dMonster[xp][yp] != 0 ? 0 : 1) & (dItem[xp][yp] != 0 ? 0 : 1)) != 0)
     {
 #endif
         if (pnum == myplr && sendflag)
+        {
             NetSendCmdParam1(TRUE, CMD_CLOSEDOOR, oi);
+        }
         object[oi]._oVar4 = 0;
         object[oi]._oSelFlag = 3;
         ObjSetMicro(xp, yp, object[oi]._oVar1);
@@ -2950,9 +3264,13 @@ void OperateL1LDoor(int pnum, int oi, DIABOOL sendflag)
             else
             {
                 if (dPiece[xp][yp - 1] == 396)
+                {
                     ObjSetMicro(xp, yp - 1, 412);
+                }
                 else
+                {
                     ObjSetMicro(xp, yp - 1, 50);
+                }
             }
 #ifdef HELLFIRE
         }
@@ -2989,7 +3307,9 @@ void OperateL2RDoor(int pnum, int oi, DIABOOL sendflag)
     if (object[oi]._oVar4 == 2)
     {
         if (!deltaload)
+        {
             PlaySfxLoc(IS_DOORCLOS, object[oi]._ox, object[oi]._oy);
+        }
         return;
     }
     xp = object[oi]._ox;
@@ -2997,9 +3317,13 @@ void OperateL2RDoor(int pnum, int oi, DIABOOL sendflag)
     if (object[oi]._oVar4 == 0)
     {
         if (pnum == myplr && sendflag)
+        {
             NetSendCmdParam1(TRUE, CMD_OPENDOOR, oi);
+        }
         if (!deltaload)
+        {
             PlaySfxLoc(IS_DOOROPEN, object[oi]._ox, object[oi]._oy);
+        }
         ObjSetMicro(xp, yp, 17);
         object[oi]._oAnimFrame += 2;
         object[oi]._oPreFlag = TRUE;
@@ -3010,14 +3334,18 @@ void OperateL2RDoor(int pnum, int oi, DIABOOL sendflag)
     }
 
     if (!deltaload)
+    {
         PlaySfxLoc(IS_DOORCLOS, object[oi]._ox, yp);
+    }
     dok = dMonster[xp][yp] == 0;
     dok = dok HFAND(dItem[xp][yp] == 0);
     dok = dok HFAND(dDead[xp][yp] == 0);
     if (dok)
     {
         if (pnum == myplr && sendflag)
+        {
             NetSendCmdParam1(TRUE, CMD_CLOSEDOOR, oi);
+        }
         object[oi]._oVar4 = 0;
         object[oi]._oSelFlag = 3;
         ObjSetMicro(xp, yp, 540);
@@ -3039,7 +3367,9 @@ void OperateL2LDoor(int pnum, int oi, BOOL sendflag)
     if (object[oi]._oVar4 == 2)
     {
         if (!deltaload)
+        {
             PlaySfxLoc(IS_DOORCLOS, object[oi]._ox, object[oi]._oy);
+        }
         return;
     }
     xp = object[oi]._ox;
@@ -3047,9 +3377,13 @@ void OperateL2LDoor(int pnum, int oi, BOOL sendflag)
     if (object[oi]._oVar4 == 0)
     {
         if (pnum == myplr && sendflag)
+        {
             NetSendCmdParam1(TRUE, CMD_OPENDOOR, oi);
+        }
         if (!deltaload)
+        {
             PlaySfxLoc(IS_DOOROPEN, object[oi]._ox, object[oi]._oy);
+        }
         ObjSetMicro(xp, yp, 13);
         object[oi]._oAnimFrame += 2;
         object[oi]._oPreFlag = TRUE;
@@ -3060,14 +3394,18 @@ void OperateL2LDoor(int pnum, int oi, BOOL sendflag)
     }
 
     if (!deltaload)
+    {
         PlaySfxLoc(IS_DOORCLOS, object[oi]._ox, yp);
+    }
     dok = dMonster[xp][yp] == 0;
     dok = dok HFAND(dItem[xp][yp] == 0);
     dok = dok HFAND(dDead[xp][yp] == 0);
     if (dok)
     {
         if (pnum == myplr && sendflag)
+        {
             NetSendCmdParam1(TRUE, CMD_CLOSEDOOR, oi);
+        }
         object[oi]._oVar4 = 0;
         object[oi]._oSelFlag = 3;
         ObjSetMicro(xp, yp, 538);
@@ -3089,7 +3427,9 @@ void OperateL3RDoor(int pnum, int oi, DIABOOL sendflag)
     if (object[oi]._oVar4 == 2)
     {
         if (!deltaload)
+        {
             PlaySfxLoc(IS_DOORCLOS, object[oi]._ox, object[oi]._oy);
+        }
         return;
     }
 
@@ -3098,9 +3438,13 @@ void OperateL3RDoor(int pnum, int oi, DIABOOL sendflag)
     if (object[oi]._oVar4 == 0)
     {
         if (pnum == myplr && sendflag)
+        {
             NetSendCmdParam1(TRUE, CMD_OPENDOOR, oi);
+        }
         if (!deltaload)
+        {
             PlaySfxLoc(IS_DOOROPEN, object[oi]._ox, object[oi]._oy);
+        }
         ObjSetMicro(xp, yp, 541);
         object[oi]._oAnimFrame += 2;
         object[oi]._oPreFlag = TRUE;
@@ -3111,14 +3455,18 @@ void OperateL3RDoor(int pnum, int oi, DIABOOL sendflag)
     }
 
     if (!deltaload)
+    {
         PlaySfxLoc(IS_DOORCLOS, object[oi]._ox, yp);
+    }
     dok = dMonster[xp][yp] == 0;
     dok = dok HFAND(dItem[xp][yp] == 0);
     dok = dok HFAND(dDead[xp][yp] == 0);
     if (dok)
     {
         if (pnum == myplr && sendflag)
+        {
             NetSendCmdParam1(TRUE, CMD_CLOSEDOOR, oi);
+        }
         object[oi]._oVar4 = 0;
         object[oi]._oSelFlag = 3;
         ObjSetMicro(xp, yp, 534);
@@ -3140,7 +3488,9 @@ void OperateL3LDoor(int pnum, int oi, DIABOOL sendflag)
     if (object[oi]._oVar4 == 2)
     {
         if (!deltaload)
+        {
             PlaySfxLoc(IS_DOORCLOS, object[oi]._ox, object[oi]._oy);
+        }
         return;
     }
 
@@ -3149,9 +3499,13 @@ void OperateL3LDoor(int pnum, int oi, DIABOOL sendflag)
     if (object[oi]._oVar4 == 0)
     {
         if (pnum == myplr && sendflag)
+        {
             NetSendCmdParam1(TRUE, CMD_OPENDOOR, oi);
+        }
         if (!deltaload)
+        {
             PlaySfxLoc(IS_DOOROPEN, object[oi]._ox, object[oi]._oy);
+        }
         ObjSetMicro(xp, yp, 538);
         object[oi]._oAnimFrame += 2;
         object[oi]._oPreFlag = TRUE;
@@ -3162,14 +3516,18 @@ void OperateL3LDoor(int pnum, int oi, DIABOOL sendflag)
     }
 
     if (!deltaload)
+    {
         PlaySfxLoc(IS_DOORCLOS, object[oi]._ox, yp);
+    }
     dok = dMonster[xp][yp] == 0;
     dok = dok HFAND(dItem[xp][yp] == 0);
     dok = dok HFAND(dDead[xp][yp] == 0);
     if (dok)
     {
         if (pnum == myplr && sendflag)
+        {
             NetSendCmdParam1(TRUE, CMD_CLOSEDOOR, oi);
+        }
         object[oi]._oVar4 = 0;
         object[oi]._oSelFlag = 3;
         ObjSetMicro(xp, yp, 531);
@@ -3201,27 +3559,39 @@ void MonstCheckDoors(int m)
                 dpx = abs(object[oi]._ox - mx);
                 dpy = abs(object[oi]._oy - my);
                 if (dpx == 1 && dpy <= 1 && object[oi]._otype == OBJ_L1LDOOR)
+                {
                     OperateL1LDoor(myplr, oi, TRUE);
+                }
                 if (dpx <= 1 && dpy == 1 && object[oi]._otype == OBJ_L1RDOOR)
+                {
                     OperateL1RDoor(myplr, oi, TRUE);
+                }
             }
             if ((object[oi]._otype == OBJ_L2LDOOR || object[oi]._otype == OBJ_L2RDOOR) && object[oi]._oVar4 == 0)
             {
                 dpx = abs(object[oi]._ox - mx);
                 dpy = abs(object[oi]._oy - my);
                 if (dpx == 1 && dpy <= 1 && object[oi]._otype == OBJ_L2LDOOR)
+                {
                     OperateL2LDoor(myplr, oi, TRUE);
+                }
                 if (dpx <= 1 && dpy == 1 && object[oi]._otype == OBJ_L2RDOOR)
+                {
                     OperateL2RDoor(myplr, oi, TRUE);
+                }
             }
             if ((object[oi]._otype == OBJ_L3LDOOR || object[oi]._otype == OBJ_L3RDOOR) && object[oi]._oVar4 == 0)
             {
                 dpx = abs(object[oi]._ox - mx);
                 dpy = abs(object[oi]._oy - my);
                 if (dpx == 1 && dpy <= 1 && object[oi]._otype == OBJ_L3RDOOR)
+                {
                     OperateL3RDoor(myplr, oi, TRUE);
+                }
                 if (dpx <= 1 && dpy == 1 && object[oi]._otype == OBJ_L3LDOOR)
+                {
                     OperateL3LDoor(myplr, oi, TRUE);
+                }
             }
         }
     }
@@ -3290,9 +3660,13 @@ void OperateL1Door(int pnum, int i, DIABOOL sendflag)
     dpx = abs(object[i]._ox - plr[pnum]._px);
     dpy = abs(object[i]._oy - plr[pnum]._py);
     if (dpx == 1 && dpy <= 1 && object[i]._otype == OBJ_L1LDOOR)
+    {
         OperateL1LDoor(pnum, i, sendflag);
+    }
     if (dpx <= 1 && dpy == 1 && object[i]._otype == OBJ_L1RDOOR)
+    {
         OperateL1RDoor(pnum, i, sendflag);
+    }
 }
 
 void OperateLever(int pnum, int i)
@@ -3303,7 +3677,9 @@ void OperateLever(int pnum, int i)
     if (object[i]._oSelFlag != 0)
     {
         if (!deltaload)
+        {
             PlaySfxLoc(IS_LEVER, object[i]._ox, object[i]._oy);
+        }
         object[i]._oSelFlag = 0;
         object[i]._oAnimFrame++;
         mapflag = TRUE;
@@ -3328,9 +3704,13 @@ void OperateLever(int pnum, int i)
         }
 #endif
         if (mapflag)
+        {
             ObjChangeMap(object[i]._oVar1, object[i]._oVar2, object[i]._oVar3, object[i]._oVar4);
+        }
         if (pnum == myplr)
+        {
             NetSendCmdParam1(FALSE, CMD_OPERATEOBJ, i);
+        }
     }
 }
 
@@ -3342,7 +3722,9 @@ void OperateBook(int pnum, int i)
     DIABOOL do_add_missile, missile_added;
 
     if (object[i]._oSelFlag == 0)
+    {
         return;
+    }
     if (setlevel && setlvlnum == SL_VILEBETRAYER)
     {
         do_add_missile = FALSE;
@@ -3374,21 +3756,29 @@ void OperateBook(int pnum, int i)
             }
         }
         if (!missile_added)
+        {
             return;
+        }
     }
     object[i]._oSelFlag = 0;
     object[i]._oAnimFrame++;
     if (!setlevel)
+    {
         return;
+    }
 
     if (setlvlnum == SL_BONECHAMB)
     {
         plr[myplr]._pMemSpells |= SPELLBIT(SPL_GUARDIAN);
         if (plr[pnum]._pSplLvl[SPL_GUARDIAN] < MAX_SPELL_LEVEL)
+        {
             plr[myplr]._pSplLvl[SPL_GUARDIAN]++;
+        }
         quests[Q_SCHAMB]._qactive = QUEST_DONE;
         if (!deltaload)
+        {
             PlaySfxLoc(IS_QUESTDN, object[i]._ox, object[i]._oy);
+        }
         InitDiabloMsg(EMSG_BONECHAMB);
         AddMissile(plr[myplr]._px, plr[myplr]._py, object[i]._ox - 2, object[i]._oy - 4, plr[myplr]._pdir, MIS_GUARDIAN, TARGET_MONSTERS, myplr, 0, 0);
     }
@@ -3396,7 +3786,9 @@ void OperateBook(int pnum, int i)
     {
         ObjChangeMapResync(object[i]._oVar1, object[i]._oVar2, object[i]._oVar3, object[i]._oVar4);
         for (j = 0; j < nobjects; j++)
+        {
             SyncObjectAnim(objectactive[j]);
+        }
     }
 }
 
@@ -3433,7 +3825,9 @@ void OperateBookLever(int pnum, int i)
         if (object[i]._oAnimFrame != object[i]._oVar6)
         {
             if (object[i]._otype != OBJ_BLOODBOOK)
+            {
                 ObjChangeMap(object[i]._oVar1, object[i]._oVar2, object[i]._oVar3, object[i]._oVar4);
+            }
             if (object[i]._otype == OBJ_BLINDBOOK)
             {
                 CreateItem(UITEM_OPTAMULET, x + 5, y + 5);
@@ -3446,7 +3840,9 @@ void OperateBookLever(int pnum, int i)
         object[i]._oAnimFrame = object[i]._oVar6;
         InitQTextMsg(object[i]._oVar7);
         if (pnum == myplr)
+        {
             NetSendCmdParam1(FALSE, CMD_OPERATEOBJ, i);
+        }
     }
 }
 
@@ -3460,7 +3856,9 @@ void OperateSChambBk(int pnum, int i)
         {
             ObjChangeMapResync(object[i]._oVar1, object[i]._oVar2, object[i]._oVar3, object[i]._oVar4);
             for (j = 0; j < nobjects; j++)
+            {
                 SyncObjectAnim(objectactive[j]);
+            }
         }
         object[i]._oAnimFrame = object[i]._oVar6;
         if (quests[Q_SCHAMB]._qactive == QUEST_INIT)
@@ -3506,7 +3904,9 @@ void OperateChest(int pnum, int i, DIABOOL sendmsg)
     if (object[i]._oSelFlag != 0)
     {
         if (!deltaload)
+        {
             PlaySfxLoc(IS_CHEST, object[i]._ox, object[i]._oy);
+        }
         object[i]._oSelFlag = 0;
         object[i]._oAnimFrame += 2;
         if (!deltaload)
@@ -3524,9 +3924,13 @@ void OperateChest(int pnum, int i, DIABOOL sendmsg)
                 for (j = 0; j < object[i]._oVar1; j++)
                 {
                     if (object[i]._oVar2 != 0)
+                    {
                         CreateRndItem(object[i]._ox, object[i]._oy, FALSE, sendmsg, FALSE);
+                    }
                     else
+                    {
                         CreateRndUseful(pnum, object[i]._ox, object[i]._oy, sendmsg);
+                    }
                 }
             }
             if (object[i]._oTrapFlag && object[i]._otype >= OBJ_TCHEST1 && object[i]._otype <= OBJ_TCHEST3)
@@ -3561,7 +3965,9 @@ void OperateChest(int pnum, int i, DIABOOL sendmsg)
                 object[i]._oTrapFlag = FALSE;
             }
             if (pnum == myplr)
+            {
                 NetSendCmdParam2(FALSE, CMD_PLROPOBJ, pnum, i);
+            }
             return;
         }
     }
@@ -3610,7 +4016,9 @@ void OperateMushPatch(int pnum, int i)
         if (object[i]._oSelFlag != 0)
         {
             if (!deltaload)
+            {
                 PlaySfxLoc(IS_CHEST, object[i]._ox, object[i]._oy);
+            }
             object[i]._oSelFlag = 0;
             object[i]._oAnimFrame++;
             if (!deltaload)
@@ -3666,7 +4074,9 @@ void OperateInnSignChest(int pnum, int i)
         if (object[i]._oSelFlag != 0)
         {
             if (!deltaload)
+            {
                 PlaySfxLoc(IS_CHEST, object[i]._ox, object[i]._oy);
+            }
             object[i]._oSelFlag = 0;
             object[i]._oAnimFrame += 2;
             if (!deltaload)
@@ -3728,7 +4138,9 @@ void OperateSlainHero(int pnum, int i, DIABOOL sendmsg)
 #endif
             }
             if (pnum == myplr)
+            {
                 NetSendCmdParam1(FALSE, CMD_OPERATEOBJ, i);
+            }
         }
     }
 }
@@ -3763,7 +4175,9 @@ void OperateTrapLvr(int i)
         {
             object[oi]._oVar2 = 0;
             if (object[oi]._oVar4 != 0)
+            {
                 object[oi]._oAnimFlag = 1;
+            }
         }
     }
 }
@@ -3773,7 +4187,9 @@ void OperateSarc(int pnum, int i, DIABOOL sendmsg)
     if (object[i]._oSelFlag != 0)
     {
         if (!deltaload)
+        {
             PlaySfxLoc(IS_SARC, object[i]._ox, object[i]._oy);
+        }
         object[i]._oSelFlag = 0;
         if (deltaload)
         {
@@ -3785,11 +4201,17 @@ void OperateSarc(int pnum, int i, DIABOOL sendmsg)
             object[i]._oAnimDelay = 3;
             SetRndSeed(object[i]._oRndSeed);
             if (object[i]._oVar1 <= 2)
+            {
                 CreateRndItem(object[i]._ox, object[i]._oy, FALSE, sendmsg, FALSE);
+            }
             if (object[i]._oVar1 >= 8)
+            {
                 SpawnSkeleton(object[i]._oVar2, object[i]._ox, object[i]._oy);
+            }
             if (pnum == myplr)
+            {
                 NetSendCmdParam1(FALSE, CMD_OPERATEOBJ, i);
+            }
         }
     }
 }
@@ -3801,9 +4223,13 @@ void OperateL2Door(int pnum, int i, DIABOOL sendflag)
     dpx = abs(object[i]._ox - plr[pnum]._px);
     dpy = abs(object[i]._oy - plr[pnum]._py);
     if (dpx == 1 && dpy <= 1 && object[i]._otype == OBJ_L2LDOOR)
+    {
         OperateL2LDoor(pnum, i, sendflag);
+    }
     if (dpx <= 1 && dpy == 1 && object[i]._otype == OBJ_L2RDOOR)
+    {
         OperateL2RDoor(pnum, i, sendflag);
+    }
 }
 
 void OperateL3Door(int pnum, int i, DIABOOL sendflag)
@@ -3813,9 +4239,13 @@ void OperateL3Door(int pnum, int i, DIABOOL sendflag)
     dpx = abs(object[i]._ox - plr[pnum]._px);
     dpy = abs(object[i]._oy - plr[pnum]._py);
     if (dpx == 1 && dpy <= 1 && object[i]._otype == OBJ_L3RDOOR)
+    {
         OperateL3RDoor(pnum, i, sendflag);
+    }
     if (dpx <= 1 && dpy == 1 && object[i]._otype == OBJ_L3LDOOR)
+    {
         OperateL3LDoor(pnum, i, sendflag);
+    }
 }
 
 void OperatePedistal(int pnum, int i)
@@ -3834,19 +4264,25 @@ void OperatePedistal(int pnum, int i)
         if (object[i]._oVar6 == 1)
         {
             if (!deltaload)
+            {
                 PlaySfxLoc(LS_PUDDLE, object[i]._ox, object[i]._oy);
+            }
             ObjChangeMap(setpc_x, setpc_y + 3, setpc_x + 2, setpc_y + 7);
         }
         if (object[i]._oVar6 == 2)
         {
             if (!deltaload)
+            {
                 PlaySfxLoc(LS_PUDDLE, object[i]._ox, object[i]._oy);
+            }
             ObjChangeMap(setpc_x + 6, setpc_y + 3, setpc_x + setpc_w, setpc_y + 7);
         }
         if (object[i]._oVar6 == 3)
         {
             if (!deltaload)
+            {
                 PlaySfxLoc(LS_BLODSTAR, object[i]._ox, object[i]._oy);
+            }
             ObjChangeMap(object[i]._oVar1, object[i]._oVar2, object[i]._oVar3, object[i]._oVar4);
             mem = LoadFileInMem("Levels\\L2Data\\Blood2.DUN", NULL);
             LoadMapObjs(mem, 2 * setpc_x, 2 * setpc_y);
@@ -3863,7 +4299,9 @@ void TryDisarm(int pnum, int i)
     DIABOOL checkflag;
 
     if (pnum == myplr)
+    {
         SetCursor_(CURSOR_HAND);
+    }
     if (object[i]._oTrapFlag)
     {
         trapdisper = 2 * plr[pnum]._pDexterity - 5 * currlevel;
@@ -3875,9 +4313,13 @@ void TryDisarm(int pnum, int i)
                 oi = objectactive[j];
                 oti = object[oi]._otype;
                 if (oti == OBJ_TRAPL)
+                {
                     checkflag = TRUE;
+                }
                 if (oti == OBJ_TRAPR)
+                {
                     checkflag = TRUE;
+                }
                 if (checkflag && dObject[object[oi]._oVar1][object[oi]._oVar2] - 1 == i)
                 {
                     object[oi]._oVar4 = 1;
@@ -3887,7 +4329,9 @@ void TryDisarm(int pnum, int i)
 #ifndef HELLFIRE
             oti = object[i]._otype;
             if (oti >= OBJ_TCHEST1 && oti <= OBJ_TCHEST3)
+            {
                 object[i]._oTrapFlag = FALSE;
+            }
 #endif
         }
     }
@@ -3924,7 +4368,9 @@ void OperateShrine(int pnum, int i, int sType)
     /// ASSERT: assert((DWORD)i < MAXOBJECTS);
 
     if (object[i]._oSelFlag == 0)
+    {
         return;
+    }
 
     SetRndSeed(object[i]._oRndSeed);
     object[i]._oSelFlag = 0;
@@ -3944,9 +4390,13 @@ void OperateShrine(int pnum, int i, int sType)
     {
         case SHRINE_MYSTERIOUS:
             if (deltaload)
+            {
                 return;
+            }
             if (pnum != myplr)
+            {
                 return;
+            }
             ModifyPlrStr(pnum, -1);
             ModifyPlrMag(pnum, -1);
             ModifyPlrDex(pnum, -1);
@@ -3972,13 +4422,19 @@ void OperateShrine(int pnum, int i, int sType)
         case SHRINE_HIDDEN:
             cnt = 0;
             if (deltaload)
+            {
                 return;
+            }
             if (pnum != myplr)
+            {
                 return;
+            }
             for (j = 0; j < NUM_INVLOC; j++)
             {
                 if (plr[pnum].InvBody[j]._itype != ITYPE_NONE)
+                {
                     cnt++;
+                }
             }
             if (cnt > 0)
             {
@@ -3989,7 +4445,9 @@ void OperateShrine(int pnum, int i, int sType)
                         plr[pnum].InvBody[j]._iDurability += 10;
                         plr[pnum].InvBody[j]._iMaxDur += 10;
                         if (plr[pnum].InvBody[j]._iDurability > plr[pnum].InvBody[j]._iMaxDur)
+                        {
                             plr[pnum].InvBody[j]._iDurability = plr[pnum].InvBody[j]._iMaxDur;
+                        }
                     }
                 }
                 while (TRUE)
@@ -3998,23 +4456,35 @@ void OperateShrine(int pnum, int i, int sType)
                     for (j = 0; j < NUM_INVLOC; j++)
                     {
                         if (plr[pnum].InvBody[j]._itype != ITYPE_NONE)
+                        {
 #ifndef HELLFIRE
                             if (plr[pnum].InvBody[j]._iMaxDur != DUR_INDESTRUCTIBLE && plr[pnum].InvBody[j]._iMaxDur != 0)
+                            {
 #endif
                                 cnt++;
+                            }
+                        }
                     }
                     if (cnt == 0)
+                    {
                         break;
+                    }
                     r = random_(0, NUM_INVLOC);
                     if (plr[pnum].InvBody[r]._itype == ITYPE_NONE || plr[pnum].InvBody[r]._iMaxDur == DUR_INDESTRUCTIBLE || plr[pnum].InvBody[r]._iMaxDur == 0)
+                    {
                         continue;
+                    }
 
                     plr[pnum].InvBody[r]._iDurability -= 20;
                     plr[pnum].InvBody[r]._iMaxDur -= 20;
                     if (plr[pnum].InvBody[r]._iDurability <= 0)
+                    {
                         plr[pnum].InvBody[r]._iDurability = 1;
+                    }
                     if (plr[pnum].InvBody[r]._iMaxDur <= 0)
+                    {
                         plr[pnum].InvBody[r]._iMaxDur = 1;
+                    }
                     break;
                 }
             }
@@ -4022,13 +4492,21 @@ void OperateShrine(int pnum, int i, int sType)
             break;
         case SHRINE_GLOOMY:
             if (deltaload)
+            {
                 return;
+            }
             if (pnum != myplr)
+            {
                 break;
+            }
             if (plr[pnum].InvBody[INVLOC_HEAD]._itype != ITYPE_NONE)
+            {
                 plr[pnum].InvBody[INVLOC_HEAD]._iAC += 2;
+            }
             if (plr[pnum].InvBody[INVLOC_CHEST]._itype != ITYPE_NONE)
+            {
                 plr[pnum].InvBody[INVLOC_CHEST]._iAC += 2;
+            }
             if (plr[pnum].InvBody[INVLOC_HAND_LEFT]._itype != ITYPE_NONE)
             {
                 if (plr[pnum].InvBody[INVLOC_HAND_LEFT]._itype == ITYPE_SHIELD)
@@ -4039,7 +4517,9 @@ void OperateShrine(int pnum, int i, int sType)
                 {
                     plr[pnum].InvBody[INVLOC_HAND_LEFT]._iMaxDam--;
                     if (plr[pnum].InvBody[INVLOC_HAND_LEFT]._iMaxDam < plr[pnum].InvBody[INVLOC_HAND_LEFT]._iMinDam)
+                    {
                         plr[pnum].InvBody[INVLOC_HAND_LEFT]._iMaxDam = plr[pnum].InvBody[INVLOC_HAND_LEFT]._iMinDam;
+                    }
                 }
             }
             if (plr[pnum].InvBody[INVLOC_HAND_RIGHT]._itype != ITYPE_NONE)
@@ -4052,7 +4532,9 @@ void OperateShrine(int pnum, int i, int sType)
                 {
                     plr[pnum].InvBody[INVLOC_HAND_RIGHT]._iMaxDam--;
                     if (plr[pnum].InvBody[INVLOC_HAND_RIGHT]._iMaxDam < plr[pnum].InvBody[INVLOC_HAND_RIGHT]._iMinDam)
+                    {
                         plr[pnum].InvBody[INVLOC_HAND_RIGHT]._iMaxDam = plr[pnum].InvBody[INVLOC_HAND_RIGHT]._iMinDam;
+                    }
                 }
             }
             for (j = 0; j < plr[pnum]._pNumInv; j++)
@@ -4066,7 +4548,9 @@ void OperateShrine(int pnum, int i, int sType)
                     case ITYPE_STAFF:
                         plr[pnum].InvList[j]._iMaxDam--;
                         if (plr[pnum].InvList[j]._iMaxDam < plr[pnum].InvList[j]._iMinDam)
+                        {
                             plr[pnum].InvList[j]._iMaxDam = plr[pnum].InvList[j]._iMinDam;
+                        }
                         break;
                     case ITYPE_SHIELD:
                     case ITYPE_HELM:
@@ -4081,14 +4565,22 @@ void OperateShrine(int pnum, int i, int sType)
             break;
         case SHRINE_WEIRD:
             if (deltaload)
+            {
                 return;
+            }
             if (pnum != myplr)
+            {
                 break;
+            }
 
             if (plr[pnum].InvBody[INVLOC_HAND_LEFT]._itype != ITYPE_NONE && plr[pnum].InvBody[INVLOC_HAND_LEFT]._itype != ITYPE_SHIELD)
+            {
                 plr[pnum].InvBody[INVLOC_HAND_LEFT]._iMaxDam++;
+            }
             if (plr[pnum].InvBody[INVLOC_HAND_RIGHT]._itype != ITYPE_NONE && plr[pnum].InvBody[INVLOC_HAND_RIGHT]._itype != ITYPE_SHIELD)
+            {
                 plr[pnum].InvBody[INVLOC_HAND_RIGHT]._iMaxDam++;
+            }
             for (j = 0; j < plr[pnum]._pNumInv; j++)
             {
                 switch (plr[pnum].InvList[j]._itype)
@@ -4108,54 +4600,82 @@ void OperateShrine(int pnum, int i, int sType)
 
         case SHRINE_MAGICAL2:
             if (deltaload)
+            {
                 return;
+            }
             AddMissile(plr[pnum]._px, plr[pnum]._py, plr[pnum]._px, plr[pnum]._py, plr[pnum]._pdir, MIS_MANASHIELD, -1, pnum, 0, 2 * leveltype);
             if (pnum != myplr)
+            {
                 return;
+            }
             InitDiabloMsg(EMSG_SHRINE_MAGICAL);
             break;
         case SHRINE_STONE:
             if (deltaload)
+            {
                 return;
+            }
             if (pnum != myplr)
+            {
                 break;
+            }
 
             for (j = 0; j < NUM_INVLOC; j++)
             {
                 if (plr[pnum].InvBody[j]._itype == ITYPE_STAFF)
+                {
                     plr[pnum].InvBody[j]._iCharges = plr[pnum].InvBody[j]._iMaxCharges;
+                }
             }
             for (j = 0; j < plr[pnum]._pNumInv; j++)
             {
                 if (plr[pnum].InvList[j]._itype == ITYPE_STAFF)
+                {
                     plr[pnum].InvList[j]._iCharges = plr[pnum].InvList[j]._iMaxCharges;
+                }
             }
             for (j = 0; j < MAXBELTITEMS; j++)
             {
                 if (plr[pnum].SpdList[j]._itype == ITYPE_STAFF)
+                {
                     plr[pnum].SpdList[j]._iCharges = plr[pnum].SpdList[j]._iMaxCharges; // belt items don't have charges?
+                }
             }
             InitDiabloMsg(EMSG_SHRINE_STONE);
             break;
         case SHRINE_RELIGIOUS:
             if (deltaload)
+            {
                 return;
+            }
             if (pnum != myplr)
+            {
                 break;
+            }
 
             for (j = 0; j < NUM_INVLOC; j++)
+            {
                 plr[pnum].InvBody[j]._iDurability = plr[pnum].InvBody[j]._iMaxDur;
+            }
             for (j = 0; j < plr[pnum]._pNumInv; j++)
+            {
                 plr[pnum].InvList[j]._iDurability = plr[pnum].InvList[j]._iMaxDur;
+            }
             for (j = 0; j < MAXBELTITEMS; j++)
+            {
                 plr[pnum].SpdList[j]._iDurability = plr[pnum].SpdList[j]._iMaxDur; // belt items don't have durability?
+            }
             InitDiabloMsg(EMSG_SHRINE_RELIGIOUS);
             break;
         case SHRINE_ENCHANTED:
             if (deltaload)
+            {
                 return;
+            }
             if (pnum != myplr)
+            {
                 return;
+            }
             cnt = 0;
             spell = 1;
             spells = plr[pnum]._pMemSpells;
@@ -4164,550 +4684,664 @@ void OperateShrine(int pnum, int i, int sType)
 #ifdef HELLFIRE
                 if (spell & plr[pnum]._pMemSpells)
 #else
-                if (spell & spells)
+            if (spell & spells)
+            {
 #endif
                     cnt++;
-                spell <<= 1;
             }
-            if (cnt > 1)
-            {
-                spell = 1;
-                for (j = SPL_FIREBOLT; j <= MAX_SPELLS; j++)
-                { // BUGFIX: < MAX_SPELLS, there is no spell with MAX_SPELLS index
-                    if (plr[pnum]._pMemSpells & spell)
-                    {
-                        if (plr[pnum]._pSplLvl[j] < MAX_SPELL_LEVEL)
-                            plr[pnum]._pSplLvl[j]++;
-                    }
-                    spell <<= 1;
-                }
-                do
-                {
-                    r = random_(0, MAX_SPELLS);
-                } while (!(plr[pnum]._pMemSpells & SPELLBIT(r + 1)));
-                if (plr[pnum]._pSplLvl[r + 1] >= 2)
-                    plr[pnum]._pSplLvl[r + 1] -= 2;
-                else
-                    plr[pnum]._pSplLvl[r + 1] = 0;
-            }
-            InitDiabloMsg(EMSG_SHRINE_ENCHANTED);
-            break;
-        case SHRINE_THAUMATURGIC:
-            for (j = 0; j < nobjects; j++)
-            {
-                v1 = objectactive[j];
-                /// ASSERT: assert((DWORD)v1 < MAXOBJECTS);
-                if ((object[v1]._otype == OBJ_CHEST1 || object[v1]._otype == OBJ_CHEST2 || object[v1]._otype == OBJ_CHEST3) && object[v1]._oSelFlag == 0)
-                {
-                    object[v1]._oRndSeed = GetRndSeed();
-                    object[v1]._oSelFlag = 1;
-                    object[v1]._oAnimFrame -= 2;
-                }
-            }
-            if (deltaload)
-                return;
-            if (pnum == myplr)
-                InitDiabloMsg(EMSG_SHRINE_THAUMATURGIC);
-            break;
-        case SHRINE_FASCINATING:
-            if (deltaload)
-                return;
-            if (pnum != myplr)
-                return;
-            plr[pnum]._pMemSpells |= SPELLBIT(SPL_FIREBOLT);
-            if (plr[pnum]._pSplLvl[SPL_FIREBOLT] < MAX_SPELL_LEVEL)
-                plr[pnum]._pSplLvl[SPL_FIREBOLT]++;
-            if (plr[pnum]._pSplLvl[SPL_FIREBOLT] < MAX_SPELL_LEVEL)
-                plr[pnum]._pSplLvl[SPL_FIREBOLT]++;
-            t = plr[pnum]._pMaxManaBase / 10;
-            v1 = plr[pnum]._pMana - plr[pnum]._pManaBase;
-            v2 = plr[pnum]._pMaxMana - plr[pnum]._pMaxManaBase;
-
-            plr[pnum]._pManaBase -= t;
-            plr[pnum]._pMana -= t;
-            plr[pnum]._pMaxMana -= t;
-            plr[pnum]._pMaxManaBase -= t;
-            if (plr[pnum]._pMana >> 6 <= 0)
-            {
-                plr[pnum]._pMana = v1;
-                plr[pnum]._pManaBase = 0;
-            }
-            if (plr[pnum]._pMaxMana >> 6 <= 0)
-            {
-                plr[pnum]._pMaxMana = v2;
-                plr[pnum]._pMaxManaBase = 0;
-            }
-            InitDiabloMsg(EMSG_SHRINE_FASCINATING);
-            break;
-        case SHRINE_CRYPTIC:
-            if (deltaload)
-                return;
-            AddMissile(plr[pnum]._px, plr[pnum]._py, plr[pnum]._px, plr[pnum]._py, plr[pnum]._pdir, MIS_NOVA, -1, pnum, 0, 2 * leveltype);
-            if (pnum != myplr)
-                return;
-            plr[pnum]._pMana = plr[pnum]._pMaxMana;
-            plr[pnum]._pManaBase = plr[pnum]._pMaxManaBase;
-            InitDiabloMsg(EMSG_SHRINE_CRYPTIC);
-            break;
-        case SHRINE_ELDRITCH: /// BUGFIX: change `plr[pnum].HoldItem` to use a temporary buffer to prevent deleting item in hand
-            if (deltaload)
-                return;
-            if (pnum != myplr)
-                break;
-            for (j = 0; j < plr[pnum]._pNumInv; j++)
-            {
-                if (plr[pnum].InvList[j]._itype == ITYPE_MISC)
-                {
-                    if (plr[pnum].InvList[j]._iMiscId == IMISC_HEAL || plr[pnum].InvList[j]._iMiscId == IMISC_MANA)
-                    {
-                        SetPlrHandItem(&plr[pnum].HoldItem, ItemMiscIdIdx(IMISC_REJUV));
-                        GetPlrHandSeed(&plr[pnum].HoldItem);
-                        plr[pnum].HoldItem._iStatFlag = TRUE;
-                        plr[pnum].InvList[j] = plr[pnum].HoldItem;
-                    }
-                    if (plr[pnum].InvList[j]._iMiscId == IMISC_FULLHEAL || plr[pnum].InvList[j]._iMiscId == IMISC_FULLMANA)
-                    {
-                        SetPlrHandItem(&plr[pnum].HoldItem, ItemMiscIdIdx(IMISC_FULLREJUV));
-                        GetPlrHandSeed(&plr[pnum].HoldItem);
-                        plr[pnum].HoldItem._iStatFlag = TRUE;
-                        plr[pnum].InvList[j] = plr[pnum].HoldItem;
-                    }
-                }
-            }
-            for (j = 0; j < MAXBELTITEMS; j++)
-            {
-                if (plr[pnum].SpdList[j]._itype == ITYPE_MISC)
-                {
-                    if (plr[pnum].SpdList[j]._iMiscId == IMISC_HEAL || plr[pnum].SpdList[j]._iMiscId == IMISC_MANA)
-                    {
-                        SetPlrHandItem(&plr[pnum].HoldItem, ItemMiscIdIdx(IMISC_REJUV));
-                        GetPlrHandSeed(&plr[pnum].HoldItem);
-                        plr[pnum].HoldItem._iStatFlag = TRUE;
-                        plr[pnum].SpdList[j] = plr[pnum].HoldItem;
-                    }
-                    if (plr[pnum].SpdList[j]._iMiscId == IMISC_FULLHEAL || plr[pnum].SpdList[j]._iMiscId == IMISC_FULLMANA)
-                    {
-                        SetPlrHandItem(&plr[pnum].HoldItem, ItemMiscIdIdx(IMISC_FULLREJUV));
-                        GetPlrHandSeed(&plr[pnum].HoldItem);
-                        plr[pnum].HoldItem._iStatFlag = TRUE;
-                        plr[pnum].SpdList[j] = plr[pnum].HoldItem;
-                    }
-                }
-            }
-            InitDiabloMsg(EMSG_SHRINE_ELDRITCH);
-            break;
-        case SHRINE_EERIE:
-            if (deltaload)
-                return;
-            if (pnum != myplr)
-                return;
-            ModifyPlrMag(pnum, 2);
-            CheckStats(pnum);
-            InitDiabloMsg(EMSG_SHRINE_EERIE);
-            break;
-        case SHRINE_DIVINE:
-            if (deltaload)
-                return;
-            if (pnum != myplr)
-                return;
-            if (2 * currlevel < 7)
-            {
-                CreateTypeItem(object[i]._ox, object[i]._oy, FALSE, ITYPE_MISC, IMISC_FULLMANA, FALSE, TRUE);
-                CreateTypeItem(object[i]._ox, object[i]._oy, FALSE, ITYPE_MISC, IMISC_FULLHEAL, FALSE, TRUE);
-            }
-            else
-            {
-                CreateTypeItem(object[i]._ox, object[i]._oy, FALSE, ITYPE_MISC, IMISC_FULLREJUV, FALSE, TRUE);
-                CreateTypeItem(object[i]._ox, object[i]._oy, FALSE, ITYPE_MISC, IMISC_FULLREJUV, FALSE, TRUE);
-            }
-            plr[pnum]._pMana = plr[pnum]._pMaxMana;
-            plr[pnum]._pManaBase = plr[pnum]._pMaxManaBase;
-            plr[pnum]._pHitPoints = plr[pnum]._pMaxHP;
-            plr[pnum]._pHPBase = plr[pnum]._pMaxHPBase;
-            InitDiabloMsg(EMSG_SHRINE_DIVINE);
-            break;
-        case SHRINE_HOLY:
-            if (deltaload)
-                return;
-            j = 0;
-            do
-            {
-                xx = random_(159, MAXDUNX);
-                yy = random_(159, MAXDUNY);
-                lv = dPiece[xx][yy];
-                j++;
-                if (j > MAXDUNX * MAXDUNY)
-                    break;
-            } while (nSolidTable[lv] || dObject[xx][yy] != 0 || dMonster[xx][yy] != 0);
-            AddMissile(plr[pnum]._px, plr[pnum]._py, xx, yy, plr[pnum]._pdir, MIS_RNDTELEPORT, -1, pnum, 0, 2 * leveltype);
-            if (pnum != myplr)
-                return;
-            InitDiabloMsg(EMSG_SHRINE_HOLY);
-            break;
-        case SHRINE_SACRED:
-            if (deltaload || pnum != myplr)
-                return;
-            plr[pnum]._pMemSpells |= SPELLBIT(SPL_CBOLT);
-            if (plr[pnum]._pSplLvl[SPL_CBOLT] < MAX_SPELL_LEVEL)
-                plr[pnum]._pSplLvl[SPL_CBOLT]++;
-            if (plr[pnum]._pSplLvl[SPL_CBOLT] < MAX_SPELL_LEVEL)
-                plr[pnum]._pSplLvl[SPL_CBOLT]++;
-            t = plr[pnum]._pMaxManaBase / 10;
-            v1 = plr[pnum]._pMana - plr[pnum]._pManaBase;
-            v2 = plr[pnum]._pMaxMana - plr[pnum]._pMaxManaBase;
-            plr[pnum]._pManaBase -= t;
-            plr[pnum]._pMana -= t;
-            plr[pnum]._pMaxMana -= t;
-            plr[pnum]._pMaxManaBase -= t;
-            if (plr[pnum]._pMana >> 6 <= 0)
-            {
-                plr[pnum]._pMana = v1;
-                plr[pnum]._pManaBase = 0;
-            }
-            if (plr[pnum]._pMaxMana >> 6 <= 0)
-            {
-                plr[pnum]._pMaxMana = v2;
-                plr[pnum]._pMaxManaBase = 0;
-            }
-            InitDiabloMsg(EMSG_SHRINE_SACRED);
-            break;
-        case SHRINE_SPIRITUAL:
-            if (deltaload)
-                return;
-            if (pnum != myplr)
-                return;
-            for (j = 0; j < NUM_INV_GRID_ELEM; j++)
-            {
-                if (plr[pnum].InvGrid[j] == 0)
-                {
-                    r = 5 * leveltype + random_(160, 10 * leveltype);
-                    t = plr[pnum]._pNumInv; // check
-                    plr[pnum].InvList[t] = golditem;
-                    plr[pnum].InvList[t]._iSeed = GetRndSeed();
-                    plr[pnum]._pNumInv++;
-                    plr[pnum].InvGrid[j] = plr[pnum]._pNumInv;
-                    plr[pnum].InvList[t]._ivalue = r;
-                    plr[pnum]._pGold += r;
-                    SetGoldCurs(pnum, t);
-                }
-            }
-            InitDiabloMsg(EMSG_SHRINE_SPIRITUAL);
-            break;
-        case SHRINE_SPOOKY:
-            if (deltaload)
-                return;
-            if (pnum == myplr)
-            {
-                InitDiabloMsg(EMSG_SHRINE_SPOOKY1);
-            }
-            else
-            {
-                InitDiabloMsg(EMSG_SHRINE_SPOOKY2);
-                plr[myplr]._pHitPoints = plr[myplr]._pMaxHP;
-                plr[myplr]._pHPBase = plr[myplr]._pMaxHPBase;
-                plr[myplr]._pMana = plr[myplr]._pMaxMana;
-                plr[myplr]._pManaBase = plr[myplr]._pMaxManaBase;
-            }
-            break;
-        case SHRINE_ABANDONED:
-            if (deltaload)
-                return;
-            if (pnum != myplr)
-                return;
-            ModifyPlrDex(pnum, 2);
-            CheckStats(pnum);
-            if (pnum == myplr)
-                InitDiabloMsg(EMSG_SHRINE_ABANDONED);
-            break;
-        case SHRINE_CREEPY:
-            if (deltaload)
-                return;
-            if (pnum != myplr)
-                return;
-            ModifyPlrStr(pnum, 2);
-            CheckStats(pnum);
-            if (pnum == myplr)
-                InitDiabloMsg(EMSG_SHRINE_CREEPY);
-            break;
-        case SHRINE_QUIET:
-            if (deltaload)
-                return;
-            if (pnum != myplr)
-                return;
-            ModifyPlrVit(pnum, 2);
-            CheckStats(pnum);
-            if (pnum == myplr)
-                InitDiabloMsg(EMSG_SHRINE_QUIET);
-            break;
-        case SHRINE_SECLUDED:
-            if (deltaload)
-                return;
-            if (pnum != myplr)
-                break;
-
-            for (yy = 0; yy < DMAXY; yy++)
-            {
-                for (xx = 0; xx < DMAXX; xx++)
-                {
-                    automapview[xx][yy] = TRUE;
-                }
-            }
-            InitDiabloMsg(EMSG_SHRINE_SECLUDED);
-            break;
-        case SHRINE_ORNATE:
-            if (deltaload)
-                return;
-            if (pnum != myplr)
-                return;
-            plr[pnum]._pMemSpells |= SPELLBIT(SPL_HBOLT);
-            if (plr[pnum]._pSplLvl[SPL_HBOLT] < MAX_SPELL_LEVEL)
-                plr[pnum]._pSplLvl[SPL_HBOLT]++;
-            if (plr[pnum]._pSplLvl[SPL_HBOLT] < MAX_SPELL_LEVEL)
-                plr[pnum]._pSplLvl[SPL_HBOLT]++;
-            t = plr[pnum]._pMaxManaBase / 10;
-            v1 = plr[pnum]._pMana - plr[pnum]._pManaBase;
-            v2 = plr[pnum]._pMaxMana - plr[pnum]._pMaxManaBase;
-            plr[pnum]._pManaBase -= t;
-            plr[pnum]._pMana -= t;
-            plr[pnum]._pMaxMana -= t;
-            plr[pnum]._pMaxManaBase -= t;
-            if (plr[pnum]._pMana >> 6 <= 0)
-            {
-                plr[pnum]._pMana = v1;
-                plr[pnum]._pManaBase = 0;
-            }
-            if (plr[pnum]._pMaxMana >> 6 <= 0)
-            {
-                plr[pnum]._pMaxMana = v2;
-                plr[pnum]._pMaxManaBase = 0;
-            }
-            InitDiabloMsg(EMSG_SHRINE_ORNATE);
-            break;
-        case SHRINE_GLIMMERING:
-            if (deltaload)
-                return;
-            if (pnum != myplr)
-                return;
-            for (j = 0; j < NUM_INVLOC; j++)
-            {
-                if (plr[pnum].InvBody[j]._iMagical && !plr[pnum].InvBody[j]._iIdentified)
-                    plr[pnum].InvBody[j]._iIdentified = TRUE;
-            }
-            for (j = 0; j < plr[pnum]._pNumInv; j++)
-            {
-                if (plr[pnum].InvList[j]._iMagical && !plr[pnum].InvList[j]._iIdentified)
-                    plr[pnum].InvList[j]._iIdentified = TRUE;
-            }
-            for (j = 0; j < MAXBELTITEMS; j++)
-            {
-                if (plr[pnum].SpdList[j]._iMagical && !plr[pnum].SpdList[j]._iIdentified)
-                    plr[pnum].SpdList[j]._iIdentified = TRUE; // belt items can't be magical?
-            }
-            InitDiabloMsg(EMSG_SHRINE_GLIMMERING);
-            break;
-        case SHRINE_TAINTED:
-            if (deltaload)
-                return;
-            if (pnum == myplr)
-            {
-                InitDiabloMsg(EMSG_SHRINE_TAINTED1);
-            }
-            else
-            {
-                InitDiabloMsg(EMSG_SHRINE_TAINTED2);
-                r = random_(155, 4);
-
-                if (r != 0)
-                    v1 = -1;
-                else
-                    v1 = 1;
-                if (r != 1)
-                    v2 = -1;
-                else
-                    v2 = 1;
-                if (r == 2)
-                    v3 = 1;
-                else
-                    v3 = -1;
-                if (r == 3)
-                    v4 = 1;
-                else
-                    v4 = -1;
-
-                ModifyPlrStr(myplr, v1);
-                ModifyPlrMag(myplr, v2);
-                ModifyPlrDex(myplr, v3);
-                ModifyPlrVit(myplr, v4);
-
-                CheckStats(myplr);
-            }
-            break;
-#ifdef HELLFIRE
-        case SHRINE_OILY:
-            if (deltaload)
-                return;
-            if (pnum != myplr)
-                return;
-            InitDiabloMsg(EMSG_SHRINE_OILY);
-
-            switch (plr[myplr]._pClass)
-            {
-                case PC_WARRIOR:
-                    ModifyPlrStr(myplr, 2);
-                    break;
-                case PC_ROGUE:
-                    ModifyPlrDex(myplr, 2);
-                    break;
-                case PC_SORCERER:
-                    ModifyPlrMag(myplr, 2);
-                    break;
-                case PC_BARBARIAN:
-                    ModifyPlrVit(myplr, 2);
-                    break;
-                case PC_MONK:
-                    ModifyPlrStr(myplr, 1);
-                    ModifyPlrDex(myplr, 1);
-                    break;
-                case PC_BARD:
-                    ModifyPlrDex(myplr, 1);
-                    ModifyPlrMag(myplr, 1);
-                    break;
-            }
-            CheckStats(pnum);
-            AddMissile(object[i]._ox, object[i]._oy, plr[myplr]._px, plr[myplr]._py, plr[myplr]._pdir, MIS_FIREWALL, TARGET_PLAYERS, 0, 2 * currlevel + 2, 0);
-            break;
-
-        case SHRINE_GLOWING: {
-            if (deltaload)
-                return;
-            if (pnum != myplr)
-                return;
-            InitDiabloMsg(EMSG_SHRINE_GLOWING);
-            int playerXP = plr[myplr]._pExperience;
-            int xpLoss, magicGain;
-            if (playerXP > 5000)
-            {
-                magicGain = 5;
-                xpLoss = (signed __int64)((double)playerXP * 0.95);
-            }
-            else
-            {
-                magicGain = playerXP / 1000;
-                xpLoss = 0;
-            }
-            ModifyPlrMag(myplr, magicGain);
-            plr[myplr]._pExperience = xpLoss;
-            CheckStats(pnum);
-        }
-        break;
-
-        case SHRINE_MENDICANT: {
-            if (deltaload)
-                return;
-            if (pnum != myplr)
-                return;
-            InitDiabloMsg(EMSG_SHRINE_MENDICANT);
-            int gold = plr[myplr]._pGold / 2;
-            AddPlrExperience(myplr, plr[myplr]._pLevel, gold);
-            TakePlrsMoney(gold);
-            CheckStats(pnum);
-        }
-        break;
-        case SHRINE_SPARKLING:
-            if (deltaload)
-                return;
-            if (pnum != myplr)
-                return;
-            InitDiabloMsg(EMSG_SHRINE_SPARKLING);
-            AddPlrExperience(myplr, plr[myplr]._pLevel, 1000 * currlevel);
-            AddMissile(object[i]._ox, object[i]._oy, plr[myplr]._px, plr[myplr]._py, plr[myplr]._pdir, MIS_FLASH, TARGET_PLAYERS, 0, 3 * currlevel + 2, 0);
-            CheckStats(pnum);
-            break;
-        case SHRINE_TOWN:
-            if (deltaload)
-                return;
-            if (pnum != myplr)
-                return;
-            InitDiabloMsg(EMSG_SHRINE_TOWN);
-            AddMissile(object[i]._ox, object[i]._oy, plr[myplr]._px, plr[myplr]._py, plr[myplr]._pdir, MIS_TOWN, TARGET_PLAYERS, 0, 0, 0);
-            break;
-        case SHRINE_SHIMMERING:
-            if (deltaload)
-                return;
-            if (pnum != myplr)
-                return;
-            InitDiabloMsg(EMSG_SHRINE_SHIMMERING);
-            plr[pnum]._pMana = plr[pnum]._pMaxMana;
-            plr[pnum]._pManaBase = plr[pnum]._pMaxManaBase;
-            break;
-
-        case SHRINE_SOLAR: {
-            if (deltaload)
-                return;
-            if (pnum != myplr)
-                return;
-            time_t tm = time(0);
-            int hour = localtime(&tm)->tm_hour;
-            if (hour > 20 || hour < 4)
-            {
-                InitDiabloMsg(EMSG_SHRINE_SOLAR4);
-                ModifyPlrVit(myplr, 2);
-            }
-            else if (hour > 18)
-            {
-                InitDiabloMsg(EMSG_SHRINE_SOLAR3);
-                ModifyPlrMag(myplr, 2);
-            }
-            else if (hour > 12)
-            {
-                InitDiabloMsg(EMSG_SHRINE_SOLAR2);
-                ModifyPlrStr(myplr, 2);
-            }
-            else if (hour > 4)
-            {
-                InitDiabloMsg(EMSG_SHRINE_SOLAR1);
-                ModifyPlrDex(myplr, 2);
-            }
-            CheckStats(pnum);
-        }
-        break;
-
-        case SHRINE_MURPHYS:
-            if (deltaload)
-                return;
-            if (pnum != myplr)
-                return;
-            InitDiabloMsg(EMSG_SHRINE_MURPHYS);
-            BOOL broke = FALSE;
-            for (int j = 0; j < NUM_INVLOC; j++)
-            {
-                ItemStruct* item = &plr[myplr].InvBody[j];
-                if (item->_itype != ITYPE_NONE && random_(0, 3) == 0)
-                {
-                    if (item->_iDurability != DUR_INDESTRUCTIBLE)
-                    {
-                        if (item->_iDurability)
-                        {
-                            item->_iDurability /= 2;
-                            broke = TRUE;
-                            break;
-                        }
-                    }
-                }
-            }
-            if (!broke)
-            {
-                TakePlrsMoney(plr[myplr]._pGold / 3);
-            }
-            break;
-#endif
+            spell <<= 1;
     }
+    if (cnt > 1)
+    {
+        spell = 1;
+        for (j = SPL_FIREBOLT; j <= MAX_SPELLS; j++)
+        { // BUGFIX: < MAX_SPELLS, there is no spell with MAX_SPELLS index
+            if (plr[pnum]._pMemSpells & spell)
+            {
+                if (plr[pnum]._pSplLvl[j] < MAX_SPELL_LEVEL)
+                {
+                    plr[pnum]._pSplLvl[j]++;
+                }
+            }
+            spell <<= 1;
+        }
+        do
+        {
+            r = random_(0, MAX_SPELLS);
+        } while (!(plr[pnum]._pMemSpells & SPELLBIT(r + 1)));
+        if (plr[pnum]._pSplLvl[r + 1] >= 2)
+        {
+            plr[pnum]._pSplLvl[r + 1] -= 2;
+        }
+        else
+        {
+            plr[pnum]._pSplLvl[r + 1] = 0;
+        }
+    }
+    InitDiabloMsg(EMSG_SHRINE_ENCHANTED);
+    break;
+    case SHRINE_THAUMATURGIC:
+        for (j = 0; j < nobjects; j++)
+        {
+            v1 = objectactive[j];
+            /// ASSERT: assert((DWORD)v1 < MAXOBJECTS);
+            if ((object[v1]._otype == OBJ_CHEST1 || object[v1]._otype == OBJ_CHEST2 || object[v1]._otype == OBJ_CHEST3) && object[v1]._oSelFlag == 0)
+            {
+                object[v1]._oRndSeed = GetRndSeed();
+                object[v1]._oSelFlag = 1;
+                object[v1]._oAnimFrame -= 2;
+            }
+        }
+        if (deltaload)
+        {
+            return;
+        }
+        if (pnum == myplr)
+        {
+            InitDiabloMsg(EMSG_SHRINE_THAUMATURGIC);
+        }
+        break;
+    case SHRINE_FASCINATING:
+        if (deltaload)
+        {
+            return;
+        }
+        if (pnum != myplr)
+        {
+            return;
+        }
+        plr[pnum]._pMemSpells |= SPELLBIT(SPL_FIREBOLT);
+        if (plr[pnum]._pSplLvl[SPL_FIREBOLT] < MAX_SPELL_LEVEL)
+        {
+            plr[pnum]._pSplLvl[SPL_FIREBOLT]++;
+        }
+        if (plr[pnum]._pSplLvl[SPL_FIREBOLT] < MAX_SPELL_LEVEL)
+        {
+            plr[pnum]._pSplLvl[SPL_FIREBOLT]++;
+        }
+        t = plr[pnum]._pMaxManaBase / 10;
+        v1 = plr[pnum]._pMana - plr[pnum]._pManaBase;
+        v2 = plr[pnum]._pMaxMana - plr[pnum]._pMaxManaBase;
 
-    CalcPlrInv(pnum, TRUE);
-    force_redraw = 255;
+        plr[pnum]._pManaBase -= t;
+        plr[pnum]._pMana -= t;
+        plr[pnum]._pMaxMana -= t;
+        plr[pnum]._pMaxManaBase -= t;
+        if (plr[pnum]._pMana >> 6 <= 0)
+        {
+            plr[pnum]._pMana = v1;
+            plr[pnum]._pManaBase = 0;
+        }
+        if (plr[pnum]._pMaxMana >> 6 <= 0)
+        {
+            plr[pnum]._pMaxMana = v2;
+            plr[pnum]._pMaxManaBase = 0;
+        }
+        InitDiabloMsg(EMSG_SHRINE_FASCINATING);
+        break;
+    case SHRINE_CRYPTIC:
+        if (deltaload)
+        {
+            return;
+        }
+        AddMissile(plr[pnum]._px, plr[pnum]._py, plr[pnum]._px, plr[pnum]._py, plr[pnum]._pdir, MIS_NOVA, -1, pnum, 0, 2 * leveltype);
+        if (pnum != myplr)
+        {
+            return;
+        }
+        plr[pnum]._pMana = plr[pnum]._pMaxMana;
+        plr[pnum]._pManaBase = plr[pnum]._pMaxManaBase;
+        InitDiabloMsg(EMSG_SHRINE_CRYPTIC);
+        break;
+    case SHRINE_ELDRITCH: /// BUGFIX: change `plr[pnum].HoldItem` to use a temporary buffer to prevent deleting item in hand
+        if (deltaload)
+        {
+            return;
+        }
+        if (pnum != myplr)
+        {
+            break;
+        }
+        for (j = 0; j < plr[pnum]._pNumInv; j++)
+        {
+            if (plr[pnum].InvList[j]._itype == ITYPE_MISC)
+            {
+                if (plr[pnum].InvList[j]._iMiscId == IMISC_HEAL || plr[pnum].InvList[j]._iMiscId == IMISC_MANA)
+                {
+                    SetPlrHandItem(&plr[pnum].HoldItem, ItemMiscIdIdx(IMISC_REJUV));
+                    GetPlrHandSeed(&plr[pnum].HoldItem);
+                    plr[pnum].HoldItem._iStatFlag = TRUE;
+                    plr[pnum].InvList[j] = plr[pnum].HoldItem;
+                }
+                if (plr[pnum].InvList[j]._iMiscId == IMISC_FULLHEAL || plr[pnum].InvList[j]._iMiscId == IMISC_FULLMANA)
+                {
+                    SetPlrHandItem(&plr[pnum].HoldItem, ItemMiscIdIdx(IMISC_FULLREJUV));
+                    GetPlrHandSeed(&plr[pnum].HoldItem);
+                    plr[pnum].HoldItem._iStatFlag = TRUE;
+                    plr[pnum].InvList[j] = plr[pnum].HoldItem;
+                }
+            }
+        }
+        for (j = 0; j < MAXBELTITEMS; j++)
+        {
+            if (plr[pnum].SpdList[j]._itype == ITYPE_MISC)
+            {
+                if (plr[pnum].SpdList[j]._iMiscId == IMISC_HEAL || plr[pnum].SpdList[j]._iMiscId == IMISC_MANA)
+                {
+                    SetPlrHandItem(&plr[pnum].HoldItem, ItemMiscIdIdx(IMISC_REJUV));
+                    GetPlrHandSeed(&plr[pnum].HoldItem);
+                    plr[pnum].HoldItem._iStatFlag = TRUE;
+                    plr[pnum].SpdList[j] = plr[pnum].HoldItem;
+                }
+                if (plr[pnum].SpdList[j]._iMiscId == IMISC_FULLHEAL || plr[pnum].SpdList[j]._iMiscId == IMISC_FULLMANA)
+                {
+                    SetPlrHandItem(&plr[pnum].HoldItem, ItemMiscIdIdx(IMISC_FULLREJUV));
+                    GetPlrHandSeed(&plr[pnum].HoldItem);
+                    plr[pnum].HoldItem._iStatFlag = TRUE;
+                    plr[pnum].SpdList[j] = plr[pnum].HoldItem;
+                }
+            }
+        }
+        InitDiabloMsg(EMSG_SHRINE_ELDRITCH);
+        break;
+    case SHRINE_EERIE:
+        if (deltaload)
+        {
+            return;
+        }
+        if (pnum != myplr)
+        {
+            return;
+        }
+        ModifyPlrMag(pnum, 2);
+        CheckStats(pnum);
+        InitDiabloMsg(EMSG_SHRINE_EERIE);
+        break;
+    case SHRINE_DIVINE:
+        if (deltaload)
+        {
+            return;
+        }
+        if (pnum != myplr)
+        {
+            return;
+        }
+        if (2 * currlevel < 7)
+        {
+            CreateTypeItem(object[i]._ox, object[i]._oy, FALSE, ITYPE_MISC, IMISC_FULLMANA, FALSE, TRUE);
+            CreateTypeItem(object[i]._ox, object[i]._oy, FALSE, ITYPE_MISC, IMISC_FULLHEAL, FALSE, TRUE);
+        }
+        else
+        {
+            CreateTypeItem(object[i]._ox, object[i]._oy, FALSE, ITYPE_MISC, IMISC_FULLREJUV, FALSE, TRUE);
+            CreateTypeItem(object[i]._ox, object[i]._oy, FALSE, ITYPE_MISC, IMISC_FULLREJUV, FALSE, TRUE);
+        }
+        plr[pnum]._pMana = plr[pnum]._pMaxMana;
+        plr[pnum]._pManaBase = plr[pnum]._pMaxManaBase;
+        plr[pnum]._pHitPoints = plr[pnum]._pMaxHP;
+        plr[pnum]._pHPBase = plr[pnum]._pMaxHPBase;
+        InitDiabloMsg(EMSG_SHRINE_DIVINE);
+        break;
+    case SHRINE_HOLY:
+        if (deltaload)
+        {
+            return;
+        }
+        j = 0;
+        do
+        {
+            xx = random_(159, MAXDUNX);
+            yy = random_(159, MAXDUNY);
+            lv = dPiece[xx][yy];
+            j++;
+            if (j > MAXDUNX * MAXDUNY)
+            {
+                break;
+            }
+        } while (nSolidTable[lv] || dObject[xx][yy] != 0 || dMonster[xx][yy] != 0);
+        AddMissile(plr[pnum]._px, plr[pnum]._py, xx, yy, plr[pnum]._pdir, MIS_RNDTELEPORT, -1, pnum, 0, 2 * leveltype);
+        if (pnum != myplr)
+        {
+            return;
+        }
+        InitDiabloMsg(EMSG_SHRINE_HOLY);
+        break;
+    case SHRINE_SACRED:
+        if (deltaload || pnum != myplr)
+        {
+            return;
+        }
+        plr[pnum]._pMemSpells |= SPELLBIT(SPL_CBOLT);
+        if (plr[pnum]._pSplLvl[SPL_CBOLT] < MAX_SPELL_LEVEL)
+        {
+            plr[pnum]._pSplLvl[SPL_CBOLT]++;
+        }
+        if (plr[pnum]._pSplLvl[SPL_CBOLT] < MAX_SPELL_LEVEL)
+        {
+            plr[pnum]._pSplLvl[SPL_CBOLT]++;
+        }
+        t = plr[pnum]._pMaxManaBase / 10;
+        v1 = plr[pnum]._pMana - plr[pnum]._pManaBase;
+        v2 = plr[pnum]._pMaxMana - plr[pnum]._pMaxManaBase;
+        plr[pnum]._pManaBase -= t;
+        plr[pnum]._pMana -= t;
+        plr[pnum]._pMaxMana -= t;
+        plr[pnum]._pMaxManaBase -= t;
+        if (plr[pnum]._pMana >> 6 <= 0)
+        {
+            plr[pnum]._pMana = v1;
+            plr[pnum]._pManaBase = 0;
+        }
+        if (plr[pnum]._pMaxMana >> 6 <= 0)
+        {
+            plr[pnum]._pMaxMana = v2;
+            plr[pnum]._pMaxManaBase = 0;
+        }
+        InitDiabloMsg(EMSG_SHRINE_SACRED);
+        break;
+    case SHRINE_SPIRITUAL:
+        if (deltaload)
+        {
+            return;
+        }
+        if (pnum != myplr)
+        {
+            return;
+        }
+        for (j = 0; j < NUM_INV_GRID_ELEM; j++)
+        {
+            if (plr[pnum].InvGrid[j] == 0)
+            {
+                r = 5 * leveltype + random_(160, 10 * leveltype);
+                t = plr[pnum]._pNumInv; // check
+                plr[pnum].InvList[t] = golditem;
+                plr[pnum].InvList[t]._iSeed = GetRndSeed();
+                plr[pnum]._pNumInv++;
+                plr[pnum].InvGrid[j] = plr[pnum]._pNumInv;
+                plr[pnum].InvList[t]._ivalue = r;
+                plr[pnum]._pGold += r;
+                SetGoldCurs(pnum, t);
+            }
+        }
+        InitDiabloMsg(EMSG_SHRINE_SPIRITUAL);
+        break;
+    case SHRINE_SPOOKY:
+        if (deltaload)
+        {
+            return;
+        }
+        if (pnum == myplr)
+        {
+            InitDiabloMsg(EMSG_SHRINE_SPOOKY1);
+        }
+        else
+        {
+            InitDiabloMsg(EMSG_SHRINE_SPOOKY2);
+            plr[myplr]._pHitPoints = plr[myplr]._pMaxHP;
+            plr[myplr]._pHPBase = plr[myplr]._pMaxHPBase;
+            plr[myplr]._pMana = plr[myplr]._pMaxMana;
+            plr[myplr]._pManaBase = plr[myplr]._pMaxManaBase;
+        }
+        break;
+    case SHRINE_ABANDONED:
+        if (deltaload)
+        {
+            return;
+        }
+        if (pnum != myplr)
+        {
+            return;
+        }
+        ModifyPlrDex(pnum, 2);
+        CheckStats(pnum);
+        if (pnum == myplr)
+        {
+            InitDiabloMsg(EMSG_SHRINE_ABANDONED);
+        }
+        break;
+    case SHRINE_CREEPY:
+        if (deltaload)
+        {
+            return;
+        }
+        if (pnum != myplr)
+        {
+            return;
+        }
+        ModifyPlrStr(pnum, 2);
+        CheckStats(pnum);
+        if (pnum == myplr)
+        {
+            InitDiabloMsg(EMSG_SHRINE_CREEPY);
+        }
+        break;
+    case SHRINE_QUIET:
+        if (deltaload)
+        {
+            return;
+        }
+        if (pnum != myplr)
+        {
+            return;
+        }
+        ModifyPlrVit(pnum, 2);
+        CheckStats(pnum);
+        if (pnum == myplr)
+        {
+            InitDiabloMsg(EMSG_SHRINE_QUIET);
+        }
+        break;
+    case SHRINE_SECLUDED:
+        if (deltaload)
+        {
+            return;
+        }
+        if (pnum != myplr)
+        {
+            break;
+        }
 
-    if (pnum == myplr)
-        NetSendCmdParam2(FALSE, CMD_PLROPOBJ, pnum, i);
+        for (yy = 0; yy < DMAXY; yy++)
+        {
+            for (xx = 0; xx < DMAXX; xx++)
+            {
+                automapview[xx][yy] = TRUE;
+            }
+        }
+        InitDiabloMsg(EMSG_SHRINE_SECLUDED);
+        break;
+    case SHRINE_ORNATE:
+        if (deltaload)
+        {
+            return;
+        }
+        if (pnum != myplr)
+        {
+            return;
+        }
+        plr[pnum]._pMemSpells |= SPELLBIT(SPL_HBOLT);
+        if (plr[pnum]._pSplLvl[SPL_HBOLT] < MAX_SPELL_LEVEL)
+        {
+            plr[pnum]._pSplLvl[SPL_HBOLT]++;
+        }
+        if (plr[pnum]._pSplLvl[SPL_HBOLT] < MAX_SPELL_LEVEL)
+        {
+            plr[pnum]._pSplLvl[SPL_HBOLT]++;
+        }
+        t = plr[pnum]._pMaxManaBase / 10;
+        v1 = plr[pnum]._pMana - plr[pnum]._pManaBase;
+        v2 = plr[pnum]._pMaxMana - plr[pnum]._pMaxManaBase;
+        plr[pnum]._pManaBase -= t;
+        plr[pnum]._pMana -= t;
+        plr[pnum]._pMaxMana -= t;
+        plr[pnum]._pMaxManaBase -= t;
+        if (plr[pnum]._pMana >> 6 <= 0)
+        {
+            plr[pnum]._pMana = v1;
+            plr[pnum]._pManaBase = 0;
+        }
+        if (plr[pnum]._pMaxMana >> 6 <= 0)
+        {
+            plr[pnum]._pMaxMana = v2;
+            plr[pnum]._pMaxManaBase = 0;
+        }
+        InitDiabloMsg(EMSG_SHRINE_ORNATE);
+        break;
+    case SHRINE_GLIMMERING:
+        if (deltaload)
+        {
+            return;
+        }
+        if (pnum != myplr)
+        {
+            return;
+        }
+        for (j = 0; j < NUM_INVLOC; j++)
+        {
+            if (plr[pnum].InvBody[j]._iMagical && !plr[pnum].InvBody[j]._iIdentified)
+            {
+                plr[pnum].InvBody[j]._iIdentified = TRUE;
+            }
+        }
+        for (j = 0; j < plr[pnum]._pNumInv; j++)
+        {
+            if (plr[pnum].InvList[j]._iMagical && !plr[pnum].InvList[j]._iIdentified)
+            {
+                plr[pnum].InvList[j]._iIdentified = TRUE;
+            }
+        }
+        for (j = 0; j < MAXBELTITEMS; j++)
+        {
+            if (plr[pnum].SpdList[j]._iMagical && !plr[pnum].SpdList[j]._iIdentified)
+            {
+                plr[pnum].SpdList[j]._iIdentified = TRUE; // belt items can't be magical?
+            }
+        }
+        InitDiabloMsg(EMSG_SHRINE_GLIMMERING);
+        break;
+    case SHRINE_TAINTED:
+        if (deltaload)
+        {
+            return;
+        }
+        if (pnum == myplr)
+        {
+            InitDiabloMsg(EMSG_SHRINE_TAINTED1);
+        }
+        else
+        {
+            InitDiabloMsg(EMSG_SHRINE_TAINTED2);
+            r = random_(155, 4);
+
+            if (r != 0)
+            {
+                v1 = -1;
+            }
+            else
+            {
+                v1 = 1;
+            }
+            if (r != 1)
+            {
+                v2 = -1;
+            }
+            else
+            {
+                v2 = 1;
+            }
+            if (r == 2)
+            {
+                v3 = 1;
+            }
+            else
+            {
+                v3 = -1;
+            }
+            if (r == 3)
+            {
+                v4 = 1;
+            }
+            else
+            {
+                v4 = -1;
+            }
+
+            ModifyPlrStr(myplr, v1);
+            ModifyPlrMag(myplr, v2);
+            ModifyPlrDex(myplr, v3);
+            ModifyPlrVit(myplr, v4);
+
+            CheckStats(myplr);
+        }
+        break;
+#ifdef HELLFIRE
+    case SHRINE_OILY:
+        if (deltaload)
+            return;
+        if (pnum != myplr)
+            return;
+        InitDiabloMsg(EMSG_SHRINE_OILY);
+
+        switch (plr[myplr]._pClass)
+        {
+            case PC_WARRIOR:
+                ModifyPlrStr(myplr, 2);
+                break;
+            case PC_ROGUE:
+                ModifyPlrDex(myplr, 2);
+                break;
+            case PC_SORCERER:
+                ModifyPlrMag(myplr, 2);
+                break;
+            case PC_BARBARIAN:
+                ModifyPlrVit(myplr, 2);
+                break;
+            case PC_MONK:
+                ModifyPlrStr(myplr, 1);
+                ModifyPlrDex(myplr, 1);
+                break;
+            case PC_BARD:
+                ModifyPlrDex(myplr, 1);
+                ModifyPlrMag(myplr, 1);
+                break;
+        }
+        CheckStats(pnum);
+        AddMissile(object[i]._ox, object[i]._oy, plr[myplr]._px, plr[myplr]._py, plr[myplr]._pdir, MIS_FIREWALL, TARGET_PLAYERS, 0, 2 * currlevel + 2, 0);
+        break;
+
+    case SHRINE_GLOWING: {
+        if (deltaload)
+            return;
+        if (pnum != myplr)
+            return;
+        InitDiabloMsg(EMSG_SHRINE_GLOWING);
+        int playerXP = plr[myplr]._pExperience;
+        int xpLoss, magicGain;
+        if (playerXP > 5000)
+        {
+            magicGain = 5;
+            xpLoss = (signed __int64)((double)playerXP * 0.95);
+        }
+        else
+        {
+            magicGain = playerXP / 1000;
+            xpLoss = 0;
+        }
+        ModifyPlrMag(myplr, magicGain);
+        plr[myplr]._pExperience = xpLoss;
+        CheckStats(pnum);
+    }
+    break;
+
+    case SHRINE_MENDICANT: {
+        if (deltaload)
+            return;
+        if (pnum != myplr)
+            return;
+        InitDiabloMsg(EMSG_SHRINE_MENDICANT);
+        int gold = plr[myplr]._pGold / 2;
+        AddPlrExperience(myplr, plr[myplr]._pLevel, gold);
+        TakePlrsMoney(gold);
+        CheckStats(pnum);
+    }
+    break;
+    case SHRINE_SPARKLING:
+        if (deltaload)
+            return;
+        if (pnum != myplr)
+            return;
+        InitDiabloMsg(EMSG_SHRINE_SPARKLING);
+        AddPlrExperience(myplr, plr[myplr]._pLevel, 1000 * currlevel);
+        AddMissile(object[i]._ox, object[i]._oy, plr[myplr]._px, plr[myplr]._py, plr[myplr]._pdir, MIS_FLASH, TARGET_PLAYERS, 0, 3 * currlevel + 2, 0);
+        CheckStats(pnum);
+        break;
+    case SHRINE_TOWN:
+        if (deltaload)
+            return;
+        if (pnum != myplr)
+            return;
+        InitDiabloMsg(EMSG_SHRINE_TOWN);
+        AddMissile(object[i]._ox, object[i]._oy, plr[myplr]._px, plr[myplr]._py, plr[myplr]._pdir, MIS_TOWN, TARGET_PLAYERS, 0, 0, 0);
+        break;
+    case SHRINE_SHIMMERING:
+        if (deltaload)
+            return;
+        if (pnum != myplr)
+            return;
+        InitDiabloMsg(EMSG_SHRINE_SHIMMERING);
+        plr[pnum]._pMana = plr[pnum]._pMaxMana;
+        plr[pnum]._pManaBase = plr[pnum]._pMaxManaBase;
+        break;
+
+    case SHRINE_SOLAR: {
+        if (deltaload)
+            return;
+        if (pnum != myplr)
+            return;
+        time_t tm = time(0);
+        int hour = localtime(&tm)->tm_hour;
+        if (hour > 20 || hour < 4)
+        {
+            InitDiabloMsg(EMSG_SHRINE_SOLAR4);
+            ModifyPlrVit(myplr, 2);
+        }
+        else if (hour > 18)
+        {
+            InitDiabloMsg(EMSG_SHRINE_SOLAR3);
+            ModifyPlrMag(myplr, 2);
+        }
+        else if (hour > 12)
+        {
+            InitDiabloMsg(EMSG_SHRINE_SOLAR2);
+            ModifyPlrStr(myplr, 2);
+        }
+        else if (hour > 4)
+        {
+            InitDiabloMsg(EMSG_SHRINE_SOLAR1);
+            ModifyPlrDex(myplr, 2);
+        }
+        CheckStats(pnum);
+    }
+    break;
+
+    case SHRINE_MURPHYS:
+        if (deltaload)
+            return;
+        if (pnum != myplr)
+            return;
+        InitDiabloMsg(EMSG_SHRINE_MURPHYS);
+        BOOL broke = FALSE;
+        for (int j = 0; j < NUM_INVLOC; j++)
+        {
+            ItemStruct* item = &plr[myplr].InvBody[j];
+            if (item->_itype != ITYPE_NONE && random_(0, 3) == 0)
+            {
+                if (item->_iDurability != DUR_INDESTRUCTIBLE)
+                {
+                    if (item->_iDurability)
+                    {
+                        item->_iDurability /= 2;
+                        broke = TRUE;
+                        break;
+                    }
+                }
+            }
+        }
+        if (!broke)
+        {
+            TakePlrsMoney(plr[myplr]._pGold / 3);
+        }
+        break;
+#endif
+}
+
+CalcPlrInv(pnum, TRUE);
+force_redraw = 255;
+
+if (pnum == myplr)
+{
+    NetSendCmdParam2(FALSE, CMD_PLROPOBJ, pnum, i);
+}
 }
 
 void OperateSkelBook(int pnum, int i, DIABOOL sendmsg)
@@ -4715,18 +5349,26 @@ void OperateSkelBook(int pnum, int i, DIABOOL sendmsg)
     if (object[i]._oSelFlag != 0)
     {
         if (!deltaload)
+        {
             PlaySfxLoc(IS_ISCROL, object[i]._ox, object[i]._oy);
+        }
         object[i]._oSelFlag = 0;
         object[i]._oAnimFrame += 2;
         if (!deltaload)
         {
             SetRndSeed(object[i]._oRndSeed);
             if (random_(161, 5) != 0)
+            {
                 CreateTypeItem(object[i]._ox, object[i]._oy, FALSE, ITYPE_MISC, IMISC_SCROLL, sendmsg, FALSE);
+            }
             else
+            {
                 CreateTypeItem(object[i]._ox, object[i]._oy, FALSE, ITYPE_MISC, IMISC_BOOK, sendmsg, FALSE);
+            }
             if (pnum == myplr)
+            {
                 NetSendCmdParam1(FALSE, CMD_OPERATEOBJ, i);
+            }
         }
     }
 }
@@ -4736,7 +5378,9 @@ void OperateBookCase(int pnum, int i, DIABOOL sendmsg)
     if (object[i]._oSelFlag != 0)
     {
         if (!deltaload)
+        {
             PlaySfxLoc(IS_ISCROL, object[i]._ox, object[i]._oy);
+        }
         object[i]._oSelFlag = 0;
         object[i]._oAnimFrame -= 2;
         if (!deltaload)
@@ -4751,7 +5395,9 @@ void OperateBookCase(int pnum, int i, DIABOOL sendmsg)
                 monster[MAX_PLRS]._mmode = MM_TALK;
             }
             if (pnum == myplr)
+            {
                 NetSendCmdParam1(FALSE, CMD_OPERATEOBJ, i);
+            }
         }
     }
 }
@@ -4766,7 +5412,9 @@ void OperateDecap(int pnum, int i, DIABOOL sendmsg)
             SetRndSeed(object[i]._oRndSeed);
             CreateRndItem(object[i]._ox, object[i]._oy, FALSE, sendmsg, FALSE);
             if (pnum == myplr)
+            {
                 NetSendCmdParam1(FALSE, CMD_OPERATEOBJ, i);
+            }
         }
     }
 }
@@ -4806,7 +5454,9 @@ void OperateArmorStand(int pnum, int i, DIABOOL sendmsg)
 #endif
             }
             if (pnum == myplr)
+            {
                 NetSendCmdParam1(FALSE, CMD_OPERATEOBJ, i);
+            }
             return;
         }
     }
@@ -4880,9 +5530,13 @@ DIABOOL OperateFountains(int pnum, int i)
     {
         case OBJ_BLOODFTN:
             if (deltaload)
+            {
                 return FALSE;
+            }
             if (pnum != myplr)
+            {
                 return FALSE;
+            }
 
             if (plr[pnum]._pHitPoints < plr[pnum]._pMaxHP)
             {
@@ -4897,13 +5551,19 @@ DIABOOL OperateFountains(int pnum, int i)
                 applied = TRUE;
             }
             else
+            {
                 PlaySfxLoc(LS_FOUNTAIN, object[i]._ox, object[i]._oy);
+            }
             break;
         case OBJ_PURIFYINGFTN:
             if (deltaload)
+            {
                 return FALSE;
+            }
             if (pnum != myplr)
+            {
                 return FALSE;
+            }
 
             if (plr[pnum]._pMana < plr[pnum]._pMaxMana)
             {
@@ -4920,35 +5580,53 @@ DIABOOL OperateFountains(int pnum, int i)
                 applied = TRUE;
             }
             else
+            {
                 PlaySfxLoc(LS_FOUNTAIN, object[i]._ox, object[i]._oy);
+            }
             break;
         case OBJ_MURKYFTN:
             if (object[i]._oSelFlag == 0)
+            {
                 break;
+            }
             if (!deltaload)
+            {
                 PlaySfxLoc(LS_FOUNTAIN, object[i]._ox, object[i]._oy);
+            }
             object[i]._oSelFlag = 0;
             if (deltaload)
+            {
                 return FALSE;
+            }
             AddMissile(plr[pnum]._px, plr[pnum]._py, plr[pnum]._px, plr[pnum]._py, plr[pnum]._pdir, MIS_INFRA, -1, pnum, 0, 2 * leveltype);
             applied = TRUE;
             if (pnum == myplr)
+            {
                 NetSendCmdParam1(FALSE, CMD_OPERATEOBJ, i);
+            }
             break;
         case OBJ_TEARFTN:
             if (object[i]._oSelFlag == 0)
+            {
                 break;
+            }
             prev = -1;
             add = -1;
             done = FALSE;
             cnt = 0;
             if (!deltaload)
+            {
                 PlaySfxLoc(LS_FOUNTAIN, object[i]._ox, object[i]._oy);
+            }
             object[i]._oSelFlag = 0;
             if (deltaload)
+            {
                 return FALSE;
+            }
             if (pnum != myplr)
+            {
                 return FALSE;
+            }
             while (!done)
             {
                 rnd = random_(0, 4);
@@ -4974,14 +5652,18 @@ DIABOOL OperateFountains(int pnum, int i)
                     cnt++;
                 }
                 if (cnt <= 1)
+                {
                     continue;
+                }
 
                 done = TRUE;
             }
             CheckStats(pnum);
             applied = TRUE;
             if (pnum == myplr)
+            {
                 NetSendCmdParam1(FALSE, CMD_OPERATEOBJ, i);
+            }
             break;
     }
     force_redraw = 255;
@@ -4993,7 +5675,9 @@ void OperateWeaponRack(int pnum, int i, DIABOOL sendmsg)
     int weaponType;
 
     if (object[i]._oSelFlag == 0)
+    {
         return;
+    }
     SetRndSeed(object[i]._oRndSeed);
 
     switch (random_(0, 4) + ITYPE_SWORD)
@@ -5015,14 +5699,22 @@ void OperateWeaponRack(int pnum, int i, DIABOOL sendmsg)
     object[i]._oSelFlag = 0;
     object[i]._oAnimFrame++;
     if (deltaload)
+    {
         return;
+    }
 
     if (leveltype > 1)
+    {
         CreateTypeItem(object[i]._ox, object[i]._oy, TRUE, weaponType, IMISC_NONE, sendmsg, FALSE);
+    }
     else
+    {
         CreateTypeItem(object[i]._ox, object[i]._oy, FALSE, weaponType, IMISC_NONE, sendmsg, FALSE);
+    }
     if (pnum == myplr)
+    {
         NetSendCmdParam1(FALSE, CMD_OPERATEOBJ, i);
+    }
 }
 
 void OperateStoryBook(int pnum, int i)
@@ -5077,39 +5769,57 @@ void OperateObject(int pnum, int i, BOOL TeleFlag)
             if (TeleFlag)
             {
                 if (object[i]._otype == OBJ_L1LDOOR)
+                {
                     OperateL1LDoor(pnum, i, TRUE);
+                }
                 if (object[i]._otype == OBJ_L1RDOOR)
+                {
                     OperateL1RDoor(pnum, i, TRUE);
+                }
                 break;
             }
             if (pnum == myplr)
+            {
                 OperateL1Door(pnum, i, TRUE);
+            }
             break;
         case OBJ_L2LDOOR:
         case OBJ_L2RDOOR:
             if (TeleFlag)
             {
                 if (object[i]._otype == OBJ_L2LDOOR)
+                {
                     OperateL2LDoor(pnum, i, TRUE);
+                }
                 if (object[i]._otype == OBJ_L2RDOOR)
+                {
                     OperateL2RDoor(pnum, i, TRUE);
+                }
                 break;
             }
             if (pnum == myplr)
+            {
                 OperateL2Door(pnum, i, TRUE);
+            }
             break;
         case OBJ_L3LDOOR:
         case OBJ_L3RDOOR:
             if (TeleFlag)
             {
                 if (object[i]._otype == OBJ_L3LDOOR)
+                {
                     OperateL3LDoor(pnum, i, TRUE);
+                }
                 if (object[i]._otype == OBJ_L3RDOOR)
+                {
                     OperateL3RDoor(pnum, i, TRUE);
+                }
                 break;
             }
             if (pnum == myplr)
+            {
                 OperateL3Door(pnum, i, TRUE);
+            }
             break;
         case OBJ_LEVER:
         case OBJ_SWITCHSKL:
@@ -5201,7 +5911,9 @@ void SyncOpL1Door(int pnum, int cmd, int i)
     DIABOOL do_sync;
 
     if (pnum == myplr)
+    {
         return;
+    }
 
     do_sync = FALSE;
     if (cmd == CMD_OPENDOOR && object[i]._oVar4 == 0)
@@ -5209,13 +5921,19 @@ void SyncOpL1Door(int pnum, int cmd, int i)
         do_sync = TRUE;
     }
     if (cmd == CMD_CLOSEDOOR && object[i]._oVar4 == 1)
+    {
         do_sync = TRUE;
+    }
     if (do_sync)
     {
         if (object[i]._otype == OBJ_L1LDOOR)
+        {
             OperateL1LDoor(-1, i, FALSE);
+        }
         if (object[i]._otype == OBJ_L1RDOOR)
+        {
             OperateL1RDoor(-1, i, FALSE);
+        }
     }
 }
 
@@ -5224,7 +5942,9 @@ void SyncOpL2Door(int pnum, int cmd, int i)
     DIABOOL do_sync;
 
     if (pnum == myplr)
+    {
         return;
+    }
 
     do_sync = FALSE;
     if (cmd == CMD_OPENDOOR && object[i]._oVar4 == 0)
@@ -5232,13 +5952,19 @@ void SyncOpL2Door(int pnum, int cmd, int i)
         do_sync = TRUE;
     }
     if (cmd == CMD_CLOSEDOOR && object[i]._oVar4 == 1)
+    {
         do_sync = TRUE;
+    }
     if (do_sync)
     {
         if (object[i]._otype == OBJ_L2LDOOR)
+        {
             OperateL2LDoor(-1, i, FALSE);
+        }
         if (object[i]._otype == OBJ_L2RDOOR)
+        {
             OperateL2RDoor(-1, i, FALSE);
+        }
     }
 }
 
@@ -5247,7 +5973,9 @@ void SyncOpL3Door(int pnum, int cmd, int i)
     DIABOOL do_sync;
 
     if (pnum == myplr)
+    {
         return;
+    }
 
     do_sync = FALSE;
     if (cmd == CMD_OPENDOOR && object[i]._oVar4 == 0)
@@ -5255,13 +5983,19 @@ void SyncOpL3Door(int pnum, int cmd, int i)
         do_sync = TRUE;
     }
     if (cmd == CMD_CLOSEDOOR && object[i]._oVar4 == 1)
+    {
         do_sync = TRUE;
+    }
     if (do_sync)
     {
         if (object[i]._otype == OBJ_L3LDOOR)
+        {
             OperateL3LDoor(-1, i, FALSE);
+        }
         if (object[i]._otype == OBJ_L3RDOOR)
+        {
             OperateL3RDoor(-1, i, FALSE);
+        }
     }
 }
 
@@ -5369,15 +6103,23 @@ void BreakCrux(int i)
     {
         oi = objectactive[j];
         if (object[oi]._otype != OBJ_CRUX1 && object[oi]._otype != OBJ_CRUX2 && object[oi]._otype != OBJ_CRUX3)
+        {
             continue;
+        }
         if (object[i]._oVar8 != object[oi]._oVar8 || object[oi]._oBreak == -1)
+        {
             continue;
+        }
         triggered = FALSE;
     }
     if (!triggered)
+    {
         return;
+    }
     if (!deltaload)
+    {
         PlaySfxLoc(IS_LEVER, object[i]._ox, object[i]._oy);
+    }
     ObjChangeMap(object[i]._oVar1, object[i]._oVar2, object[i]._oVar3, object[i]._oVar4);
 }
 
@@ -5387,7 +6129,9 @@ void BreakBarrel(int pnum, int i, int dam, BOOL forcebreak, BOOL sendmsg)
     int xp, yp;
 
     if (object[i]._oSelFlag == 0)
+    {
         return;
+    }
     if (forcebreak)
     {
         object[i]._oVar1 = 0;
@@ -5396,12 +6140,16 @@ void BreakBarrel(int pnum, int i, int dam, BOOL forcebreak, BOOL sendmsg)
     {
         object[i]._oVar1 -= dam;
         if (pnum != myplr && object[i]._oVar1 <= 0)
+        {
             object[i]._oVar1 = 1;
+        }
     }
     if (object[i]._oVar1 > 0)
     {
         if (deltaload)
+        {
             return;
+        }
 
         PlaySfxLoc(IS_IBOW, object[i]._ox, object[i]._oy);
         return;
@@ -5439,20 +6187,26 @@ void BreakBarrel(int pnum, int i, int dam, BOOL forcebreak, BOOL sendmsg)
             for (xp = object[i]._ox - 1; xp <= object[i]._ox + 1; xp++)
             {
                 if (dMonster[xp][yp] > 0)
+                {
                     MonsterTrapHit(dMonster[xp][yp] - 1, 1, 4, 0, MIS_FIREBOLT, FALSE);
+                }
 #ifdef HELLFIRE
                 BOOLEAN unused;
                 if (dPlayer[xp][yp] > 0)
                     PlayerMHit(dPlayer[xp][yp] - 1, -1, 0, 8, 16, MIS_FIREBOLT, FALSE, 0, &unused);
 #else
                 if (dPlayer[xp][yp] > 0)
+                {
                     PlayerMHit(dPlayer[xp][yp] - 1, -1, 0, 8, 16, MIS_FIREBOLT, FALSE, 0);
+                }
 #endif
                 if (dObject[xp][yp] > 0)
                 {
                     oi = dObject[xp][yp] - 1;
                     if (object[oi]._otype == OBJ_BARRELEX && object[oi]._oBreak != -1)
+                    {
                         BreakBarrel(pnum, oi, dam, TRUE, sendmsg);
+                    }
                 }
             }
         }
@@ -5471,15 +6225,23 @@ void BreakBarrel(int pnum, int i, int dam, BOOL forcebreak, BOOL sendmsg)
         if (object[i]._oVar2 <= 1)
         {
             if (object[i]._oVar3 == 0)
+            {
                 CreateRndUseful(pnum, object[i]._ox, object[i]._oy, sendmsg);
+            }
             else
+            {
                 CreateRndItem(object[i]._ox, object[i]._oy, FALSE, sendmsg, FALSE);
+            }
         }
         if (object[i]._oVar2 >= 8)
+        {
             SpawnSkeleton(object[i]._oVar4, object[i]._ox, object[i]._oy);
+        }
     }
     if (pnum == myplr)
+    {
         NetSendCmdParam2(FALSE, CMD_BREAKOBJ, pnum, i);
+    }
 }
 
 void BreakObject(int pnum, int oi)
@@ -5514,7 +6276,9 @@ void BreakObject(int pnum, int oi)
 void SyncBreakObj(int pnum, int oi)
 {
     if (object[oi]._otype >= OBJ_BARREL && object[oi]._otype <= OBJ_BARRELEX)
+    {
         BreakBarrel(pnum, oi, 0, TRUE, FALSE);
+    }
 }
 
 void SyncL1Doors(int i)
@@ -5541,9 +6305,13 @@ void SyncL1Doors(int i)
         if (object[i]._otype == OBJ_L1LDOOR)
         {
             if (object[i]._oVar1 == 214)
+            {
                 ObjSetMicro(x, y, 408);
+            }
             else
+            {
                 ObjSetMicro(x, y, 393);
+            }
             dSpecial[x][y] = 7;
             objects_set_door_piece(x - 1, y);
             y--;
@@ -5592,19 +6360,27 @@ void SyncCrux(int i)
         oi = objectactive[j];
         type = object[oi]._otype;
         if (type != OBJ_CRUX1 && type != OBJ_CRUX2 && type != OBJ_CRUX3)
+        {
             continue;
+        }
         if (object[i]._oVar8 != object[oi]._oVar8 || object[oi]._oBreak == -1)
+        {
             continue;
+        }
         found = FALSE;
     }
     if (found)
+    {
         ObjChangeMap(object[i]._oVar1, object[i]._oVar2, object[i]._oVar3, object[i]._oVar4);
+    }
 }
 
 void SyncLever(int i)
 {
     if (object[i]._oSelFlag == 0)
+    {
         ObjChangeMap(object[i]._oVar1, object[i]._oVar2, object[i]._oVar3, object[i]._oVar4);
+    }
 }
 
 void SyncQSTLever(int i)
@@ -5629,7 +6405,9 @@ void SyncPedistal(int i)
     BYTE* setp;
 
     if (object[i]._oVar6 == 1)
+    {
         ObjChangeMapResync(setpc_x, setpc_y + 3, setpc_x + 2, setpc_y + 7);
+    }
     if (object[i]._oVar6 == 2)
     {
         ObjChangeMapResync(setpc_x, setpc_y + 3, setpc_x + 2, setpc_y + 7);
@@ -5649,9 +6427,13 @@ void SyncL2Doors(int i)
     int x, y;
 
     if (object[i]._oVar4 == 0)
+    {
         object[i]._oMissFlag = FALSE;
+    }
     else
+    {
         object[i]._oMissFlag = TRUE;
+    }
     x = object[i]._ox;
     y = object[i]._oy;
     object[i]._oSelFlag = 2;
@@ -5766,11 +6548,17 @@ void GetObjectStr(int i)
         case OBJ_L3LDOOR:
         case OBJ_L3RDOOR:
             if (object[i]._oVar4 == 1)
+            {
                 strcpy(infostr, "Open Door");
+            }
             if (object[i]._oVar4 == 0)
+            {
                 strcpy(infostr, "Closed Door");
+            }
             if (object[i]._oVar4 == 2)
+            {
                 strcpy(infostr, "Blocked Door");
+            }
             break;
         case OBJ_BOOK2L:
             if (setlevel)

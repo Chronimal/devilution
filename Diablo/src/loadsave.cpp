@@ -35,9 +35,13 @@ static int ILoad()
 static BOOL OLoad()
 {
     if (*tbuff++ == TRUE)
+    {
         return TRUE;
+    }
     else
+    {
         return FALSE;
+    }
 }
 
 static void LoadPlayer(int i)
@@ -131,179 +135,245 @@ void LoadGame(BOOL firstflag)
     if (ILoad() != 'SHAR')
 #else
     if (ILoad() != 'RETL')
+    {
 #endif
         app_fatal("Invalid save file");
+}
 
-    setlevel = OLoad();
-    setlvlnum = WLoad();
-    currlevel = WLoad();
-    leveltype = WLoad();
-    _ViewX = WLoad();
-    _ViewY = WLoad();
-    invflag = OLoad();
-    chrflag = OLoad();
-    _nummonsters = WLoad();
-    _numitems = WLoad();
-    _nummissiles = WLoad();
-    _nobjects = WLoad();
+setlevel = OLoad();
+setlvlnum = WLoad();
+currlevel = WLoad();
+leveltype = WLoad();
+_ViewX = WLoad();
+_ViewY = WLoad();
+invflag = OLoad();
+chrflag = OLoad();
+_nummonsters = WLoad();
+_numitems = WLoad();
+_nummissiles = WLoad();
+_nobjects = WLoad();
 
-    for (i = 0; i < NUMLEVELS; i++)
-    {
-        glSeedTbl[i] = ILoad();
-        gnLevelTypeTbl[i] = WLoad();
-    }
+for (i = 0; i < NUMLEVELS; i++)
+{
+    glSeedTbl[i] = ILoad();
+    gnLevelTypeTbl[i] = WLoad();
+}
 
-    LoadPlayer(myplr);
+LoadPlayer(myplr);
 
 #ifdef HELLFIRE
-    gnDifficulty = plr[myplr].pDifficulty;
-    if (gnDifficulty < DIFF_NORMAL || gnDifficulty > DIFF_HELL)
-        gnDifficulty = DIFF_NORMAL;
+gnDifficulty = plr[myplr].pDifficulty;
+if (gnDifficulty < DIFF_NORMAL || gnDifficulty > DIFF_HELL)
+    gnDifficulty = DIFF_NORMAL;
 #endif
-    for (i = 0; i < MAXQUESTS; i++)
-        LoadQuest(i);
-    for (i = 0; i < MAXPORTAL; i++)
-        LoadPortal(i);
+for (i = 0; i < MAXQUESTS; i++)
+{
+    LoadQuest(i);
+}
+for (i = 0; i < MAXPORTAL; i++)
+{
+    LoadPortal(i);
+}
 
-    LoadGameLevel(firstflag, ENTRY_LOAD);
-    SyncInitPlr(myplr);
-    SyncPlrAnim(myplr);
+LoadGameLevel(firstflag, ENTRY_LOAD);
+SyncInitPlr(myplr);
+SyncPlrAnim(myplr);
 
-    ViewX = _ViewX;
-    ViewY = _ViewY;
-    nummonsters = _nummonsters;
-    numitems = _numitems;
-    nummissiles = _nummissiles;
-    nobjects = _nobjects;
+ViewX = _ViewX;
+ViewY = _ViewY;
+nummonsters = _nummonsters;
+numitems = _numitems;
+nummissiles = _nummissiles;
+nobjects = _nobjects;
 
+for (i = 0; i < MAXMONSTERS; i++)
+{
+    monstkills[i] = ILoad();
+}
+
+if (leveltype != DTYPE_TOWN)
+{
     for (i = 0; i < MAXMONSTERS; i++)
-        monstkills[i] = ILoad();
-
-    if (leveltype != DTYPE_TOWN)
     {
-        for (i = 0; i < MAXMONSTERS; i++)
-            monstactive[i] = WLoad();
-        for (i = 0; i < nummonsters; i++)
-            LoadMonster(monstactive[i]);
-        for (i = 0; i < MAXMISSILES; i++)
-            missileactive[i] = BLoad();
-        for (i = 0; i < MAXMISSILES; i++)
-            missileavail[i] = BLoad();
-        for (i = 0; i < nummissiles; i++)
-            LoadMissile(missileactive[i]);
-        for (i = 0; i < MAXOBJECTS; i++)
-            objectactive[i] = BLoad();
-        for (i = 0; i < MAXOBJECTS; i++)
-            objectavail[i] = BLoad();
-        for (i = 0; i < nobjects; i++)
-            LoadObject(objectactive[i]);
-        for (i = 0; i < nobjects; i++)
-            SyncObjectAnim(objectactive[i]);
-
-        numlights = WLoad();
-
-        for (i = 0; i < MAXLIGHTS; i++)
-            lightactive[i] = BLoad();
-        for (i = 0; i < numlights; i++)
-            LoadLighting(lightactive[i]);
-
-        visionid = WLoad();
-        numvision = WLoad();
-
-        for (i = 0; i < numvision; i++)
-            LoadVision(i);
+        monstactive[i] = WLoad();
+    }
+    for (i = 0; i < nummonsters; i++)
+    {
+        LoadMonster(monstactive[i]);
+    }
+    for (i = 0; i < MAXMISSILES; i++)
+    {
+        missileactive[i] = BLoad();
+    }
+    for (i = 0; i < MAXMISSILES; i++)
+    {
+        missileavail[i] = BLoad();
+    }
+    for (i = 0; i < nummissiles; i++)
+    {
+        LoadMissile(missileactive[i]);
+    }
+    for (i = 0; i < MAXOBJECTS; i++)
+    {
+        objectactive[i] = BLoad();
+    }
+    for (i = 0; i < MAXOBJECTS; i++)
+    {
+        objectavail[i] = BLoad();
+    }
+    for (i = 0; i < nobjects; i++)
+    {
+        LoadObject(objectactive[i]);
+    }
+    for (i = 0; i < nobjects; i++)
+    {
+        SyncObjectAnim(objectactive[i]);
     }
 
-    for (i = 0; i < MAXITEMS; i++)
-        itemactive[i] = BLoad();
-    for (i = 0; i < MAXITEMS; i++)
-        itemavail[i] = BLoad();
-    for (i = 0; i < numitems; i++)
-        LoadItem(itemactive[i]);
-    for (i = 0; i < 128; i++)
-        UniqueItemFlag[i] = OLoad();
+    numlights = WLoad();
 
+    for (i = 0; i < MAXLIGHTS; i++)
+    {
+        lightactive[i] = BLoad();
+    }
+    for (i = 0; i < numlights; i++)
+    {
+        LoadLighting(lightactive[i]);
+    }
+
+    visionid = WLoad();
+    numvision = WLoad();
+
+    for (i = 0; i < numvision; i++)
+    {
+        LoadVision(i);
+    }
+}
+
+for (i = 0; i < MAXITEMS; i++)
+{
+    itemactive[i] = BLoad();
+}
+for (i = 0; i < MAXITEMS; i++)
+{
+    itemavail[i] = BLoad();
+}
+for (i = 0; i < numitems; i++)
+{
+    LoadItem(itemactive[i]);
+}
+for (i = 0; i < 128; i++)
+{
+    UniqueItemFlag[i] = OLoad();
+}
+
+for (j = 0; j < MAXDUNY; j++)
+{
+    for (i = 0; i < MAXDUNX; i++)
+    {
+        dLight[i][j] = BLoad();
+    }
+}
+for (j = 0; j < MAXDUNY; j++)
+{
+    for (i = 0; i < MAXDUNX; i++)
+    {
+        dFlags[i][j] = BLoad();
+    }
+}
+for (j = 0; j < MAXDUNY; j++)
+{
+    for (i = 0; i < MAXDUNX; i++)
+    {
+        dPlayer[i][j] = BLoad();
+    }
+}
+for (j = 0; j < MAXDUNY; j++)
+{
+    for (i = 0; i < MAXDUNX; i++)
+    {
+        dItem[i][j] = BLoad();
+    }
+}
+
+if (leveltype != DTYPE_TOWN)
+{
     for (j = 0; j < MAXDUNY; j++)
     {
         for (i = 0; i < MAXDUNX; i++)
-            dLight[i][j] = BLoad();
+        {
+            dMonster[i][j] = WLoad();
+        }
     }
     for (j = 0; j < MAXDUNY; j++)
     {
         for (i = 0; i < MAXDUNX; i++)
-            dFlags[i][j] = BLoad();
+        {
+            dDead[i][j] = BLoad();
+        }
     }
     for (j = 0; j < MAXDUNY; j++)
     {
         for (i = 0; i < MAXDUNX; i++)
-            dPlayer[i][j] = BLoad();
+        {
+            dObject[i][j] = BLoad();
+        }
     }
     for (j = 0; j < MAXDUNY; j++)
     {
         for (i = 0; i < MAXDUNX; i++)
-            dItem[i][j] = BLoad();
+        {
+            dLight[i][j] = BLoad(); // BUGFIX: dLight got loaded already
+        }
     }
-
-    if (leveltype != DTYPE_TOWN)
+    for (j = 0; j < MAXDUNY; j++)
     {
-        for (j = 0; j < MAXDUNY; j++)
+        for (i = 0; i < MAXDUNX; i++)
         {
-            for (i = 0; i < MAXDUNX; i++)
-                dMonster[i][j] = WLoad();
-        }
-        for (j = 0; j < MAXDUNY; j++)
-        {
-            for (i = 0; i < MAXDUNX; i++)
-                dDead[i][j] = BLoad();
-        }
-        for (j = 0; j < MAXDUNY; j++)
-        {
-            for (i = 0; i < MAXDUNX; i++)
-                dObject[i][j] = BLoad();
-        }
-        for (j = 0; j < MAXDUNY; j++)
-        {
-            for (i = 0; i < MAXDUNX; i++)
-                dLight[i][j] = BLoad(); // BUGFIX: dLight got loaded already
-        }
-        for (j = 0; j < MAXDUNY; j++)
-        {
-            for (i = 0; i < MAXDUNX; i++)
-                dPreLight[i][j] = BLoad();
-        }
-        for (j = 0; j < DMAXY; j++)
-        {
-            for (i = 0; i < DMAXX; i++)
-                automapview[i][j] = OLoad();
-        }
-        for (j = 0; j < MAXDUNY; j++)
-        {
-            for (i = 0; i < MAXDUNX; i++)
-                dMissile[i][j] = BLoad();
+            dPreLight[i][j] = BLoad();
         }
     }
+    for (j = 0; j < DMAXY; j++)
+    {
+        for (i = 0; i < DMAXX; i++)
+        {
+            automapview[i][j] = OLoad();
+        }
+    }
+    for (j = 0; j < MAXDUNY; j++)
+    {
+        for (i = 0; i < MAXDUNX; i++)
+        {
+            dMissile[i][j] = BLoad();
+        }
+    }
+}
 
-    numpremium = WLoad();
-    premiumlevel = WLoad();
+numpremium = WLoad();
+premiumlevel = WLoad();
 
-    for (i = 0; i < SMITH_PREMIUM_ITEMS; i++)
-        LoadPremium(i);
+for (i = 0; i < SMITH_PREMIUM_ITEMS; i++)
+{
+    LoadPremium(i);
+}
 
-    automapflag = OLoad();
-    AutoMapScale = WLoad();
-    mem_free_dbg(LoadBuff);
-    AutomapZoomReset();
-    ResyncQuests();
+automapflag = OLoad();
+AutoMapScale = WLoad();
+mem_free_dbg(LoadBuff);
+AutomapZoomReset();
+ResyncQuests();
 
-    if (leveltype != DTYPE_TOWN)
-        ProcessLightList();
+if (leveltype != DTYPE_TOWN)
+{
+    ProcessLightList();
+}
 
-    RedoPlayerVision();
-    ProcessVisionList();
-    missiles_process_charge();
-    ResetPal();
-    SetCursor_(CURSOR_HAND);
-    gbProcessPlayers = TRUE;
+RedoPlayerVision();
+ProcessVisionList();
+missiles_process_charge();
+ResetPal();
+SetCursor_(CURSOR_HAND);
+gbProcessPlayers = TRUE;
 }
 
 static void BSave(char v)
@@ -330,9 +400,13 @@ static void ISave(int v)
 static void OSave(BOOL v)
 {
     if (v != FALSE)
+    {
         *tbuff++ = TRUE;
+    }
     else
+    {
         *tbuff++ = FALSE;
+    }
 }
 
 static void SavePlayer(int i)
@@ -441,73 +515,117 @@ void SaveGame()
     SavePlayer(myplr);
 
     for (i = 0; i < MAXQUESTS; i++)
+    {
         SaveQuest(i);
+    }
     for (i = 0; i < MAXPORTAL; i++)
+    {
         SavePortal(i);
+    }
     for (i = 0; i < MAXMONSTERS; i++)
+    {
         ISave(monstkills[i]);
+    }
 
     if (leveltype != DTYPE_TOWN)
     {
         for (i = 0; i < MAXMONSTERS; i++)
+        {
             WSave(monstactive[i]);
+        }
         for (i = 0; i < nummonsters; i++)
+        {
             SaveMonster(monstactive[i]);
+        }
         for (i = 0; i < MAXMISSILES; i++)
+        {
             BSave(missileactive[i]);
+        }
         for (i = 0; i < MAXMISSILES; i++)
+        {
             BSave(missileavail[i]);
+        }
         for (i = 0; i < nummissiles; i++)
+        {
             SaveMissile(missileactive[i]);
+        }
         for (i = 0; i < MAXOBJECTS; i++)
+        {
             BSave(objectactive[i]);
+        }
         for (i = 0; i < MAXOBJECTS; i++)
+        {
             BSave(objectavail[i]);
+        }
         for (i = 0; i < nobjects; i++)
+        {
             SaveObject(objectactive[i]);
+        }
 
         WSave(numlights);
 
         for (i = 0; i < MAXLIGHTS; i++)
+        {
             BSave(lightactive[i]);
+        }
         for (i = 0; i < numlights; i++)
+        {
             SaveLighting(lightactive[i]);
+        }
 
         WSave(visionid);
         WSave(numvision);
 
         for (i = 0; i < numvision; i++)
+        {
             SaveVision(i);
+        }
     }
 
     for (i = 0; i < MAXITEMS; i++)
+    {
         BSave(itemactive[i]);
+    }
     for (i = 0; i < MAXITEMS; i++)
+    {
         BSave(itemavail[i]);
+    }
     for (i = 0; i < numitems; i++)
+    {
         SaveItem(itemactive[i]);
+    }
     for (i = 0; i < 128; i++)
+    {
         OSave(UniqueItemFlag[i]);
+    }
 
     for (j = 0; j < MAXDUNY; j++)
     {
         for (i = 0; i < MAXDUNX; i++)
+        {
             BSave(dLight[i][j]);
+        }
     }
     for (j = 0; j < MAXDUNY; j++)
     {
         for (i = 0; i < MAXDUNX; i++)
+        {
             BSave(dFlags[i][j] & ~(BFLAG_MISSILE | BFLAG_VISIBLE | BFLAG_DEAD_PLAYER));
+        }
     }
     for (j = 0; j < MAXDUNY; j++)
     {
         for (i = 0; i < MAXDUNX; i++)
+        {
             BSave(dPlayer[i][j]);
+        }
     }
     for (j = 0; j < MAXDUNY; j++)
     {
         for (i = 0; i < MAXDUNX; i++)
+        {
             BSave(dItem[i][j]);
+        }
     }
 
     if (leveltype != DTYPE_TOWN)
@@ -515,37 +633,51 @@ void SaveGame()
         for (j = 0; j < MAXDUNY; j++)
         {
             for (i = 0; i < MAXDUNX; i++)
+            {
                 WSave(dMonster[i][j]);
+            }
         }
         for (j = 0; j < MAXDUNY; j++)
         {
             for (i = 0; i < MAXDUNX; i++)
+            {
                 BSave(dDead[i][j]);
+            }
         }
         for (j = 0; j < MAXDUNY; j++)
         {
             for (i = 0; i < MAXDUNX; i++)
+            {
                 BSave(dObject[i][j]);
+            }
         }
         for (j = 0; j < MAXDUNY; j++)
         {
             for (i = 0; i < MAXDUNX; i++)
+            {
                 BSave(dLight[i][j]); // BUGFIX: dLight got saved already
+            }
         }
         for (j = 0; j < MAXDUNY; j++)
         {
             for (i = 0; i < MAXDUNX; i++)
+            {
                 BSave(dPreLight[i][j]);
+            }
         }
         for (j = 0; j < DMAXY; j++)
         {
             for (i = 0; i < DMAXX; i++)
+            {
                 OSave(automapview[i][j]);
+            }
         }
         for (j = 0; j < MAXDUNY; j++)
         {
             for (i = 0; i < MAXDUNX; i++)
+            {
                 BSave(dMissile[i][j]);
+            }
         }
     }
 
@@ -553,7 +685,9 @@ void SaveGame()
     WSave(premiumlevel);
 
     for (i = 0; i < SMITH_PREMIUM_ITEMS; i++)
+    {
         SavePremium(i);
+    }
 
     OSave(automapflag);
     WSave(AutoMapScale);
@@ -574,7 +708,9 @@ void SaveLevel()
     BYTE* SaveBuff;
 
     if (currlevel == 0)
+    {
         glSeedTbl[0] = GetRndSeed();
+    }
 
     dwLen = codec_get_encoded_len(FILEBUFF);
     SaveBuff = DiabloAllocPtr(dwLen);
@@ -585,7 +721,9 @@ void SaveLevel()
         for (j = 0; j < MAXDUNY; j++)
         {
             for (i = 0; i < MAXDUNX; i++)
+            {
                 BSave(dDead[i][j]);
+            }
         }
     }
 
@@ -596,33 +734,53 @@ void SaveLevel()
     if (leveltype != DTYPE_TOWN)
     {
         for (i = 0; i < MAXMONSTERS; i++)
+        {
             WSave(monstactive[i]);
+        }
         for (i = 0; i < nummonsters; i++)
+        {
             SaveMonster(monstactive[i]);
+        }
         for (i = 0; i < MAXOBJECTS; i++)
+        {
             BSave(objectactive[i]);
+        }
         for (i = 0; i < MAXOBJECTS; i++)
+        {
             BSave(objectavail[i]);
+        }
         for (i = 0; i < nobjects; i++)
+        {
             SaveObject(objectactive[i]);
+        }
     }
 
     for (i = 0; i < MAXITEMS; i++)
+    {
         BSave(itemactive[i]);
+    }
     for (i = 0; i < MAXITEMS; i++)
+    {
         BSave(itemavail[i]);
+    }
     for (i = 0; i < numitems; i++)
+    {
         SaveItem(itemactive[i]);
+    }
 
     for (j = 0; j < MAXDUNY; j++)
     {
         for (i = 0; i < MAXDUNX; i++)
+        {
             BSave(dFlags[i][j] & ~(BFLAG_MISSILE | BFLAG_VISIBLE | BFLAG_DEAD_PLAYER));
+        }
     }
     for (j = 0; j < MAXDUNY; j++)
     {
         for (i = 0; i < MAXDUNX; i++)
+        {
             BSave(dItem[i][j]);
+        }
     }
 
     if (leveltype != DTYPE_TOWN)
@@ -630,32 +788,44 @@ void SaveLevel()
         for (j = 0; j < MAXDUNY; j++)
         {
             for (i = 0; i < MAXDUNX; i++)
+            {
                 WSave(dMonster[i][j]);
+            }
         }
         for (j = 0; j < MAXDUNY; j++)
         {
             for (i = 0; i < MAXDUNX; i++)
+            {
                 BSave(dObject[i][j]);
+            }
         }
         for (j = 0; j < MAXDUNY; j++)
         {
             for (i = 0; i < MAXDUNX; i++)
+            {
                 BSave(dLight[i][j]);
+            }
         }
         for (j = 0; j < MAXDUNY; j++)
         {
             for (i = 0; i < MAXDUNX; i++)
+            {
                 BSave(dPreLight[i][j]);
+            }
         }
         for (j = 0; j < DMAXY; j++)
         {
             for (i = 0; i < DMAXX; i++)
+            {
                 OSave(automapview[i][j]);
+            }
         }
         for (j = 0; j < MAXDUNY; j++)
         {
             for (i = 0; i < MAXDUNX; i++)
+            {
                 BSave(dMissile[i][j]);
+            }
         }
     }
 
@@ -665,9 +835,13 @@ void SaveLevel()
     mem_free_dbg(SaveBuff);
 
     if (!setlevel)
+    {
         plr[myplr]._pLvlVisited[currlevel] = TRUE;
+    }
     else
+    {
         plr[myplr]._pSLvlVisited[setlvlnum] = TRUE;
+    }
 }
 
 void LoadLevel()
@@ -686,7 +860,9 @@ void LoadLevel()
         for (j = 0; j < MAXDUNY; j++)
         {
             for (i = 0; i < MAXDUNX; i++)
+            {
                 dDead[i][j] = BLoad();
+            }
         }
         SetDead();
     }
@@ -698,35 +874,57 @@ void LoadLevel()
     if (leveltype != DTYPE_TOWN)
     {
         for (i = 0; i < MAXMONSTERS; i++)
+        {
             monstactive[i] = WLoad();
+        }
         for (i = 0; i < nummonsters; i++)
+        {
             LoadMonster(monstactive[i]);
+        }
         for (i = 0; i < MAXOBJECTS; i++)
+        {
             objectactive[i] = BLoad();
+        }
         for (i = 0; i < MAXOBJECTS; i++)
+        {
             objectavail[i] = BLoad();
+        }
         for (i = 0; i < nobjects; i++)
+        {
             LoadObject(objectactive[i]);
+        }
         for (i = 0; i < nobjects; i++)
+        {
             SyncObjectAnim(objectactive[i]);
+        }
     }
 
     for (i = 0; i < MAXITEMS; i++)
+    {
         itemactive[i] = BLoad();
+    }
     for (i = 0; i < MAXITEMS; i++)
+    {
         itemavail[i] = BLoad();
+    }
     for (i = 0; i < numitems; i++)
+    {
         LoadItem(itemactive[i]);
+    }
 
     for (j = 0; j < MAXDUNY; j++)
     {
         for (i = 0; i < MAXDUNX; i++)
+        {
             dFlags[i][j] = BLoad();
+        }
     }
     for (j = 0; j < MAXDUNY; j++)
     {
         for (i = 0; i < MAXDUNX; i++)
+        {
             dItem[i][j] = BLoad();
+        }
     }
 
     if (leveltype != DTYPE_TOWN)
@@ -734,32 +932,44 @@ void LoadLevel()
         for (j = 0; j < MAXDUNY; j++)
         {
             for (i = 0; i < MAXDUNX; i++)
+            {
                 dMonster[i][j] = WLoad();
+            }
         }
         for (j = 0; j < MAXDUNY; j++)
         {
             for (i = 0; i < MAXDUNX; i++)
+            {
                 dObject[i][j] = BLoad();
+            }
         }
         for (j = 0; j < MAXDUNY; j++)
         {
             for (i = 0; i < MAXDUNX; i++)
+            {
                 dLight[i][j] = BLoad();
+            }
         }
         for (j = 0; j < MAXDUNY; j++)
         {
             for (i = 0; i < MAXDUNX; i++)
+            {
                 dPreLight[i][j] = BLoad();
+            }
         }
         for (j = 0; j < DMAXY; j++)
         {
             for (i = 0; i < DMAXX; i++)
+            {
                 automapview[i][j] = OLoad();
+            }
         }
         for (j = 0; j < MAXDUNY; j++)
         {
             for (i = 0; i < MAXDUNX; i++)
+            {
                 dMissile[i][j] = 0; /// BUGFIX: supposed to load saved missiles with "BLoad()"?
+            }
         }
     }
 
@@ -771,7 +981,9 @@ void LoadLevel()
     for (i = 0; i < MAX_PLRS; i++)
     {
         if (plr[i].plractive && currlevel == plr[i].plrlevel)
+        {
             LightList[plr[i]._plid]._lunflag = TRUE;
+        }
     }
 
     mem_free_dbg(LoadBuff);

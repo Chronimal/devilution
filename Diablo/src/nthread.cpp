@@ -76,7 +76,9 @@ DWORD nthread_send_and_recv_turn(DWORD cur_turn, int turn_delta)
 
         new_cur_turn += turn_delta;
         if (new_cur_turn >= 0x7FFFFFFF)
+        {
             new_cur_turn &= 0xFFFF;
+        }
     }
     return new_cur_turn;
 }
@@ -102,7 +104,9 @@ BOOL nthread_recv_turns(BOOL* pfSendAsync)
     if (!SNetReceiveTurns(0, MAX_PLRS, (char**)glpMsgTbl, gdwMsgLenTbl, (LPDWORD)player_state))
     {
         if (DERROR() != STORM_ERROR_NO_MESSAGES_WAITING)
+        {
             nthread_terminate_game("SNetReceiveTurns");
+        }
         sgbTicsOutOfSync = FALSE;
         sgbSyncCountdown = 1;
         sgbPacketCountdown = 1;
@@ -134,17 +138,27 @@ static unsigned int __stdcall nthread_handler(void* data)
         {
             sgMemCrit.Enter();
             if (!nthread_should_run)
+            {
                 break;
+            }
             nthread_send_and_recv_turn(0, 0);
             if (nthread_recv_turns(&received))
+            {
                 delta = last_tick - GetTickCount();
+            }
             else
+            {
                 delta = 50;
+            }
             sgMemCrit.Leave();
             if (delta > 0)
+            {
                 Sleep(delta);
+            }
             if (!nthread_should_run)
+            {
                 return 0;
+            }
         }
         sgMemCrit.Leave();
     }
@@ -167,9 +181,13 @@ void nthread_start(BOOL set_turn_upper_bit)
     sgbSyncCountdown = 1;
     sgbTicsOutOfSync = TRUE;
     if (set_turn_upper_bit)
+    {
         nthread_set_turn_upper_bit();
+    }
     else
+    {
         turn_upper_bit = 0;
+    }
     caps.size = 36;
     if (!SNetGetProviderCaps(&caps))
     {
@@ -178,21 +196,31 @@ void nthread_start(BOOL set_turn_upper_bit)
     }
     gdwTurnsInTransit = caps.defaultturnsintransit;
     if (!caps.defaultturnsintransit)
+    {
         gdwTurnsInTransit = 1;
+    }
     if (caps.defaultturnssec <= 20 && caps.defaultturnssec)
+    {
         sgbNetUpdateRate = 20 / caps.defaultturnssec;
+    }
     else
+    {
         sgbNetUpdateRate = 1;
+    }
     largestMsgSize = 512;
     if (caps.maxmessagesize < 0x200)
+    {
         largestMsgSize = caps.maxmessagesize;
+    }
     gdwDeltaBytesSec = caps.bytessec >> 2;
     gdwLargestMsgSize = largestMsgSize;
     gdwNormalMsgSize = caps.bytessec * sgbNetUpdateRate / 20;
     gdwNormalMsgSize *= 3;
     gdwNormalMsgSize >>= 2;
     if (caps.maxplayers > MAX_PLRS)
+    {
         caps.maxplayers = MAX_PLRS;
+    }
     gdwNormalMsgSize /= caps.maxplayers;
     while (gdwNormalMsgSize < 0x80)
     {
@@ -200,7 +228,9 @@ void nthread_start(BOOL set_turn_upper_bit)
         sgbNetUpdateRate *= 2;
     }
     if (gdwNormalMsgSize > largestMsgSize)
+    {
         gdwNormalMsgSize = largestMsgSize;
+    }
     if (gbMaxPlayers > 1)
     {
         sgbThreadIsRunning = FALSE;
@@ -225,7 +255,9 @@ void nthread_cleanup()
     if (sghThread != INVALID_HANDLE_VALUE && glpNThreadId != GetCurrentThreadId())
     {
         if (!sgbThreadIsRunning)
+        {
             sgMemCrit.Leave();
+        }
         if (WaitForSingleObject(sghThread, INFINITE) == -1)
         {
             app_fatal("nthread3:\n(%s)", TraceLastError());
@@ -240,9 +272,13 @@ void nthread_ignore_mutex(BOOL bStart)
     if (sghThread != INVALID_HANDLE_VALUE)
     {
         if (bStart)
+        {
             sgMemCrit.Leave();
+        }
         else
+        {
             sgMemCrit.Enter();
+        }
         sgbThreadIsRunning = bStart;
     }
 }

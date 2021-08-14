@@ -21,7 +21,9 @@ char dFlagDbg[NUMLEVELS][MAXDUNX][MAXDUNY];
 void LoadDebugGFX()
 {
     if (visiondebug)
+    {
         pSquareCel = LoadFileInMem("Data\\Square.CEL", NULL);
+    }
 }
 
 void FreeDebugGFX()
@@ -98,9 +100,13 @@ void CheckDungeonClear()
         for (i = 0; i < MAXDUNX; i++)
         {
             if (dMonster[i][j] != 0)
+            {
                 app_fatal("Monsters not cleared");
+            }
             if (dPlayer[i][j] != 0)
+            {
                 app_fatal("Players not cleared");
+            }
 
             dMonsDbg[currlevel][i][j] = dFlags[i][j] & BFLAG_VISIBLE;
             dFlagDbg[currlevel][i][j] = dFlags[i][j] & BFLAG_POPULATED;
@@ -136,12 +142,16 @@ void StoresCheat()
     numpremium = 0;
 
     for (i = 0; i < SMITH_PREMIUM_ITEMS; i++)
+    {
         premiumitem[i]._itype = ITYPE_NONE;
+    }
 
     SpawnPremium(30);
 
     for (i = 0; i < 20; i++)
+    {
         witchitem[i]._itype = ITYPE_NONE;
+    }
 
     SpawnWitch(30);
 #endif
@@ -156,13 +166,17 @@ void TakeGoldCheat()
     {
         ig = plr[myplr].InvGrid[i];
         if (ig > 0 && plr[myplr].InvList[ig - 1]._itype == ITYPE_GOLD)
+        {
             RemoveInvItem(myplr, ig - 1);
+        }
     }
 
     for (i = 0; i < MAXBELTITEMS; i++)
     {
         if (plr[myplr].SpdList[i]._itype == ITYPE_GOLD)
+        {
             plr[myplr].SpdList[i]._itype = ITYPE_NONE;
+        }
     }
 
     plr[myplr]._pGold = 0;
@@ -219,7 +233,9 @@ void PrintDebugPlayer(BOOL bNextPlayer)
     char dstr[128];
 
     if (bNextPlayer)
+    {
         dbgplr = ((BYTE)dbgplr + 1) & 3;
+    }
 
     sprintf(dstr, "Plr %i : Active = %i", dbgplr, plr[dbgplr].plractive);
     NetSendCmdString(1 << myplr, dstr);
@@ -248,7 +264,9 @@ void PrintDebugQuest()
 
     dbgqst++;
     if (dbgqst == MAXQUESTS)
+    {
         dbgqst = 0;
+    }
 }
 
 void PrintDebugMonster(int m)
@@ -271,7 +289,9 @@ void PrintDebugMonster(int m)
     for (i = 0; i < nummonsters; i++)
     {
         if (monstactive[i] == m)
+        {
             bActive = TRUE;
+        }
     }
 
     sprintf(dstr, "Active List = %i, Squelch = %i", bActive, monster[m]._msquelch);
@@ -290,7 +310,9 @@ void GetDebugMonster()
         {
             mi1 = mi2 - 1;
             if (mi2 <= 0)
+            {
                 mi1 = -1 - mi2;
+            }
         }
         else
         {
@@ -306,7 +328,9 @@ void NextDebugMonster()
 
     dbgmon++;
     if (dbgmon == MAXMONSTERS)
+    {
         dbgmon = 0;
+    }
 
     sprintf(dstr, "Current debug monster = %i", dbgmon);
     NetSendCmdString(1 << myplr, dstr);

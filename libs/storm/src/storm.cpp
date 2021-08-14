@@ -1,20 +1,20 @@
 #include "../include/storm/storm.h"
 
-#define rBool                                                                                                          \
-    {                                                                                                                  \
-        return TRUE;                                                                                                   \
+#define rBool                                                                                                                                                                                          \
+    {                                                                                                                                                                                                  \
+        return TRUE;                                                                                                                                                                                   \
     }
-#define rPVoid                                                                                                         \
-    {                                                                                                                  \
-        return NULL;                                                                                                   \
+#define rPVoid                                                                                                                                                                                         \
+    {                                                                                                                                                                                                  \
+        return NULL;                                                                                                                                                                                   \
     }
-#define rVoid                                                                                                          \
-    {                                                                                                                  \
-        return;                                                                                                        \
+#define rVoid                                                                                                                                                                                          \
+    {                                                                                                                                                                                                  \
+        return;                                                                                                                                                                                        \
     }
-#define rInt                                                                                                           \
-    {                                                                                                                  \
-        return 0;                                                                                                      \
+#define rInt                                                                                                                                                                                           \
+    {                                                                                                                                                                                                  \
+        return 0;                                                                                                                                                                                      \
     }
 
 BOOL STORMAPI SNetCreateGame(
@@ -42,13 +42,11 @@ BOOL STORMAPI SNetGetTurnsInTransit(int* turns) rBool;
 BOOL STORMAPI SNetInitializeDevice(int a1, int a2, int a3, int a4, int* a5) rBool;
 // BOOL STORMAPI SNetInitializeProvider(DWORD providerName, client_info *gameClientInfo, user_info *userData,
 // battle_info *bnCallbacks, module_info *moduleData) rBool;
-BOOL STORMAPI
-SNetJoinGame(int id, char* gameName, char* gamePassword, char* playerName, char* userStats, int* playerid) rBool;
+BOOL STORMAPI SNetJoinGame(int id, char* gameName, char* gamePassword, char* playerName, char* userStats, int* playerid) rBool;
 BOOL STORMAPI SNetLeaveGame(int type) rBool;
 BOOL STORMAPI SNetPerformUpgrade(DWORD* upgradestatus) rBool;
 BOOL STORMAPI SNetReceiveMessage(int* senderplayerid, char** data, int* databytes) rBool;
-BOOL STORMAPI
-SNetReceiveTurns(int a1, int arraysize, char** arraydata, DWORD* arraydatabytes, DWORD* arrayplayerstatus) rBool;
+BOOL STORMAPI SNetReceiveTurns(int a1, int arraysize, char** arraydata, DWORD* arraydatabytes, DWORD* arrayplayerstatus) rBool;
 // HANDLE STORMAPI SNetRegisterEventHandler(int type, void (STORMAPI *sEvent)(PS_EVT)) rPVoid;
 
 int STORMAPI SNetSelectGame(int a1, int a2, int a3, int a4, int a5, int* playerid) rInt;
@@ -75,8 +73,7 @@ BOOL STORMAPI SNetCreateLadderGame(
     char* creatorName,
     char* a11,
     int* playerID) rBool;
-BOOL STORMAPI
-SNetReportGameResult(unsigned a1, int size, int* results, const char* headerInfo, const char* detailInfo) rBool;
+BOOL STORMAPI SNetReportGameResult(unsigned a1, int size, int* results, const char* headerInfo, const char* detailInfo) rBool;
 
 int STORMAPI SNetSendLeagueCommand(char* cmd, char* callback) rInt;
 int STORMAPI SNetSendReplayPath(int a1, int a2, char* replayPath) rInt;
@@ -87,36 +84,22 @@ int STORMAPI SNetGetLeaguePlayerName(char* curPlayerLeageName, size_t nameSize) 
 
 HGDIOBJ STORMAPI SDlgDefDialogProc(HWND hDlg, signed int DlgType, HDC textLabel, HWND hWnd) rPVoid;
 
-HANDLE STORMAPI
-SDlgDialogBoxIndirectParam(HMODULE hModule, LPCSTR lpName, HWND hWndParent, LPVOID lpParam, LPARAM lParam) rPVoid;
+HANDLE STORMAPI SDlgDialogBoxIndirectParam(HMODULE hModule, LPCSTR lpName, HWND hWndParent, LPVOID lpParam, LPARAM lParam) rPVoid;
 
 BOOL STORMAPI SDlgEndDialog(HWND hDlg, HANDLE nResult) rBool;
 
-BOOL STORMAPI
-SDlgSetControlBitmaps(HWND parentwindow, int* id, int a3, char* buffer2, char* buffer, int flags, int mask) rBool;
+BOOL STORMAPI SDlgSetControlBitmaps(HWND parentwindow, int* id, int a3, char* buffer2, char* buffer, int flags, int mask) rBool;
 
-BOOL STORMAPI
-SDlgBltToWindowI(HWND hWnd, HRGN a2, char* a3, int a4, void* buffer, RECT* rct, SIZE* size, int a8, int a9, DWORD rop)
-    rBool;
-BOOL STORMAPI
-SDlgBltToWindowE(HWND hWnd, HRGN a2, char* a3, int a4, void* buffer, RECT* rct, SIZE* size, int a8, int a9, DWORD rop)
-    rBool;
-BOOL STORMAPI
-SDlgSetBitmapE(HWND hWnd, int a2, char* src, int mask1, int flags, int a6, int a7, int width, int a9, int mask2) rBool;
+BOOL STORMAPI SDlgBltToWindowI(HWND hWnd, HRGN a2, char* a3, int a4, void* buffer, RECT* rct, SIZE* size, int a8, int a9, DWORD rop) rBool;
+BOOL STORMAPI SDlgBltToWindowE(HWND hWnd, HRGN a2, char* a3, int a4, void* buffer, RECT* rct, SIZE* size, int a8, int a9, DWORD rop) rBool;
+BOOL STORMAPI SDlgSetBitmapE(HWND hWnd, int a2, char* src, int mask1, int flags, int a6, int a7, int width, int a9, int mask2) rBool;
 
 int STORMAPI Ordinal224(int a1) rInt;
 
 BOOL STORMAPI SFileCloseArchive(HANDLE hArchive) rBool;
 BOOL STORMAPI SFileCloseFile(HANDLE hFile) rBool;
 
-BOOL STORMAPI SFileDdaBeginEx(
-    HANDLE hFile,
-    DWORD flags,
-    DWORD mask,
-    unsigned __int32 lDistanceToMove,
-    signed __int32 volume,
-    signed int a6,
-    int a7) rBool;
+BOOL STORMAPI SFileDdaBeginEx(HANDLE hFile, DWORD flags, DWORD mask, unsigned __int32 lDistanceToMove, signed __int32 volume, signed int a6, int a7) rBool;
 BOOL STORMAPI SFileDdaDestroy() rBool;
 BOOL STORMAPI SFileDdaEnd(HANDLE hFile) rBool;
 BOOL STORMAPI SFileDdaGetPos(HANDLE hFile, DWORD* current, DWORD* end) rBool;
@@ -130,8 +113,7 @@ LONG STORMAPI SFileGetFileSize(HANDLE hFile, LPDWORD lpFileSizeHigh) rInt;
 BOOL STORMAPI SFileOpenArchive(const char* szMpqName, DWORD dwPriority, DWORD dwFlags, HANDLE* phMpq) rBool;
 BOOL STORMAPI SFileOpenFile(const char* filename, HANDLE* phFile) rBool;
 BOOL STORMAPI SFileOpenFileEx(HANDLE hMpq, const char* szFileName, DWORD dwSearchScope, HANDLE* phFile) rBool;
-BOOL STORMAPI
-SFileReadFile(HANDLE hFile, void* buffer, DWORD nNumberOfBytesToRead, DWORD* read, LONG* lpDistanceToMoveHigh) rBool;
+BOOL STORMAPI SFileReadFile(HANDLE hFile, void* buffer, DWORD nNumberOfBytesToRead, DWORD* read, LONG* lpDistanceToMoveHigh) rBool;
 
 void STORMAPI SFileSetLocale(LCID lcLocale) rVoid;
 
@@ -141,91 +123,26 @@ BOOL STORMAPI SFileGetFileName(HANDLE hFile, char* buffer, int length) rBool;
 
 BOOL STORMAPI SFileLoadFile(char* filename, void* buffer, int buffersize, int a4, int a5) rBool;
 BOOL STORMAPI SFileUnloadFile(HANDLE hFile) rBool;
-BOOL STORMAPI SFileLoadFileEx(
-    void* hArchive,
-    char* filename,
-    int a3,
-    int a4,
-    int a5,
-    DWORD searchScope,
-    struct _OVERLAPPED* lpOverlapped) rBool;
+BOOL STORMAPI SFileLoadFileEx(void* hArchive, char* filename, int a3, int a4, int a5, DWORD searchScope, struct _OVERLAPPED* lpOverlapped) rBool;
+
+BOOL STORMAPI SBltROP3(void* lpDstBuffer, void* lpSrcBuffer, int width, int height, int a5, int a6, int a7, DWORD rop) rBool;
+BOOL STORMAPI SBltROP3Clipped(void* lpDstBuffer, RECT* lpDstRect, POINT* lpDstPt, int a4, void* lpSrcBuffer, RECT* lpSrcRect, POINT* lpSrcPt, int a8, int a9, DWORD rop) rBool;
+BOOL STORMAPI SBltROP3Tiled(void* lpDstBuffer, RECT* lpDstRect, POINT* lpDstPt, int a4, void* lpSrcBuffer, RECT* lpSrcRect, POINT* lpSrcPt, int a8, int a9, DWORD rop) rBool;
 
 BOOL STORMAPI
-SBltROP3(void* lpDstBuffer, void* lpSrcBuffer, int width, int height, int a5, int a6, int a7, DWORD rop) rBool;
-BOOL STORMAPI SBltROP3Clipped(
-    void* lpDstBuffer,
-    RECT* lpDstRect,
-    POINT* lpDstPt,
-    int a4,
-    void* lpSrcBuffer,
-    RECT* lpSrcRect,
-    POINT* lpSrcPt,
-    int a8,
-    int a9,
-    DWORD rop) rBool;
-BOOL STORMAPI SBltROP3Tiled(
-    void* lpDstBuffer,
-    RECT* lpDstRect,
-    POINT* lpDstPt,
-    int a4,
-    void* lpSrcBuffer,
-    RECT* lpSrcRect,
-    POINT* lpSrcPt,
-    int a8,
-    int a9,
-    DWORD rop) rBool;
+SBmpDecodeImage(DWORD dwImgType, void* pSrcBuffer, DWORD dwSrcBuffersize, PALETTEENTRY* pPalette, void* pDstBuffer, DWORD dwDstBuffersize, DWORD* pdwWidth, DWORD* pdwHeight, DWORD* pdwBpp) rBool;
 
-BOOL STORMAPI SBmpDecodeImage(
-    DWORD dwImgType,
-    void* pSrcBuffer,
-    DWORD dwSrcBuffersize,
-    PALETTEENTRY* pPalette,
-    void* pDstBuffer,
-    DWORD dwDstBuffersize,
-    DWORD* pdwWidth,
-    DWORD* pdwHeight,
-    DWORD* pdwBpp) rBool;
-
-BOOL STORMAPI SBmpLoadImage(
-    const char* pszFileName,
-    PALETTEENTRY* pPalette,
-    BYTE* pBuffer,
-    DWORD dwBuffersize,
-    DWORD* pdwWidth,
-    DWORD* pdwHeight,
-    DWORD* pdwBpp) rBool;
+BOOL STORMAPI SBmpLoadImage(const char* pszFileName, PALETTEENTRY* pPalette, BYTE* pBuffer, DWORD dwBuffersize, DWORD* pdwWidth, DWORD* pdwHeight, DWORD* pdwBpp) rBool;
 
 BOOL STORMAPI SBmpSaveImage(const char*, PALETTEENTRY*, void*, DWORD, DWORD, DWORD) rBool;
-HANDLE STORMAPI SBmpAllocLoadImage(
-    const char* fileName,
-    PALETTEENTRY* palette,
-    void** buffer,
-    int* width,
-    int* height,
-    int unused6,
-    int unused7,
-    void*(STORMAPI* allocFunction)(DWORD)) rPVoid;
+HANDLE STORMAPI SBmpAllocLoadImage(const char* fileName, PALETTEENTRY* palette, void** buffer, int* width, int* height, int unused6, int unused7, void*(STORMAPI* allocFunction)(DWORD)) rPVoid;
 
-BOOL STORMAPI SCodeCompile(
-    char* directives1,
-    char* directives2,
-    char* loopstring,
-    unsigned int maxiterations,
-    unsigned int flags,
-    HANDLE handle) rBool;
+BOOL STORMAPI SCodeCompile(char* directives1, char* directives2, char* loopstring, unsigned int maxiterations, unsigned int flags, HANDLE handle) rBool;
 BOOL STORMAPI SCodeDelete(HANDLE handle) rBool;
 
 int STORMAPI SCodeExecute(HANDLE handle, int a2) rInt;
 
-BOOL STORMAPI SDrawAutoInitialize(
-    HINSTANCE hInst,
-    LPCSTR lpClassName,
-    LPCSTR lpWindowName,
-    WNDPROC pfnWndProc,
-    int nMode,
-    int nWidth,
-    int nHeight,
-    int nBits) rBool;
+BOOL STORMAPI SDrawAutoInitialize(HINSTANCE hInst, LPCSTR lpClassName, LPCSTR lpWindowName, WNDPROC pfnWndProc, int nMode, int nWidth, int nHeight, int nBits) rBool;
 BOOL STORMAPI SDrawCaptureScreen(const char* source) rBool;
 
 HWND STORMAPI SDrawGetFrameWindow(HWND* sdraw_framewindow) rPVoid;
@@ -239,8 +156,7 @@ BOOL STORMAPI SDrawGetObjects(
     HPALETTE* hPalette) rBool;
 BOOL STORMAPI SDrawGetScreenSize(DWORD* pdwWidth, DWORD* pdwHeight, DWORD* pdwBpp) rBool;
 
-BOOL STORMAPI
-SDrawLockSurface(int surfacenumber, RECT* lpDestRect, void** lplpSurface, int* lpPitch, int arg_unused) rBool;
+BOOL STORMAPI SDrawLockSurface(int surfacenumber, RECT* lpDestRect, void** lplpSurface, int* lpPitch, int arg_unused) rBool;
 BOOL STORMAPI SDrawManualInitialize(
     HWND hWnd,
     LPDIRECTDRAW ddInterface,
@@ -255,23 +171,13 @@ BOOL STORMAPI SDrawPostClose() rBool;
 // BOOL STORMAPI SDrawRealizePalette() rBool;
 
 BOOL STORMAPI SDrawUnlockSurface(int surfacenumber, void* lpSurface, int a3, RECT* lpRect) rBool;
-BOOL STORMAPI
-SDrawUpdatePalette(unsigned int firstentry, unsigned int numentries, PALETTEENTRY* pPalEntries, int a4) rBool;
+BOOL STORMAPI SDrawUpdatePalette(unsigned int firstentry, unsigned int numentries, PALETTEENTRY* pPalEntries, int a4) rBool;
 
 BOOL STORMAPI SEvtDispatch(DWORD dwMessageID, DWORD dwFlags, int type, PS_EVT pEvent) rBool;
 
 BOOL STORMAPI SGdiDeleteObject(HANDLE handle) rBool;
 
-BOOL STORMAPI SGdiExtTextOut(
-    int a1,
-    int a2,
-    int a3,
-    int a4,
-    unsigned int a8,
-    signed int a6,
-    signed int a7,
-    const char* string,
-    unsigned int arg20) rBool;
+BOOL STORMAPI SGdiExtTextOut(int a1, int a2, int a3, int a4, unsigned int a8, signed int a6, signed int a7, const char* string, unsigned int arg20) rBool;
 BOOL STORMAPI SGdiImportFont(HGDIOBJ handle, int windowsfont) rBool;
 
 BOOL STORMAPI SGdiSelectObject(int handle) rBool;
@@ -283,13 +189,10 @@ void* STORMAPI SMemAlloc(size_t amount, const char* logfilename, int logline, in
 
 BOOL STORMAPI SMemFree(void* location, const char* logfilename, int logline, char defaultValue) rBool;
 
-void* STORMAPI
-SMemReAlloc(void* location, size_t amount, const char* logfilename, int logline, char defaultValue) rPVoid;
+void* STORMAPI SMemReAlloc(void* location, size_t amount, const char* logfilename, int logline, char defaultValue) rPVoid;
 
-BOOL STORMAPI
-SRegLoadData(const char* keyname, const char* valuename, int size, LPBYTE lpData, BYTE flags, LPDWORD lpcbData) rBool;
-BOOL STORMAPI
-SRegLoadString(const char* keyname, const char* valuename, BYTE flags, char* buffer, size_t buffersize) rBool;
+BOOL STORMAPI SRegLoadData(const char* keyname, const char* valuename, int size, LPBYTE lpData, BYTE flags, LPDWORD lpcbData) rBool;
+BOOL STORMAPI SRegLoadString(const char* keyname, const char* valuename, BYTE flags, char* buffer, size_t buffersize) rBool;
 BOOL STORMAPI SRegLoadValue(const char* keyname, const char* valuename, BYTE flags, int* value) rBool;
 BOOL STORMAPI SRegSaveData(const char* keyname, const char* valuename, int size, BYTE* lpData, DWORD cbData) rBool;
 BOOL STORMAPI SRegSaveString(const char* keyname, const char* valuename, BYTE flags, char* string) rBool;
@@ -303,20 +206,16 @@ BOOL STORMAPI STransBltUsingMask(void* lpSurface, void* lpSource, int pitch, int
 BOOL STORMAPI STransDelete(HANDLE hTrans) rBool;
 
 BOOL STORMAPI STransDuplicate(HANDLE hTransSource, HANDLE hTransDest) rBool;
-BOOL STORMAPI
-STransIntersectDirtyArray(HANDLE hTrans, char* dirtyarraymask, unsigned flags, HANDLE* phTransResult) rBool;
+BOOL STORMAPI STransIntersectDirtyArray(HANDLE hTrans, char* dirtyarraymask, unsigned flags, HANDLE* phTransResult) rBool;
 BOOL STORMAPI STransInvertMask(HANDLE hTrans, HANDLE* phTransResult) rBool;
 
 BOOL STORMAPI STransSetDirtyArrayInfo(int width, int height, int depth, int bits) rBool;
 
 BOOL STORMAPI STransPointInMask(HANDLE hTrans, int x, int y) rBool;
-BOOL STORMAPI
-STransCombineMasks(HANDLE hTransA, HANDLE hTransB, int left, int top, int flags, HANDLE* phTransResult) rBool;
+BOOL STORMAPI STransCombineMasks(HANDLE hTransA, HANDLE hTransB, int left, int top, int flags, HANDLE* phTransResult) rBool;
 
-BOOL STORMAPI
-STransCreateE(void* pBuffer, int width, int height, int bpp, int a5, int bufferSize, HANDLE* phTransOut) rBool;
-BOOL STORMAPI
-STransCreateI(void* pBuffer, int width, int height, int bpp, int a5, int bufferSize, HANDLE* phTransOut) rBool;
+BOOL STORMAPI STransCreateE(void* pBuffer, int width, int height, int bpp, int a5, int bufferSize, HANDLE* phTransOut) rBool;
+BOOL STORMAPI STransCreateI(void* pBuffer, int width, int height, int bpp, int a5, int bufferSize, HANDLE* phTransOut) rBool;
 
 BOOL STORMAPI SVidDestroy() rBool;
 BOOL STORMAPI SVidGetSize(HANDLE video, int width, int height, int zero) rBool;
@@ -326,13 +225,7 @@ BOOL STORMAPI SVidPlayBegin(const char* filename, int a2, int a3, int a4, int a5
 BOOL STORMAPI SVidPlayContinueSingle(HANDLE video, int a2, int a3) rBool;
 BOOL STORMAPI SVidPlayEnd(HANDLE video) rBool;
 
-BOOL STORMAPI SErrDisplayError(
-    DWORD dwErrMsg,
-    const char* logfilename,
-    int logline,
-    const char* message,
-    BOOL allowOption,
-    int exitCode) rBool;
+BOOL STORMAPI SErrDisplayError(DWORD dwErrMsg, const char* logfilename, int logline, const char* message, BOOL allowOption, int exitCode) rBool;
 BOOL STORMAPI SErrGetErrorStr(DWORD dwErrCode, char* buffer, size_t bufferchars) rBool;
 DWORD STORMAPI SErrGetLastError() rInt;
 
@@ -362,14 +255,7 @@ void STORMAPI SRgnDeleteRegion(HANDLE hRgn) rVoid;
 
 void STORMAPI SRgn529i(int handle, int a2, int a3) rVoid;
 
-BOOL SErrDisplayErrorFmt(
-    DWORD dwErrMsg,
-    const char* logfilename,
-    int logline,
-    BOOL allowOption,
-    int exitCode,
-    const char* format,
-    ...) rBool;
+BOOL SErrDisplayErrorFmt(DWORD dwErrMsg, const char* logfilename, int logline, BOOL allowOption, int exitCode, const char* format, ...) rBool;
 
 void STORMAPI SErrCatchUnhandledExceptions() rVoid;
 
@@ -399,26 +285,11 @@ BOOL __stdcall SNetGetOwnerTurnsWaiting(DWORD*) rBool;
 BOOL __stdcall SNetUnregisterEventHandler(int, SEVTHANDLER) rPVoid;
 BOOL __stdcall SNetRegisterEventHandler(int, SEVTHANDLER) rPVoid;
 BOOLEAN __stdcall SNetSetBasePlayer(int) rBool;
-int __stdcall SNetInitializeProvider(
-    unsigned long,
-    struct _SNETPROGRAMDATA*,
-    struct _SNETPLAYERDATA*,
-    struct _SNETUIDATA*,
-    struct _SNETVERSIONDATA*) rInt;
+int __stdcall SNetInitializeProvider(unsigned long, struct _SNETPROGRAMDATA*, struct _SNETPLAYERDATA*, struct _SNETUIDATA*, struct _SNETVERSIONDATA*) rInt;
 int __stdcall SNetGetProviderCaps(struct _SNETCAPS*) rInt;
 int __stdcall SFileSetFilePointer(HANDLE, int, HANDLE, int) rInt;
 void __stdcall SDrawClearSurface(int a1) rVoid;
-BOOL __stdcall SDlgSetBitmapI(
-    HWND hWnd,
-    int a2,
-    const char* src,
-    int mask1,
-    int flags,
-    void* pBuff,
-    int a7,
-    int width,
-    int height,
-    int mask2) rBool;
+BOOL __stdcall SDlgSetBitmapI(HWND hWnd, int a2, const char* src, int mask1, int flags, void* pBuff, int a7, int width, int height, int mask2) rBool;
 void __stdcall SDlgBeginPaint(HWND hWnd, char* a2) rVoid;
 void __stdcall SDlgEndPaint(HWND hWnd, char* a2) rVoid;
 void __stdcall SDlgSetSystemCursor(BYTE* a1, BYTE* a2, int* a3, int a4) rVoid;
@@ -426,7 +297,6 @@ void __stdcall SDlgSetCursor(HWND hWnd, HCURSOR a2, int a3, int* a4) rVoid;
 BOOL __stdcall SDlgSetTimer(HWND hWnd, int a2, int a3, void(__stdcall* a4)(HWND, int, int, int)) rBool;
 BOOL __stdcall SDlgKillTimer(HWND hWnd, int a2) rBool;
 BOOL __stdcall SDlgDrawBitmap(HWND hWnd, int a2, int a3, int a4, int a5, int a6, int a7) rBool;
-BOOL __stdcall SDlgDialogBoxParam(HINSTANCE hInst, const char* szDialog, HWND hWnd, WNDPROC func, int selhero_is_good)
-    rBool;
+BOOL __stdcall SDlgDialogBoxParam(HINSTANCE hInst, const char* szDialog, HWND hWnd, WNDPROC func, int selhero_is_good) rBool;
 BOOL __stdcall SGdiTextOut(void* pBuffer, int x, int y, int mask, char* str, int len) rBool;
 BOOL __stdcall SFileEnableDirectAccess(BOOL enable) rBool;

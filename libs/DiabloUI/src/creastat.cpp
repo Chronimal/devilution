@@ -4,7 +4,9 @@
 BOOL __stdcall UiGetDefaultStats(int pclass, _uidefaultstats* pStats)
 {
     if (!pStats)
+    {
         return 0;
+    }
     pStats->strength = defstats[pclass][0];
     pStats->magic = defstats[pclass][1];
     pStats->dexterity = defstats[pclass][2];

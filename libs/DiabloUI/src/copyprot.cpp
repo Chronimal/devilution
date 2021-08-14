@@ -3,18 +3,24 @@
 // ref: 0x10004054
 BOOL __stdcall UiCopyProtError(int* pdwResult)
 {
-    HWND v1;           // eax
+    HWND v1;          // eax
     int v2;           // eax
     char Buffer[128]; // [esp+0h] [ebp-80h]
 
     if (DiabloUI_GetSpawned())
+    {
         LoadStringA(ghUiInst, 0x3Fu, Buffer, 127);
+    }
     else
+    {
         LoadStringA(ghUiInst, 0x1Bu, Buffer, 127);
+    }
     v1 = SDrawGetFrameWindow(NULL);
     v2 = SDlgDialogBoxParam(ghUiInst, "OKCANCEL_DIALOG", v1, CopyProt_WndProc, (int)Buffer);
     if (pdwResult)
+    {
         *pdwResult = v2;
+    }
     return 1;
 }
 // 10010382: using guessed type DWORD __stdcall SDrawGetFrameWindow();
@@ -35,7 +41,9 @@ LRESULT __stdcall CopyProt_WndProc(HWND hWnd, UINT Msg, WPARAM wParam, LPARAM lP
         return (LRESULT)SDlgDefDialogProc(hWnd, Msg, (HDC)wParam, (HWND)lParam);
     }
     if (Msg <= 0x103)
+    {
         return (LRESULT)SDlgDefDialogProc(hWnd, Msg, (HDC)wParam, (HWND)lParam);
+    }
     if (Msg <= 0x105)
     {
         v9 = (HWND)SDrawGetFrameWindow(NULL);
@@ -48,7 +56,9 @@ LRESULT __stdcall CopyProt_WndProc(HWND hWnd, UINT Msg, WPARAM wParam, LPARAM lP
         return 1;
     }
     if (Msg != 273)
+    {
         return (LRESULT)SDlgDefDialogProc(hWnd, Msg, (HDC)wParam, (HWND)lParam);
+    }
     switch ((unsigned short)wParam)
     {
         case 1u:
@@ -128,11 +138,15 @@ BOOL __fastcall CopyProt_LoadCopyStuff(HWND hWnd, int a2)
     v6 = LockResource(copyprot_btnart);
     v13 = LockResource(copyprot_artpal);
     if (v5)
+    {
         SDlgSetBitmapI(hWnd, 0, &nullcharacter, -1, 1, v5, 0, 284, 148, -1);
+    }
     ShowCursor(TRUE);
     Fade_SetInputWindow(hWnd);
     if (v6)
+    {
         local_FitButtonDlg(hWnd, msgs, v6, data);
+    }
     if (v13)
     {
         memcpy(pPalEntries, v13, 0x400u);

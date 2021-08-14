@@ -60,11 +60,15 @@ LRESULT __stdcall DiabEdit_WndProc(HWND hWnd, UINT Msg, WPARAM wParam, LPARAM lP
                 else
                 {
                     if (Msg == 135)
+                    {
                         return 129;
+                    }
                     if (Msg != 256)
                     {
                         if (Msg == 258)
+                        {
                             DiabEdit_RestrictAndLimit(hWnd, wParam, lParam);
+                        }
                         return DefWindowProcA(hWnd, Msg, wParam, lParam);
                     }
                     DiabEdit_SetTextAndProp(hWnd, wParam, lParam);
@@ -162,9 +166,13 @@ void __fastcall DiabEdit_RestrictAndLimit(HWND hWnd, WPARAM wParam, LPARAM lPara
     *(WORD*)&String[253] = 0;
     String[255] = 0;
     if ((BYTE)wParam == 8)
+    {
         goto LABEL_9;
+    }
     if ((unsigned char)wParam < 0x20u || (unsigned char)wParam > 0x7Eu && (unsigned char)wParam < 0xC0u)
+    {
         return;
+    }
     v4 = (char*)GetPropA(hWnd, "RESTRICTED");
     if (!v4 || (v5 = *v4) == 0)
     {
@@ -197,7 +205,9 @@ void __fastcall DiabEdit_RestrictAndLimit(HWND hWnd, WPARAM wParam, LPARAM lPara
     {
         v5 = *++v4;
         if (!*v4)
+        {
             goto LABEL_9;
+        }
     }
 }
 
@@ -265,5 +275,7 @@ void __fastcall DiabEdit_RemoveAllProps(HWND hWnd)
     RemovePropA(hWnd, "CURSOR");
     v2 = RemovePropA(hWnd, "RESTRICTED");
     if (v2)
+    {
         SMemFree(v2, "C:\\Src\\Diablo\\DiabloUI\\DiabEdit.cpp", 200, 0);
+    }
 }

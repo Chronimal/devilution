@@ -75,7 +75,9 @@ BOOL __fastcall local_LoadArtImage(const char* pszFileName, BYTE** pBuffer, DWOR
 
     *pBuffer = 0;
     if (!SBmpLoadImage(pszFileName, 0, 0, 0, &dwWidth, &dwHeight, 0))
+    {
         return 0;
+    }
     v4 = (BYTE*)SMemAlloc(dwHeight * dwWidth, "C:\\Src\\Diablo\\DiabloUI\\local.cpp", 93, 0);
     v5 = dwWidth;
     *pBuffer = v4;
@@ -94,16 +96,7 @@ BOOL __fastcall local_LoadArtImage(const char* pszFileName, BYTE** pBuffer, DWOR
 }
 
 // ref: 0x10007944
-BOOL __fastcall local_LoadArtWithPal(
-    HWND hWnd,
-    int a2,
-    const char* src,
-    int mask,
-    int flags,
-    const char* pszFileName,
-    BYTE** pBuffer,
-    DWORD* pdwSize,
-    BOOL a9)
+BOOL __fastcall local_LoadArtWithPal(HWND hWnd, int a2, const char* src, int mask, int flags, const char* pszFileName, BYTE** pBuffer, DWORD* pdwSize, BOOL a9)
 {
     BYTE* v10;                        // eax
     DWORD v11;                        // ST18_4
@@ -113,12 +106,13 @@ BOOL __fastcall local_LoadArtWithPal(
     DWORD dwHeight;                   // [esp+414h] [ebp-4h]
 
     if (!SBmpLoadImage(pszFileName, 0, 0, 0, &pdwWidth, &dwHeight, 0))
+    {
         return 0;
+    }
     v10 = (BYTE*)SMemAlloc(dwHeight * pdwWidth, "C:\\Src\\Diablo\\DiabloUI\\local.cpp", 129, 0);
     v11 = dwHeight * pdwWidth;
     *pBuffer = v10;
-    if (!SBmpLoadImage(pszFileName, pPalEntries, v10, v11, 0, 0, 0) ||
-        !SDlgSetBitmapI(hWnd, a2, src, mask, flags, *pBuffer, 0, pdwWidth, dwHeight, -1))
+    if (!SBmpLoadImage(pszFileName, pPalEntries, v10, v11, 0, 0, 0) || !SDlgSetBitmapI(hWnd, a2, src, mask, flags, *pBuffer, 0, pdwWidth, dwHeight, -1))
     {
         return 0;
     }
@@ -250,10 +244,8 @@ BOOL __fastcall local_GetBottomRect(HWND hWnd1, HWND hWnd2, int width, int heigh
     BOOL result;         // eax
     struct tagRECT Rect; // [esp+4h] [ebp-10h]
 
-    if (hWnd1 && hWnd2 &&
-        (GetWindowRect(hWnd2, &Rect), ScreenToClient(hWnd1, (LPPOINT)&Rect),
-         ScreenToClient(hWnd1, (LPPOINT)&Rect.right), width >= Rect.left) &&
-        width < Rect.right && height >= Rect.top)
+    if (hWnd1 && hWnd2 && (GetWindowRect(hWnd2, &Rect), ScreenToClient(hWnd1, (LPPOINT)&Rect), ScreenToClient(hWnd1, (LPPOINT)&Rect.right), width >= Rect.left) && width < Rect.right &&
+        height >= Rect.top)
     {
         result = height < Rect.bottom;
     }
@@ -315,7 +307,9 @@ LRESULT __stdcall local_PostUiWndProc(HWND hWnd, UINT uMsg, WPARAM wParam, LPARA
         case 2u:
             RemovePropA(hWnd, "UIWNDPROC");
             if (!v4)
+            {
                 return DefWindowProcA(hWnd, uMsg, wParam, lParam);
+            }
             SetWindowLongA(hWnd, -4, (LONG)v4);
             goto LABEL_21;
         case 0xFu:
@@ -325,7 +319,9 @@ LRESULT __stdcall local_PostUiWndProc(HWND hWnd, UINT uMsg, WPARAM wParam, LPARA
             return 4;
     }
     if (uMsg != 256)
+    {
         goto LABEL_21;
+    }
     switch (wParam)
     {
         case 0xDu:
@@ -342,7 +338,9 @@ LRESULT __stdcall local_PostUiWndProc(HWND hWnd, UINT uMsg, WPARAM wParam, LPARA
             goto LABEL_15;
     }
     if (wParam <= 0x24)
+    {
         goto LABEL_21;
+    }
     if (wParam <= 0x26)
     {
         v10 = 1;
@@ -350,7 +348,9 @@ LRESULT __stdcall local_PostUiWndProc(HWND hWnd, UINT uMsg, WPARAM wParam, LPARA
     else
     {
         if (wParam > 0x28)
+        {
             goto LABEL_21;
+        }
         v10 = 0;
     }
     v5 = GetParent(hWnd);
@@ -358,7 +358,9 @@ LRESULT __stdcall local_PostUiWndProc(HWND hWnd, UINT uMsg, WPARAM wParam, LPARA
     SetFocus(v6);
 LABEL_21:
     if (v4)
+    {
         return CallWindowProcA(v4, hWnd, uMsg, wParam, lParam);
+    }
     return DefWindowProcA(hWnd, uMsg, wParam, lParam);
 }
 
@@ -401,7 +403,9 @@ LRESULT __stdcall local_PostUiWndProc2(HWND hWnd, UINT uMsg, WPARAM wParam, LPAR
         case 2u:
             RemovePropA(hWnd, "UIWNDPROC");
             if (!v4)
+            {
                 return DefWindowProcA(hWnd, uMsg, wParam, lParam);
+            }
             SetWindowLongA(hWnd, -4, (LONG)v4);
             break;
         case 0xFu:
@@ -420,7 +424,9 @@ LRESULT __stdcall local_PostUiWndProc2(HWND hWnd, UINT uMsg, WPARAM wParam, LPAR
             return 0;
     }
     if (v4)
+    {
         return CallWindowProcA(v4, hWnd, uMsg, wParam, lParam);
+    }
     return DefWindowProcA(hWnd, uMsg, wParam, lParam);
 }
 
@@ -433,7 +439,9 @@ BOOL __fastcall local_DisableKeyWaitMouse(HWND hWnd)
     do
     {
         while (PeekMessageA(&Msg, hWnd, 0x100u, 0x108u, 1u))
+        {
             ;
+        }
         result = PeekMessageA(&Msg, hWnd, 0x200u, 0x209u, 1u);
     } while (result);
     return result;
@@ -462,7 +470,9 @@ void __fastcall local_FreeMemPtr(void** p)
     if (p)
     {
         if (*p)
+        {
             SMemFree(*p, "C:\\Src\\Diablo\\DiabloUI\\local.cpp", 498, 0);
+        }
         SMemFree(p, "C:\\Src\\Diablo\\DiabloUI\\local.cpp", 499, 0);
     }
 }
@@ -521,9 +531,13 @@ void __cdecl local_InitArtCursor()
             {
                 v3 = *v1++;
                 if (v3)
+                {
                     *v0 = 0;
+                }
                 else
+                {
                     *v0 = -1;
+                }
                 ++v0;
             }
         }
@@ -549,7 +563,9 @@ void __cdecl local_FreeArtCursor()
 void __cdecl local_SetCursorArt()
 {
     if (!gpCursorArt)
+    {
         local_LoadArtCursor();
+    }
     SDlgSetSystemCursor(gpCursorArt2, gpCursorArt, (int*)gdwCursData, 32512);
 }
 // 1001044E: using guessed type int __stdcall SDlgSetSystemCursor(DWORD, DWORD, DWORD, DWORD);

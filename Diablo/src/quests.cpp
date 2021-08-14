@@ -120,7 +120,9 @@ void InitQuests()
     for (z = 0; z < MAXQUESTS; z++)
     {
         if (gbMaxPlayers > 1 && !(questlist[z]._qflags & QUEST_ANY))
+        {
             continue;
+        }
         quests[z]._qtype = questlist[z]._qdtype;
         if (gbMaxPlayers > 1)
         {
@@ -154,9 +156,13 @@ void InitQuests()
     {
         SetRndSeed(glSeedTbl[15]);
         if (random_(0, 2) != 0)
+        {
             quests[Q_PWATER]._qactive = QUEST_NOTAVAIL;
+        }
         else
+        {
             quests[Q_SKELKING]._qactive = QUEST_NOTAVAIL;
+        }
 
         quests[QuestGroup1[random_(0, sizeof(QuestGroup1) / sizeof(int))]]._qactive = QUEST_NOTAVAIL;
         quests[QuestGroup2[random_(0, sizeof(QuestGroup2) / sizeof(int))]]._qactive = QUEST_NOTAVAIL;
@@ -165,7 +171,9 @@ void InitQuests()
     }
 #ifdef _DEBUG
     if (questdebug != -1)
+    {
         quests[questdebug]._qactive = QUEST_ACTIVE;
+    }
 #endif
 
 #ifdef SPAWN
@@ -176,12 +184,18 @@ void InitQuests()
 #endif
 
     if (quests[Q_SKELKING]._qactive == QUEST_NOTAVAIL)
+    {
         quests[Q_SKELKING]._qvar2 = 2;
+    }
     if (quests[Q_ROCK]._qactive == QUEST_NOTAVAIL)
+    {
         quests[Q_ROCK]._qvar2 = 2;
+    }
     quests[Q_LTBANNER]._qvar1 = 1;
     if (gbMaxPlayers != 1)
+    {
         quests[Q_BETRAYER]._qvar1 = 2;
+    }
 }
 
 void CheckQuests()
@@ -295,13 +309,21 @@ BOOL ForceQuests()
 BOOL QuestStatus(int i)
 {
     if (setlevel)
+    {
         return FALSE;
+    }
     if (currlevel != quests[i]._qlevel)
+    {
         return FALSE;
+    }
     if (quests[i]._qactive == QUEST_NOTAVAIL)
+    {
         return FALSE;
+    }
     if (gbMaxPlayers != 1 && !(questlist[i]._qflags & QUEST_ANY))
+    {
         return FALSE;
+    }
     return TRUE;
 }
 
@@ -341,7 +363,9 @@ void CheckQuestKill(int m, BOOL sendmsg)
         }
 #endif
         if (sendmsg)
+        {
             NetSendCmdQuest(TRUE, Q_SKELKING);
+        }
     }
     else if (monster[m].MType->mtype == MT_CLEAVER)
     {
@@ -374,7 +398,9 @@ void CheckQuestKill(int m, BOOL sendmsg)
         }
 #endif
         if (sendmsg)
+        {
             NetSendCmdQuest(TRUE, Q_BUTCHER);
+        }
     }
     else if (monster[m].mName == UniqMonst[UMT_GARBUD].mName)
     { //"Gharbad the Weak"
@@ -807,7 +833,9 @@ void SetReturnLvlPos()
 void GetReturnLvlPos()
 {
     if (quests[Q_BETRAYER]._qactive == QUEST_DONE)
+    {
         quests[Q_BETRAYER]._qvar2 = 2;
+    }
     ViewX = ReturnLvlX;
     ViewY = ReturnLvlY;
     currlevel = ReturnLvl;
@@ -833,7 +861,9 @@ void ResyncMPQuests()
         NetSendCmdQuest(TRUE, Q_BETRAYER);
     }
     if (QuestStatus(Q_BETRAYER))
+    {
         AddObject(OBJ_ALTBOY, 2 * setpc_x + 20, 2 * setpc_y + 22);
+    }
 #ifdef HELLFIRE
     if (quests[Q_GRAVE]._qactive == QUEST_INIT && currlevel == quests[Q_GRAVE]._qlevel - 1)
     {
@@ -868,24 +898,34 @@ void ResyncQuests()
     {
 
         if (quests[Q_PWATER]._qactive == QUEST_DONE)
+        {
             LoadPalette("Levels\\L3Data\\L3pwater.pal");
+        }
         else
+        {
             LoadPalette("Levels\\L3Data\\L3pfoul.pal");
+        }
 
         for (i = 0; i <= 32; i++)
+        {
             palette_update_quest_palette(i);
+        }
     }
 
     if (QuestStatus(Q_LTBANNER))
     {
         if (quests[Q_LTBANNER]._qvar1 == 1)
+        {
             ObjChangeMapResync(setpc_w + setpc_x - 2, setpc_h + setpc_y - 2, setpc_w + setpc_x + 1, setpc_h + setpc_y + 1);
+        }
         if (quests[Q_LTBANNER]._qvar1 == 2)
         {
             ObjChangeMapResync(setpc_w + setpc_x - 2, setpc_h + setpc_y - 2, setpc_w + setpc_x + 1, setpc_h + setpc_y + 1);
             ObjChangeMapResync(setpc_x, setpc_y, (setpc_w >> 1) + setpc_x + 2, (setpc_h >> 1) + setpc_y - 2);
             for (i = 0; i < nobjects; i++)
+            {
                 SyncObjectAnim(objectactive[i]);
+            }
             tren = TransVal;
             TransVal = 9;
             DRLG_MRectTrans(setpc_x, setpc_y, (setpc_w >> 1) + setpc_x + 4, setpc_y + (setpc_h >> 1));
@@ -897,7 +937,9 @@ void ResyncQuests()
             y = setpc_y;
             ObjChangeMapResync(x, y, x + setpc_w + 1, y + setpc_h + 1);
             for (i = 0; i < nobjects; i++)
+            {
                 SyncObjectAnim(objectactive[i]);
+            }
             tren = TransVal;
             TransVal = 9;
             DRLG_MRectTrans(setpc_x, setpc_y, (setpc_w >> 1) + setpc_x + 4, setpc_y + (setpc_h >> 1));
@@ -935,13 +977,21 @@ void ResyncQuests()
     if (setlevel && setlvlnum == SL_VILEBETRAYER)
     {
         if (quests[Q_BETRAYER]._qvar1 >= 4)
+        {
             ObjChangeMapResync(1, 11, 20, 18);
+        }
         if (quests[Q_BETRAYER]._qvar1 >= 6)
+        {
             ObjChangeMapResync(1, 18, 20, 24);
+        }
         if (quests[Q_BETRAYER]._qvar1 >= 7)
+        {
             InitVPTriggers();
+        }
         for (i = 0; i < nobjects; i++)
+        {
             SyncObjectAnim(objectactive[i]);
+        }
     }
     if (currlevel == quests[Q_BETRAYER]._qlevel && !setlevel && (quests[Q_BETRAYER]._qvar2 == 1 || quests[Q_BETRAYER]._qvar2 >= 3) &&
         (quests[Q_BETRAYER]._qactive == QUEST_ACTIVE || quests[Q_BETRAYER]._qactive == QUEST_DONE))
@@ -964,9 +1014,13 @@ void PrintQLString(int x, int y, BOOL cjustflag, const char* str, int col)
     {
         width = 0;
         for (i = 0; i < len; i++)
+        {
             width += fontkern[fontframe[gbFontTransTbl[(BYTE)str[i]]]] + 1;
+        }
         if (width < 257)
+        {
             k = (257 - width) >> 1;
+        }
         off += k;
     }
     if (qline == y)
@@ -1028,7 +1082,9 @@ void StartQuestlog()
     }
     qline = 22;
     if (numqlines != 0)
+    {
         qline = qtopline;
+    }
     questlog = TRUE;
     questpentframe = 1;
 }
@@ -1077,7 +1133,9 @@ void QuestlogEnter()
 {
     PlaySFX(IS_TITLSLCT);
     if (numqlines && qline != 22)
+    {
         InitQTextMsg(quests[qlist[(qline - qtopline) >> 1]]._qmsg);
+    }
     questlog = FALSE;
 }
 
@@ -1110,10 +1168,14 @@ void SetMultiQuest(int q, int s, int l, int v1)
     if (quests[q]._qactive != QUEST_DONE)
     {
         if (s > quests[q]._qactive)
+        {
             quests[q]._qactive = s;
+        }
         quests[q]._qlog |= l;
         if (v1 > quests[q]._qvar1)
+        {
             quests[q]._qvar1 = v1;
+        }
     }
 #endif
 }

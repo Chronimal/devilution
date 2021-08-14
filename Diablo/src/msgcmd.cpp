@@ -75,7 +75,9 @@ void msgcmd_send_chat()
 BOOL msgcmd_add_server_cmd_W(const char* chat_message)
 {
     if (chat_message[0] != '/')
+    {
         return FALSE;
+    }
     msgcmd_add_server_cmd(chat_message);
     return TRUE;
 }

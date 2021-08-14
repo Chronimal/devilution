@@ -22,7 +22,9 @@ void InitPortals()
     for (i = 0; i < MAXPORTAL; i++)
     {
         if (delta_portal_inited(i))
+        {
             portal[i].open = FALSE;
+        }
     }
 }
 
@@ -49,7 +51,9 @@ void AddWarpMissile(int i, int x, int y)
         SetMissDir(mi, 1);
 
         if (currlevel != 0)
+        {
             missile[mi]._mlid = AddLight(missile[mi]._mix, missile[mi]._miy, 15);
+        }
 
         missiledata[MIS_TOWN].mlSFX = LS_SENTINEL;
     }
@@ -62,16 +66,24 @@ void SyncPortals()
     for (i = 0; i < MAXPORTAL; i++)
     {
         if (!portal[i].open)
+        {
             continue;
+        }
         if (currlevel == 0)
+        {
             AddWarpMissile(i, WarpDropX[i], WarpDropY[i]);
+        }
         else
         {
             int lvl = currlevel;
             if (setlevel)
+            {
                 lvl = setlvlnum;
+            }
             if (portal[i].level == lvl)
+            {
                 AddWarpMissile(i, portal[i].x, portal[i].y);
+            }
         }
     }
 }
@@ -103,9 +115,13 @@ void DeactivatePortal(int i)
 BOOL PortalOnLevel(int i)
 {
     if (portal[i].level == currlevel)
+    {
         return TRUE;
+    }
     else
+    {
         return currlevel == 0;
+    }
 }
 
 void RemovePortalMissile(int id)
@@ -122,7 +138,9 @@ void RemovePortalMissile(int id)
             dMissile[missile[mi]._mix][missile[mi]._miy] = 0;
 
             if (portal[id].level != 0)
+            {
                 AddUnLight(missile[mi]._mlid);
+            }
 
             DeleteMissile(mi, i);
         }
@@ -195,7 +213,9 @@ BOOL PosOkPortal(int lvl, int x, int y)
     for (i = 0; i < MAXPORTAL; i++)
     {
         if (portal[i].open && portal[i].level == lvl && ((portal[i].x == x && portal[i].y == y) || (portal[i].x == x - 1 && portal[i].y == y - 1)))
+        {
             return TRUE;
+        }
     }
     return FALSE;
 }

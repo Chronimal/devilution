@@ -58,7 +58,9 @@ static void SortBuffer(TCmpStruct* pWork, unsigned char* buffer_begin, unsigned 
     //  ...
     //  offs 0x8F7: Number of occurrences of PAIR_HASH 0x8F7 (the highest hash value)
     for (buffer_ptr = buffer_begin; buffer_ptr < buffer_end; buffer_ptr++)
+    {
         pWork->phash_to_index[BYTE_PAIR_HASH(buffer_ptr)]++;
+    }
 
     // Step 2: Convert the table to the array of PAIR_HASH amounts.
     // Each element contains count of PAIR_HASHes that is less or equal
@@ -101,9 +103,13 @@ static void FlushBuf(TCmpStruct* pWork)
     memset(pWork->out_buff, 0, sizeof(pWork->out_buff));
 
     if (pWork->out_bytes != 0)
+    {
         pWork->out_buff[0] = save_ch1;
+    }
     if (pWork->out_bits != 0)
+    {
         pWork->out_buff[pWork->out_bytes] = save_ch2;
+    }
 }
 
 static void OutputBits(TCmpStruct* pWork, unsigned int nbits, unsigned long bit_buff)
@@ -136,12 +142,16 @@ static void OutputBits(TCmpStruct* pWork, unsigned int nbits, unsigned long bit_
     {
         pWork->out_bits &= 7;
         if (pWork->out_bits == 0)
+        {
             pWork->out_bytes++;
+        }
     }
 
     // If there is enough compressed bytes, flush them
     if (pWork->out_bytes >= 0x800)
+    {
         FlushBuf(pWork);
+    }
 }
 
 // This function searches for a repetition
@@ -191,7 +201,9 @@ static unsigned int FindRep(TCmpStruct* pWork, unsigned char* input_data)
     // If the current PAIR_HASH was not encountered before,
     // we haven't found a repetition.
     if (prev_repetition >= repetition_limit)
+    {
         return 0;
+    }
 
     // We have found a match of a PAIR_HASH. Now we have to make sure
     // that it is also a byte match, because PAIR_HASH is not unique.
@@ -216,7 +228,9 @@ static unsigned int FindRep(TCmpStruct* pWork, unsigned char* input_data)
 
                 // Are the bytes different ?
                 if (*prev_repetition != *input_data_ptr)
+                {
                     break;
+                }
 
                 equal_byte_count++;
             }
@@ -235,7 +249,9 @@ static unsigned int FindRep(TCmpStruct* pWork, unsigned char* input_data)
                 // Repetitions longer than 10 bytes will be stored in more bits,
                 // so they need a bit different handling
                 if ((rep_length = equal_byte_count) > 10)
+                {
                     break;
+                }
             }
         }
 
@@ -263,7 +279,9 @@ static unsigned int FindRep(TCmpStruct* pWork, unsigned char* input_data)
     // Check for possibility of a repetition that occurs at more recent position
     phash_offs = pWork->phash_offs + phash_offs_index;
     if (pWork->work_buff + phash_offs[1] >= repetition_limit)
+    {
         return rep_length;
+    }
 
     //
     // The following part checks if there isn't a longer repetition at
@@ -304,7 +322,9 @@ static unsigned int FindRep(TCmpStruct* pWork, unsigned char* input_data)
         {
             di_val = pWork->offs09BC[di_val];
             if (di_val != 0xFFFF)
+            {
                 continue;
+            }
         }
         pWork->offs09BC[++offs_in_rep] = ++di_val;
     }
@@ -323,7 +343,9 @@ static unsigned int FindRep(TCmpStruct* pWork, unsigned char* input_data)
     {
         rep_length2 = pWork->offs09BC[rep_length2];
         if (rep_length2 == 0xFFFF)
+        {
             rep_length2 = 0;
+        }
 
         // Get the pointer to the previous repetition
         phash_offs = pWork->phash_offs + phash_offs_index;
@@ -336,7 +358,9 @@ static unsigned int FindRep(TCmpStruct* pWork, unsigned char* input_data)
             phash_offs_index++;
             prev_repetition = pWork->work_buff + *phash_offs;
             if (prev_repetition >= repetition_limit)
+            {
                 return rep_length;
+            }
         } while (prev_repetition + rep_length2 < prev_rep_end);
 
         // Verify if the last but one byte from the repetition matches
@@ -362,7 +386,9 @@ static unsigned int FindRep(TCmpStruct* pWork, unsigned char* input_data)
                 phash_offs_index++;
                 prev_repetition = pWork->work_buff + *phash_offs;
                 if (prev_repetition >= repetition_limit)
+                {
                     return rep_length;
+                }
             } while (prev_repetition[rep_length - 2] != pre_last_byte || prev_repetition[0] != input_data[0]);
 
             // Reset the length of the repetition to 2 bytes only
@@ -374,7 +400,9 @@ static unsigned int FindRep(TCmpStruct* pWork, unsigned char* input_data)
         while (*prev_rep_end == input_data[rep_length2])
         {
             if (++rep_length2 >= 0x204)
+            {
                 break;
+            }
             prev_rep_end++;
         }
 
@@ -384,7 +412,9 @@ static unsigned int FindRep(TCmpStruct* pWork, unsigned char* input_data)
             // Calculate the distance of the new repetition
             pWork->distance = (unsigned int)(input_data - prev_repetition - 1);
             if ((rep_length = rep_length2) == 0x204)
+            {
                 return rep_length;
+            }
 
             // Update the additional elements in the "offs09BC" table
             // to reflect new rep length
@@ -394,7 +424,9 @@ static unsigned int FindRep(TCmpStruct* pWork, unsigned char* input_data)
                 {
                     di_val = pWork->offs09BC[di_val];
                     if (di_val != 0xFFFF)
+                    {
                         continue;
+                    }
                 }
                 pWork->offs09BC[++offs_in_rep] = ++di_val;
             }
@@ -430,12 +462,13 @@ static void WriteCmpData(TCmpStruct* pWork)
         // Load the bytes from the input stream, up to 0x1000 bytes
         while (bytes_to_load != 0)
         {
-            bytes_loaded = pWork->read_buf(
-                (char*)pWork->work_buff + pWork->dsize_bytes + 0x204 + total_loaded, &bytes_to_load, pWork->param);
+            bytes_loaded = pWork->read_buf((char*)pWork->work_buff + pWork->dsize_bytes + 0x204 + total_loaded, &bytes_to_load, pWork->param);
             if (bytes_loaded == 0)
             {
                 if (total_loaded == 0 && phase == 0)
+                {
                     goto __Exit;
+                }
                 input_data_ended = 1;
                 break;
             }
@@ -448,7 +481,9 @@ static void WriteCmpData(TCmpStruct* pWork)
 
         input_data_end = pWork->work_buff + pWork->dsize_bytes + total_loaded;
         if (input_data_ended)
+        {
             input_data_end += 0x204;
+        }
 
         //
         // Warning: The end of the buffer passed to "SortBuffer" is actually 2 bytes beyond
@@ -467,7 +502,9 @@ static void WriteCmpData(TCmpStruct* pWork)
                 SortBuffer(pWork, input_data, input_data_end + 1);
                 phase++;
                 if (pWork->dsize_bytes != 0x1000)
+                {
                     phase++;
+                }
                 break;
 
             case 1:
@@ -491,7 +528,9 @@ static void WriteCmpData(TCmpStruct* pWork)
                 // don't bother. Storing the distance of 0x100 bytes would actually
                 // take more space than storing the 2 bytes as-is.
                 if (rep_length == 2 && pWork->distance >= 0x100)
+                {
                     break;
+                }
 
                 // When we are at the end of the input data, we cannot allow
                 // the repetition to go past the end of the input data.
@@ -500,16 +539,22 @@ static void WriteCmpData(TCmpStruct* pWork)
                     // Shorten the repetition length so that it only covers valid data
                     rep_length = (unsigned long)(input_data_end - input_data);
                     if (rep_length < 2)
+                    {
                         break;
+                    }
 
                     // If we got repetition of 2 bytes, that is 0x100 or more backward, don't bother
                     if (rep_length == 2 && pWork->distance >= 0x100)
+                    {
                         break;
+                    }
                     goto __FlushRepetition;
                 }
 
                 if (rep_length >= 8 || input_data + 1 >= input_data_end)
+                {
                     goto __FlushRepetition;
+                }
 
                 // Try to find better repetition 1 byte later.
                 // Example: "ARROCKFORT" "AROCKFORT"
@@ -548,9 +593,7 @@ static void WriteCmpData(TCmpStruct* pWork)
                 }
                 else
                 {
-                    OutputBits(
-                        pWork, pWork->dist_bits[pWork->distance >> pWork->dsize_bits],
-                        pWork->dist_codes[pWork->distance >> pWork->dsize_bits]);
+                    OutputBits(pWork, pWork->dist_bits[pWork->distance >> pWork->dsize_bits], pWork->dist_codes[pWork->distance >> pWork->dsize_bits]);
                     OutputBits(pWork, pWork->dsize_bits, pWork->dsize_mask & pWork->distance);
                 }
 
@@ -578,7 +621,9 @@ __Exit:
     // Write the termination literal
     OutputBits(pWork, pWork->nChBits[0x305], pWork->nChCodes[0x305]);
     if (pWork->out_bits != 0)
+    {
         pWork->out_bytes++;
+    }
     pWork->write_buf(pWork->out_buff, &pWork->out_bytes, pWork->param);
     return;
 }
@@ -659,8 +704,7 @@ unsigned int PKEXPORT implode(
         for (nCount2 = 0; nCount2 < (1 << ExLenBits[i]); nCount2++)
         {
             pWork->nChBits[nCount] = (unsigned char)(ExLenBits[i] + LenBits[i] + 1);
-            pWork->nChCodes[nCount] =
-                (unsigned short)((nCount2 << (LenBits[i] + 1)) | ((LenCode[i] & 0xFFFF00FF) * 2) | 1);
+            pWork->nChCodes[nCount] = (unsigned short)((nCount2 << (LenBits[i] + 1)) | ((LenCode[i] & 0xFFFF00FF) * 2) | 1);
             nCount++;
         }
     }

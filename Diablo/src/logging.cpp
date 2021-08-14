@@ -38,7 +38,9 @@ static void log_get_version(VS_FIXEDFILEINFO* file_info)
             {
                 len = puLen;
                 if (puLen >= 52)
+                {
                     len = 52;
+                }
                 memcpy(file_info, lpBuffer, len);
             }
             VirtualFree(version, 0, MEM_RELEASE);
@@ -58,18 +60,26 @@ static HANDLE log_create()
     {
         char filename_tmp[MAX_PATH];
         if (GetModuleFileName(NULL, filename_tmp, sizeof filename_tmp) == 0)
+        {
             filename_tmp[0] = '\0';
+        }
         else
         {
             last_slash_pos = strrchr(filename_tmp, '\\');
             if (last_slash_pos == NULL)
+            {
                 filename_tmp[0] = '\0';
+            }
             else
+            {
                 *(last_slash_pos + 1) = '\0';
+            }
         }
         i = 32;
         if (!GetUserName(buf, &i))
+        {
             buf[0] = '\0';
+        }
         log_get_version(&file_info);
         _snprintf(
             FileName, sizeof(filename_tmp), "%s%s%02u%02u%02u.ERR", filename_tmp, buf, file_info.dwProductVersionMS & 0xFFFF, file_info.dwProductVersionLS >> 16,
@@ -82,12 +92,16 @@ static HANDLE log_create()
         if (fh != INVALID_HANDLE_VALUE)
         {
             if (GetFileSize(fh, NULL) > 0x10000)
+            {
                 SetEndOfFile(fh);
+            }
             break;
         }
         last_slash_pos = strrchr(FileName, '\\');
         if (!last_slash_pos)
+        {
             last_slash_pos = FileName;
+        }
         char filename_tmp[MAX_PATH] = "c:\\";
         strcat(filename_tmp, last_slash_pos);
         strcpy(FileName, filename_tmp);
@@ -178,7 +192,9 @@ void log_dump_computer_info()
     GetLocalTime(&SystemTime);
     pcbBuffer = 64;
     if (!GetUserName(Buffer, &pcbBuffer))
+    {
         Buffer[0] = 0;
+    }
     log_get_version(&file_info);
     log_printf(
         "\r\n"

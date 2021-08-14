@@ -471,7 +471,9 @@ const char* GetErrorStr(DWORD error_code)
         chr--;
 
         if (*chr != '\r' && *chr != '\n')
+        {
             break;
+        }
 
         *chr = 0x00;
     }
@@ -498,7 +500,9 @@ static void MsgBox(const char* pszFmt, va_list va)
 
     wvsprintf(Text, pszFmt, va);
     if (ghMainWnd)
+    {
         SetWindowPos(ghMainWnd, HWND_NOTOPMOST, 0, 0, 0, 0, SWP_NOACTIVATE | SWP_NOMOVE | SWP_NOSIZE);
+    }
     MessageBox(ghMainWnd, Text, "ERROR", MB_TASKMODAL | MB_ICONHAND);
 }
 
@@ -508,7 +512,9 @@ static void MsgBox(const char* pszFmt, va_list va)
 static void FreeDlg()
 {
     if (terminating && cleanup_thread_id != GetCurrentThreadId())
+    {
         Sleep(20000);
+    }
 
     terminating = TRUE;
     cleanup_thread_id = GetCurrentThreadId();
@@ -518,7 +524,9 @@ static void FreeDlg()
     if (gbMaxPlayers > 1)
     {
         if (SNetLeaveGame(3))
+        {
             Sleep(2000);
+        }
     }
 
     SNetDestroy();
@@ -544,7 +552,9 @@ __declspec(naked)
 #endif
 
     if (pszFmt)
+    {
         MsgBox(pszFmt, va);
+    }
 
     va_end(va);
 
@@ -642,7 +652,9 @@ static void TextDlg(HWND hDlg, const char* text)
     center_window(hDlg);
 
     if (text)
+    {
         SetDlgItemText(hDlg, 1000, text);
+    }
 }
 
 /**
@@ -684,11 +696,15 @@ void ErrDlg(int dialog_id, DWORD error_code, const char* log_file_path, int log_
 
     size = strrchr(log_file_path, '\\');
     if (size)
+    {
         log_file_path = size + 1;
+    }
 
     wsprintf((LPSTR)dwInitParam, "%s\nat: %s line %d", GetErrorStr(error_code), log_file_path, log_line_nr);
     if (DialogBoxParam(ghInst, MAKEINTRESOURCE(dialog_id), ghMainWnd, (DLGPROC)FuncDlg, (LPARAM)dwInitParam) == -1)
+    {
         app_fatal("ErrDlg: %d", dialog_id);
+    }
 
     app_fatal(NULL);
 }
@@ -704,7 +720,9 @@ void ErrOkDlg(int dialog_id, DWORD error_code, const char* log_file_path, int lo
 
     size = strrchr(log_file_path, '\\');
     if (size)
+    {
         log_file_path = size + 1;
+    }
 
     wsprintf((LPSTR)dwInitParam, "%s\nat: %s line %d", GetErrorStr(error_code), log_file_path, log_line_nr);
     DialogBoxParam(ghInst, MAKEINTRESOURCE(dialog_id), ghMainWnd, (DLGPROC)FuncDlg, (LPARAM)dwInitParam);
@@ -719,10 +737,14 @@ void FileErrDlg(const char* error)
     FreeDlg();
 
     if (!error)
+    {
         error = "";
+    }
 
     if (DialogBoxParam(ghInst, MAKEINTRESOURCE(IDD_DIALOG3), ghMainWnd, (DLGPROC)FuncDlg, (LPARAM)error) == -1)
+    {
         app_fatal("FileErrDlg");
+    }
 
     app_fatal(NULL);
 }
@@ -735,7 +757,9 @@ void DiskFreeDlg(const char* error)
     FreeDlg();
 
     if (DialogBoxParam(ghInst, MAKEINTRESOURCE(IDD_DIALOG7), ghMainWnd, (DLGPROC)FuncDlg, (LPARAM)error) == -1)
+    {
         app_fatal("DiskFreeDlg");
+    }
 
     app_fatal(NULL);
 }
@@ -751,7 +775,9 @@ BOOL InsertCDDlg()
 
     nResult = DialogBoxParam(ghInst, MAKEINTRESOURCE(IDD_DIALOG9), ghMainWnd, (DLGPROC)FuncDlg, (LPARAM) "");
     if (nResult == -1)
+    {
         app_fatal("InsertCDDlg");
+    }
 
     ShowCursor(FALSE);
 
@@ -767,7 +793,9 @@ void DirErrorDlg(const char* error)
     FreeDlg();
 
     if (DialogBoxParam(ghInst, MAKEINTRESOURCE(IDD_DIALOG11), ghMainWnd, (DLGPROC)FuncDlg, (LPARAM)error) == -1)
+    {
         app_fatal("DirErrorDlg");
+    }
 
     app_fatal(NULL);
 }

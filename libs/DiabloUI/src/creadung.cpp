@@ -61,7 +61,9 @@ LRESULT __stdcall CreaDung_WndProc(HWND hWnd, UINT Msg, WPARAM wParam, LPARAM lP
                 if (Msg != 275)
                 {
                     if (Msg == 513)
+                    {
                         CreaDung_CheckDlgForSnd(hWnd, (unsigned short)lParam, (unsigned int)lParam >> 16);
+                    }
                     return (LRESULT)SDlgDefDialogProc(hWnd, Msg, (HDC)wParam, (HWND)lParam);
                 }
                 if (wParam == 1)
@@ -120,7 +122,9 @@ void __fastcall CreaDung_FreeDungProcs(HWND hWnd)
     v2 = (void**)GetWindowLongA(hWnd, -21);
     local_FreeMemPtr(v2);
     if (creadung_delspinners)
+    {
         Focus_DeleteSpinners();
+    }
 }
 // 100296CC: using guessed type int creadung_delspinners;
 
@@ -130,9 +134,13 @@ void __fastcall CreaDung_LoadDungGFX(HWND hWnd)
     DWORD* v2; // eax MAPDST
 
     if (creadung_delspinners)
+    {
         Focus_LoadSpinner("ui_art\\focus16.pcx");
+    }
     else
+    {
         Focus_ResetSpinToZero();
+    }
     SDlgSetTimer(hWnd, 1, 55, 0);
     v2 = local_AllocWndLongData();
     if (v2)
@@ -185,9 +193,13 @@ void __fastcall CreaDung_DoAllPlaySnd(HWND hWnd)
         v12 = (char)GetWindowLongA(v6, -12) - 70;
         Connect_SetDiffString((_gamedata*)&v11, (const char*)&v10, (char*)&v9, (char*)&v8, 128);
         if (UiAuthCallback(2, (char*)&v10, (char*)&v9, 0, (char*)&v8, (LPSTR)&v7, 256))
+        {
             CreaDung_DoSnetCreaGame(v5);
+        }
         else
+        {
             SelYesNo_SelOkDialog(v5, (char*)&v7, 0, 0);
+        }
     }
     else
     {
@@ -226,9 +238,7 @@ void __fastcall CreaDung_DoSnetCreaGame(HWND hWnd)
             *(BYTE*)(v3 + 4) = (char)GetWindowLongA(v1, -12) - 70;
             v2 = crea_somegamestruct;
         }
-        if (SNetCreateGame(
-                creadung_gamename, 0, a4, 0, (char*)v2[7], v2[8], *(DWORD*)(creadung_playername + 8), a2, 0,
-                creadung_playerID))
+        if (SNetCreateGame(creadung_gamename, 0, a4, 0, (char*)v2[7], v2[8], *(DWORD*)(creadung_playername + 8), a2, 0, creadung_playerID))
         {
             CreaDung_PlaySndAndKill(hWnd, 1);
         }
@@ -267,7 +277,9 @@ void __fastcall CreaDung_CheckDlgForSnd(HWND hWnd, int a2, int a3)
     {
         v7 = GetDlgItem(hWnd, 1054);
         if (local_GetBottomRect(hWnd, v7, a2, a3))
+        {
             CreaDung_PlaySndAndKill(hWnd, 2);
+        }
     }
 }
 

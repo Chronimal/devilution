@@ -41,7 +41,9 @@ static
             id->bCh = is->_iCharges;
             id->bMCh = is->_iMaxCharges;
             if (is->IDidx == IDI_GOLD)
+            {
                 id->wValue = is->_ivalue;
+            }
         }
     }
 }
@@ -91,7 +93,9 @@ void PackPlayer(PkPlayerStruct* pPack, int pnum, BOOL manashield)
         p[i - 37] = pPlayer->_pSplLvl[i];
 #else
     for (i = 0; i < MAX_SPELLS; i++)
+    {
         pPack->pSplLvl[i] = pPlayer->_pSplLvl[i];
+    }
 #endif
 
     pki = &pPack->InvBody[0];
@@ -115,7 +119,9 @@ void PackPlayer(PkPlayerStruct* pPack, int pnum, BOOL manashield)
     }
 
     for (i = 0; i < NUM_INV_GRID_ELEM; i++)
+    {
         pPack->InvGrid[i] = pPlayer->InvGrid[i];
+    }
 
     pPack->_pNumInv = pPlayer->_pNumInv;
     pki = &pPack->SpdList[0];
@@ -137,9 +143,13 @@ void PackPlayer(PkPlayerStruct* pPack, int pnum, BOOL manashield)
     pPack->pDiabloKillLevel = pPlayer->pDiabloKillLevel;
 
     if (gbMaxPlayers == 1 || manashield)
+    {
         pPack->pManaShield = pPlayer->pManaShield;
+    }
     else
+    {
         pPack->pManaShield = FALSE;
+    }
 #endif
 }
 
@@ -240,8 +250,12 @@ void UnPackPlayer(PkPlayerStruct* pPack, int pnum, BOOL killok)
     pPlayer->_pMaxHPBase = pPack->pMaxHPBase;
     pPlayer->_pHPBase = pPack->pHPBase;
     if (!killok)
+    {
         if ((int)(pPlayer->_pHPBase & 0xFFFFFFC0) < 64)
+        {
             pPlayer->_pHPBase = 64;
+        }
+    }
 
     pPlayer->_pMaxManaBase = pPack->pMaxManaBase;
     pPlayer->_pManaBase = pPack->pManaBase;
@@ -255,7 +269,9 @@ void UnPackPlayer(PkPlayerStruct* pPack, int pnum, BOOL killok)
         pPlayer->_pSplLvl[i] = p[i - 37];
 #else
     for (i = 0; i < MAX_SPELLS; i++)
+    {
         pPlayer->_pSplLvl[i] = pPack->pSplLvl[i];
+    }
 #endif
 
     pki = &pPack->InvBody[0];
@@ -279,7 +295,9 @@ void UnPackPlayer(PkPlayerStruct* pPack, int pnum, BOOL killok)
     }
 
     for (i = 0; i < NUM_INV_GRID_ELEM; i++)
+    {
         pPlayer->InvGrid[i] = pPack->InvGrid[i];
+    }
 
     pPlayer->_pNumInv = pPack->_pNumInv;
     VerifyGoldSeeds(pPlayer);
@@ -297,7 +315,9 @@ void UnPackPlayer(PkPlayerStruct* pPack, int pnum, BOOL killok)
     if (pnum == myplr)
     {
         for (i = 0; i < 20; i++)
+        {
             witchitem[i]._itype = ITYPE_NONE;
+        }
     }
 
     CalcPlrInv(pnum, FALSE);

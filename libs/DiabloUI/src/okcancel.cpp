@@ -13,9 +13,13 @@ BOOL __fastcall OkCancel_DrawString(HWND hWnd, char* str)
     HGDIOBJ h;           // [esp+2Ch] [ebp-8h]
 
     if (!str || !*str)
+    {
         goto LABEL_13;
+    }
     if (!hWnd)
+    {
         goto LABEL_14;
+    }
     GetClientRect(hWnd, &Rect);
     --Rect.right;
     --Rect.bottom;
@@ -25,18 +29,26 @@ BOOL __fastcall OkCancel_DrawString(HWND hWnd, char* str)
     v4 = (void*)SendMessageA(hWnd, 0x31u, 0, 0);
     h = SelectObject(v3, v4);
     if (!v3)
+    {
         goto LABEL_13;
+    }
     v5 = strlen(str);
     DrawTextA(v3, str, v5, &Rect, 0x410u);
     if (h)
+    {
         SelectObject(v3, h);
+    }
     ReleaseDC(hWnd, v3);
     if (Rect.bottom > v8 || Rect.right > v7)
+    {
     LABEL_14:
         result = 1;
+    }
     else
+    {
     LABEL_13:
         result = 0;
+    }
     return result;
 }
 
@@ -64,7 +76,9 @@ LRESULT __stdcall OkCancel_WndProc(HWND hWnd, UINT Msg, WPARAM wParam, LPARAM lP
         return (LRESULT)SDlgDefDialogProc(hWnd, Msg, (HDC)wParam, (HWND)lParam);
     }
     if (Msg <= 0x103)
+    {
         return (LRESULT)SDlgDefDialogProc(hWnd, Msg, (HDC)wParam, (HWND)lParam);
+    }
     if (Msg <= 0x105)
     {
         v9 = (HWND)SDrawGetFrameWindow(NULL);
@@ -113,7 +127,9 @@ LRESULT __stdcall OkCancel_WndProc(HWND hWnd, UINT Msg, WPARAM wParam, LPARAM lP
     }
     ShowCursor(TRUE);
     if (!OkCancel_LoadOkCancGFX(hWnd, (DWORD*)lParam))
+    {
         SDlgEndDialog(hWnd, (HANDLE)0xFF000000);
+    }
     return 1;
 }
 // 10010382: using guessed type DWORD __stdcall SDrawGetFrameWindow();
@@ -130,10 +146,14 @@ void __fastcall OkCancel_FreeDlgBmp(HWND hWnd)
     {
         v3 = *v1;
         if (v3)
+        {
             SMemFree(v3, "C:\\Src\\Diablo\\DiabloUI\\OkCancel.cpp", 48, 0);
+        }
         v4 = v1[1];
         if (v4)
+        {
             SMemFree(v4, "C:\\Src\\Diablo\\DiabloUI\\OkCancel.cpp", 50, 0);
+        }
         SMemFree(v1, "C:\\Src\\Diablo\\DiabloUI\\OkCancel.cpp", 51, 0);
     }
 }
@@ -168,7 +188,9 @@ BOOL __fastcall OkCancel_LoadOkCancGFX(HWND hWnd, DWORD* lParam)
         v3 = lParam[3] == 0;
         pszFileName = "ui_art\\lrpopup.pcx";
         if (v3)
+        {
             pszFileName = "ui_art\\lpopup.pcx";
+        }
     }
     else if (lParam[3])
     {
@@ -193,7 +215,9 @@ BOOL __fastcall OkCancel_LoadOkCancGFX(HWND hWnd, DWORD* lParam)
     }
     v7 = GetParent(hWnd);
     if ((HWND)SDrawGetFrameWindow(NULL) == v7)
+    {
         Fade_SetInputWindow(hWnd);
+    }
     v8 = pBuffer + 1;
     local_LoadArtImage("ui_art\\but_sml.pcx", pBuffer + 1, data);
     local_FitButtonDlg(hWnd, &a2a, *v8, data);
@@ -202,15 +226,21 @@ BOOL __fastcall OkCancel_LoadOkCancGFX(HWND hWnd, DWORD* lParam)
     pBuffer = (BYTE**)v9;
     SetWindowTextA(v9, v10);
     if (lParam[4] && OkCancel_DrawString((HWND)pBuffer, (char*)lParam[1]))
+    {
         return 0;
+    }
     if (*lParam)
     {
         v11 = GetDlgItem(hWnd, 1038);
         v12 = v11;
         if (lParam[4] && OkCancel_DrawString(v11, (char*)*lParam))
+        {
             return 0;
+        }
         if (v12)
+        {
             SetWindowTextA(v12, (LPCSTR)*lParam);
+        }
     }
     return 1;
 }
@@ -255,7 +285,9 @@ void __stdcall UiMessageBoxCallback(HWND hWnd, char* lpText, LPCSTR lpCaption, U
     szDialog = "OK_DIALOG";
     a5[4] = 1;
     if (uType & 0xF)
+    {
         szDialog = "OKCANCEL_DIALOG";
+    }
     a5[3] = (uType & 0xF0) == 16 || (uType & 0xF0) == 48;
     v4 = 0;
     a5[2] = 0;
@@ -263,7 +295,9 @@ void __stdcall UiMessageBoxCallback(HWND hWnd, char* lpText, LPCSTR lpCaption, U
     {
         v14 = (char*)SDlgDialogBoxParam(ghUiInst, &szDialog[32 * v4], hWnd, OkCancel_WndProc, (int)a5);
         if (v14 != (char*)0xFF000000)
+        {
             break;
+        }
         v4 = a5[2] + 1;
         v5 = a5[2]++ - 1 < 0;
         if (!v5)
@@ -279,7 +313,9 @@ void __stdcall UiMessageBoxCallback(HWND hWnd, char* lpText, LPCSTR lpCaption, U
                 do
                 {
                     if (*v14 <= 32)
+                    {
                         v9 = 0;
+                    }
                     *v8++ = *v14;
                     if (++v9 > 18)
                     {
@@ -294,7 +330,9 @@ void __stdcall UiMessageBoxCallback(HWND hWnd, char* lpText, LPCSTR lpCaption, U
             v14 = (char*)SDlgDialogBoxParam(ghUiInst, szDialog, hWnd, OkCancel_WndProc, (int)a5);
             SMemFree(location, "C:\\Src\\Diablo\\DiabloUI\\OkCancel.cpp", 416, 0);
             if (v14 == (char*)0xFF000000)
+            {
                 MessageBoxA(hWnd, lpText, lpCaption, uType);
+            }
             return;
         }
     }

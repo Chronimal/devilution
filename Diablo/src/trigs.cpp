@@ -547,9 +547,13 @@ BOOL ForceL1Trig()
             if (dPiece[cursmx][cursmy] == L1UpList[i])
             {
                 if (currlevel > 1)
+                {
                     sprintf(infostr, "Up to level %i", currlevel - 1);
+                }
                 else
+                {
                     strcpy(infostr, "Up to town");
+                }
                 for (j = 0; j < numtrigs; j++)
                 {
                     if (trigs[j]._tmsg == WM_DIABPREVLVL)
@@ -1077,7 +1081,9 @@ void CheckTriggers()
     char abortflag;
 
     if (plr[myplr]._pmode != PM_STAND)
+    {
         return;
+    }
 
     for (i = 0; i < numtrigs; i++)
     {
@@ -1100,7 +1106,9 @@ void CheckTriggers()
                 {
 #endif
                     if (pcurs >= CURSOR_FIRSTITEM && DropItemBeforeTrig())
+                    {
                         return;
+                    }
                     StartNewLvl(myplr, trigs[i]._tmsg, currlevel + 1);
 #ifdef SPAWN
                 }
@@ -1108,7 +1116,9 @@ void CheckTriggers()
                 break;
             case WM_DIABPREVLVL:
                 if (pcurs >= CURSOR_FIRSTITEM && DropItemBeforeTrig())
+                {
                     return;
+                }
                 StartNewLvl(myplr, trigs[i]._tmsg, currlevel - 1);
                 break;
             case WM_DIABRTNLVL:

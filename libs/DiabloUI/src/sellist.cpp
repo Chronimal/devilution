@@ -31,11 +31,15 @@ LRESULT __stdcall SelList_WndProc(HWND hWnd, UINT Msg, WPARAM wParam, LPARAM lPa
             {
                 v8 = GetDlgItem(hWnd, 1105);
                 if (!Sbar_CheckIfNextHero(v8))
+                {
                     return (LRESULT)SDlgDefDialogProc(hWnd, Msg, (HDC)wParam, (HWND)lParam);
+                }
                 goto LABEL_23;
             }
             if (Msg != 515)
+            {
                 return (LRESULT)SDlgDefDialogProc(hWnd, Msg, (HDC)wParam, (HWND)lParam);
+            }
         }
         SelList_ChooseDlgFromSize(hWnd, (unsigned short)lParam, (unsigned int)lParam >> 16);
         return (LRESULT)SDlgDefDialogProc(hWnd, Msg, (HDC)wParam, (HWND)lParam);
@@ -55,7 +59,9 @@ LRESULT __stdcall SelList_WndProc(HWND hWnd, UINT Msg, WPARAM wParam, LPARAM lPa
                 {
                     v6 = 2;
                     if ((WORD)wParam != 2)
+                    {
                         return (LRESULT)SDlgDefDialogProc(hWnd, Msg, (HDC)wParam, (HWND)lParam);
+                    }
                 }
             LABEL_25:
                 OkCancel_PlaySndEndDlg(hWnd, v6);
@@ -72,21 +78,31 @@ LRESULT __stdcall SelList_WndProc(HWND hWnd, UINT Msg, WPARAM wParam, LPARAM lPa
             return (LRESULT)SDlgDefDialogProc(hWnd, Msg, (HDC)wParam, (HWND)lParam);
         case 6u:
             if ((WORD)wParam == 1 || (WORD)wParam == 2)
+            {
                 SelList_LoadFocus16(hWnd);
+            }
             else
+            {
                 SelList_KillFocus16(hWnd);
+            }
             return 0;
         case 0x100u:
             if (wParam != 46)
+            {
                 return (LRESULT)SDlgDefDialogProc(hWnd, Msg, (HDC)wParam, (HWND)lParam);
+            }
             v5 = SelHero_GetHeroNameStr();
             if (!strlen(v5))
+            {
                 return (LRESULT)SDlgDefDialogProc(hWnd, Msg, (HDC)wParam, (HWND)lParam);
+            }
             v6 = 1006;
             goto LABEL_25;
     }
     if (Msg <= 0x103)
+    {
         return (LRESULT)SDlgDefDialogProc(hWnd, Msg, (HDC)wParam, (HWND)lParam);
+    }
     if (Msg <= 0x105)
     {
         v4 = (HWND)SDrawGetFrameWindow(NULL);
@@ -94,7 +110,9 @@ LRESULT __stdcall SelList_WndProc(HWND hWnd, UINT Msg, WPARAM wParam, LPARAM lPa
         return (LRESULT)SDlgDefDialogProc(hWnd, Msg, (HDC)wParam, (HWND)lParam);
     }
     if (Msg != 272)
+    {
         return (LRESULT)SDlgDefDialogProc(hWnd, Msg, (HDC)wParam, (HWND)lParam);
+    }
     SelList_ShowListWindow(hWnd);
     return 0;
 }
@@ -144,9 +162,13 @@ void __fastcall SelList_GetHeroStats(HWND hWnd, int nIDDlgItem)
             if (v16)
             {
                 if (v16->level)
+                {
                     Doom_ParseWndProc2(hWnd, sellist_msgtbl3, AF_BIG, 0);
+                }
                 else
+                {
                     Doom_ParseWndProc2(hWnd, sellist_msgtbl3, AF_BIGGRAY, 0);
+                }
                 v17 = GetParent(hWnd);
                 SelHero_PrintHeroInfo(v17, v16);
             }
@@ -202,21 +224,31 @@ int __fastcall SelList_GetNextHeroLong(HWND hWnd)
     int v5;          // ecx
 
     if (!hWnd)
+    {
         return 0;
+    }
     v1 = GetWindowLongA(hWnd, -21);
     if (!v1)
+    {
         return 0;
+    }
     v2 = SelHero_GetCurrentHeroInfo();
     if (!v2)
+    {
         return 0;
+    }
     v3 = *(_uiheroinfo**)(v1 + 12);
     if (!v3)
+    {
         return 0;
+    }
     v5 = 0;
     do
     {
         if (v2 == v3)
+        {
             break;
+        }
         v2 = v2->next;
         ++v5;
     } while (v2);
@@ -248,9 +280,13 @@ void __fastcall SelList_ShowListWindow(HWND hWnd)
     v2 = GetParent(hWnd);
     SelList_DoListOldProc(hWnd);
     if (SelHero_GetHeroIsGood() == 1)
+    {
         LoadStringA(ghUiInst, 0x1Cu, Buffer, 31);
+    }
     else
+    {
         LoadStringA(ghUiInst, 0x1Du, Buffer, 31);
+    }
     SelHero_SetStringWithMsg(v2, Buffer);
     v3 = GetWindowLongA(v2, -21);
     SetWindowLongA(hWnd, -21, v3);
@@ -286,7 +322,9 @@ void __fastcall SelList_SetHeroDlgLong(HWND hWnd, _uiheroinfo* pInfo)
                 v6 = GetWindowLongA(v4, -21);
                 local_SetWndLongStr(v6, pInfo->name);
                 if (v6)
+                {
                     *(DWORD*)(v6 + 12) = (unsigned int)pInfo;
+                }
                 pInfo = pInfo->next;
             }
             else
@@ -333,7 +371,9 @@ LRESULT __stdcall SelList_OldListWndProc(HWND hWnd, UINT Msg, WPARAM wParam, LPA
         case 2u:
             RemovePropA(hWnd, "UIOLDPROC");
             if (!v4)
+            {
                 return DefWindowProcA(hWnd, Msg, wParam, lParam);
+            }
             SetWindowLongA(hWnd, -4, (LONG)v4);
             break;
         case 0xFu:
@@ -379,9 +419,13 @@ LRESULT __stdcall SelList_OldListWndProc(HWND hWnd, UINT Msg, WPARAM wParam, LPA
                         break;
                     case 9u:
                         if (GetKeyState(16) >= 0)
+                        {
                             SelList_ShiftHeroDlgItems(hWnd);
+                        }
                         else
+                        {
                             SelList_ShiftHeroDlgItm2(hWnd);
+                        }
                         return 0;
                     case 0xDu:
                         goto LABEL_38;
@@ -404,7 +448,9 @@ LRESULT __stdcall SelList_OldListWndProc(HWND hWnd, UINT Msg, WPARAM wParam, LPA
             return 0;
     }
     if (v4)
+    {
         return CallWindowProcA(v4, hWnd, Msg, wParam, lParam);
+    }
     return DefWindowProcA(hWnd, Msg, wParam, lParam);
 }
 
@@ -477,7 +523,9 @@ void __fastcall SelList_HeroesWithBigDialogs(HWND hWnd)
                 {
                     v7 = SelList_GetNextHeroLong(v3) + 6;
                     if (v7 > SelHero_GetNumHeroesLeft() - 6)
+                    {
                         v7 = SelHero_GetNumHeroesLeft() - 6;
+                    }
                     v8 = SelList_GetHeroFromNum(v7);
                     if (v8)
                     {
@@ -544,7 +592,9 @@ void __fastcall SelList_HeroesWithHugeDlg(HWND hWnd)
                     {
                         v8 = SelList_GetNextHeroLong(v3) - 6;
                         if (v8 < 0)
+                        {
                             v8 = 0;
+                        }
                         v9 = SelList_GetHeroFromNum(v8);
                         if (v9)
                         {
@@ -639,7 +689,9 @@ void __fastcall SelList_HeroDlgWithSnd2(HWND hWnd)
                 if (v3 != v4)
                 {
                     while (v4 && v4->next != v3)
+                    {
                         v4 = v4->next;
+                    }
                     TitleSnd_PlayMoveSound();
                     v5 = GetParent(hWnd);
                     SelList_SetHeroDlgLong(v5, v4);

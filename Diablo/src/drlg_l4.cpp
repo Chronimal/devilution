@@ -647,11 +647,17 @@ static void L4tileFix()
         for (i = 0; i < DMAXX; i++)
         {
             if (dungeon[i][j] == 2 && dungeon[i + 1][j] == 6)
+            {
                 dungeon[i + 1][j] = 5;
+            }
             if (dungeon[i][j] == 2 && dungeon[i + 1][j] == 1)
+            {
                 dungeon[i + 1][j] = 13;
+            }
             if (dungeon[i][j] == 1 && dungeon[i][j + 1] == 2)
+            {
                 dungeon[i][j + 1] = 14;
+            }
         }
     }
     for (j = 0; j < DMAXY; j++)
@@ -659,21 +665,37 @@ static void L4tileFix()
         for (i = 0; i < DMAXX; i++)
         {
             if (dungeon[i][j] == 2 && dungeon[i + 1][j] == 6)
+            {
                 dungeon[i + 1][j] = 2;
+            }
             if (dungeon[i][j] == 2 && dungeon[i + 1][j] == 9)
+            {
                 dungeon[i + 1][j] = 11;
+            }
             if (dungeon[i][j] == 9 && dungeon[i + 1][j] == 6)
+            {
                 dungeon[i + 1][j] = 12;
+            }
             if (dungeon[i][j] == 14 && dungeon[i + 1][j] == 1)
+            {
                 dungeon[i + 1][j] = 13;
+            }
             if (dungeon[i][j] == 6 && dungeon[i + 1][j] == 14)
+            {
                 dungeon[i + 1][j] = 15;
+            }
             if (dungeon[i][j] == 6 && dungeon[i][j + 1] == 13)
+            {
                 dungeon[i][j + 1] = 16;
+            }
             if (dungeon[i][j] == 1 && dungeon[i][j + 1] == 9)
+            {
                 dungeon[i][j + 1] = 10;
+            }
             if (dungeon[i][j] == 6 && dungeon[i][j - 1] == 1)
+            {
                 dungeon[i][j - 1] = 1;
+            }
         }
     }
     for (j = 0; j < DMAXY; j++)
@@ -681,189 +703,373 @@ static void L4tileFix()
         for (i = 0; i < DMAXX; i++)
         {
             if (dungeon[i][j] == 13 && dungeon[i][j + 1] == 30)
+            {
                 dungeon[i][j + 1] = 27;
+            }
             if (dungeon[i][j] == 27 && dungeon[i + 1][j] == 30)
+            {
                 dungeon[i + 1][j] = 19;
+            }
             if (dungeon[i][j] == 1 && dungeon[i][j + 1] == 30)
+            {
                 dungeon[i][j + 1] = 27;
+            }
             if (dungeon[i][j] == 27 && dungeon[i + 1][j] == 1)
+            {
                 dungeon[i + 1][j] = 16;
+            }
             if (dungeon[i][j] == 19 && dungeon[i + 1][j] == 27)
+            {
                 dungeon[i + 1][j] = 26;
+            }
             if (dungeon[i][j] == 27 && dungeon[i + 1][j] == 30)
+            {
                 dungeon[i + 1][j] = 19;
+            }
             if (dungeon[i][j] == 2 && dungeon[i + 1][j] == 15)
+            {
                 dungeon[i + 1][j] = 14;
+            }
             if (dungeon[i][j] == 14 && dungeon[i + 1][j] == 15)
+            {
                 dungeon[i + 1][j] = 14;
+            }
             if (dungeon[i][j] == 22 && dungeon[i + 1][j] == 1)
+            {
                 dungeon[i + 1][j] = 16;
+            }
             if (dungeon[i][j] == 27 && dungeon[i + 1][j] == 1)
+            {
                 dungeon[i + 1][j] = 16;
-            if (dungeon[i][j] == 6 && dungeon[i + 1][j] == 27 && dungeon[i + 1][j + 1] != 0) /* check */
+            }
+            if (dungeon[i][j] == 6 && dungeon[i + 1][j] == 27 && dungeon[i + 1][j + 1] != 0)
+            { /* check */
                 dungeon[i + 1][j] = 22;
+            }
             if (dungeon[i][j] == 22 && dungeon[i + 1][j] == 30)
+            {
                 dungeon[i + 1][j] = 19;
+            }
             if (dungeon[i][j] == 21 && dungeon[i + 1][j] == 1 && dungeon[i + 1][j - 1] == 1)
+            {
                 dungeon[i + 1][j] = 13;
+            }
             if (dungeon[i][j] == 14 && dungeon[i + 1][j] == 30 && dungeon[i][j + 1] == 6)
+            {
                 dungeon[i + 1][j] = 28;
+            }
             if (dungeon[i][j] == 16 && dungeon[i + 1][j] == 6 && dungeon[i][j + 1] == 30)
+            {
                 dungeon[i][j + 1] = 27;
+            }
             if (dungeon[i][j] == 16 && dungeon[i][j + 1] == 30 && dungeon[i + 1][j + 1] == 30)
+            {
                 dungeon[i][j + 1] = 27;
+            }
             if (dungeon[i][j] == 6 && dungeon[i + 1][j] == 30 && dungeon[i + 1][j - 1] == 6)
+            {
                 dungeon[i + 1][j] = 21;
+            }
             if (dungeon[i][j] == 2 && dungeon[i + 1][j] == 27 && dungeon[i + 1][j + 1] == 9)
+            {
                 dungeon[i + 1][j] = 29;
+            }
             if (dungeon[i][j] == 9 && dungeon[i + 1][j] == 15)
+            {
                 dungeon[i + 1][j] = 14;
+            }
             if (dungeon[i][j] == 15 && dungeon[i + 1][j] == 27 && dungeon[i + 1][j + 1] == 2)
+            {
                 dungeon[i + 1][j] = 29;
+            }
             if (dungeon[i][j] == 19 && dungeon[i + 1][j] == 18)
+            {
                 dungeon[i + 1][j] = 24;
+            }
             if (dungeon[i][j] == 9 && dungeon[i + 1][j] == 15)
+            {
                 dungeon[i + 1][j] = 14;
+            }
             if (dungeon[i][j] == 19 && dungeon[i + 1][j] == 19 && dungeon[i + 1][j - 1] == 30)
+            {
                 dungeon[i + 1][j] = 24;
+            }
             if (dungeon[i][j] == 24 && dungeon[i][j - 1] == 30 && dungeon[i][j - 2] == 6)
+            {
                 dungeon[i][j - 1] = 21;
+            }
             if (dungeon[i][j] == 2 && dungeon[i + 1][j] == 30)
+            {
                 dungeon[i + 1][j] = 28;
+            }
             if (dungeon[i][j] == 15 && dungeon[i + 1][j] == 30)
+            {
                 dungeon[i + 1][j] = 28;
+            }
             if (dungeon[i][j] == 28 && dungeon[i][j + 1] == 30)
+            {
                 dungeon[i][j + 1] = 18;
+            }
             if (dungeon[i][j] == 28 && dungeon[i][j + 1] == 2)
+            {
                 dungeon[i][j + 1] = 15;
+            }
             if (dungeon[i][j] == 19 && dungeon[i + 2][j] == 2 && dungeon[i + 1][j - 1] == 18 && dungeon[i + 1][j + 1] == 1)
+            {
                 dungeon[i + 1][j] = 17;
+            }
             if (dungeon[i][j] == 19 && dungeon[i + 2][j] == 2 && dungeon[i + 1][j - 1] == 22 && dungeon[i + 1][j + 1] == 1)
+            {
                 dungeon[i + 1][j] = 17;
+            }
             if (dungeon[i][j] == 19 && dungeon[i + 2][j] == 2 && dungeon[i + 1][j - 1] == 18 && dungeon[i + 1][j + 1] == 13)
+            {
                 dungeon[i + 1][j] = 17;
+            }
             if (dungeon[i][j] == 21 && dungeon[i + 2][j] == 2 && dungeon[i + 1][j - 1] == 18 && dungeon[i + 1][j + 1] == 1)
+            {
                 dungeon[i + 1][j] = 17;
+            }
             if (dungeon[i][j] == 21 && dungeon[i + 1][j + 1] == 1 && dungeon[i + 1][j - 1] == 22 && dungeon[i + 2][j] == 3)
+            {
                 dungeon[i + 1][j] = 17;
+            }
             if (dungeon[i][j] == 15 && dungeon[i + 1][j] == 28 && dungeon[i + 2][j] == 30 && dungeon[i + 1][j - 1] == 6)
+            {
                 dungeon[i + 1][j] = 23;
+            }
             if (dungeon[i][j] == 14 && dungeon[i + 1][j] == 28 && dungeon[i + 2][j] == 1)
+            {
                 dungeon[i + 1][j] = 23;
+            }
             if (dungeon[i][j] == 15 && dungeon[i + 1][j] == 27 && dungeon[i + 1][j + 1] == 30)
+            {
                 dungeon[i + 1][j] = 29;
+            }
             if (dungeon[i][j] == 28 && dungeon[i][j + 1] == 9)
+            {
                 dungeon[i][j + 1] = 15;
+            }
             if (dungeon[i][j] == 21 && dungeon[i + 1][j - 1] == 21)
+            {
                 dungeon[i + 1][j] = 24;
+            }
             if (dungeon[i][j] == 2 && dungeon[i + 1][j] == 27 && dungeon[i + 1][j + 1] == 30)
+            {
                 dungeon[i + 1][j] = 29;
+            }
             if (dungeon[i][j] == 2 && dungeon[i + 1][j] == 18)
+            {
                 dungeon[i + 1][j] = 25;
+            }
             if (dungeon[i][j] == 21 && dungeon[i + 1][j] == 9 && dungeon[i + 2][j] == 2)
+            {
                 dungeon[i + 1][j] = 11;
+            }
             if (dungeon[i][j] == 19 && dungeon[i + 1][j] == 10)
+            {
                 dungeon[i + 1][j] = 17;
+            }
             if (dungeon[i][j] == 15 && dungeon[i][j + 1] == 3)
+            {
                 dungeon[i][j + 1] = 4;
+            }
             if (dungeon[i][j] == 22 && dungeon[i][j + 1] == 9)
+            {
                 dungeon[i][j + 1] = 15;
+            }
             if (dungeon[i][j] == 18 && dungeon[i][j + 1] == 30)
+            {
                 dungeon[i][j + 1] = 18;
+            }
             if (dungeon[i][j] == 24 && dungeon[i - 1][j] == 30)
+            {
                 dungeon[i - 1][j] = 19;
+            }
             if (dungeon[i][j] == 21 && dungeon[i][j + 1] == 2)
+            {
                 dungeon[i][j + 1] = 15;
+            }
             if (dungeon[i][j] == 21 && dungeon[i][j + 1] == 9)
+            {
                 dungeon[i][j + 1] = 10;
+            }
             if (dungeon[i][j] == 22 && dungeon[i][j + 1] == 30)
+            {
                 dungeon[i][j + 1] = 18;
+            }
             if (dungeon[i][j] == 21 && dungeon[i][j + 1] == 30)
+            {
                 dungeon[i][j + 1] = 18;
+            }
             if (dungeon[i][j] == 16 && dungeon[i][j + 1] == 2)
+            {
                 dungeon[i][j + 1] = 15;
+            }
             if (dungeon[i][j] == 13 && dungeon[i][j + 1] == 2)
+            {
                 dungeon[i][j + 1] = 15;
+            }
             if (dungeon[i][j] == 22 && dungeon[i][j + 1] == 2)
+            {
                 dungeon[i][j + 1] = 15;
+            }
             if (dungeon[i][j] == 21 && dungeon[i + 1][j] == 18 && dungeon[i + 2][j] == 30)
+            {
                 dungeon[i + 1][j] = 24;
+            }
             if (dungeon[i][j] == 21 && dungeon[i + 1][j] == 9 && dungeon[i + 1][j + 1] == 1)
+            {
                 dungeon[i + 1][j] = 16;
+            }
             if (dungeon[i][j] == 2 && dungeon[i + 1][j] == 27 && dungeon[i + 1][j + 1] == 2)
+            {
                 dungeon[i + 1][j] = 29;
+            }
             if (dungeon[i][j] == 23 && dungeon[i][j + 1] == 2)
+            {
                 dungeon[i][j + 1] = 15;
+            }
             if (dungeon[i][j] == 23 && dungeon[i][j + 1] == 9)
+            {
                 dungeon[i][j + 1] = 15;
+            }
             if (dungeon[i][j] == 25 && dungeon[i][j + 1] == 2)
+            {
                 dungeon[i][j + 1] = 15;
+            }
             if (dungeon[i][j] == 22 && dungeon[i + 1][j] == 9)
+            {
                 dungeon[i + 1][j] = 11;
+            }
             if (dungeon[i][j] == 23 && dungeon[i + 1][j] == 9)
+            {
                 dungeon[i + 1][j] = 11;
+            }
             if (dungeon[i][j] == 15 && dungeon[i + 1][j] == 1)
+            {
                 dungeon[i + 1][j] = 16;
+            }
             if (dungeon[i][j] == 11 && dungeon[i + 1][j] == 15)
+            {
                 dungeon[i + 1][j] = 14;
+            }
             if (dungeon[i][j] == 23 && dungeon[i + 1][j] == 1)
+            {
                 dungeon[i + 1][j] = 16;
+            }
             if (dungeon[i][j] == 21 && dungeon[i + 1][j] == 27)
+            {
                 dungeon[i + 1][j] = 26;
+            }
             if (dungeon[i][j] == 21 && dungeon[i + 1][j] == 18)
+            {
                 dungeon[i + 1][j] = 24;
+            }
             if (dungeon[i][j] == 26 && dungeon[i + 1][j] == 1)
+            {
                 dungeon[i + 1][j] = 16;
+            }
             if (dungeon[i][j] == 29 && dungeon[i + 1][j] == 1)
+            {
                 dungeon[i + 1][j] = 16;
+            }
             if (dungeon[i][j] == 29 && dungeon[i][j + 1] == 2)
+            {
                 dungeon[i][j + 1] = 15;
+            }
             if (dungeon[i][j] == 1 && dungeon[i][j - 1] == 15)
+            {
                 dungeon[i][j - 1] = 10;
+            }
             if (dungeon[i][j] == 18 && dungeon[i][j + 1] == 2)
+            {
                 dungeon[i][j + 1] = 15;
+            }
             if (dungeon[i][j] == 23 && dungeon[i][j + 1] == 30)
+            {
                 dungeon[i][j + 1] = 18;
+            }
             if (dungeon[i][j] == 18 && dungeon[i][j + 1] == 9)
+            {
                 dungeon[i][j + 1] = 10;
+            }
             if (dungeon[i][j] == 14 && dungeon[i + 1][j] == 30 && dungeon[i + 1][j + 1] == 30)
+            {
                 dungeon[i + 1][j] = 23;
+            }
             if (dungeon[i][j] == 2 && dungeon[i + 1][j] == 28 && dungeon[i + 1][j - 1] == 6)
+            {
                 dungeon[i + 1][j] = 23;
+            }
             if (dungeon[i][j] == 23 && dungeon[i + 1][j] == 18 && dungeon[i][j - 1] == 6)
+            {
                 dungeon[i + 1][j] = 24;
+            }
             if (dungeon[i][j] == 14 && dungeon[i + 1][j] == 23 && dungeon[i + 2][j] == 30)
+            {
                 dungeon[i + 1][j] = 28;
+            }
             if (dungeon[i][j] == 14 && dungeon[i + 1][j] == 28 && dungeon[i + 2][j] == 30 && dungeon[i + 1][j - 1] == 6)
+            {
                 dungeon[i + 1][j] = 23;
+            }
             if (dungeon[i][j] == 23 && dungeon[i + 1][j] == 30)
+            {
                 dungeon[i + 1][j] = 19;
+            }
             if (dungeon[i][j] == 29 && dungeon[i + 1][j] == 30)
+            {
                 dungeon[i + 1][j] = 19;
+            }
             if (dungeon[i][j] == 29 && dungeon[i][j + 1] == 30)
+            {
                 dungeon[i][j + 1] = 18;
+            }
             if (dungeon[i][j] == 19 && dungeon[i + 1][j] == 30)
+            {
                 dungeon[i + 1][j] = 19;
+            }
             if (dungeon[i][j] == 21 && dungeon[i + 1][j] == 30)
+            {
                 dungeon[i + 1][j] = 19;
+            }
             if (dungeon[i][j] == 26 && dungeon[i + 1][j] == 30)
+            {
                 dungeon[i + 1][j] = 19;
+            }
             if (dungeon[i][j] == 16 && dungeon[i][j + 1] == 30)
+            {
                 dungeon[i][j + 1] = 18;
+            }
             if (dungeon[i][j] == 13 && dungeon[i][j + 1] == 9)
+            {
                 dungeon[i][j + 1] = 10;
+            }
             if (dungeon[i][j] == 25 && dungeon[i][j + 1] == 30)
+            {
                 dungeon[i][j + 1] = 18;
+            }
             if (dungeon[i][j] == 18 && dungeon[i][j + 1] == 2)
+            {
                 dungeon[i][j + 1] = 15;
+            }
             if (dungeon[i][j] == 11 && dungeon[i + 1][j] == 3)
+            {
                 dungeon[i + 1][j] = 5;
+            }
             if (dungeon[i][j] == 19 && dungeon[i + 1][j] == 9)
+            {
                 dungeon[i + 1][j] = 11;
+            }
             if (dungeon[i][j] == 19 && dungeon[i + 1][j] == 1)
+            {
                 dungeon[i + 1][j] = 13;
+            }
             if (dungeon[i][j] == 19 && dungeon[i + 1][j] == 13 && dungeon[i + 1][j - 1] == 6)
+            {
                 dungeon[i + 1][j] = 16;
+            }
         }
     }
     for (j = 0; j < DMAXY; j++)
@@ -871,73 +1077,141 @@ static void L4tileFix()
         for (i = 0; i < DMAXX; i++)
         {
             if (dungeon[i][j] == 21 && dungeon[i][j + 1] == 24 && dungeon[i][j + 2] == 1)
+            {
                 dungeon[i][j + 1] = 17;
+            }
             if (dungeon[i][j] == 15 && dungeon[i + 1][j + 1] == 9 && dungeon[i + 1][j - 1] == 1 && dungeon[i + 2][j] == 16)
+            {
                 dungeon[i + 1][j] = 29;
+            }
             if (dungeon[i][j] == 2 && dungeon[i - 1][j] == 6)
+            {
                 dungeon[i - 1][j] = 8;
+            }
             if (dungeon[i][j] == 1 && dungeon[i][j - 1] == 6)
+            {
                 dungeon[i][j - 1] = 7;
+            }
             if (dungeon[i][j] == 6 && dungeon[i + 1][j] == 15 && dungeon[i + 1][j + 1] == 4)
+            {
                 dungeon[i + 1][j] = 10;
+            }
             if (dungeon[i][j] == 1 && dungeon[i][j + 1] == 3)
+            {
                 dungeon[i][j + 1] = 4;
+            }
             if (dungeon[i][j] == 1 && dungeon[i][j + 1] == 6)
+            {
                 dungeon[i][j + 1] = 4;
+            }
             if (dungeon[i][j] == 9 && dungeon[i][j + 1] == 3)
+            {
                 dungeon[i][j + 1] = 4;
+            }
             if (dungeon[i][j] == 10 && dungeon[i][j + 1] == 3)
+            {
                 dungeon[i][j + 1] = 4;
+            }
             if (dungeon[i][j] == 13 && dungeon[i][j + 1] == 3)
+            {
                 dungeon[i][j + 1] = 4;
+            }
             if (dungeon[i][j] == 1 && dungeon[i][j + 1] == 5)
+            {
                 dungeon[i][j + 1] = 12;
+            }
             if (dungeon[i][j] == 1 && dungeon[i][j + 1] == 16)
+            {
                 dungeon[i][j + 1] = 13;
+            }
             if (dungeon[i][j] == 6 && dungeon[i][j + 1] == 13)
+            {
                 dungeon[i][j + 1] = 16;
+            }
             if (dungeon[i][j] == 25 && dungeon[i][j + 1] == 9)
+            {
                 dungeon[i][j + 1] = 10;
+            }
             if (dungeon[i][j] == 13 && dungeon[i][j + 1] == 5)
+            {
                 dungeon[i][j + 1] = 12;
+            }
             if (dungeon[i][j] == 28 && dungeon[i][j - 1] == 6 && dungeon[i + 1][j] == 1)
+            {
                 dungeon[i + 1][j] = 23;
+            }
             if (dungeon[i][j] == 19 && dungeon[i + 1][j] == 10)
+            {
                 dungeon[i + 1][j] = 17;
+            }
             if (dungeon[i][j] == 21 && dungeon[i + 1][j] == 9)
+            {
                 dungeon[i + 1][j] = 11;
+            }
             if (dungeon[i][j] == 11 && dungeon[i + 1][j] == 3)
+            {
                 dungeon[i + 1][j] = 5;
+            }
             if (dungeon[i][j] == 10 && dungeon[i + 1][j] == 4)
+            {
                 dungeon[i + 1][j] = 12;
+            }
             if (dungeon[i][j] == 14 && dungeon[i + 1][j] == 4)
+            {
                 dungeon[i + 1][j] = 12;
+            }
             if (dungeon[i][j] == 27 && dungeon[i + 1][j] == 9)
+            {
                 dungeon[i + 1][j] = 11;
+            }
             if (dungeon[i][j] == 15 && dungeon[i + 1][j] == 4)
+            {
                 dungeon[i + 1][j] = 12;
+            }
             if (dungeon[i][j] == 21 && dungeon[i + 1][j] == 1)
+            {
                 dungeon[i + 1][j] = 16;
+            }
             if (dungeon[i][j] == 11 && dungeon[i + 1][j] == 4)
+            {
                 dungeon[i + 1][j] = 12;
+            }
             if (dungeon[i][j] == 2 && dungeon[i + 1][j] == 3)
+            {
                 dungeon[i + 1][j] = 5;
+            }
             if (dungeon[i][j] == 9 && dungeon[i + 1][j] == 3)
+            {
                 dungeon[i + 1][j] = 5;
+            }
             if (dungeon[i][j] == 14 && dungeon[i + 1][j] == 3)
+            {
                 dungeon[i + 1][j] = 5;
+            }
             if (dungeon[i][j] == 15 && dungeon[i + 1][j] == 3)
+            {
                 dungeon[i + 1][j] = 5;
+            }
             if (dungeon[i][j] == 2 && dungeon[i + 1][j] == 5 && dungeon[i + 1][j - 1] == 16)
+            {
                 dungeon[i + 1][j] = 12;
+            }
             if (dungeon[i][j] == 2 && dungeon[i + 1][j] == 4)
+            {
                 dungeon[i + 1][j] = 12;
+            }
             if (dungeon[i][j] == 9 && dungeon[i + 1][j] == 4)
+            {
                 dungeon[i + 1][j] = 12;
+            }
             if (dungeon[i][j] == 1 && dungeon[i][j - 1] == 8)
+            {
                 dungeon[i][j - 1] = 9;
+            }
             if (dungeon[i][j] == 28 && dungeon[i + 1][j] == 23 && dungeon[i + 1][j + 1] == 3)
+            {
                 dungeon[i + 1][j] = 16;
+            }
         }
     }
     for (j = 0; j < DMAXY; j++)
@@ -945,41 +1219,77 @@ static void L4tileFix()
         for (i = 0; i < DMAXX; i++)
         {
             if (dungeon[i][j] == 21 && dungeon[i + 1][j] == 10)
+            {
                 dungeon[i + 1][j] = 17;
+            }
             if (dungeon[i][j] == 17 && dungeon[i + 1][j] == 4)
+            {
                 dungeon[i + 1][j] = 12;
+            }
             if (dungeon[i][j] == 10 && dungeon[i + 1][j] == 4)
+            {
                 dungeon[i + 1][j] = 12;
+            }
             if (dungeon[i][j] == 17 && dungeon[i][j + 1] == 5)
+            {
                 dungeon[i][j + 1] = 12;
+            }
             if (dungeon[i][j] == 29 && dungeon[i][j + 1] == 9)
+            {
                 dungeon[i][j + 1] = 10;
+            }
             if (dungeon[i][j] == 13 && dungeon[i][j + 1] == 5)
+            {
                 dungeon[i][j + 1] = 12;
+            }
             if (dungeon[i][j] == 9 && dungeon[i][j + 1] == 16)
+            {
                 dungeon[i][j + 1] = 13;
+            }
             if (dungeon[i][j] == 10 && dungeon[i][j + 1] == 16)
+            {
                 dungeon[i][j + 1] = 13;
+            }
             if (dungeon[i][j] == 16 && dungeon[i][j + 1] == 3)
+            {
                 dungeon[i][j + 1] = 4;
+            }
             if (dungeon[i][j] == 11 && dungeon[i][j + 1] == 5)
+            {
                 dungeon[i][j + 1] = 12;
+            }
             if (dungeon[i][j] == 10 && dungeon[i + 1][j] == 3 && dungeon[i + 1][j - 1] == 16)
+            {
                 dungeon[i + 1][j] = 12;
+            }
             if (dungeon[i][j] == 16 && dungeon[i][j + 1] == 5)
+            {
                 dungeon[i][j + 1] = 12;
+            }
             if (dungeon[i][j] == 1 && dungeon[i][j + 1] == 6)
+            {
                 dungeon[i][j + 1] = 4;
+            }
             if (dungeon[i][j] == 21 && dungeon[i + 1][j] == 13 && dungeon[i][j + 1] == 10)
+            {
                 dungeon[i + 1][j + 1] = 12;
+            }
             if (dungeon[i][j] == 15 && dungeon[i + 1][j] == 10)
+            {
                 dungeon[i + 1][j] = 17;
+            }
             if (dungeon[i][j] == 22 && dungeon[i][j + 1] == 11)
+            {
                 dungeon[i][j + 1] = 17;
+            }
             if (dungeon[i][j] == 15 && dungeon[i + 1][j] == 28 && dungeon[i + 2][j] == 16)
+            {
                 dungeon[i + 1][j] = 23;
+            }
             if (dungeon[i][j] == 28 && dungeon[i + 1][j] == 23 && dungeon[i + 1][j + 1] == 1 && dungeon[i + 2][j] == 6)
+            {
                 dungeon[i + 1][j] = 16;
+            }
         }
     }
     for (j = 0; j < DMAXY; j++)
@@ -987,11 +1297,17 @@ static void L4tileFix()
         for (i = 0; i < DMAXX; i++)
         {
             if (dungeon[i][j] == 15 && dungeon[i + 1][j] == 28 && dungeon[i + 2][j] == 16)
+            {
                 dungeon[i + 1][j] = 23;
+            }
             if (dungeon[i][j] == 21 && dungeon[i + 1][j - 1] == 21 && dungeon[i + 1][j + 1] == 13 && dungeon[i + 2][j] == 2)
+            {
                 dungeon[i + 1][j] = 17;
+            }
             if (dungeon[i][j] == 19 && dungeon[i + 1][j] == 15 && dungeon[i + 1][j + 1] == 12)
+            {
                 dungeon[i + 1][j] = 17;
+            }
         }
     }
 }
@@ -1298,15 +1614,23 @@ static void L4roomGen(int x, int y, int w, int h, int dir)
             } while (ran == FALSE && num < 20);
 
             if (ran == TRUE)
+            {
                 L4drawRoom(cx1, cy1, cw, ch);
+            }
             cx2 = x + w;
             ran2 = L4checkRoom(cx2, cy1 - 1, cw + 1, ch + 2);
             if (ran2 == TRUE)
+            {
                 L4drawRoom(cx2, cy1, cw, ch);
+            }
             if (ran == TRUE)
+            {
                 L4roomGen(cx1, cy1, cw, ch, 1);
+            }
             if (ran2 == TRUE)
+            {
                 L4roomGen(cx2, cy1, cw, ch, 1);
+            }
             break;
         case TRUE:
             num = 0;
@@ -1321,15 +1645,23 @@ static void L4roomGen(int x, int y, int w, int h, int dir)
             } while (ran == FALSE && num < 20);
 
             if (ran == TRUE)
+            {
                 L4drawRoom(rx, ry, width, height);
+            }
             ry2 = y + h;
             ran2 = L4checkRoom(rx - 1, ry2, width + 2, height + 1);
             if (ran2 == TRUE)
+            {
                 L4drawRoom(rx, ry2, width, height);
+            }
             if (ran == TRUE)
+            {
                 L4roomGen(rx, ry, width, height, 0);
+            }
             if (ran2 == TRUE)
+            {
                 L4roomGen(rx, ry2, width, height, 0);
+            }
             break;
     }
 }

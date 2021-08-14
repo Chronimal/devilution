@@ -82,7 +82,9 @@ void drawTopArchesUpperScreen(BYTE* pBuff)
     if (!(BYTE)light_table_index)
     {
         if (level_cel_block & 0x8000)
+        {
             level_cel_block = *(DWORD*)&gpCelFrame[64 * (level_cel_block & 0xFFF)] + (WORD)(level_cel_block & 0xF000);
+        }
         src = pDungeonCels + *((DWORD*)pDungeonCels + (level_cel_block & 0xFFF));
         cel_type_16 = ((level_cel_block >> 12) & 7) + 8;
         goto LABEL_11;
@@ -101,11 +103,15 @@ void drawTopArchesUpperScreen(BYTE* pBuff)
                     do
                     {
                         if (dst < gpBufEnd)
+                        {
                             break;
+                        }
                         asm_trans_light_square_1_3(8, tbl, &dst, &src);
                         dst -= (SCREEN_WIDTH + 160);
                         if (dst < gpBufEnd)
+                        {
                             break;
+                        }
                         asm_trans_light_square_0_2(8, tbl, &dst, &src);
                         dst -= (SCREEN_WIDTH + 160);
                         --i;
@@ -123,15 +129,21 @@ void drawTopArchesUpperScreen(BYTE* pBuff)
                             {
                                 width = *src++;
                                 if ((width & 0x80) == 0)
+                                {
                                     break;
+                                }
                                 width = -(char)width;
                                 dst += width;
                                 yy_32 -= width;
                                 if (!yy_32)
+                                {
                                     goto LABEL_67;
+                                }
                             }
                             if (dst < gpBufEnd)
+                            {
                                 return;
+                            }
                             if (((BYTE)dst & 1) == WorldBoolFlag)
                             {
                                 asm_trans_light_cel_0_2(width, tbl, &dst, &src);
@@ -172,7 +184,9 @@ void drawTopArchesUpperScreen(BYTE* pBuff)
                             do
                             {
                                 if (dst < gpBufEnd)
+                                {
                                     break;
+                                }
                                 dst += yy_32;
                                 src += (32 - (BYTE)yy_32) & 2;
                                 WorldBoolFlag = ((BYTE)WorldBoolFlag + 1) & 1;
@@ -214,7 +228,9 @@ void drawTopArchesUpperScreen(BYTE* pBuff)
                             do
                             {
                                 if (dst < gpBufEnd)
+                                {
                                     break;
+                                }
                                 WorldBoolFlag = ((BYTE)WorldBoolFlag + 1) & 1;
                                 if (WorldBoolFlag)
                                 {
@@ -256,11 +272,15 @@ void drawTopArchesUpperScreen(BYTE* pBuff)
                             do
                             {
                                 if (dst < gpBufEnd)
+                                {
                                     break;
+                                }
                                 asm_trans_light_square_1_3(8, tbl, &dst, &src);
                                 dst -= (SCREEN_WIDTH + 160);
                                 if (dst < gpBufEnd)
+                                {
                                     break;
+                                }
                                 asm_trans_light_square_0_2(8, tbl, &dst, &src);
                                 dst -= (SCREEN_WIDTH + 160);
                                 --i;
@@ -292,11 +312,15 @@ void drawTopArchesUpperScreen(BYTE* pBuff)
                             do
                             {
                                 if (dst < gpBufEnd)
+                                {
                                     break;
+                                }
                                 asm_trans_light_square_1_3(8, tbl, &dst, &src);
                                 dst -= (SCREEN_WIDTH + 160);
                                 if (dst < gpBufEnd)
+                                {
                                     break;
+                                }
                                 asm_trans_light_square_0_2(8, tbl, &dst, &src);
                                 dst -= (SCREEN_WIDTH + 160);
                                 --i;
@@ -319,7 +343,9 @@ void drawTopArchesUpperScreen(BYTE* pBuff)
                 do
                 {
                     if (dst < gpBufEnd)
+                    {
                         break;
+                    }
                     j = 8;
                     do
                     {
@@ -331,7 +357,9 @@ void drawTopArchesUpperScreen(BYTE* pBuff)
                     } while (j);
                     dst -= (SCREEN_WIDTH + 160);
                     if (dst < gpBufEnd)
+                    {
                         break;
+                    }
                     j = 8;
                     do
                     {
@@ -356,7 +384,9 @@ void drawTopArchesUpperScreen(BYTE* pBuff)
                     {
                         width = *src++;
                         if ((width & 0x80) == 0)
+                        {
                             break;
+                        }
                         width = -(char)width;
                         dst += width;
                         xx_32 -= width;
@@ -366,18 +396,24 @@ void drawTopArchesUpperScreen(BYTE* pBuff)
                             WorldBoolFlag = ((BYTE)WorldBoolFlag + 1) & 1;
                             dst -= (SCREEN_WIDTH + 160);
                             if (!--yy_32)
+                            {
                                 return;
+                            }
                             goto LABEL_251;
                         }
                     }
                     xx_32 -= width;
                     if (dst < gpBufEnd)
+                    {
                         return;
+                    }
                     if (((BYTE)dst & 1) == WorldBoolFlag)
                     {
                         chk_sh_and = width >> 1;
                         if (!(width & 1))
+                        {
                             goto LABEL_258;
+                        }
                         ++src;
                         ++dst;
                         if (chk_sh_and)
@@ -408,7 +444,9 @@ void drawTopArchesUpperScreen(BYTE* pBuff)
                     {
                         chk_sh_and = width >> 1;
                         if (!(width & 1))
+                        {
                             goto LABEL_265;
+                        }
                         *dst++ = *src++;
                         if (chk_sh_and)
                         {
@@ -436,7 +474,9 @@ void drawTopArchesUpperScreen(BYTE* pBuff)
                     }
                 LABEL_268:
                     if (!xx_32)
+                    {
                         goto LABEL_271;
+                    }
                 }
                 break;
             case 10: // upper (top transparent), without lighting
@@ -497,7 +537,9 @@ void drawTopArchesUpperScreen(BYTE* pBuff)
                         do
                         {
                             if (dst < gpBufEnd)
+                            {
                                 break;
+                            }
                             dst += yy_32;
                             y_minus = 32 - yy_32;
                             WorldBoolFlag = ((BYTE)WorldBoolFlag + 1) & 1;
@@ -597,7 +639,9 @@ void drawTopArchesUpperScreen(BYTE* pBuff)
                         do
                         {
                             if (dst < gpBufEnd)
+                            {
                                 break;
+                            }
                             y_minus = 32 - yy_32;
                             WorldBoolFlag = ((BYTE)WorldBoolFlag + 1) & 1;
                             if (WorldBoolFlag)
@@ -697,7 +741,9 @@ void drawTopArchesUpperScreen(BYTE* pBuff)
                         do
                         {
                             if (dst < gpBufEnd)
+                            {
                                 break;
+                            }
                             j = 8;
                             do
                             {
@@ -709,7 +755,9 @@ void drawTopArchesUpperScreen(BYTE* pBuff)
                             } while (j);
                             dst -= (SCREEN_WIDTH + 160);
                             if (dst < gpBufEnd)
+                            {
                                 break;
+                            }
                             j = 8;
                             do
                             {
@@ -773,7 +821,9 @@ void drawTopArchesUpperScreen(BYTE* pBuff)
                         do
                         {
                             if (dst < gpBufEnd)
+                            {
                                 break;
+                            }
                             j = 8;
                             do
                             {
@@ -785,7 +835,9 @@ void drawTopArchesUpperScreen(BYTE* pBuff)
                             } while (j);
                             dst -= (SCREEN_WIDTH + 160);
                             if (dst < gpBufEnd)
+                            {
                                 break;
+                            }
                             j = 8;
                             do
                             {
@@ -806,7 +858,9 @@ void drawTopArchesUpperScreen(BYTE* pBuff)
         return;
     }
     if (level_cel_block & 0x8000)
+    {
         level_cel_block = *(DWORD*)&gpCelFrame[64 * (level_cel_block & 0xFFF)] + (WORD)(level_cel_block & 0xF000);
+    }
     src = pDungeonCels + *((DWORD*)pDungeonCels + (level_cel_block & 0xFFF));
     cel_type_16 = (level_cel_block >> 12) & 7;
     switch (cel_type_16)
@@ -816,7 +870,9 @@ void drawTopArchesUpperScreen(BYTE* pBuff)
             do
             {
                 if (dst < gpBufEnd)
+                {
                     break;
+                }
                 j = 8;
                 do
                 {
@@ -827,7 +883,9 @@ void drawTopArchesUpperScreen(BYTE* pBuff)
                 } while (j);
                 dst -= (SCREEN_WIDTH + 160);
                 if (dst < gpBufEnd)
+                {
                     break;
+                }
                 j = 8;
                 do
                 {
@@ -852,16 +910,22 @@ void drawTopArchesUpperScreen(BYTE* pBuff)
                     {
                         width = *src++;
                         if ((width & 0x80) != 0)
+                        {
                             break;
+                        }
                         yy_32 -= width;
                         if (dst < gpBufEnd)
+                        {
                             return;
+                        }
                         src += width;
                         if (((BYTE)dst & 1) == WorldBoolFlag)
                         {
                             chk_sh_and = width >> 1;
                             if (!(width & 1))
+                            {
                                 goto LABEL_378;
+                            }
                             ++dst;
                             if (chk_sh_and)
                             {
@@ -889,7 +953,9 @@ void drawTopArchesUpperScreen(BYTE* pBuff)
                         {
                             chk_sh_and = width >> 1;
                             if (!(width & 1))
+                            {
                                 goto LABEL_385;
+                            }
                             *dst++ = 0;
                             if (chk_sh_and)
                             {
@@ -915,7 +981,9 @@ void drawTopArchesUpperScreen(BYTE* pBuff)
                         }
                     LABEL_388:
                         if (!yy_32)
+                        {
                             goto LABEL_391;
+                        }
                     }
                     width = -(char)width;
                     dst += width;
@@ -925,14 +993,18 @@ void drawTopArchesUpperScreen(BYTE* pBuff)
                 WorldBoolFlag = ((BYTE)WorldBoolFlag + 1) & 1;
                 dst -= (SCREEN_WIDTH + 160);
                 if (!--xx_32)
+                {
                     return;
+                }
             }
         case 2: // upper (top transparent), black
             WorldBoolFlag = 0;
             for (xx_32 = 30;; xx_32 -= 2)
             {
                 if (dst < gpBufEnd)
+                {
                     return;
+                }
                 dst += xx_32;
                 x_minus = 32 - xx_32;
                 WorldBoolFlag = ((BYTE)WorldBoolFlag + 1) & 1;
@@ -976,13 +1048,17 @@ void drawTopArchesUpperScreen(BYTE* pBuff)
                 }
                 dst -= (SCREEN_WIDTH + 160);
                 if (!xx_32)
+                {
                     break;
+                }
             }
             yy_32 = 2;
             do
             {
                 if (dst < gpBufEnd)
+                {
                     break;
+                }
                 dst += yy_32;
                 y_minus = 32 - yy_32;
                 WorldBoolFlag = ((BYTE)WorldBoolFlag + 1) & 1;
@@ -1033,7 +1109,9 @@ void drawTopArchesUpperScreen(BYTE* pBuff)
             for (xx_32 = 30;; xx_32 -= 2)
             {
                 if (dst < gpBufEnd)
+                {
                     return;
+                }
                 x_minus = 32 - xx_32;
                 WorldBoolFlag = ((BYTE)WorldBoolFlag + 1) & 1;
                 if (WorldBoolFlag)
@@ -1076,14 +1154,18 @@ void drawTopArchesUpperScreen(BYTE* pBuff)
                 }
                 dst -= (SCREEN_WIDTH + 160);
                 if (!xx_32)
+                {
                     break;
+                }
                 dst += xx_32;
             }
             yy_32 = 2;
             do
             {
                 if (dst < gpBufEnd)
+                {
                     break;
+                }
                 y_minus = 32 - yy_32;
                 WorldBoolFlag = ((BYTE)WorldBoolFlag + 1) & 1;
                 if (WorldBoolFlag)
@@ -1133,7 +1215,9 @@ void drawTopArchesUpperScreen(BYTE* pBuff)
             for (xx_32 = 30;; xx_32 -= 2)
             {
                 if (dst < gpBufEnd)
+                {
                     return;
+                }
                 dst += xx_32;
                 x_minus = 32 - xx_32;
                 WorldBoolFlag = ((BYTE)WorldBoolFlag + 1) & 1;
@@ -1177,13 +1261,17 @@ void drawTopArchesUpperScreen(BYTE* pBuff)
                 }
                 dst -= (SCREEN_WIDTH + 160);
                 if (!xx_32)
+                {
                     break;
+                }
             }
             i = 8;
             do
             {
                 if (dst < gpBufEnd)
+                {
                     break;
+                }
                 j = 8;
                 do
                 {
@@ -1194,7 +1282,9 @@ void drawTopArchesUpperScreen(BYTE* pBuff)
                 } while (j);
                 dst -= (SCREEN_WIDTH + 160);
                 if (dst < gpBufEnd)
+                {
                     break;
+                }
                 j = 8;
                 do
                 {
@@ -1212,7 +1302,9 @@ void drawTopArchesUpperScreen(BYTE* pBuff)
             for (xx_32 = 30;; xx_32 -= 2)
             {
                 if (dst < gpBufEnd)
+                {
                     return;
+                }
                 x_minus = 32 - xx_32;
                 WorldBoolFlag = ((BYTE)WorldBoolFlag + 1) & 1;
                 if (WorldBoolFlag)
@@ -1255,14 +1347,18 @@ void drawTopArchesUpperScreen(BYTE* pBuff)
                 }
                 dst -= (SCREEN_WIDTH + 160);
                 if (!xx_32)
+                {
                     break;
+                }
                 dst += xx_32;
             }
             i = 8;
             do
             {
                 if (dst < gpBufEnd)
+                {
                     break;
+                }
                 j = 8;
                 do
                 {
@@ -1273,7 +1369,9 @@ void drawTopArchesUpperScreen(BYTE* pBuff)
                 } while (j);
                 dst -= (SCREEN_WIDTH + 160);
                 if (dst < gpBufEnd)
+                {
                     break;
+                }
                 j = 8;
                 do
                 {
@@ -1313,7 +1411,9 @@ void drawBottomArchesUpperScreen(BYTE* pBuff, DWORD* pMask)
     if ((BYTE)light_table_index == 0)
     {
         if (level_cel_block & 0x8000)
+        {
             level_cel_block = *(DWORD*)&gpCelFrame[64 * (level_cel_block & 0xFFF)] + (WORD)(level_cel_block & 0xF000);
+        }
         src = pDungeonCels + *((DWORD*)pDungeonCels + (level_cel_block & 0xFFF));
         cel_type_16 = ((level_cel_block >> 12) & 7) + 8;
     LABEL_12:
@@ -1324,13 +1424,17 @@ void drawBottomArchesUpperScreen(BYTE* pBuff, DWORD* pMask)
                 do
                 {
                     if (dst < gpBufEnd)
+                    {
                         break;
+                    }
                     left_shift = *gpDrawMask;
                     i = 32;
                     do
                     {
                         if (left_shift & 0x80000000)
+                        {
                             dst[0] = src[0];
+                        }
                         left_shift *= 2;
                         ++src;
                         ++dst;
@@ -1353,24 +1457,34 @@ void drawBottomArchesUpperScreen(BYTE* pBuff, DWORD* pMask)
                         {
                             width = *src++;
                             if ((width & 0x80) == 0)
+                            {
                                 break;
+                            }
                             width = -(char)width;
                             dst += width;
                             if (width & 0x1F)
+                            {
                                 gdwCurrentMask <<= width & 0x1F;
+                            }
                             yy_32 -= width;
                             if (!yy_32)
+                            {
                                 goto LABEL_129;
+                            }
                         }
                         yy_32 -= width;
                         if (dst < gpBufEnd)
+                        {
                             return;
+                        }
                         left_shift = gdwCurrentMask;
                         and80_i = width;
                         do
                         {
                             if (left_shift & 0x80000000)
+                            {
                                 dst[0] = src[0];
+                            }
                             left_shift *= 2;
                             ++src;
                             ++dst;
@@ -1414,7 +1528,9 @@ void drawBottomArchesUpperScreen(BYTE* pBuff, DWORD* pMask)
                         do
                         {
                             if (dst < gpBufEnd)
+                            {
                                 break;
+                            }
                             dst += yy_32;
                             n_draw_shift = (unsigned int)(32 - yy_32) >> 2;
                             if ((32 - yy_32) & 2)
@@ -1464,7 +1580,9 @@ void drawBottomArchesUpperScreen(BYTE* pBuff, DWORD* pMask)
                         do
                         {
                             if (dst < gpBufEnd)
+                            {
                                 break;
+                            }
                             for (n_draw_shift = (unsigned int)(32 - yy_32) >> 2; n_draw_shift; --n_draw_shift)
                             {
                                 *(DWORD*)dst = *(DWORD*)src;
@@ -1515,13 +1633,17 @@ void drawBottomArchesUpperScreen(BYTE* pBuff, DWORD* pMask)
                         do
                         {
                             if (dst < gpBufEnd)
+                            {
                                 break;
+                            }
                             left_shift = *gpDrawMask;
                             i = 32;
                             do
                             {
                                 if (left_shift & 0x80000000)
+                                {
                                     dst[0] = src[0];
+                                }
                                 left_shift *= 2;
                                 ++src;
                                 ++dst;
@@ -1560,13 +1682,17 @@ void drawBottomArchesUpperScreen(BYTE* pBuff, DWORD* pMask)
                         do
                         {
                             if (dst < gpBufEnd)
+                            {
                                 break;
+                            }
                             left_shift = *gpDrawMask;
                             i = 32;
                             do
                             {
                                 if (left_shift & 0x80000000)
+                                {
                                     dst[0] = src[0];
+                                }
                                 left_shift *= 2;
                                 ++src;
                                 ++dst;
@@ -1598,7 +1724,9 @@ void drawBottomArchesUpperScreen(BYTE* pBuff, DWORD* pMask)
                     do
                     {
                         if (dst < gpBufEnd)
+                        {
                             break;
+                        }
                         asm_trans_light_mask(32, tbl, &dst, &src, *gpDrawMask);
                         dst -= (SCREEN_WIDTH + 160);
                         --gpDrawMask;
@@ -1617,18 +1745,26 @@ void drawBottomArchesUpperScreen(BYTE* pBuff, DWORD* pMask)
                             {
                                 width = *src++;
                                 if ((width & 0x80) == 0)
+                                {
                                     break;
+                                }
                                 width = -(char)width;
                                 dst += width;
                                 if (width & 0x1F)
+                                {
                                     gdwCurrentMask <<= width & 0x1F;
+                                }
                                 yy_32 -= width;
                                 if (!yy_32)
+                                {
                                     goto LABEL_50;
+                                }
                             }
                             yy_32 -= width;
                             if (dst < gpBufEnd)
+                            {
                                 return;
+                            }
                             gdwCurrentMask = asm_trans_light_mask(width, tbl, &dst, &src, gdwCurrentMask);
                         } while (yy_32);
                     LABEL_50:
@@ -1652,7 +1788,9 @@ void drawBottomArchesUpperScreen(BYTE* pBuff, DWORD* pMask)
                             do
                             {
                                 if (dst < gpBufEnd)
+                                {
                                     break;
+                                }
                                 dst += yy_32;
                                 src += (32 - (BYTE)yy_32) & 2;
                                 asm_cel_light_edge(32 - yy_32, tbl, &dst, &src);
@@ -1677,7 +1815,9 @@ void drawBottomArchesUpperScreen(BYTE* pBuff, DWORD* pMask)
                             do
                             {
                                 if (dst < gpBufEnd)
+                                {
                                     break;
+                                }
                                 asm_cel_light_edge(32 - yy_32, tbl, &dst, &src);
                                 src += (BYTE)src & 2;
                                 dst = &dst[yy_32 - (SCREEN_WIDTH + 160)];
@@ -1703,7 +1843,9 @@ void drawBottomArchesUpperScreen(BYTE* pBuff, DWORD* pMask)
                             do
                             {
                                 if (dst < gpBufEnd)
+                                {
                                     break;
+                                }
                                 src += (BYTE)src & 2;
                                 asm_trans_light_mask(32, tbl, &dst, &src, *gpDrawMask);
                                 dst -= (SCREEN_WIDTH + 160);
@@ -1729,7 +1871,9 @@ void drawBottomArchesUpperScreen(BYTE* pBuff, DWORD* pMask)
                             do
                             {
                                 if (dst < gpBufEnd)
+                                {
                                     break;
+                                }
                                 asm_trans_light_mask(32, tbl, &dst, &src, *gpDrawMask);
                                 src += (BYTE)src & 2;
                                 dst -= (SCREEN_WIDTH + 160);
@@ -1748,7 +1892,9 @@ void drawBottomArchesUpperScreen(BYTE* pBuff, DWORD* pMask)
         goto LABEL_12;
     }
     if (level_cel_block & 0x8000)
+    {
         level_cel_block = *(DWORD*)&gpCelFrame[64 * (level_cel_block & 0xFFF)] + (WORD)(level_cel_block & 0xF000);
+    }
     src = pDungeonCels + *((DWORD*)pDungeonCels + (level_cel_block & 0xFFF));
     cel_type_16 = (level_cel_block >> 12) & 7;
     switch (cel_type_16)
@@ -1758,13 +1904,17 @@ void drawBottomArchesUpperScreen(BYTE* pBuff, DWORD* pMask)
             do
             {
                 if (dst < gpBufEnd)
+                {
                     break;
+                }
                 left_shift = *gpDrawMask;
                 i = 32;
                 do
                 {
                     if (left_shift & 0x80000000)
+                    {
                         dst[0] = 0;
+                    }
                     left_shift *= 2;
                     ++dst;
                     --i;
@@ -1786,25 +1936,35 @@ void drawBottomArchesUpperScreen(BYTE* pBuff, DWORD* pMask)
                     {
                         width = *src++;
                         if ((width & 0x80) == 0)
+                        {
                             break;
+                        }
                         width = -(char)width;
                         dst += width;
                         if (width & 0x1F)
+                        {
                             gdwCurrentMask <<= width & 0x1F;
+                        }
                         yy_32 -= width;
                         if (!yy_32)
+                        {
                             goto LABEL_208;
+                        }
                     }
                     yy_32 -= width;
                     if (dst < gpBufEnd)
+                    {
                         return;
+                    }
                     left_shift = gdwCurrentMask;
                     and80_i = width;
                     src += width;
                     do
                     {
                         if (left_shift & 0x80000000)
+                        {
                             dst[0] = 0;
+                        }
                         left_shift *= 2;
                         ++dst;
                         --and80_i;
@@ -1844,7 +2004,9 @@ void drawBottomArchesUpperScreen(BYTE* pBuff, DWORD* pMask)
                     do
                     {
                         if (dst < gpBufEnd)
+                        {
                             break;
+                        }
                         dst += yy_32;
                         n_draw_shift = (unsigned int)(32 - yy_32) >> 2;
                         if ((32 - yy_32) & 2)
@@ -1895,7 +2057,9 @@ void drawBottomArchesUpperScreen(BYTE* pBuff, DWORD* pMask)
                     do
                     {
                         if (dst < gpBufEnd)
+                        {
                             break;
+                        }
                         n_draw_shift = (unsigned int)(32 - yy_32) >> 2;
                         if ((32 - yy_32) & 2)
                         {
@@ -1948,13 +2112,17 @@ void drawBottomArchesUpperScreen(BYTE* pBuff, DWORD* pMask)
                     do
                     {
                         if (dst < gpBufEnd)
+                        {
                             break;
+                        }
                         left_shift = *gpDrawMask;
                         i = 32;
                         do
                         {
                             if (left_shift & 0x80000000)
+                            {
                                 dst[0] = 0;
+                            }
                             left_shift *= 2;
                             ++dst;
                             --i;
@@ -1995,13 +2163,17 @@ void drawBottomArchesUpperScreen(BYTE* pBuff, DWORD* pMask)
                     do
                     {
                         if (dst < gpBufEnd)
+                        {
                             break;
+                        }
                         left_shift = *gpDrawMask;
                         i = 32;
                         do
                         {
                             if (left_shift & 0x80000000)
+                            {
                                 dst[0] = 0;
+                            }
                             left_shift *= 2;
                             ++dst;
                             --i;
@@ -2064,7 +2236,9 @@ void drawUpperScreen(BYTE* pBuff)
     if ((BYTE)light_table_index == 0)
     {
         if (level_cel_block & 0x8000)
+        {
             level_cel_block = *(DWORD*)&gpCelFrame[64 * (level_cel_block & 0xFFF)] + (WORD)(level_cel_block & 0xF000);
+        }
         src = pDungeonCels + *((DWORD*)pDungeonCels + (level_cel_block & 0xFFF));
         cel_type_16 = ((level_cel_block >> 12) & 7) + 8;
     LABEL_22:
@@ -2075,7 +2249,9 @@ void drawUpperScreen(BYTE* pBuff)
                 do
                 {
                     if (dst < gpBufEnd)
+                    {
                         break;
+                    }
                     j = 8;
                     do
                     {
@@ -2099,22 +2275,30 @@ void drawUpperScreen(BYTE* pBuff)
                         {
                             width = *src++;
                             if ((width & 0x80) == 0)
+                            {
                                 break;
+                            }
                             width = -(char)width;
                             dst += width;
                             yy_32 -= width;
                             if (!yy_32)
+                            {
                                 goto LABEL_133;
+                            }
                         }
                         yy_32 -= width;
                         if (dst < gpBufEnd)
+                        {
                             return;
+                        }
                         chk_sh_and = width >> 1;
                         if (width & 1)
                         {
                             *dst++ = *src++;
                             if (!chk_sh_and)
+                            {
                                 continue;
+                            }
                         }
                         n_draw_shift = chk_sh_and >> 1;
                         if (chk_sh_and & 1)
@@ -2123,7 +2307,9 @@ void drawUpperScreen(BYTE* pBuff)
                             src += 2;
                             dst += 2;
                             if (!n_draw_shift)
+                            {
                                 continue;
+                            }
                         }
                         do
                         {
@@ -2168,7 +2354,9 @@ void drawUpperScreen(BYTE* pBuff)
                         do
                         {
                             if (dst < gpBufEnd)
+                            {
                                 break;
+                            }
                             dst += yy_32;
                             n_draw_shift = (unsigned int)(32 - yy_32) >> 2;
                             if ((32 - yy_32) & 2)
@@ -2218,7 +2406,9 @@ void drawUpperScreen(BYTE* pBuff)
                         do
                         {
                             if (dst < gpBufEnd)
+                            {
                                 break;
+                            }
                             for (n_draw_shift = (unsigned int)(32 - yy_32) >> 2; n_draw_shift; --n_draw_shift)
                             {
                                 *(DWORD*)dst = *(DWORD*)src;
@@ -2268,7 +2458,9 @@ void drawUpperScreen(BYTE* pBuff)
                         do
                         {
                             if (dst < gpBufEnd)
+                            {
                                 break;
+                            }
                             j = 8;
                             do
                             {
@@ -2308,7 +2500,9 @@ void drawUpperScreen(BYTE* pBuff)
                         do
                         {
                             if (dst < gpBufEnd)
+                            {
                                 break;
+                            }
                             j = 8;
                             do
                             {
@@ -2341,7 +2535,9 @@ void drawUpperScreen(BYTE* pBuff)
                     do
                     {
                         if (dst < gpBufEnd)
+                        {
                             break;
+                        }
                         asm_cel_light_square(8, tbl, &dst, &src);
                         dst -= (SCREEN_WIDTH + 160);
                         --xx_32;
@@ -2358,16 +2554,22 @@ void drawUpperScreen(BYTE* pBuff)
                             {
                                 width = *src++;
                                 if ((width & 0x80) == 0)
+                                {
                                     break;
+                                }
                                 width = -(char)width;
                                 dst += width;
                                 yy_32 -= width;
                                 if (!yy_32)
+                                {
                                     goto LABEL_58;
+                                }
                             }
                             yy_32 -= width;
                             if (dst < gpBufEnd)
+                            {
                                 return;
+                            }
                             asm_cel_light_edge(width, tbl, &dst, &src);
                         } while (yy_32);
                     LABEL_58:
@@ -2390,7 +2592,9 @@ void drawUpperScreen(BYTE* pBuff)
                             do
                             {
                                 if (dst < gpBufEnd)
+                                {
                                     break;
+                                }
                                 dst += yy_32;
                                 src += (32 - (BYTE)yy_32) & 2;
                                 asm_cel_light_edge(32 - yy_32, tbl, &dst, &src);
@@ -2415,7 +2619,9 @@ void drawUpperScreen(BYTE* pBuff)
                             do
                             {
                                 if (dst < gpBufEnd)
+                                {
                                     break;
+                                }
                                 asm_cel_light_edge(32 - yy_32, tbl, &dst, &src);
                                 src += (BYTE)src & 2;
                                 dst = &dst[yy_32 - (SCREEN_WIDTH + 160)];
@@ -2440,7 +2646,9 @@ void drawUpperScreen(BYTE* pBuff)
                             do
                             {
                                 if (dst < gpBufEnd)
+                                {
                                     break;
+                                }
                                 asm_cel_light_square(8, tbl, &dst, &src);
                                 dst -= (SCREEN_WIDTH + 160);
                                 --yy_32;
@@ -2463,7 +2671,9 @@ void drawUpperScreen(BYTE* pBuff)
                             do
                             {
                                 if (dst < gpBufEnd)
+                                {
                                     break;
+                                }
                                 asm_cel_light_square(8, tbl, &dst, &src);
                                 dst -= (SCREEN_WIDTH + 160);
                                 --yy_32;
@@ -2480,7 +2690,9 @@ void drawUpperScreen(BYTE* pBuff)
         goto LABEL_22;
     }
     if (level_cel_block & 0x8000)
+    {
         level_cel_block = *(DWORD*)&gpCelFrame[64 * (level_cel_block & 0xFFF)] + (WORD)(level_cel_block & 0xF000);
+    }
     src = pDungeonCels + *((DWORD*)pDungeonCels + (level_cel_block & 0xFFF));
     cel_type_16 = ((unsigned int)level_cel_block >> 12) & 7;
     switch (cel_type_16)
@@ -2490,7 +2702,9 @@ void drawUpperScreen(BYTE* pBuff)
             do
             {
                 if (dst < gpBufEnd)
+                {
                     break;
+                }
                 j = 8;
                 do
                 {
@@ -2513,23 +2727,31 @@ void drawUpperScreen(BYTE* pBuff)
                     {
                         width = *src++;
                         if ((width & 0x80) == 0)
+                        {
                             break;
+                        }
                         width = -(char)width;
                         dst += width;
                         yy_32 -= width;
                         if (!yy_32)
+                        {
                             goto LABEL_205;
+                        }
                     }
                     yy_32 -= width;
                     if (dst < gpBufEnd)
+                    {
                         return;
+                    }
                     src += width;
                     chk_sh_and = width >> 1;
                     if (width & 1)
                     {
                         *dst++ = 0;
                         if (!chk_sh_and)
+                        {
                             continue;
+                        }
                     }
                     n_draw_shift = width >> 2;
                     if (chk_sh_and & 1)
@@ -2537,7 +2759,9 @@ void drawUpperScreen(BYTE* pBuff)
                         *(WORD*)dst = 0;
                         dst += 2;
                         if (!n_draw_shift)
+                        {
                             continue;
+                        }
                     }
                     do
                     {
@@ -2578,7 +2802,9 @@ void drawUpperScreen(BYTE* pBuff)
                     do
                     {
                         if (dst < gpBufEnd)
+                        {
                             break;
+                        }
                         dst += yy_32;
                         n_draw_shift = (unsigned int)(32 - yy_32) >> 2;
                         if ((32 - yy_32) & 2)
@@ -2629,7 +2855,9 @@ void drawUpperScreen(BYTE* pBuff)
                     do
                     {
                         if (dst < gpBufEnd)
+                        {
                             break;
+                        }
                         n_draw_shift = (unsigned int)(32 - yy_32) >> 2;
                         if ((32 - yy_32) & 2)
                         {
@@ -2681,7 +2909,9 @@ void drawUpperScreen(BYTE* pBuff)
                     do
                     {
                         if (dst < gpBufEnd)
+                        {
                             break;
+                        }
                         j = 8;
                         do
                         {
@@ -2723,7 +2953,9 @@ void drawUpperScreen(BYTE* pBuff)
                     do
                     {
                         if (dst < gpBufEnd)
+                        {
                             break;
+                        }
                         j = 8;
                         do
                         {
@@ -2768,7 +3000,9 @@ void drawTopArchesLowerScreen(BYTE* pBuff)
     if ((BYTE)light_table_index == 0)
     {
         if (level_cel_block & 0x8000)
+        {
             level_cel_block = *(DWORD*)&gpCelFrame[64 * (level_cel_block & 0xFFF)] + (WORD)(level_cel_block & 0xF000);
+        }
         src = pDungeonCels + *((DWORD*)pDungeonCels + (level_cel_block & 0xFFF));
         cel_type_16 = ((level_cel_block >> 12) & 7) + 8;
         goto LABEL_11;
@@ -2776,7 +3010,9 @@ void drawTopArchesLowerScreen(BYTE* pBuff)
     if ((BYTE)light_table_index == lightmax)
     {
         if (level_cel_block & 0x8000)
+        {
             level_cel_block = *(DWORD*)&gpCelFrame[64 * (level_cel_block & 0xFFF)] + (WORD)(level_cel_block & 0xF000);
+        }
         src = pDungeonCels + *((DWORD*)pDungeonCels + (level_cel_block & 0xFFF));
         cel_type_16 = (level_cel_block >> 12) & 7;
         switch (cel_type_16)
@@ -2833,7 +3069,9 @@ void drawTopArchesLowerScreen(BYTE* pBuff)
                     {
                         width = *src++;
                         if ((width & 0x80) == 0)
+                        {
                             break;
+                        }
                         width = -(char)width;
                         dst += width;
                         yy_32 -= width;
@@ -2843,7 +3081,9 @@ void drawTopArchesLowerScreen(BYTE* pBuff)
                             WorldBoolFlag = ((BYTE)WorldBoolFlag + 1) & 1;
                             dst -= (SCREEN_WIDTH + 160);
                             if (!--xx_32)
+                            {
                                 return;
+                            }
                             goto LABEL_412;
                         }
                     }
@@ -2855,7 +3095,9 @@ void drawTopArchesLowerScreen(BYTE* pBuff)
                         {
                             chk_sh_and = width >> 1;
                             if (!(width & 1))
+                            {
                                 goto LABEL_420;
+                            }
                             ++dst;
                             if (chk_sh_and)
                             {
@@ -2883,7 +3125,9 @@ void drawTopArchesLowerScreen(BYTE* pBuff)
                         {
                             chk_sh_and = width >> 1;
                             if (!(width & 1))
+                            {
                                 goto LABEL_427;
+                            }
                             *dst++ = 0;
                             if (chk_sh_and)
                             {
@@ -2915,7 +3159,9 @@ void drawTopArchesLowerScreen(BYTE* pBuff)
                     }
                 LABEL_430:
                     if (!yy_32)
+                    {
                         goto LABEL_433;
+                    }
                 }
                 break;
             case 2: // lower (top transparent), black
@@ -2973,7 +3219,9 @@ void drawTopArchesLowerScreen(BYTE* pBuff)
                     }
                     dst -= (SCREEN_WIDTH + 160);
                     if (!xx_32)
+                    {
                         break;
+                    }
                 }
                 yy_32 = 2;
                 do
@@ -3085,7 +3333,9 @@ void drawTopArchesLowerScreen(BYTE* pBuff)
                     }
                     dst -= (SCREEN_WIDTH + 160);
                     if (!xx_32)
+                    {
                         break;
+                    }
                     dst += xx_32;
                 }
                 yy_32 = 2;
@@ -3198,7 +3448,9 @@ void drawTopArchesLowerScreen(BYTE* pBuff)
                     }
                     dst -= (SCREEN_WIDTH + 160);
                     if (!xx_32)
+                    {
                         break;
+                    }
                 }
                 i = 8;
                 do
@@ -3294,7 +3546,9 @@ void drawTopArchesLowerScreen(BYTE* pBuff)
                     }
                     dst -= (SCREEN_WIDTH + 160);
                     if (!xx_32)
+                    {
                         break;
+                    }
                     dst += xx_32;
                 }
                 i = 8;
@@ -3386,12 +3640,16 @@ void drawTopArchesLowerScreen(BYTE* pBuff)
                         {
                             width = *src++;
                             if ((width & 0x80) == 0)
+                            {
                                 break;
+                            }
                             width = -(char)width;
                             dst += width;
                             yy_32 -= width;
                             if (!yy_32)
+                            {
                                 goto LABEL_69;
+                            }
                         }
                         yy_32 -= width;
                         if (dst < gpBufEnd)
@@ -3433,7 +3691,9 @@ void drawTopArchesLowerScreen(BYTE* pBuff)
                         {
                             tile_42_45 = (unsigned int)(dst - gpBufEnd + 1023) >> 8;
                             if (tile_42_45 > 42)
+                            {
                                 return;
+                            }
                             world_tbl = WorldTbl3x16[tile_42_45];
                             src += WorldTbl17_2[world_tbl >> 2];
                             dst -= 192 * world_tbl;
@@ -3499,7 +3759,9 @@ void drawTopArchesLowerScreen(BYTE* pBuff)
                         {
                             tile_42_45 = (unsigned int)(dst - gpBufEnd + 1023) >> 8;
                             if (tile_42_45 > 42)
+                            {
                                 return;
+                            }
                             world_tbl = WorldTbl3x16[tile_42_45];
                             src += WorldTbl17_2[world_tbl >> 2];
                             dst -= 192 * world_tbl;
@@ -3733,7 +3995,9 @@ LABEL_11:
                     {
                         width = *src++;
                         if ((width & 0x80) != 0)
+                        {
                             break;
+                        }
                         yy_32 -= width;
                         if (dst < gpBufEnd)
                         {
@@ -3741,7 +4005,9 @@ LABEL_11:
                             {
                                 chk_sh_and = width >> 1;
                                 if (!(width & 1))
+                                {
                                     goto LABEL_280;
+                                }
                                 ++src;
                                 ++dst;
                                 if (chk_sh_and)
@@ -3772,7 +4038,9 @@ LABEL_11:
                             {
                                 chk_sh_and = width >> 1;
                                 if (!(width & 1))
+                                {
                                     goto LABEL_287;
+                                }
                                 *dst++ = *src++;
                                 if (chk_sh_and)
                                 {
@@ -3806,7 +4074,9 @@ LABEL_11:
                         }
                     LABEL_290:
                         if (!yy_32)
+                        {
                             goto LABEL_293;
+                        }
                     }
                     width = -(char)width;
                     dst += width;
@@ -3816,7 +4086,9 @@ LABEL_11:
                 WorldBoolFlag = ((BYTE)WorldBoolFlag + 1) & 1;
                 dst -= (SCREEN_WIDTH + 160);
                 if (!--xx_32)
+                {
                     return;
+                }
             }
         case 10: // lower (top transparent), without lighting
             WorldBoolFlag = 0;
@@ -3834,7 +4106,9 @@ LABEL_11:
                     {
                         tile_42_45 = (unsigned int)(dst - gpBufEnd + 1023) >> 8;
                         if (tile_42_45 > 42)
+                        {
                             return;
+                        }
                         world_tbl = WorldTbl3x16[tile_42_45];
                         src += WorldTbl17_2[world_tbl >> 2];
                         dst -= 192 * world_tbl;
@@ -3957,7 +4231,9 @@ LABEL_11:
             WorldBoolFlag = 0;
             xx_32 = 30;
             if (pBuff < gpBufEnd)
+            {
                 goto LABEL_326;
+            }
             tile_42_45 = (unsigned int)(pBuff - gpBufEnd + 1023) >> 8;
             if (tile_42_45 <= 45)
             {
@@ -4017,7 +4293,9 @@ LABEL_11:
             {
                 tile_42_45 = (unsigned int)(dst - gpBufEnd + 1023) >> 8;
                 if (tile_42_45 > 42)
+                {
                     return;
+                }
                 world_tbl = WorldTbl3x16[tile_42_45];
                 src += WorldTbl17_2[world_tbl >> 2];
                 dst -= 192 * world_tbl;
@@ -4309,7 +4587,9 @@ void drawBottomArchesLowerScreen(BYTE* pBuff, DWORD* pMask)
         if ((BYTE)light_table_index == lightmax)
         {
             if (level_cel_block & 0x8000)
+            {
                 level_cel_block = *(DWORD*)&gpCelFrame[64 * (level_cel_block & 0xFFF)] + (WORD)(level_cel_block & 0xF000);
+            }
             src = pDungeonCels + *((DWORD*)pDungeonCels + (level_cel_block & 0xFFF));
             cel_type_16 = (level_cel_block >> 12) & 7;
             switch (cel_type_16)
@@ -4325,7 +4605,9 @@ void drawBottomArchesLowerScreen(BYTE* pBuff, DWORD* pMask)
                             do
                             {
                                 if (left_shift & 0x80000000)
+                                {
                                     dst[0] = 0;
+                                }
                                 left_shift *= 2;
                                 ++dst;
                                 --i;
@@ -4353,7 +4635,9 @@ void drawBottomArchesLowerScreen(BYTE* pBuff, DWORD* pMask)
                             {
                                 width = *src++;
                                 if ((width & 0x80) != 0)
+                                {
                                     break;
+                                }
                                 yy_32 -= width;
                                 if (dst < gpBufEnd)
                                 {
@@ -4363,7 +4647,9 @@ void drawBottomArchesLowerScreen(BYTE* pBuff, DWORD* pMask)
                                     do
                                     {
                                         if (left_shift & 0x80000000)
+                                        {
                                             dst[0] = 0;
+                                        }
                                         left_shift *= 2;
                                         ++dst;
                                         --and80_i;
@@ -4376,12 +4662,16 @@ void drawBottomArchesLowerScreen(BYTE* pBuff, DWORD* pMask)
                                     dst += width;
                                 }
                                 if (!yy_32)
+                                {
                                     goto LABEL_252;
+                                }
                             }
                             width = -(char)width;
                             dst += width;
                             if (width & 0x1F)
+                            {
                                 gdwCurrentMask <<= width & 0x1F;
+                            }
                             yy_32 -= width;
                         } while (yy_32);
                     LABEL_252:
@@ -4419,7 +4709,9 @@ void drawBottomArchesLowerScreen(BYTE* pBuff, DWORD* pMask)
                         }
                         dst -= (SCREEN_WIDTH + 160);
                         if (!i)
+                        {
                             break;
+                        }
                     }
                     i = 2;
                     do
@@ -4480,7 +4772,9 @@ void drawBottomArchesLowerScreen(BYTE* pBuff, DWORD* pMask)
                         }
                         dst -= (SCREEN_WIDTH + 160);
                         if (!i)
+                        {
                             break;
+                        }
                         dst += i;
                     }
                     i = 2;
@@ -4542,7 +4836,9 @@ void drawBottomArchesLowerScreen(BYTE* pBuff, DWORD* pMask)
                         }
                         dst -= (SCREEN_WIDTH + 160);
                         if (!i)
+                        {
                             break;
+                        }
                     }
                     gpDrawMask -= 16;
                     yy_32 = 16;
@@ -4555,7 +4851,9 @@ void drawBottomArchesLowerScreen(BYTE* pBuff, DWORD* pMask)
                             do
                             {
                                 if (left_shift & 0x80000000)
+                                {
                                     dst[0] = 0;
+                                }
                                 left_shift *= 2;
                                 ++dst;
                                 --i;
@@ -4599,7 +4897,9 @@ void drawBottomArchesLowerScreen(BYTE* pBuff, DWORD* pMask)
                         }
                         dst -= (SCREEN_WIDTH + 160);
                         if (!i)
+                        {
                             break;
+                        }
                         dst += i;
                     }
                     gpDrawMask -= 16;
@@ -4613,7 +4913,9 @@ void drawBottomArchesLowerScreen(BYTE* pBuff, DWORD* pMask)
                             do
                             {
                                 if (left_shift & 0x80000000)
+                                {
                                     dst[0] = 0;
+                                }
                                 left_shift *= 2;
                                 ++dst;
                                 --i;
@@ -4669,7 +4971,9 @@ void drawBottomArchesLowerScreen(BYTE* pBuff, DWORD* pMask)
                             {
                                 width = *src++;
                                 if ((width & 0x80) != 0)
+                                {
                                     break;
+                                }
                                 yy_32 -= width;
                                 if (dst < gpBufEnd)
                                 {
@@ -4681,12 +4985,16 @@ void drawBottomArchesLowerScreen(BYTE* pBuff, DWORD* pMask)
                                     dst += width;
                                 }
                                 if (!yy_32)
+                                {
                                     goto LABEL_52;
+                                }
                             }
                             width = -(char)width;
                             dst += width;
                             if (width & 0x1F)
+                            {
                                 gdwCurrentMask <<= width & 0x1F;
+                            }
                             yy_32 -= width;
                         } while (yy_32);
                     LABEL_52:
@@ -4710,7 +5018,9 @@ void drawBottomArchesLowerScreen(BYTE* pBuff, DWORD* pMask)
                             {
                                 tile_42_45 = (unsigned int)(dst - gpBufEnd + 1023) >> 8;
                                 if (tile_42_45 > 42)
+                                {
                                     return;
+                                }
                                 world_tbl = WorldTbl3x16[tile_42_45];
                                 src += WorldTbl17_2[world_tbl >> 2];
                                 dst -= 192 * world_tbl;
@@ -4755,7 +5065,9 @@ void drawBottomArchesLowerScreen(BYTE* pBuff, DWORD* pMask)
                             {
                                 tile_42_45 = (unsigned int)(dst - gpBufEnd + 1023) >> 8;
                                 if (tile_42_45 > 42)
+                                {
                                     return;
+                                }
                                 world_tbl = WorldTbl3x16[tile_42_45];
                                 src += WorldTbl17_2[world_tbl >> 2];
                                 dst -= 192 * world_tbl;
@@ -4879,7 +5191,9 @@ void drawBottomArchesLowerScreen(BYTE* pBuff, DWORD* pMask)
     else
     {
         if (level_cel_block & 0x8000)
+        {
             level_cel_block = *(DWORD*)&gpCelFrame[64 * (level_cel_block & 0xFFF)] + (WORD)(level_cel_block & 0xF000);
+        }
         src = pDungeonCels + *((DWORD*)pDungeonCels + (level_cel_block & 0xFFF));
         cel_type_16 = ((level_cel_block >> 12) & 7) + 8;
     }
@@ -4896,7 +5210,9 @@ void drawBottomArchesLowerScreen(BYTE* pBuff, DWORD* pMask)
                     do
                     {
                         if (left_shift & 0x80000000)
+                        {
                             dst[0] = src[0];
+                        }
                         left_shift *= 2;
                         ++src;
                         ++dst;
@@ -4925,7 +5241,9 @@ void drawBottomArchesLowerScreen(BYTE* pBuff, DWORD* pMask)
                     {
                         width = *src++;
                         if ((width & 0x80) != 0)
+                        {
                             break;
+                        }
                         yy_32 -= width;
                         if (dst < gpBufEnd)
                         {
@@ -4934,7 +5252,9 @@ void drawBottomArchesLowerScreen(BYTE* pBuff, DWORD* pMask)
                             do
                             {
                                 if (left_shift & 0x80000000)
+                                {
                                     dst[0] = src[0];
+                                }
                                 left_shift *= 2;
                                 ++src;
                                 ++dst;
@@ -4948,12 +5268,16 @@ void drawBottomArchesLowerScreen(BYTE* pBuff, DWORD* pMask)
                             dst += width;
                         }
                         if (!yy_32)
+                        {
                             goto LABEL_152;
+                        }
                     }
                     width = -(char)width;
                     dst += width;
                     if (width & 0x1F)
+                    {
                         gdwCurrentMask <<= width & 0x1F;
+                    }
                     yy_32 -= width;
                 } while (yy_32);
             LABEL_152:
@@ -4977,7 +5301,9 @@ void drawBottomArchesLowerScreen(BYTE* pBuff, DWORD* pMask)
                     {
                         tile_42_45 = (unsigned int)(dst - gpBufEnd + 1023) >> 8;
                         if (tile_42_45 > 42)
+                        {
                             return;
+                        }
                         world_tbl = WorldTbl3x16[tile_42_45];
                         src += WorldTbl17_2[world_tbl >> 2];
                         dst -= 192 * world_tbl;
@@ -5040,7 +5366,9 @@ void drawBottomArchesLowerScreen(BYTE* pBuff, DWORD* pMask)
         case 11: // lower (bottom transparent), without lighting
             xx_32 = 30;
             if (pBuff < gpBufEnd)
+            {
                 goto LABEL_175;
+            }
             tile_42_45 = (unsigned int)(pBuff - gpBufEnd + 1023) >> 8;
             if (tile_42_45 <= 45)
             {
@@ -5076,7 +5404,9 @@ void drawBottomArchesLowerScreen(BYTE* pBuff, DWORD* pMask)
             {
                 tile_42_45 = (unsigned int)(dst - gpBufEnd + 1023) >> 8;
                 if (tile_42_45 > 42)
+                {
                     return;
+                }
                 world_tbl = WorldTbl3x16[tile_42_45];
                 src += WorldTbl17_2[world_tbl >> 2];
                 dst -= 192 * world_tbl;
@@ -5121,7 +5451,9 @@ void drawBottomArchesLowerScreen(BYTE* pBuff, DWORD* pMask)
                             do
                             {
                                 if (left_shift & 0x80000000)
+                                {
                                     dst[0] = src[0];
+                                }
                                 left_shift *= 2;
                                 ++src;
                                 ++dst;
@@ -5189,7 +5521,9 @@ void drawBottomArchesLowerScreen(BYTE* pBuff, DWORD* pMask)
                             do
                             {
                                 if (left_shift & 0x80000000)
+                                {
                                     dst[0] = src[0];
+                                }
                                 left_shift *= 2;
                                 ++src;
                                 ++dst;
@@ -5283,7 +5617,9 @@ void drawLowerScreen(BYTE* pBuff)
         if ((BYTE)light_table_index == lightmax)
         {
             if (level_cel_block & 0x8000)
+            {
                 level_cel_block = *(DWORD*)&gpCelFrame[64 * (level_cel_block & 0xFFF)] + (WORD)(level_cel_block & 0xF000);
+            }
             src = pDungeonCels + *((DWORD*)pDungeonCels + (level_cel_block & 0xFFF));
             cel_type_16 = (level_cel_block >> 12) & 7;
             switch (cel_type_16)
@@ -5322,12 +5658,16 @@ void drawLowerScreen(BYTE* pBuff)
                             {
                                 width = *src++;
                                 if ((width & 0x80) == 0)
+                                {
                                     break;
+                                }
                                 width = -(char)width;
                                 dst += width;
                                 yy_32 -= width;
                                 if (!yy_32)
+                                {
                                     goto LABEL_232;
+                                }
                             }
                             yy_32 -= width;
                             if (dst < gpBufEnd)
@@ -5398,7 +5738,9 @@ void drawLowerScreen(BYTE* pBuff)
                         }
                         dst -= (SCREEN_WIDTH + 160);
                         if (!i)
+                        {
                             break;
+                        }
                     }
                     i = 2;
                     do
@@ -5459,7 +5801,9 @@ void drawLowerScreen(BYTE* pBuff)
                         }
                         dst -= (SCREEN_WIDTH + 160);
                         if (!i)
+                        {
                             break;
+                        }
                         dst += i;
                     }
                     i = 2;
@@ -5521,7 +5865,9 @@ void drawLowerScreen(BYTE* pBuff)
                         }
                         dst -= (SCREEN_WIDTH + 160);
                         if (!i)
+                        {
                             break;
+                        }
                     }
                     i = 16;
                     do
@@ -5573,7 +5919,9 @@ void drawLowerScreen(BYTE* pBuff)
                         }
                         dst -= (SCREEN_WIDTH + 160);
                         if (!i)
+                        {
                             break;
+                        }
                         dst += i;
                     }
                     i = 16;
@@ -5672,7 +6020,9 @@ void drawLowerScreen(BYTE* pBuff)
                             {
                                 tile_42_45 = (unsigned int)(dst - gpBufEnd + 1023) >> 8;
                                 if (tile_42_45 > 42)
+                                {
                                     return;
+                                }
                                 world_tbl = WorldTbl3x16[tile_42_45];
                                 src += WorldTbl17_2[world_tbl >> 2];
                                 dst -= 192 * world_tbl;
@@ -5717,7 +6067,9 @@ void drawLowerScreen(BYTE* pBuff)
                             {
                                 tile_42_45 = (unsigned int)(dst - gpBufEnd + 1023) >> 8;
                                 if (tile_42_45 > 42)
+                                {
                                     return;
+                                }
                                 world_tbl = WorldTbl3x16[tile_42_45];
                                 src += WorldTbl17_2[world_tbl >> 2];
                                 dst -= 192 * world_tbl;
@@ -5835,7 +6187,9 @@ void drawLowerScreen(BYTE* pBuff)
     else
     {
         if (level_cel_block & 0x8000)
+        {
             level_cel_block = *(DWORD*)&gpCelFrame[64 * (level_cel_block & 0xFFF)] + (WORD)(level_cel_block & 0xF000);
+        }
         src = pDungeonCels + *((DWORD*)pDungeonCels + (level_cel_block & 0xFFF));
         cel_type_16 = (((unsigned int)level_cel_block >> 12) & 7) + 8;
     }
@@ -5876,12 +6230,16 @@ void drawLowerScreen(BYTE* pBuff)
                     {
                         width = *src++;
                         if ((width & 0x80) == 0)
+                        {
                             break;
+                        }
                         width = -(char)width;
                         dst += width;
                         yy_32 -= width;
                         if (!yy_32)
+                        {
                             goto LABEL_143;
+                        }
                     }
                     yy_32 -= width;
                     if (dst < gpBufEnd)
@@ -5940,7 +6298,9 @@ void drawLowerScreen(BYTE* pBuff)
                     {
                         tile_42_45 = (unsigned int)(dst - gpBufEnd + 1023) >> 8;
                         if (tile_42_45 > 42)
+                        {
                             return;
+                        }
                         world_tbl = WorldTbl3x16[tile_42_45];
                         src += WorldTbl17_2[world_tbl >> 2];
                         dst -= 192 * world_tbl;
@@ -6003,7 +6363,9 @@ void drawLowerScreen(BYTE* pBuff)
         case 11: // lower (solid), without lighting
             xx_32 = 30;
             if (pBuff < gpBufEnd)
+            {
                 goto LABEL_166;
+            }
             tile_42_45 = (unsigned int)(pBuff - gpBufEnd + 1023) >> 8;
             if (tile_42_45 <= 45)
             {
@@ -6039,7 +6401,9 @@ void drawLowerScreen(BYTE* pBuff)
             {
                 tile_42_45 = (unsigned int)(dst - gpBufEnd + 1023) >> 8;
                 if (tile_42_45 > 42)
+                {
                     return;
+                }
                 world_tbl = WorldTbl3x16[tile_42_45];
                 src += WorldTbl17_2[world_tbl >> 2];
                 dst -= 192 * world_tbl;
@@ -6212,7 +6576,9 @@ void world_draw_black_tile(BYTE* pBuff)
         } while (j);
         dst = &dst[xx - 832];
         if (!xx)
+        {
             break;
+        }
         xx -= 2;
     }
 

@@ -15,7 +15,9 @@ BOOL __fastcall Sbar_CheckIfNextHero(HWND hWnd)
 
     v1 = (_uiheroinfo*)GetWindowLongA(hWnd, -21);
     if (!v1 || !v1->next)
+    {
         return 0;
+    }
     v1->next = 0;
     return 1;
 }
@@ -35,18 +37,28 @@ int __fastcall Sbar_NumScrollLines(HWND hWnd, int width, int height)
     Point.x = width;
     Point.y = height;
     if (!hWnd)
+    {
         return 0;
+    }
     if (!IsWindowVisible(hWnd))
+    {
         return 0;
+    }
     v4 = (DWORD*)GetWindowLongA(hWnd, -21);
     v5 = v4;
     if (!v4)
+    {
         return 0;
+    }
     v7 = v4[13];
     if (v7 <= 1)
+    {
         v8 = 22;
+    }
     else
+    {
         v8 = v4[14] * (v4[3] - v4[9] - 44) / (v7 - 1) + 22;
+    }
     v9 = v8 + v4[9];
     ScreenToClient(hWnd, &Point);
     if (Point.y >= 22)
@@ -120,25 +132,22 @@ void __fastcall Sbar_DrawScrollBar(HWND hWnd, int nIDDlgItem, int width, int hei
                     DstRect.bottom = *(DWORD*)(v5 + 12) - 1;
                     SrcBuffer.right = *(DWORD*)(v5 + 8) - 1;
                     SrcBuffer.bottom = *(DWORD*)(v5 + 24) - 1;
-                    SBltROP3Tiled(
-                        *(void**)(v5 + 4), &DstRect, *(POINT**)(v5 + 8), *(DWORD*)(v5 + 16), &SrcBuffer,
-                        *(RECT**)(v5 + 20), 0, 0, 0, SRCCOPY);
+                    SBltROP3Tiled(*(void**)(v5 + 4), &DstRect, *(POINT**)(v5 + 8), *(DWORD*)(v5 + 16), &SrcBuffer, *(RECT**)(v5 + 20), 0, 0, 0, SRCCOPY);
                     if (*(DWORD*)(v5 + 28))
                     {
                         if (width <= 1)
+                        {
                             v8 = 22;
+                        }
                         else
+                        {
                             v8 = height * (*(DWORD*)(v5 + 12) - *(DWORD*)(v5 + 36) - 44) / (width - 1) + 22;
+                        }
+                        SBltROP3((void*)(v8 * *(DWORD*)(v5 + 8) + *(DWORD*)(v5 + 4) + 3), *(void**)(v5 + 28), 18, *(DWORD*)(v5 + 36), *(DWORD*)(v5 + 8), *(DWORD*)(v5 + 32), 0, SRCCOPY);
                         SBltROP3(
-                            (void*)(v8 * *(DWORD*)(v5 + 8) + *(DWORD*)(v5 + 4) + 3), *(void**)(v5 + 28), 18,
-                            *(DWORD*)(v5 + 36), *(DWORD*)(v5 + 8), *(DWORD*)(v5 + 32), 0, SRCCOPY);
+                            *(void**)(v5 + 4), (void*)(*(DWORD*)(v5 + 40) + 22 * (~*(BYTE*)v5 & 1) * *(DWORD*)(v5 + 44)), *(DWORD*)(v5 + 8), 22, *(DWORD*)(v5 + 8), *(DWORD*)(v5 + 44), 0, SRCCOPY);
                         SBltROP3(
-                            *(void**)(v5 + 4),
-                            (void*)(*(DWORD*)(v5 + 40) + 22 * (~*(BYTE*)v5 & 1) * *(DWORD*)(v5 + 44)),
-                            *(DWORD*)(v5 + 8), 22, *(DWORD*)(v5 + 8), *(DWORD*)(v5 + 44), 0, SRCCOPY);
-                        SBltROP3(
-                            (void*)(*(DWORD*)(v5 + 4) + *(DWORD*)(v5 + 8) * (*(DWORD*)(v5 + 12) - 22)),
-                            (void*)(*(DWORD*)(v5 + 40) + 22 * ((~*(BYTE*)v5 & 4 | 8u) >> 2) * *(DWORD*)(v5 + 44)),
+                            (void*)(*(DWORD*)(v5 + 4) + *(DWORD*)(v5 + 8) * (*(DWORD*)(v5 + 12) - 22)), (void*)(*(DWORD*)(v5 + 40) + 22 * ((~*(BYTE*)v5 & 4 | 8u) >> 2) * *(DWORD*)(v5 + 44)),
                             *(DWORD*)(v5 + 8), 22, *(DWORD*)(v5 + 8), *(DWORD*)(v5 + 44), 0, SRCCOPY);
                         InvalidateRect(hWnda, 0, 0);
                     }
@@ -206,16 +215,24 @@ void __fastcall Sbar_FreeScrollBar(HWND hWnd, int nIDDlgItem)
         {
             v6 = (void*)v4[1];
             if (v6)
+            {
                 SMemFree(v6, "C:\\Src\\Diablo\\DiabloUI\\Sbar.cpp", 267, 0);
+            }
             v7 = (void*)v4[4];
             if (v7)
+            {
                 SMemFree(v7, "C:\\Src\\Diablo\\DiabloUI\\Sbar.cpp", 269, 0);
+            }
             v8 = (void*)v4[7];
             if (v8)
+            {
                 SMemFree(v8, "C:\\Src\\Diablo\\DiabloUI\\Sbar.cpp", 271, 0);
+            }
             v9 = (void*)v4[10];
             if (v9)
+            {
                 SMemFree(v9, "C:\\Src\\Diablo\\DiabloUI\\Sbar.cpp", 273, 0);
+            }
             SMemFree(v4, "C:\\Src\\Diablo\\DiabloUI\\Sbar.cpp", 275, 0);
             SetWindowLongA(v2, -21, 0);
         }

@@ -40,7 +40,9 @@ static void gmenu_print_text(int x, int y, const char* pszStr)
         c = gbFontTransTbl[(BYTE)*pszStr++];
         c = lfontframe[c];
         if (c != 0)
+        {
             CelDrawLight(x, y, BigTGold_cel, c, 46);
+        }
         x += lfontkern[c] + 2;
     }
 }
@@ -48,7 +50,9 @@ static void gmenu_print_text(int x, int y, const char* pszStr)
 void gmenu_draw_pause()
 {
     if (currlevel != 0)
+    {
         RedBack();
+    }
     if (!sgpCurrentMenu)
     {
         light_table_index = 0;
@@ -111,18 +115,24 @@ static void gmenu_up_down(BOOL isDown)
             {
                 sgpCurrItem++;
                 if (!sgpCurrItem->fnMenu)
+                {
                     sgpCurrItem = &sgpCurrentMenu[0];
+                }
             }
             else
             {
                 if (sgpCurrItem == sgpCurrentMenu)
+                {
                     sgpCurrItem = &sgpCurrentMenu[sgCurrentMenuIdx];
+                }
                 sgpCurrItem--;
             }
             if ((sgpCurrItem->dwFlags & GMENU_ENABLED) != 0)
             {
                 if (i)
+                {
                     PlaySFX(IS_TITLEMOV);
+                }
                 return;
             }
         }
@@ -174,7 +184,9 @@ static int gmenu_get_lfont(TMenuItem* pItem)
     BYTE c;
 
     if (pItem->dwFlags & GMENU_SLIDER)
+    {
         return 490;
+    }
     text = pItem->pszStr;
     i = 0;
     while (*text)
@@ -203,7 +215,9 @@ static void gmenu_draw_menu_item(TMenuItem* pItem, int y)
         step = pItem->dwFlags & 0xFFF;
         nSteps = (pItem->dwFlags & 0xFFF000) >> 12;
         if (nSteps < 2)
+        {
             nSteps = 2;
+        }
         pos = step * 256 / nSteps;
 #ifdef HELLFIRE
         gmenu_clear_buffer(x + 2 + PANEL_LEFT, y - 12, pos + 13, 28);
@@ -231,7 +245,9 @@ void gmenu_draw()
     if (sgpCurrentMenu)
     {
         if (gmenu_current_option)
+        {
             gmenu_current_option(sgpCurrentMenu);
+        }
 #ifdef HELLFIRE
         ticks = GetTickCount();
         if ((int)(ticks - LogoAnim_tick) > 25)
@@ -264,7 +280,9 @@ void gmenu_draw()
         { // BUGFIX: thould be 50ms
             PentSpin_frame++;
             if (PentSpin_frame == 9)
+            {
                 PentSpin_frame = 1;
+            }
             PentSpin_tick = ticks;
         }
     }
@@ -275,20 +293,26 @@ static void gmenu_left_right(BOOL isRight)
     int step, steps;
 
     if (!(sgpCurrItem->dwFlags & GMENU_SLIDER))
+    {
         return;
+    }
 
     step = sgpCurrItem->dwFlags & 0xFFF;
     steps = (int)(sgpCurrItem->dwFlags & 0xFFF000) >> 12;
     if (isRight)
     {
         if (step == steps)
+        {
             return;
+        }
         step++;
     }
     else
     {
         if (step == 0)
+        {
             return;
+        }
         step--;
     }
     sgpCurrItem->dwFlags &= 0xFFFFF000;
@@ -299,7 +323,9 @@ static void gmenu_left_right(BOOL isRight)
 BOOL gmenu_presskeys(int vkey)
 {
     if (!sgpCurrentMenu)
+    {
         return FALSE;
+    }
     switch (vkey)
     {
         case VK_RETURN:
@@ -353,7 +379,9 @@ BOOL gmenu_on_mouse_move()
     int step, nSteps;
 
     if (!mouseNavigation)
+    {
         return FALSE;
+    }
     gmenu_get_mouse_slider(&step);
     nSteps = (int)(sgpCurrItem->dwFlags & 0xFFF000) >> 12;
     step *= nSteps;
@@ -432,9 +460,13 @@ BOOL gmenu_left_mouse(BOOL isDown)
 void gmenu_enable(TMenuItem* pMenuItem, BOOL enable)
 {
     if (enable)
+    {
         pMenuItem->dwFlags |= GMENU_ENABLED;
+    }
     else
+    {
         pMenuItem->dwFlags &= ~GMENU_ENABLED;
+    }
 }
 
 /**
@@ -447,7 +479,9 @@ void gmenu_slider_set(TMenuItem* pItem, int min, int max, int value)
     assert(pItem);
     nSteps = (int)(pItem->dwFlags & 0xFFF000) >> 12;
     if (nSteps < 2)
+    {
         nSteps = 2;
+    }
     pItem->dwFlags &= 0xFFFFF000;
     pItem->dwFlags |= ((max - min - 1) / 2 + (value - min) * nSteps) / (max - min);
 }
@@ -462,7 +496,9 @@ int gmenu_slider_get(TMenuItem* pItem, int min, int max)
     step = pItem->dwFlags & 0xFFF;
     nSteps = (int)(pItem->dwFlags & 0xFFF000) >> 12;
     if (nSteps < 2)
+    {
         nSteps = 2;
+    }
     return min + (step * (max - min) + (nSteps - 1) / 2) / nSteps;
 }
 

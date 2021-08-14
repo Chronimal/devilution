@@ -15,7 +15,9 @@ LRESULT __stdcall SelLoad_WndProc(HWND hWnd, UINT Msg, WPARAM wParam, LPARAM lPa
         return (LRESULT)SDlgDefDialogProc(hWnd, Msg, (HDC)wParam, (HWND)lParam);
     }
     if (Msg <= 0x103)
+    {
         return (LRESULT)SDlgDefDialogProc(hWnd, Msg, (HDC)wParam, (HWND)lParam);
+    }
     if (Msg <= 0x105)
     {
         v9 = (HWND)SDrawGetFrameWindow(NULL);
@@ -65,9 +67,13 @@ LRESULT __stdcall SelLoad_WndProc(HWND hWnd, UINT Msg, WPARAM wParam, LPARAM lPa
         {
             v5 = 1;
             if (HIWORD(wParam) == 5 || (WORD)wParam == 1)
+            {
                 goto LABEL_19;
+            }
             if ((WORD)wParam != 2)
+            {
                 return (LRESULT)SDlgDefDialogProc(hWnd, Msg, (HDC)wParam, (HWND)lParam);
+            }
             goto LABEL_21;
         }
         Focus_CheckPlayMove(lParam);

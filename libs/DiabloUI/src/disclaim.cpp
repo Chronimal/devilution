@@ -23,12 +23,16 @@ LRESULT __stdcall disclaim_WndProc(HWND hWnd, UINT Msg, WPARAM wParam, LPARAM lP
             if (Msg == 528)
             {
                 if ((WORD)wParam == 513 || (WORD)wParam == 516)
+                {
                     disclaim_FadeFromDisclaim(hWnd);
+                }
             }
             else if (Msg == 2024)
             {
                 if (!Fade_CheckRange5())
+                {
                     Fade_SetFadeTimer(hWnd);
+                }
                 return 0;
             }
             return (LRESULT)SDlgDefDialogProc(hWnd, Msg, (HDC)wParam, (HWND)lParam);

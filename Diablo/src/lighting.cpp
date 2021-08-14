@@ -275,9 +275,13 @@ void DoLighting(int nXPos, int nYPos, int nRadius, int Lnum)
                 v = lightradius[nRadius][radius_block];
 #ifndef HELLFIRE
                 if (temp_x >= 0 && temp_x < MAXDUNX && temp_y >= 0 && temp_y < MAXDUNY)
+                {
 #endif
                     if (v < dLight[temp_x][temp_y])
+                    {
                         dLight[temp_x][temp_y] = v;
+                    }
+                }
             }
         }
     }
@@ -295,9 +299,13 @@ void DoLighting(int nXPos, int nYPos, int nRadius, int Lnum)
                 v = lightradius[nRadius][radius_block];
 #ifndef HELLFIRE
                 if (temp_x >= 0 && temp_x < MAXDUNX && temp_y >= 0 && temp_y < MAXDUNY)
+                {
 #endif
                     if (v < dLight[temp_x][temp_y])
+                    {
                         dLight[temp_x][temp_y] = v;
+                    }
+                }
             }
         }
     }
@@ -315,9 +323,13 @@ void DoLighting(int nXPos, int nYPos, int nRadius, int Lnum)
                 v = lightradius[nRadius][radius_block];
 #ifndef HELLFIRE
                 if (temp_x >= 0 && temp_x < MAXDUNX && temp_y >= 0 && temp_y < MAXDUNY)
+                {
 #endif
                     if (v < dLight[temp_x][temp_y])
+                    {
                         dLight[temp_x][temp_y] = v;
+                    }
+                }
             }
         }
     }
@@ -335,9 +347,13 @@ void DoLighting(int nXPos, int nYPos, int nRadius, int Lnum)
                 v = lightradius[nRadius][radius_block];
 #ifndef HELLFIRE
                 if (temp_x >= 0 && temp_x < MAXDUNX && temp_y >= 0 && temp_y < MAXDUNY)
+                {
 #endif
                     if (v < dLight[temp_x][temp_y])
+                    {
                         dLight[temp_x][temp_y] = v;
+                    }
+                }
             }
         }
     }
@@ -376,8 +392,10 @@ void DoUnLight(int nXPos, int nYPos, int nRadius)
         {
 #ifndef HELLFIRE
             if (x >= 0 && x < MAXDUNX && y >= 0 && y < MAXDUNY)
+            {
 #endif
                 dLight[x][y] = dPreLight[x][y];
+            }
         }
     }
 }

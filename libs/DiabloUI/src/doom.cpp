@@ -69,7 +69,9 @@ void __fastcall Doom_PrintStrWithSpin(HWND hWnd, BOOL a2)
         GetWindowTextA(hWnd, String, 255);
         v5 = String;
         if (!strlen(String))
+        {
             v5 = (char*)(v4 + 4);
+        }
         v14 = artfont_GetFontWidth(v5);
         if (a2)
         {
@@ -83,7 +85,9 @@ void __fastcall Doom_PrintStrWithSpin(HWND hWnd, BOOL a2)
                     *v12 = 0;
                     v14 = artfont_GetFontWidth(v5);
                     if (v14 <= v6)
+                    {
                         break;
+                    }
                 }
             }
         }
@@ -125,9 +129,7 @@ void __fastcall Doom_GetWindowROP3(HWND hWnd1, HWND hWnd2)
             GetWindowRect(hWnd2, &Rect);
             ScreenToClient(hWnd1, (LPPOINT)&Rect);
             ScreenToClient(hWnd1, (LPPOINT)&Rect.right);
-            SBltROP3(
-                *(void**)v4, (void*)(Rect.left + *v3 + Rect.top * v3[1]), *(DWORD*)(v4 + 4), *(DWORD*)(v4 + 8),
-                *(DWORD*)(v4 + 4), v3[1], 0, SRCCOPY);
+            SBltROP3(*(void**)v4, (void*)(Rect.left + *v3 + Rect.top * v3[1]), *(DWORD*)(v4 + 4), *(DWORD*)(v4 + 8), *(DWORD*)(v4 + 4), v3[1], 0, SRCCOPY);
         }
     }
 }
@@ -225,7 +227,9 @@ void __fastcall Doom_PrintStrWithSpn2(HWND hWnd, int justify_type)
         GetWindowTextA(hWnd, String, 255);
         v4 = String;
         if (!strlen(String))
+        {
             v4 = (char*)(v3 + 4);
+        }
         if (justify_type & 2)
         {
             v5 = v3[1] - artfont_GetFontWidth(v4) - 1;
@@ -339,14 +343,20 @@ void __fastcall Doom_PrintTextMsg403(HWND hWnd)
         v6 = Rect.right - 2 * (artfont_GetFontDefWidth() + v5);
         v12 = SendMessageA(hWnd, 0x403u, 0, 0);
         if (v12 == 1)
+        {
             String[v14 - 1] = 0; // *(&v9 + v14) = 0;
+        }
         for (i = String; *i; ++i)
         {
             if (artfont_GetFontWidth(i) <= v6)
+            {
                 break;
+            }
         }
         if (v12)
+        {
             String[v14 - 1] = 124; // *(&v9 + v14) = 124;
+        }
         v8 = artfont_GetFontMaxHeight();
         artfont_PrintFontStr(i, (DWORD**)pWidthBin, v4, (*((DWORD*)pWidthBin + 2) - v8) / 2);
     }

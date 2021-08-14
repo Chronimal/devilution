@@ -52,10 +52,14 @@ void snd_update(BOOL bStopAll)
     for (i = 0; i < 8; i++)
     {
         if (!DSBs[i])
+        {
             continue;
+        }
 
         if (!bStopAll && DSBs[i]->GetStatus(&dwStatus) == DS_OK && dwStatus == DSBSTATUS_PLAYING)
+        {
             continue;
+        }
 
         DSBs[i]->Stop();
         DSBs[i]->Release();
@@ -123,7 +127,9 @@ static BOOL sound_file_reload(TSnd* sound_file, LPDIRECTSOUNDBUFFER DSB)
     HRESULT error_code;
 
     if (DSB->Restore() != DS_OK)
+    {
         return FALSE;
+    }
 
     rv = FALSE;
 
@@ -136,7 +142,9 @@ static BOOL sound_file_reload(TSnd* sound_file, LPDIRECTSOUNDBUFFER DSB)
         WReadFile(file, buf1, size1);
         error_code = DSB->Unlock(buf1, size1, buf2, size2);
         if (error_code == DS_OK)
+        {
             rv = TRUE;
+        }
     }
 
     WCloseFile(file);
@@ -147,7 +155,9 @@ static BOOL sound_file_reload(TSnd* sound_file, LPDIRECTSOUNDBUFFER DSB)
 void snd_stop_snd(TSnd* pSnd)
 {
     if (pSnd && pSnd->DSB)
+    {
         pSnd->DSB->Stop();
+    }
 }
 
 BOOL snd_playing(TSnd* pSnd)
@@ -155,13 +165,19 @@ BOOL snd_playing(TSnd* pSnd)
     DWORD dwStatus;
 
     if (!pSnd)
+    {
         return FALSE;
+    }
 
     if (pSnd->DSB == NULL)
+    {
         return FALSE;
+    }
 
     if (pSnd->DSB->GetStatus(&dwStatus) != DS_OK)
+    {
         return FALSE;
+    }
 
     return dwStatus == DSBSTATUS_PLAYING;
 }
@@ -240,7 +256,9 @@ static void sound_CreateSoundBuffer(TSnd* sound_file)
     DSB.lpwfxFormat = &sound_file->fmt;
     error_code = sglpDS->CreateSoundBuffer(&DSB, &sound_file->DSB, NULL);
     if (error_code != ERROR_SUCCESS)
+    {
         DSErrMsg(error_code, 282, "C:\\Src\\Diablo\\Source\\SOUND.CPP");
+    }
 }
 
 TSnd* sound_file_load(const char* path)
@@ -253,7 +271,9 @@ TSnd* sound_file_load(const char* path)
     HRESULT error_code;
 
     if (!sglpDS)
+    {
         return NULL;
+    }
 
     WOpenFile(path, &file, FALSE);
     pSnd = (TSnd*)DiabloAllocPtr(sizeof(TSnd));
@@ -263,19 +283,25 @@ TSnd* sound_file_load(const char* path)
 
     wave_file = LoadWaveFile(file, &pSnd->fmt, &pSnd->chunk);
     if (!wave_file)
+    {
         app_fatal("Invalid sound format on file %s", pSnd->sound_path);
+    }
 
     sound_CreateSoundBuffer(pSnd);
 
     error_code = pSnd->DSB->Lock(0, pSnd->chunk.dwSize, &buf1, &size1, &buf2, &size2, 0);
     if (error_code != DS_OK)
+    {
         DSErrMsg(error_code, 318, "C:\\Src\\Diablo\\Source\\SOUND.CPP");
+    }
 
     memcpy(buf1, wave_file + pSnd->chunk.dwOffset, size1);
 
     error_code = pSnd->DSB->Unlock(buf1, size1, buf2, size2);
     if (error_code != DS_OK)
+    {
         DSErrMsg(error_code, 325, "C:\\Src\\Diablo\\Source\\SOUND.CPP");
+    }
 
     mem_free_dbg((void*)wave_file);
     WCloseFile(file);
@@ -312,7 +338,9 @@ static void sound_create_primary_buffer(HANDLE music_track)
 
         error_code = sglpDS->CreateSoundBuffer(&dsbuf, &sglpDSB, NULL);
         if (error_code != DS_OK)
+        {
             DSErrMsg(error_code, 375, "C:\\Src\\Diablo\\Source\\SOUND.CPP");
+        }
     }
 
     if (sglpDSB)
@@ -322,7 +350,9 @@ static void sound_create_primary_buffer(HANDLE music_track)
 
         error_code = sglpDS->GetCaps(&dsbcaps);
         if (error_code != DS_OK)
+        {
             DSErrMsg(error_code, 383, "C:\\Src\\Diablo\\Source\\SOUND.CPP");
+        }
 
         if (!music_track || !LoadWaveFormat(music_track, &format))
         {
@@ -374,10 +404,14 @@ void snd_init(HWND hWnd)
 
     error_code = sound_DirectSoundCreate(NULL, &sglpDS, NULL);
     if (error_code != DS_OK)
+    {
         sglpDS = NULL;
+    }
 
     if (sglpDS && sglpDS->SetCooperativeLevel(hWnd, DSSCL_EXCLUSIVE) == DS_OK)
+    {
         sound_create_primary_buffer(NULL);
+    }
 
     SVidInitialize(sglpDS);
     SFileDdaInitialize(sglpDS);
@@ -459,12 +493,16 @@ void sound_disable_music(BOOL disable)
 int sound_get_or_set_music_volume(int volume)
 {
     if (volume == 1)
+    {
         return sglMusicVolume;
+    }
 
     sglMusicVolume = volume;
 
     if (sghMusic)
+    {
         SFileDdaSetVolume(sghMusic, volume, 0);
+    }
 
     return sglMusicVolume;
 }
@@ -472,7 +510,9 @@ int sound_get_or_set_music_volume(int volume)
 int sound_get_or_set_sound_volume(int volume)
 {
     if (volume == 1)
+    {
         return sglSoundVolume;
+    }
 
     sglSoundVolume = volume;
 

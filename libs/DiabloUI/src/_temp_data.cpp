@@ -1,11 +1,7 @@
 #include "inc.h"
 
 // rdata
-ProfileStruct bnprofiles[4] = {
-    {"profile\\sex", '\x01', 1128, 8},
-    {"profile\\age", '\x01', 1130, 4},
-    {"profile\\location", '\x01', 1132, 40},
-    {"profile\\description", '\x01', 1134, 200}};
+ProfileStruct bnprofiles[4] = {{"profile\\sex", '\x01', 1128, 8}, {"profile\\age", '\x01', 1130, 4}, {"profile\\location", '\x01', 1132, 40}, {"profile\\description", '\x01', 1134, 200}};
 int profilemsg1[6] = {1125, 1127, 1129, 1131, 1133, 0};
 int profilemsg2[6] = {1126, 1128, 1130, 1132, 1134, 0};
 int Connect_cpp_float_value = 2139095040;  // weak

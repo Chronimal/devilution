@@ -34,7 +34,9 @@ int ObjIndex(int x, int y)
     {
         oi = objectactive[i];
         if (object[oi]._ox == x && object[oi]._oy == y)
+        {
             return oi;
+        }
     }
     app_fatal("ObjIndex: Active object not found at (%d,%d)", x, y);
     return -1;
@@ -137,7 +139,9 @@ void LoadSetMap()
             break;
         case SL_POISONWATER:
             if (quests[Q_PWATER]._qactive == QUEST_INIT)
+            {
                 quests[Q_PWATER]._qactive = QUEST_ACTIVE;
+            }
             LoadPreL3Dungeon("Levels\\L3Data\\Foulwatr.DUN", 19, 50);
             LoadL3Dungeon("Levels\\L3Data\\Foulwatr.DUN", 20, 50);
             LoadPalette("Levels\\L3Data\\L3pfoul.pal");

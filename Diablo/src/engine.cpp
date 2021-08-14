@@ -89,10 +89,14 @@ void CelBlit(BYTE* pDecodeTo, BYTE* pRLEBytes, int nDataSize, int nWidth)
 
     assert(pDecodeTo != NULL);
     if (pDecodeTo == NULL)
+    {
         return;
+    }
     assert(pRLEBytes != NULL);
     if (pRLEBytes == NULL)
+    {
         return;
+    }
 
 #ifdef USE_ASM
     __asm {
@@ -205,10 +209,14 @@ void CelDraw(int sx, int sy, BYTE* pCelBuff, int nCel, int nWidth)
 
     assert(gpBuffer);
     if (gpBuffer == NULL)
+    {
         return;
+    }
     assert(pCelBuff != NULL);
     if (pCelBuff == NULL)
+    {
         return;
+    }
 
     pRLEBytes = CelGetFrame(pCelBuff, nCel, &nDataSize);
     CelBlit(&gpBuffer[sx + PitchTbl[sy]], pRLEBytes, nDataSize, nWidth);
@@ -228,10 +236,14 @@ void CelBlitFrame(BYTE* pBuff, BYTE* pCelBuff, int nCel, int nWidth)
 
     assert(pCelBuff != NULL);
     if (pCelBuff == NULL)
+    {
         return;
+    }
     assert(pBuff != NULL);
     if (pBuff == NULL)
+    {
         return;
+    }
 
     pRLEBytes = CelGetFrame(pCelBuff, nCel, &nDataSize);
     CelBlit(pBuff, pRLEBytes, nDataSize, nWidth);
@@ -255,27 +267,41 @@ void CelClippedDraw(int sx, int sy, BYTE* pCelBuff, int nCel, int nWidth, int Ce
 
     assert(gpBuffer);
     if (gpBuffer == NULL)
+    {
         return;
+    }
     assert(pCelBuff != NULL);
     if (pCelBuff == NULL)
+    {
         return;
+    }
 
     pFrameTable = (DWORD*)pCelBuff;
 
     pRLEBytes = &pCelBuff[pFrameTable[nCel]];
     nDataStart = *(WORD*)&pRLEBytes[CelSkip];
     if (!nDataStart)
+    {
         return;
+    }
 
     nDataSize = pFrameTable[nCel + 1] - pFrameTable[nCel];
     if (CelCap == 8)
+    {
         nDataCap = 0;
+    }
     else
+    {
         nDataCap = *(WORD*)&pRLEBytes[CelCap];
+    }
     if (nDataCap)
+    {
         nDataSize = nDataCap - nDataStart;
+    }
     else
+    {
         nDataSize -= nDataStart;
+    }
 
     CelBlit(&gpBuffer[sx + PitchTbl[sy - 16 * CelSkip]], pRLEBytes + nDataStart, nDataSize, nWidth);
 }
@@ -297,27 +323,41 @@ void CelClippedBlit(BYTE* pBuff, BYTE* pCelBuff, int nCel, int nWidth, int CelSk
 
     assert(pCelBuff != NULL);
     if (pCelBuff == NULL)
+    {
         return;
+    }
     assert(pBuff != NULL);
     if (pBuff == NULL)
+    {
         return;
+    }
 
     pFrameTable = (DWORD*)pCelBuff;
 
     pRLEBytes = &pCelBuff[pFrameTable[nCel]];
     nDataStart = *(WORD*)&pRLEBytes[CelSkip];
     if (!nDataStart)
+    {
         return;
+    }
 
     nDataSize = pFrameTable[nCel + 1] - pFrameTable[nCel];
     if (CelCap == 8)
+    {
         nDataCap = 0;
+    }
     else
+    {
         nDataCap = *(WORD*)&pRLEBytes[CelCap];
+    }
     if (nDataCap)
+    {
         nDataSize = nDataCap - nDataStart;
+    }
     else
+    {
         nDataSize -= nDataStart;
+    }
 
     CelBlit(pBuff, pRLEBytes + nDataStart, nDataSize, nWidth);
 }
@@ -336,10 +376,14 @@ void CelBlitLight(BYTE* pDecodeTo, BYTE* pRLEBytes, int nDataSize, int nWidth)
 
     assert(pDecodeTo != NULL);
     if (pDecodeTo == NULL)
+    {
         return;
+    }
     assert(pRLEBytes != NULL);
     if (pRLEBytes == NULL)
+    {
         return;
+    }
 
 #ifdef USE_ASM
     __asm {
@@ -505,10 +549,14 @@ void CelBlitLightTrans(BYTE* pDecodeTo, BYTE* pRLEBytes, int nDataSize, int nWid
 
     assert(pDecodeTo != NULL);
     if (pDecodeTo == NULL)
+    {
         return;
+    }
     assert(pRLEBytes != NULL);
     if (pRLEBytes == NULL)
+    {
         return;
+    }
 
 #ifdef USE_ASM
     __asm {
@@ -717,18 +765,26 @@ void CelDrawLight(int sx, int sy, BYTE* pCelBuff, int nCel, int nWidth)
 
     assert(gpBuffer);
     if (gpBuffer == NULL)
+    {
         return;
+    }
     assert(pCelBuff != NULL);
     if (pCelBuff == NULL)
+    {
         return;
+    }
 
     pRLEBytes = CelGetFrame(pCelBuff, nCel, &nDataSize);
     pDecodeTo = &gpBuffer[sx + PitchTbl[sy]];
 
     if (light_table_index)
+    {
         CelBlitLight(pDecodeTo, pRLEBytes, nDataSize, nWidth);
+    }
     else
+    {
         CelBlit(pDecodeTo, pRLEBytes, nDataSize, nWidth);
+    }
 }
 
 /**
@@ -749,35 +805,53 @@ void CelClippedDrawLight(int sx, int sy, BYTE* pCelBuff, int nCel, int nWidth, i
 
     assert(gpBuffer);
     if (gpBuffer == NULL)
+    {
         return;
+    }
     assert(pCelBuff != NULL);
     if (pCelBuff == NULL)
+    {
         return;
+    }
 
     pFrameTable = (DWORD*)pCelBuff;
 
     pRLEBytes = &pCelBuff[pFrameTable[nCel]];
     nDataStart = *(WORD*)&pRLEBytes[CelSkip];
     if (!nDataStart)
+    {
         return;
+    }
 
     nDataSize = pFrameTable[nCel + 1] - pFrameTable[nCel];
     if (CelCap == 8)
+    {
         nDataCap = 0;
+    }
     else
+    {
         nDataCap = *(WORD*)&pRLEBytes[CelCap];
+    }
     if (nDataCap)
+    {
         nDataSize = nDataCap - nDataStart;
+    }
     else
+    {
         nDataSize -= nDataStart;
+    }
 
     pRLEBytes += nDataStart;
     pDecodeTo = &gpBuffer[sx + PitchTbl[sy - 16 * CelSkip]];
 
     if (light_table_index)
+    {
         CelBlitLight(pDecodeTo, pRLEBytes, nDataSize, nWidth);
+    }
     else
+    {
         CelBlit(pDecodeTo, pRLEBytes, nDataSize, nWidth);
+    }
 }
 
 /**
@@ -797,36 +871,56 @@ void CelClippedBlitLightTrans(BYTE* pBuff, BYTE* pCelBuff, int nCel, int nWidth,
 
     assert(pCelBuff != NULL);
     if (pCelBuff == NULL)
+    {
         return;
+    }
     assert(pBuff != NULL);
     if (pBuff == NULL)
+    {
         return;
+    }
 
     pFrameTable = (DWORD*)pCelBuff;
 
     pRLEBytes = &pCelBuff[pFrameTable[nCel]];
     nDataStart = *(WORD*)&pRLEBytes[CelSkip];
     if (!nDataStart)
+    {
         return;
+    }
 
     nDataSize = pFrameTable[nCel + 1] - pFrameTable[nCel];
     if (CelCap == 8)
+    {
         nDataCap = 0;
+    }
     else
+    {
         nDataCap = *(WORD*)&pRLEBytes[CelCap];
+    }
     if (nDataCap)
+    {
         nDataSize = nDataCap - nDataStart;
+    }
     else
+    {
         nDataSize -= nDataStart;
+    }
 
     pRLEBytes += nDataStart;
 
     if (cel_transparency_active)
+    {
         CelBlitLightTrans(pBuff, pRLEBytes, nDataSize, nWidth);
+    }
     else if (light_table_index)
+    {
         CelBlitLight(pBuff, pRLEBytes, nDataSize, nWidth);
+    }
     else
+    {
         CelBlit(pBuff, pRLEBytes, nDataSize, nWidth);
+    }
 }
 
 /**
@@ -848,36 +942,54 @@ void CelDrawLightRed(int sx, int sy, BYTE* pCelBuff, int nCel, int nWidth, int C
 
     assert(gpBuffer);
     if (gpBuffer == NULL)
+    {
         return;
+    }
     assert(pCelBuff != NULL);
     if (pCelBuff == NULL)
+    {
         return;
+    }
 
     pFrameTable = (DWORD*)pCelBuff;
 
     pRLEBytes = &pCelBuff[pFrameTable[nCel]];
     nDataStart = *(WORD*)&pRLEBytes[CelSkip];
     if (!nDataStart)
+    {
         return;
+    }
 
     nDataSize = pFrameTable[nCel + 1] - pFrameTable[nCel];
     if (CelCap == 8)
+    {
         nDataCap = 0;
+    }
     else
+    {
         nDataCap = *(WORD*)&pRLEBytes[CelCap];
+    }
     if (nDataCap)
+    {
         nDataSize = nDataCap - nDataStart;
+    }
     else
+    {
         nDataSize -= nDataStart;
+    }
 
     pRLEBytes += nDataStart;
     dst = &gpBuffer[sx + PitchTbl[sy - 16 * CelSkip]];
 
     idx = light4flag ? 1024 : 4096;
     if (light == 2)
+    {
         idx += 256; // gray colors
+    }
     if (light >= 4)
+    {
         idx += (light - 1) << 8;
+    }
 
 #ifdef USE_ASM
     __asm {
@@ -972,13 +1084,19 @@ void CelBlitSafe(BYTE* pDecodeTo, BYTE* pRLEBytes, int nDataSize, int nWidth)
 
     assert(pDecodeTo != NULL);
     if (pDecodeTo == NULL)
+    {
         return;
+    }
     assert(pRLEBytes != NULL);
     if (pRLEBytes == NULL)
+    {
         return;
+    }
     assert(gpBuffer);
     if (gpBuffer == NULL)
+    {
         return;
+    }
 
 #ifdef USE_ASM
     __asm {
@@ -1108,27 +1226,41 @@ void CelClippedDrawSafe(int sx, int sy, BYTE* pCelBuff, int nCel, int nWidth, in
 
     assert(gpBuffer);
     if (gpBuffer == NULL)
+    {
         return;
+    }
     assert(pCelBuff != NULL);
     if (pCelBuff == NULL)
+    {
         return;
+    }
 
     pFrameTable = (DWORD*)pCelBuff;
 
     pRLEBytes = &pCelBuff[pFrameTable[nCel]];
     nDataStart = *(WORD*)&pRLEBytes[CelSkip];
     if (!nDataStart)
+    {
         return;
+    }
 
     nDataSize = pFrameTable[nCel + 1] - pFrameTable[nCel];
     if (CelCap == 8)
+    {
         nDataCap = 0;
+    }
     else
+    {
         nDataCap = *(WORD*)&pRLEBytes[CelCap];
+    }
     if (nDataCap)
+    {
         nDataSize = nDataCap - nDataStart;
+    }
     else
+    {
         nDataSize -= nDataStart;
+    }
 
     CelBlitSafe(&gpBuffer[sx + PitchTbl[sy - 16 * CelSkip]], pRLEBytes + nDataStart, nDataSize, nWidth);
 }
@@ -1150,27 +1282,39 @@ void CelClippedBlitSafe(BYTE* pBuff, BYTE* pCelBuff, int nCel, int nWidth, int C
 
     assert(pCelBuff != NULL);
     if (pCelBuff == NULL)
+    {
         return;
+    }
     assert(pBuff != NULL);
     if (pBuff == NULL)
+    {
         return;
+    }
 
     pFrameTable = (DWORD*)pCelBuff;
 
     pRLEBytes = &pCelBuff[pFrameTable[nCel]];
     nDataStart = *(WORD*)&pRLEBytes[CelSkip];
     if (!nDataStart)
+    {
         return;
+    }
 
     nDataSize = pFrameTable[nCel + 1] - pFrameTable[nCel];
     nDataCap = *(WORD*)&pRLEBytes[CelCap];
     if (CelCap == 8)
+    {
         nDataCap = 0;
+    }
 
     if (nDataCap)
+    {
         nDataSize = nDataCap - nDataStart;
+    }
     else
+    {
         nDataSize -= nDataStart;
+    }
 
     CelBlitSafe(pBuff, pRLEBytes + nDataStart, nDataSize, nWidth);
 }
@@ -1189,13 +1333,19 @@ void CelBlitLightSafe(BYTE* pDecodeTo, BYTE* pRLEBytes, int nDataSize, int nWidt
 
     assert(pDecodeTo != NULL);
     if (pDecodeTo == NULL)
+    {
         return;
+    }
     assert(pRLEBytes != NULL);
     if (pRLEBytes == NULL)
+    {
         return;
+    }
     assert(gpBuffer);
     if (gpBuffer == NULL)
+    {
         return;
+    }
 
 #ifdef USE_ASM
     __asm {
@@ -1376,13 +1526,19 @@ void CelBlitLightTransSafe(BYTE* pDecodeTo, BYTE* pRLEBytes, int nDataSize, int 
 
     assert(pDecodeTo != NULL);
     if (pDecodeTo == NULL)
+    {
         return;
+    }
     assert(pRLEBytes != NULL);
     if (pRLEBytes == NULL)
+    {
         return;
+    }
     assert(gpBuffer);
     if (gpBuffer == NULL)
+    {
         return;
+    }
 
 #ifdef USE_ASM
     __asm {
@@ -1608,35 +1764,51 @@ void CelDrawLightSafe(int sx, int sy, BYTE* pCelBuff, int nCel, int nWidth, int 
 
     assert(gpBuffer);
     if (gpBuffer == NULL)
+    {
         return;
+    }
     assert(pCelBuff != NULL);
     if (pCelBuff == NULL)
+    {
         return;
+    }
 
     pFrameTable = (DWORD*)pCelBuff;
 
     pRLEBytes = &pCelBuff[pFrameTable[nCel]];
     nDataStart = *(WORD*)&pRLEBytes[CelSkip];
     if (!nDataStart)
+    {
         return;
+    }
 
     nDataSize = pFrameTable[nCel + 1] - pFrameTable[nCel];
     nDataCap = *(WORD*)&pRLEBytes[CelCap];
     if (CelCap == 8)
+    {
         nDataCap = 0;
+    }
 
     if (nDataCap)
+    {
         nDataSize = nDataCap - nDataStart;
+    }
     else
+    {
         nDataSize -= nDataStart;
+    }
 
     pRLEBytes += nDataStart;
     pDecodeTo = &gpBuffer[sx + PitchTbl[sy - 16 * CelSkip]];
 
     if (light_table_index)
+    {
         CelBlitLightSafe(pDecodeTo, pRLEBytes, nDataSize, nWidth);
+    }
     else
+    {
         CelBlitSafe(pDecodeTo, pRLEBytes, nDataSize, nWidth);
+    }
 }
 
 /**
@@ -1656,33 +1828,49 @@ void CelClippedBlitLightTransSafe(BYTE* pBuff, BYTE* pCelBuff, int nCel, int nWi
 
     assert(pCelBuff != NULL);
     if (pCelBuff == NULL)
+    {
         return;
+    }
 
     pFrameTable = (DWORD*)pCelBuff;
 
     pRLEBytes = &pCelBuff[pFrameTable[nCel]];
     nDataStart = *(WORD*)&pRLEBytes[CelSkip];
     if (!nDataStart)
+    {
         return;
+    }
 
     nDataSize = pFrameTable[nCel + 1] - pFrameTable[nCel];
     nDataCap = *(WORD*)&pRLEBytes[CelCap];
     if (CelCap == 8)
+    {
         nDataCap = 0;
+    }
 
     if (nDataCap)
+    {
         nDataSize = nDataCap - nDataStart;
+    }
     else
+    {
         nDataSize -= nDataStart;
+    }
 
     pRLEBytes += nDataStart;
 
     if (cel_transparency_active)
+    {
         CelBlitLightTransSafe(pBuff, pRLEBytes, nDataSize, nWidth);
+    }
     else if (light_table_index)
+    {
         CelBlitLightSafe(pBuff, pRLEBytes, nDataSize, nWidth);
+    }
     else
+    {
         CelBlitSafe(pBuff, pRLEBytes, nDataSize, nWidth);
+    }
 }
 
 /**
@@ -1704,36 +1892,54 @@ void CelDrawLightRedSafe(int sx, int sy, BYTE* pCelBuff, int nCel, int nWidth, i
 
     assert(gpBuffer);
     if (gpBuffer == NULL)
+    {
         return;
+    }
     assert(pCelBuff != NULL);
     if (pCelBuff == NULL)
+    {
         return;
+    }
 
     pFrameTable = (DWORD*)pCelBuff;
 
     pRLEBytes = &pCelBuff[pFrameTable[nCel]];
     nDataStart = *(WORD*)&pRLEBytes[CelSkip];
     if (!nDataStart)
+    {
         return;
+    }
 
     nDataSize = pFrameTable[nCel + 1] - pFrameTable[nCel];
     if (CelCap == 8)
+    {
         nDataCap = 0;
+    }
     else
+    {
         nDataCap = *(WORD*)&pRLEBytes[CelCap];
+    }
     if (nDataCap)
+    {
         nDataSize = nDataCap - nDataStart;
+    }
     else
+    {
         nDataSize -= nDataStart;
+    }
 
     pRLEBytes += nDataStart;
     dst = &gpBuffer[sx + PitchTbl[sy - 16 * CelSkip]];
 
     idx = light4flag ? 1024 : 4096;
     if (light == 2)
+    {
         idx += 256; // gray colors
+    }
     if (light >= 4)
+    {
         idx += (light - 1) << 8;
+    }
 
     tbl = &pLightTbl[idx];
 
@@ -1842,10 +2048,14 @@ void CelBlitWidth(BYTE* pBuff, int x, int y, int wdt, BYTE* pCelBuff, int nCel, 
 
     assert(pCelBuff != NULL);
     if (pCelBuff == NULL)
+    {
         return;
+    }
     assert(pBuff != NULL);
     if (pBuff == NULL)
+    {
         return;
+    }
 
 #ifdef USE_ASM
     __asm {
@@ -1976,10 +2186,14 @@ void CelBlitOutline(char col, int sx, int sy, BYTE* pCelBuff, int nCel, int nWid
 
     assert(pCelBuff != NULL);
     if (pCelBuff == NULL)
+    {
         return;
+    }
     assert(gpBuffer);
     if (gpBuffer == NULL)
+    {
         return;
+    }
 
 #ifdef USE_ASM
     __asm {
@@ -2066,16 +2280,24 @@ void CelBlitOutline(char col, int sx, int sy, BYTE* pCelBuff, int nCel, int nWid
     pRLEBytes = &pCelBuff[pFrameTable[0]];
     nDataStart = *(WORD*)&pRLEBytes[CelSkip];
     if (!nDataStart)
+    {
         return;
+    }
 
     nDataCap = *(WORD*)&pRLEBytes[CelCap];
     if (CelCap == 8)
+    {
         nDataCap = 0;
+    }
 
     if (nDataCap)
+    {
         nDataSize = nDataCap - nDataStart;
+    }
     else
+    {
         nDataSize = pFrameTable[1] - pFrameTable[0] - nDataStart;
+    }
 
     src = pRLEBytes + nDataStart;
     end = &src[nDataSize];
@@ -2131,10 +2353,14 @@ void CelBlitOutlineSafe(char col, int sx, int sy, BYTE* pCelBuff, int nCel, int 
 
     assert(pCelBuff != NULL);
     if (pCelBuff == NULL)
+    {
         return;
+    }
     assert(gpBuffer);
     if (gpBuffer == NULL)
+    {
         return;
+    }
 
 #ifdef USE_ASM
     __asm {
@@ -2246,16 +2472,24 @@ void CelBlitOutlineSafe(char col, int sx, int sy, BYTE* pCelBuff, int nCel, int 
     pRLEBytes = &pCelBuff[pFrameTable[0]];
     nDataStart = *(WORD*)&pRLEBytes[CelSkip];
     if (!nDataStart)
+    {
         return;
+    }
 
     nDataCap = *(WORD*)&pRLEBytes[CelCap];
     if (CelCap == 8)
+    {
         nDataCap = 0;
+    }
 
     if (nDataCap)
+    {
         nDataSize = nDataCap - nDataStart;
+    }
     else
+    {
         nDataSize = pFrameTable[1] - pFrameTable[0] - nDataStart;
+    }
 
     src = pRLEBytes + nDataStart;
     end = &src[nDataSize];
@@ -2331,7 +2565,9 @@ void ENG_set_pixel(int sx, int sy, BYTE col)
     assert(gpBuffer);
 
     if (sy < 0 || sy >= SCREEN_HEIGHT + SCREEN_Y || sx < SCREEN_X || sx >= SCREEN_WIDTH + SCREEN_X)
+    {
         return;
+    }
 
     dst = &gpBuffer[sx + PitchTbl[sy]];
 
@@ -2346,7 +2582,9 @@ void ENG_set_pixel(int sx, int sy, BYTE col)
     }
 #else
     if (dst < gpBufEnd)
+    {
         *dst = col;
+    }
 #endif
 }
 
@@ -2364,13 +2602,17 @@ void engine_draw_pixel(int sx, int sy)
     if (gbRotateMap)
     {
         if (gbNotInView && (sx < 0 || sx >= SCREEN_HEIGHT + SCREEN_Y || sy < SCREEN_X || sy >= SCREEN_WIDTH + SCREEN_X))
+        {
             return;
+        }
         dst = &gpBuffer[sy + PitchTbl[sx]];
     }
     else
     {
         if (gbNotInView && (sy < 0 || sy >= SCREEN_HEIGHT + SCREEN_Y || sx < SCREEN_X || sx >= SCREEN_WIDTH + SCREEN_X))
+        {
             return;
+        }
         dst = &gpBuffer[sx + PitchTbl[sy]];
     }
 
@@ -2385,7 +2627,9 @@ void engine_draw_pixel(int sx, int sy)
     }
 #else
     if (dst < gpBufEnd)
+    {
         *dst = gbPixelCol;
+    }
 #endif
 }
 
@@ -2447,9 +2691,13 @@ void DrawLine(int x0, int y0, int x1, int y1, BYTE col)
     dy = GG_ABSOLUTE(y1, y0, sign_y);
     /* decide increment sign by the slope sign */
     if (sign_x == sign_y)
+    {
         step = 1;
+    }
     else
+    {
         step = -1;
+    }
 
     if (dy > dx)
     { /* chooses axis of greatest movement (make
@@ -2460,7 +2708,9 @@ void DrawLine(int x0, int y0, int x1, int y1, BYTE col)
         gbRotateMap = TRUE;
     }
     else
+    {
         gbRotateMap = FALSE;
+    }
     /* note error check for dx==0 should be included here */
     if (x0 > x1)
     { /* start from the smaller coordinate */
@@ -2536,9 +2786,13 @@ void DrawLine(int x0, int y0, int x1, int y1, BYTE col)
             {
                 engine_draw_pixel(++x, y); /* pattern 1 */
                 if (pixels_left > 1)
+                {
                     engine_draw_pixel(++x, y);
+                }
                 if (pixels_left > 2)
+                {
                     engine_draw_pixel(--x1_, y1_);
+                }
             }
             else
             {
@@ -2546,18 +2800,26 @@ void DrawLine(int x0, int y0, int x1, int y1, BYTE col)
                 {
                     engine_draw_pixel(++x, y); /* pattern 2  */
                     if (pixels_left > 1)
+                    {
                         engine_draw_pixel(++x, y += step);
+                    }
                     if (pixels_left > 2)
+                    {
                         engine_draw_pixel(--x1_, y1_);
+                    }
                 }
                 else
                 {
                     /* pattern 3 */
                     engine_draw_pixel(++x, y += step);
                     if (pixels_left > 1)
+                    {
                         engine_draw_pixel(++x, y);
+                    }
                     if (pixels_left > 2)
+                    {
                         engine_draw_pixel(--x1_, y1_ -= step);
+                    }
                 }
             }
         } /* end if pixels_left */
@@ -2613,9 +2875,13 @@ void DrawLine(int x0, int y0, int x1, int y1, BYTE col)
             {
                 engine_draw_pixel(++x, y += step); /* pattern 4 */
                 if (pixels_left > 1)
+                {
                     engine_draw_pixel(++x, y += step);
+                }
                 if (pixels_left > 2)
+                {
                     engine_draw_pixel(--x1_, y1_ -= step);
+                }
             }
             else
             {
@@ -2623,22 +2889,32 @@ void DrawLine(int x0, int y0, int x1, int y1, BYTE col)
                 {
                     engine_draw_pixel(++x, y); /* pattern 2  */
                     if (pixels_left > 1)
+                    {
                         engine_draw_pixel(++x, y += step);
+                    }
                     if (pixels_left > 2)
+                    {
                         engine_draw_pixel(--x1_, y1_);
+                    }
                 }
                 else
                 {
                     /* pattern 3 */
                     engine_draw_pixel(++x, y += step);
                     if (pixels_left > 1)
+                    {
                         engine_draw_pixel(++x, y);
+                    }
                     if (pixels_left > 2)
                     {
-                        if (D > c) /* step 3 */
+                        if (D > c)
+                        { /* step 3 */
                             engine_draw_pixel(--x1_, y1_ -= step);
-                        else /* step 2 */
+                        }
+                        else
+                        { /* step 2 */
                             engine_draw_pixel(--x1_, y1_);
+                        }
                     }
                 }
             }
@@ -2668,17 +2944,23 @@ int GetDirection(int x1, int y1, int x2, int y2)
         {
             md = DIR_S;
             if (2 * mx < my)
+            {
                 md = DIR_SW;
+            }
         }
         else
         {
             my = -my;
             md = DIR_E;
             if (2 * mx < my)
+            {
                 md = DIR_NE;
+            }
         }
         if (2 * my < mx)
+        {
             return DIR_SE;
+        }
     }
     else
     {
@@ -2687,7 +2969,9 @@ int GetDirection(int x1, int y1, int x2, int y2)
             ny = -mx;
             md = DIR_W;
             if (2 * ny < my)
+            {
                 md = DIR_SW;
+            }
         }
         else
         {
@@ -2695,10 +2979,14 @@ int GetDirection(int x1, int y1, int x2, int y2)
             my = -my;
             md = DIR_N;
             if (2 * ny < my)
+            {
                 md = DIR_NE;
+            }
         }
         if (2 * my < ny)
+        {
             return DIR_NW;
+        }
     }
 
     return md;
@@ -2735,9 +3023,13 @@ int GetRndSeed()
 int random_(BYTE idx, int v)
 {
     if (v <= 0)
+    {
         return 0;
+    }
     if (v < 0xFFFF)
+    {
         return (GetRndSeed() >> 16) % v;
+    }
     return GetRndSeed() % v;
 }
 
@@ -2810,10 +3102,14 @@ BYTE* LoadFileInMem(const char* pszName, DWORD* pdwFileLen)
     fileLen = WGetFileSize(file, NULL);
 
     if (pdwFileLen)
+    {
         *pdwFileLen = fileLen;
+    }
 
     if (!fileLen)
+    {
         app_fatal("Zero length SFILE:\n%s", pszName);
+    }
 
     buf = (BYTE*)DiabloAllocPtr(fileLen);
 
@@ -4012,27 +4308,41 @@ void Cl2Draw(int sx, int sy, BYTE* pCelBuff, int nCel, int nWidth, int CelSkip, 
 
     assert(gpBuffer != NULL);
     if (gpBuffer == NULL)
+    {
         return;
+    }
     assert(pCelBuff != NULL);
     if (pCelBuff == NULL)
+    {
         return;
+    }
     assert(nCel > 0);
     if (nCel <= 0)
+    {
         return;
+    }
 
     pFrameTable = (DWORD*)pCelBuff;
     assert(nCel <= (int)pFrameTable[0]);
     pRLEBytes = &pCelBuff[pFrameTable[nCel]];
     nDataStart = *(WORD*)&pRLEBytes[CelSkip];
     if (!nDataStart)
+    {
         return;
+    }
 
     if (CelCap == 8)
+    {
         nDataSize = 0;
+    }
     else
+    {
         nDataSize = *(WORD*)&pRLEBytes[CelCap];
+    }
     if (!nDataSize)
+    {
         nDataSize = pFrameTable[nCel + 1] - pFrameTable[nCel];
+    }
 
     Cl2Blit(&gpBuffer[sx + PitchTbl[sy - 16 * CelSkip]], pRLEBytes + nDataStart, nDataSize - nDataStart, nWidth);
 }
@@ -4056,27 +4366,41 @@ void Cl2DrawOutline(char col, int sx, int sy, BYTE* pCelBuff, int nCel, int nWid
 
     assert(gpBuffer != NULL);
     if (gpBuffer == NULL)
+    {
         return;
+    }
     assert(pCelBuff != NULL);
     if (pCelBuff == NULL)
+    {
         return;
+    }
     assert(nCel > 0);
     if (nCel <= 0)
+    {
         return;
+    }
 
     pFrameTable = (DWORD*)pCelBuff;
     assert(nCel <= (int)pFrameTable[0]);
     pRLEBytes = &pCelBuff[pFrameTable[nCel]];
     nDataStart = *(WORD*)&pRLEBytes[CelSkip];
     if (!nDataStart)
+    {
         return;
+    }
 
     if (CelCap == 8)
+    {
         nDataSize = 0;
+    }
     else
+    {
         nDataSize = *(WORD*)&pRLEBytes[CelCap];
+    }
     if (!nDataSize)
+    {
         nDataSize = pFrameTable[nCel + 1] - pFrameTable[nCel];
+    }
 
     Cl2BlitOutline(&gpBuffer[sx + PitchTbl[sy - 16 * CelSkip]], pRLEBytes + nDataStart, nDataSize - nDataStart, nWidth, col);
 }
@@ -4100,27 +4424,41 @@ void Cl2DrawLightTbl(int sx, int sy, BYTE* pCelBuff, int nCel, int nWidth, int C
 
     assert(gpBuffer != NULL);
     if (gpBuffer == NULL)
+    {
         return;
+    }
     assert(pCelBuff != NULL);
     if (pCelBuff == NULL)
+    {
         return;
+    }
     assert(nCel > 0);
     if (nCel <= 0)
+    {
         return;
+    }
 
     pFrameTable = (DWORD*)pCelBuff;
     assert(nCel <= (int)pFrameTable[0]);
     pRLEBytes = &pCelBuff[pFrameTable[nCel]];
     nDataStart = *(WORD*)&pRLEBytes[CelSkip];
     if (!nDataStart)
+    {
         return;
+    }
 
     if (CelCap == 8)
+    {
         nDataSize = 0;
+    }
     else
+    {
         nDataSize = *(WORD*)&pRLEBytes[CelCap];
+    }
     if (!nDataSize)
+    {
         nDataSize = pFrameTable[nCel + 1] - pFrameTable[nCel];
+    }
 
     nSize = nDataSize - nDataStart;
     pRLEBytes += nDataStart;
@@ -4128,9 +4466,13 @@ void Cl2DrawLightTbl(int sx, int sy, BYTE* pCelBuff, int nCel, int nWidth, int C
 
     idx = light4flag ? 1024 : 4096;
     if (light == 2)
+    {
         idx += 256; // gray colors
+    }
     if (light >= 4)
+    {
         idx += (light - 1) << 8;
+    }
 
     Cl2BlitLight(pDecodeTo, pRLEBytes, nSize, nWidth, &pLightTbl[idx]);
 }
@@ -4153,36 +4495,54 @@ void Cl2DrawLight(int sx, int sy, BYTE* pCelBuff, int nCel, int nWidth, int CelS
 
     assert(gpBuffer != NULL);
     if (gpBuffer == NULL)
+    {
         return;
+    }
     assert(pCelBuff != NULL);
     if (pCelBuff == NULL)
+    {
         return;
+    }
     assert(nCel > 0);
     if (nCel <= 0)
+    {
         return;
+    }
 
     pFrameTable = (DWORD*)pCelBuff;
     assert(nCel <= (int)pFrameTable[0]);
     pRLEBytes = &pCelBuff[pFrameTable[nCel]];
     nDataStart = *(WORD*)&pRLEBytes[CelSkip];
     if (!nDataStart)
+    {
         return;
+    }
 
     if (CelCap == 8)
+    {
         nDataSize = 0;
+    }
     else
+    {
         nDataSize = *(WORD*)&pRLEBytes[CelCap];
+    }
     if (!nDataSize)
+    {
         nDataSize = pFrameTable[nCel + 1] - pFrameTable[nCel];
+    }
 
     nSize = nDataSize - nDataStart;
     pRLEBytes += nDataStart;
     pDecodeTo = &gpBuffer[sx + PitchTbl[sy - 16 * CelSkip]];
 
     if (light_table_index)
+    {
         Cl2BlitLight(pDecodeTo, pRLEBytes, nSize, nWidth, &pLightTbl[light_table_index * 256]);
+    }
     else
+    {
         Cl2Blit(pDecodeTo, pRLEBytes, nSize, nWidth);
+    }
 }
 
 /**
@@ -4203,27 +4563,41 @@ void Cl2DrawSafe(int sx, int sy, BYTE* pCelBuff, int nCel, int nWidth, int CelSk
 
     assert(gpBuffer != NULL);
     if (gpBuffer == NULL)
+    {
         return;
+    }
     assert(pCelBuff != NULL);
     if (pCelBuff == NULL)
+    {
         return;
+    }
     assert(nCel > 0);
     if (nCel <= 0)
+    {
         return;
+    }
 
     pFrameTable = (DWORD*)pCelBuff;
     assert(nCel <= (int)pFrameTable[0]);
     pRLEBytes = &pCelBuff[pFrameTable[nCel]];
     nDataStart = *(WORD*)&pRLEBytes[CelSkip];
     if (!nDataStart)
+    {
         return;
+    }
 
     if (CelCap == 8)
+    {
         nDataSize = 0;
+    }
     else
+    {
         nDataSize = *(WORD*)&pRLEBytes[CelCap];
+    }
     if (!nDataSize)
+    {
         nDataSize = pFrameTable[nCel + 1] - pFrameTable[nCel];
+    }
 
     Cl2BlitSafe(&gpBuffer[sx + PitchTbl[sy - 16 * CelSkip]], pRLEBytes + nDataStart, nDataSize - nDataStart, nWidth);
 }
@@ -4247,27 +4621,41 @@ void Cl2DrawOutlineSafe(char col, int sx, int sy, BYTE* pCelBuff, int nCel, int 
 
     assert(gpBuffer != NULL);
     if (gpBuffer == NULL)
+    {
         return;
+    }
     assert(pCelBuff != NULL);
     if (pCelBuff == NULL)
+    {
         return;
+    }
     assert(nCel > 0);
     if (nCel <= 0)
+    {
         return;
+    }
 
     pFrameTable = (DWORD*)pCelBuff;
     assert(nCel <= (int)pFrameTable[0]);
     pRLEBytes = &pCelBuff[pFrameTable[nCel]];
     nDataStart = *(WORD*)&pRLEBytes[CelSkip];
     if (!nDataStart)
+    {
         return;
+    }
 
     if (CelCap == 8)
+    {
         nDataSize = 0;
+    }
     else
+    {
         nDataSize = *(WORD*)&pRLEBytes[CelCap];
+    }
     if (!nDataSize)
+    {
         nDataSize = pFrameTable[nCel + 1] - pFrameTable[nCel];
+    }
 
     gpBufEnd -= BUFFER_WIDTH;
     Cl2BlitOutlineSafe(&gpBuffer[sx + PitchTbl[sy - 16 * CelSkip]], pRLEBytes + nDataStart, nDataSize - nDataStart, nWidth, col);
@@ -4293,27 +4681,41 @@ void Cl2DrawLightTblSafe(int sx, int sy, BYTE* pCelBuff, int nCel, int nWidth, i
 
     assert(gpBuffer != NULL);
     if (gpBuffer == NULL)
+    {
         return;
+    }
     assert(pCelBuff != NULL);
     if (pCelBuff == NULL)
+    {
         return;
+    }
     assert(nCel > 0);
     if (nCel <= 0)
+    {
         return;
+    }
 
     pFrameTable = (DWORD*)pCelBuff;
     assert(nCel <= (int)pFrameTable[0]);
     pRLEBytes = &pCelBuff[pFrameTable[nCel]];
     nDataStart = *(WORD*)&pRLEBytes[CelSkip];
     if (!nDataStart)
+    {
         return;
+    }
 
     if (CelCap == 8)
+    {
         nDataSize = 0;
+    }
     else
+    {
         nDataSize = *(WORD*)&pRLEBytes[CelCap];
+    }
     if (!nDataSize)
+    {
         nDataSize = pFrameTable[nCel + 1] - pFrameTable[nCel];
+    }
 
     nSize = nDataSize - nDataStart;
     pRLEBytes += nDataStart;
@@ -4321,9 +4723,13 @@ void Cl2DrawLightTblSafe(int sx, int sy, BYTE* pCelBuff, int nCel, int nWidth, i
 
     idx = light4flag ? 1024 : 4096;
     if (light == 2)
+    {
         idx += 256; // gray colors
+    }
     if (light >= 4)
+    {
         idx += (light - 1) << 8;
+    }
 
     Cl2BlitLightSafe(pDecodeTo, pRLEBytes, nSize, nWidth, &pLightTbl[idx]);
 }
@@ -4346,36 +4752,54 @@ void Cl2DrawLightSafe(int sx, int sy, BYTE* pCelBuff, int nCel, int nWidth, int 
 
     assert(gpBuffer != NULL);
     if (gpBuffer == NULL)
+    {
         return;
+    }
     assert(pCelBuff != NULL);
     if (pCelBuff == NULL)
+    {
         return;
+    }
     assert(nCel > 0);
     if (nCel <= 0)
+    {
         return;
+    }
 
     pFrameTable = (DWORD*)pCelBuff;
     assert(nCel <= (int)pFrameTable[0]);
     pRLEBytes = &pCelBuff[pFrameTable[nCel]];
     nDataStart = *(WORD*)&pRLEBytes[CelSkip];
     if (!nDataStart)
+    {
         return;
+    }
 
     if (CelCap == 8)
+    {
         nDataSize = 0;
+    }
     else
+    {
         nDataSize = *(WORD*)&pRLEBytes[CelCap];
+    }
     if (!nDataSize)
+    {
         nDataSize = pFrameTable[nCel + 1] - pFrameTable[nCel];
+    }
 
     nSize = nDataSize - nDataStart;
     pRLEBytes += nDataStart;
     pDecodeTo = &gpBuffer[sx + PitchTbl[sy - 16 * CelSkip]];
 
     if (light_table_index)
+    {
         Cl2BlitLightSafe(pDecodeTo, pRLEBytes, nSize, nWidth, &pLightTbl[light_table_index * 256]);
+    }
     else
+    {
         Cl2BlitSafe(pDecodeTo, pRLEBytes, nSize, nWidth);
+    }
 }
 
 /**

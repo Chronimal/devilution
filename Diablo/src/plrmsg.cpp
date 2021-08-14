@@ -26,7 +26,9 @@ void plrmsg_delay(BOOL delay)
     plrmsg_ticks += GetTickCount();
     pMsg = plr_msgs;
     for (i = 0; i < PMSG_COUNT; i++, pMsg++)
+    {
         pMsg->time += plrmsg_ticks;
+    }
 }
 
 char* ErrorPlrMsg(const char* pszMsg)
@@ -76,7 +78,9 @@ void ClearPlrMsg()
     for (i = 0; i < PMSG_COUNT; i++, pMsg++)
     {
         if ((int)(tick - pMsg->time) > 10000)
+        {
             pMsg->str[0] = '\0';
+        }
     }
 }
 
@@ -97,18 +101,24 @@ void DrawPlrMsg()
     if (chrflag || questlog)
     {
         if (invflag || sbookflag)
+        {
             return;
+        }
         x += SPANEL_WIDTH;
         width -= SPANEL_WIDTH;
     }
     else if (invflag || sbookflag)
+    {
         width -= SPANEL_WIDTH;
+    }
 
     pMsg = plr_msgs;
     for (i = 0; i < PMSG_COUNT; i++)
     {
         if (pMsg->str[0])
+        {
             PrintPlrMsg(x, y, width, pMsg->str, text_color_from_player_num[pMsg->player]);
+        }
         pMsg++;
         y += 35;
     }
@@ -133,10 +143,14 @@ void PrintPlrMsg(DWORD x, DWORD y, DWORD width, const char* str, BYTE col)
                 c = gbFontTransTbl[(BYTE)*sstr++];
                 c = fontframe[c];
                 len += fontkern[c] + 1;
-                if (!c) // allow wordwrap on blank glyph
+                if (!c)
+                { // allow wordwrap on blank glyph
                     endstr = sstr;
+                }
                 else if (len >= width)
+                {
                     break;
+                }
             }
             else
             {
@@ -150,13 +164,17 @@ void PrintPlrMsg(DWORD x, DWORD y, DWORD width, const char* str, BYTE col)
             c = gbFontTransTbl[(BYTE)*str++];
             c = fontframe[c];
             if (c)
+            {
                 PrintChar(screen, c, col);
+            }
             screen += fontkern[c] + 1;
         }
 
         y += 10;
         line++;
         if (line == 3)
+        {
             break;
+        }
     }
 }

@@ -31,7 +31,9 @@ static void SHA1ProcessMessageBlock(SHA1Context* context)
 
     DWORD* buf = (DWORD*)context->buffer;
     for (i = 0; i < 16; i++)
+    {
         W[i] = buf[i];
+    }
 
     for (i = 16; i < 80; i++)
     {
@@ -97,7 +99,9 @@ static void SHA1Input(SHA1Context* context, const char* message_array, int len)
 
     count = context->count[0] + 8 * len;
     if (count < context->count[0])
+    {
         context->count[1]++;
+    }
 
     context->count[0] = count;
     context->count[1] += len >> 29;
@@ -135,7 +139,9 @@ void SHA1Calculate(int n, const char* data, char Message_Digest[SHA1HashSize])
 {
     SHA1Input(&sgSHA1[n], data, 64);
     if (Message_Digest)
+    {
         SHA1Result(n, Message_Digest);
+    }
 }
 
 void SHA1Reset(int n)

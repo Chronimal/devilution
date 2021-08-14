@@ -6,7 +6,9 @@ void __fastcall Focus_CheckPlayMove(LPARAM lParam)
     if (sgbSpinnersLoaded && lParam != dword_10029CA8)
     {
         if (dword_10029CAC)
+        {
             TitleSnd_PlayMoveSound();
+        }
         dword_10029CA8 = lParam;
     }
 }
@@ -41,15 +43,11 @@ void __fastcall Focus_BlitSpinner(HWND hWnd1, HWND hWnd2)
             GetWindowRect(hWnd2, &Rect);
             ScreenToClient((HWND)v9, (LPPOINT)&Rect);
             ScreenToClient((HWND)v9, (LPPOINT)&Rect.right);
-            SBltROP3(
-                *(void**)v3, (void*)(Rect.left + *v2 + Rect.top * v2[1]), focus_spin_width, *(DWORD*)(v3 + 8),
-                *(DWORD*)(v3 + 4), v2[1], 0, SRCCOPY);
+            SBltROP3(*(void**)v3, (void*)(Rect.left + *v2 + Rect.top * v2[1]), focus_spin_width, *(DWORD*)(v3 + 8), *(DWORD*)(v3 + 4), v2[1], 0, SRCCOPY);
             v5 = v2[1];
             v7 = *v2 + Rect.top * v5;
             v9 = *(char**)(v3 + 4);
-            SBltROP3(
-                &v9[*(DWORD*)v3 - focus_spin_width], &v9[v7 - focus_spin_width + Rect.left], focus_spin_width,
-                *(DWORD*)(v3 + 8), (int)v9, v5, 0, SRCCOPY);
+            SBltROP3(&v9[*(DWORD*)v3 - focus_spin_width], &v9[v7 - focus_spin_width + Rect.left], focus_spin_width, *(DWORD*)(v3 + 8), (int)v9, v5, 0, SRCCOPY);
             Focus_CenterSpinFromSide(hWnd2);
         }
     }
@@ -90,17 +88,25 @@ BOOL __fastcall Focus_DoBlitSpinIncFrame(HWND hWnd1, HWND hWnd2)
     struct tagRECT Rect; // [esp+Ch] [ebp-14h]
 
     if (!sgbSpinnersLoaded)
+    {
         return 0;
+    }
     if (!hWnd2)
+    {
         return 0;
+    }
     GetWindowLongA(hWnd2, -12);
     if (hWnd1 != GetParent(hWnd2))
+    {
         return 0;
+    }
     Focus_BlitSpinner(hWnd1, hWnd2);
     v4 = (void**)GetWindowLongA(hWnd2, -21);
     v5 = v4;
     if (!v4 || !*v4)
+    {
         return 0;
+    }
     GetWindowRect(hWnd2, &Rect);
     ScreenToClient(hWnd1, (LPPOINT)&Rect);
     ScreenToClient(hWnd1, (LPPOINT)&Rect.right);
@@ -112,7 +118,9 @@ BOOL __fastcall Focus_DoBlitSpinIncFrame(HWND hWnd1, HWND hWnd2)
         Focus_CenterSpinFromSide(hWnd2);
     }
     if (++sgnSpinnerFrame >= 8)
+    {
         sgnSpinnerFrame = 0;
+    }
     return 1;
 }
 // 10029C9C: using guessed type int focus_spin_height;
@@ -195,7 +203,9 @@ void __fastcall Focus_LoadSpinner(const char* pszFileName)
                 ++v1;
                 ++v4;
                 if ((signed int)v1 >= (signed int)&SpinnerTransOut[8])
+                {
                     break;
+                }
                 v3 = focus_spin_height;
                 v2 = focus_spin_width;
             }

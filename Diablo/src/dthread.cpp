@@ -32,24 +32,34 @@ static unsigned int __stdcall dthread_handler(void* data)
         sgMemCrit.Enter();
         pkt = sgpInfoHead;
         if (sgpInfoHead)
+        {
             sgpInfoHead = sgpInfoHead->pNext;
+        }
         else
+        {
             ResetEvent(sghWorkToDoEvent);
+        }
         sgMemCrit.Leave();
 
         if (pkt)
         {
             if (pkt->dwSpaceLeft != MAX_PLRS)
+            {
                 multi_send_zero_packet(pkt->dwSpaceLeft, pkt->data[0], &pkt->data[8], *(DWORD*)&pkt->data[4]);
+            }
 
             dwMilliseconds = 1000 * *(DWORD*)&pkt->data[4] / gdwDeltaBytesSec;
             if (dwMilliseconds >= 1)
+            {
                 dwMilliseconds = 1;
+            }
 
             mem_free_dbg(pkt);
 
             if (dwMilliseconds)
+            {
                 Sleep(dwMilliseconds);
+            }
         }
     }
 
@@ -64,7 +74,9 @@ void dthread_remove_player(int pnum)
     for (pkt = sgpInfoHead; pkt; pkt = pkt->pNext)
     {
         if (pkt->dwSpaceLeft == pnum)
+        {
             pkt->dwSpaceLeft = MAX_PLRS;
+        }
     }
     sgMemCrit.Leave();
 }

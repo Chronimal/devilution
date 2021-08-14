@@ -133,7 +133,9 @@ static void CowSFX(int pnum)
             CowPlaying = snSFX[sgnCowMsg][plr[pnum]._pClass]; /* snSFX is local */
             sgnCowMsg++;
             if (sgnCowMsg >= 3)
+            {
                 sgnCowMsg = 0;
+            }
         }
         else
         {
@@ -151,7 +153,9 @@ int GetActiveTowner(int t)
     for (i = 0; i < numtowners; i++)
     {
         if (towner[i]._ttype == t)
+        {
             return i;
+        }
     }
 
     return -1;
@@ -220,15 +224,21 @@ void InitQstSnds(int i)
     int j, tl;
     tl = i;
     if (boyloadflag)
+    {
         tl++;
+    }
     for (j = 0; j < MAXQUESTS; j++)
     {
         towner[i].qsts[j]._qsttype = quests[j]._qtype;
         towner[i].qsts[j]._qstmsg = ((int*)(Qtalklist + tl))[j];
         if (((int*)(Qtalklist + tl))[j] != -1)
+        {
             towner[i].qsts[j]._qstmsgact = TRUE;
+        }
         else
+        {
             towner[i].qsts[j]._qstmsgact = FALSE;
+        }
     }
 }
 
@@ -416,11 +426,17 @@ void InitCows()
         xo = x + cowoffx[dir];
         yo = y + cowoffy[dir];
         if (dMonster[x][yo] == 0)
+        {
             dMonster[x][yo] = -(numtowners + 1);
+        }
         if (dMonster[xo][y] == 0)
+        {
             dMonster[xo][y] = -(numtowners + 1);
+        }
         if (dMonster[xo][yo] == 0)
+        {
             dMonster[xo][yo] = -(numtowners + 1);
+        }
 
         numtowners++;
     }
@@ -500,7 +516,9 @@ void InitTowners()
     InitSmith();
     InitHealer();
     if (quests[Q_BUTCHER]._qactive != QUEST_NOTAVAIL && quests[Q_BUTCHER]._qactive != QUEST_DONE)
+    {
         InitTownDead();
+    }
     InitBarOwner();
     InitTeller();
     InitDrunk();
@@ -562,7 +580,9 @@ void TownCtrlMsg(int i)
         }
 #else
         if (dx >= 2 || dy >= 2)
+        {
             towner[i]._tbtcnt = 0;
+        }
         if (!towner[i]._tbtcnt)
         {
             qtextflag = FALSE;
@@ -608,7 +628,9 @@ void TownDead()
         }
     }
     if (quests[Q_BUTCHER]._qactive != QUEST_INIT)
+    {
         towner[tidx]._tAnimCnt = 0;
+    }
 }
 
 void TownHealer()
@@ -755,7 +777,9 @@ void ProcessTowners()
                 ao = towner[i]._tAnimOrder;
                 towner[i]._tAnimFrameCnt++;
                 if (AnimOrder[ao][towner[i]._tAnimFrameCnt] == -1)
+                {
                     towner[i]._tAnimFrameCnt = 0;
+                }
 
                 towner[i]._tAnimFrame = AnimOrder[ao][towner[i]._tAnimFrameCnt];
             }
@@ -763,7 +787,9 @@ void ProcessTowners()
             {
                 towner[i]._tAnimFrame++;
                 if (towner[i]._tAnimFrame > towner[i]._tAnimLen)
+                {
                     towner[i]._tAnimFrame = 1;
+                }
             }
         }
     }
@@ -774,7 +800,9 @@ ItemStruct* PlrHasItem(int pnum, int item, int& i)
     for (i = 0; i < plr[pnum]._pNumInv; i++)
     {
         if (plr[pnum].InvList[i].IDidx == item)
+        {
             return &plr[pnum].InvList[i];
+        }
     }
 
     return NULL;
@@ -1294,7 +1322,9 @@ else if (t == GetActiveTowner(TOWN_STORY))
 else if (towner[t]._ttype == TOWN_COW)
 {
     if (!qtextflag)
+    {
         CowSFX(p);
+    }
 #ifdef HELLFIRE
 }
 else if (towner[t]._ttype == TOWN_FARMER)

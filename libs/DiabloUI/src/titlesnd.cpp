@@ -16,14 +16,18 @@ void __cdecl TitleSnd_InitSoundFunc()
 void __cdecl TitleSnd_PlayMoveSound()
 {
     if (gfnSoundFunction)
+    {
         gfnSoundFunction("sfx\\items\\titlemov.wav");
+    }
 }
 
 // ref: 0x1001031F
 void __cdecl TitleSnd_PlaySelectSound()
 {
     if (gfnSoundFunction)
+    {
         gfnSoundFunction("sfx\\items\\titlslct.wav");
+    }
 }
 
 // ref: 0x1001032E

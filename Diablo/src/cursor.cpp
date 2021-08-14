@@ -208,9 +208,13 @@ void CheckRportal()
                 ClearPanel();
                 strcpy(infostr, "Portal to");
                 if (!setlevel)
+                {
                     strcpy(tempstr, "The Unholy Altar");
+                }
                 else
+                {
                     strcpy(tempstr, "level 15");
+                }
                 AddPanelString(tempstr, TRUE);
                 cursmx = missile[mx]._mix;
                 cursmy = missile[mx]._miy;

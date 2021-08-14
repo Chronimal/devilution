@@ -63,12 +63,18 @@ static void fault_hex_format(BYTE* ptr, DWORD numBytes)
     while (numBytes > 0)
     {
         if (numBytes < 16)
+        {
             bytesRead = numBytes;
+        }
         else
+        {
             bytesRead = 16;
+        }
 
         if (IsBadReadPtr(ptr, bytesRead))
+        {
             break;
+        }
 
         log_printf("0x%08x: ", ptr);
 
@@ -76,18 +82,26 @@ static void fault_hex_format(BYTE* ptr, DWORD numBytes)
         {
             fmt = "%02x ";
             if (i >= bytesRead)
+            {
                 fmt = "   ";
+            }
             log_printf(fmt, ptr[i]);
             if (i % 4 == 3)
+            {
                 log_printf(" ");
+            }
         }
 
         for (i = 0; i < bytesRead; i++)
         {
             if (isprint(ptr[i]))
+            {
                 c = ptr[i];
+            }
             else
+            {
                 c = '.';
+            }
             log_printf("%c", c);
         }
 
@@ -113,11 +127,15 @@ static void fault_unknown_module(LPCVOID lpAddress, LPSTR lpModuleName, int iMax
     *sectionOffset = 0;
 
     if (!VirtualQuery(lpAddress, &memInfo, sizeof(memInfo)))
+    {
         return;
+    }
 
     dosHeader = (PIMAGE_DOS_HEADER)memInfo.AllocationBase;
     if (!memInfo.AllocationBase)
+    {
         dosHeader = (PIMAGE_DOS_HEADER)GetModuleHandle(0);
+    }
 
     if (!GetModuleFileName((HMODULE)dosHeader, lpModuleName, iMaxLength))
     {
@@ -141,7 +159,9 @@ static void fault_unknown_module(LPCVOID lpAddress, LPSTR lpModuleName, int iMax
                     sectionSize = section->SizeOfRawData;
                     sectionAddress = section->VirtualAddress;
                     if (section->SizeOfRawData <= section->Misc.VirtualSize)
+                    {
                         sectionSize = section->Misc.VirtualSize;
+                    }
 
                     if (moduleOffset >= sectionAddress && moduleOffset <= sectionAddress + sectionSize)
                     {
@@ -168,14 +188,18 @@ static void fault_call_stack(void* instr, STACK_FRAME* stackFrame)
         log_printf("%08X %08X %04X:%08X %s\r\n", instr, stackFrame, sectionNumber, sectionOffset, szModuleName);
 
         if (IsBadWritePtr(stackFrame, 8))
+        {
             break;
+        }
 
         instr = stackFrame->pCallRet;
         oldStackFrame = stackFrame;
         stackFrame = stackFrame->pNext;
 
         if ((DWORD)stackFrame % 4 != 0)
+        {
             break;
+        }
     } while (stackFrame > oldStackFrame && !IsBadWritePtr(stackFrame, 8));
 
     log_printf("\r\n");
@@ -303,7 +327,9 @@ LONG __stdcall TopLevelExceptionFilter(PEXCEPTION_POINTERS ExceptionInfo)
     log_flush(TRUE);
 
     if (lpTopLevelExceptionFilter)
+    {
         return lpTopLevelExceptionFilter(ExceptionInfo);
+    }
     return EXCEPTION_CONTINUE_SEARCH;
 }
 

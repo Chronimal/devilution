@@ -1192,13 +1192,7 @@ HWND __fastcall SelConn_1000AE59(HWND hWnd, int a2, int a3)
 // 1002A354: using guessed type int dword_1002A354;
 
 // ref: 0x1000AF69
-int __stdcall UiSelectProvider(
-    int a1,
-    _SNETPROGRAMDATA* client_info,
-    _SNETPLAYERDATA* user_info,
-    _SNETUIDATA* ui_info,
-    _SNETVERSIONDATA* file_info,
-    int* type)
+int __stdcall UiSelectProvider(int a1, _SNETPROGRAMDATA* client_info, _SNETPLAYERDATA* user_info, _SNETUIDATA* ui_info, _SNETVERSIONDATA* file_info, int* type)
 {
     return 0;
 }

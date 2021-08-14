@@ -87,7 +87,9 @@ static void gamemenu_update_single(TMenuItem* pMenuItems)
 
     enable = FALSE;
     if (plr[myplr]._pmode != PM_DEATH && !deathflag)
+    {
         enable = TRUE;
+    }
 
     gmenu_enable(&sgSingleMenu[0], enable);
 }
@@ -118,9 +120,13 @@ void gamemenu_off()
 void gamemenu_handle_previous()
 {
     if (gmenu_is_active())
+    {
         gamemenu_off();
+    }
     else
+    {
         gamemenu_on();
+    }
 }
 
 void gamemenu_previous(BOOL bActivate)
@@ -412,9 +418,13 @@ void gamemenu_gamma(BOOL bActivate)
     {
         gamma = UpdateGamma(0);
         if (gamma == 30)
+        {
             gamma = 100;
+        }
         else
+        {
             gamma = 30;
+        }
     }
     else
     {

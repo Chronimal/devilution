@@ -117,7 +117,9 @@ BOOL CheckSpell(int id, int sn, char st, BOOL manaonly)
 
 #ifdef _DEBUG
     if (debug_mode_key_inverted_v)
+    {
         return TRUE;
+    }
 #endif
 
     result = TRUE;

@@ -61,14 +61,18 @@ void town_clear_upper_buf(BYTE* pBuff)
     {
         dst += i;
         for (k = 0; k < 4 * j; k++)
+        {
             *dst++ = 0;
+        }
         dst += i;
     }
     for (i = 2, j = TILE_HEIGHT / 2 - 1; i != TILE_HEIGHT && dst >= gpBufEnd; i += 2, j--, dst -= BUFFER_WIDTH + TILE_WIDTH)
     {
         dst += i;
         for (k = 0; k < 4 * j; k++)
+        {
             *dst++ = 0;
+        }
         dst += i;
     }
 #endif
@@ -138,7 +142,9 @@ void town_clear_low_buf(BYTE* pBuff)
         {
             dst += i;
             for (k = 0; k < 4 * j; k++)
+            {
                 *dst++ = 0;
+            }
             dst += i;
         }
         else
@@ -152,7 +158,9 @@ void town_clear_low_buf(BYTE* pBuff)
         {
             dst += i;
             for (k = 0; k < 4 * j; k++)
+            {
                 *dst++ = 0;
+            }
             dst += i;
         }
         else
@@ -1540,7 +1548,9 @@ void T_DrawView(int StartX, int StartY)
         DrawAutomap();
     }
     if (stextflag && !qtextflag)
+    {
         DrawSText();
+    }
     if (invflag)
     {
         DrawInv();

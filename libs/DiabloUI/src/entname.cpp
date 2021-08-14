@@ -16,7 +16,9 @@ LRESULT __stdcall EntName_WndProc(HWND hWnd, UINT Msg, WPARAM wParam, LPARAM lPa
         return (LRESULT)SDlgDefDialogProc(hWnd, Msg, (HDC)wParam, (HWND)lParam);
     }
     if (Msg <= 0x103)
+    {
         return (LRESULT)SDlgDefDialogProc(hWnd, Msg, (HDC)wParam, (HWND)lParam);
+    }
     if (Msg <= 0x105)
     {
         v9 = (HWND)SDrawGetFrameWindow(NULL);
@@ -35,7 +37,9 @@ LRESULT __stdcall EntName_WndProc(HWND hWnd, UINT Msg, WPARAM wParam, LPARAM lPa
                 if ((unsigned short)wParam != 2)
                 {
                     if ((unsigned short)wParam == 1065)
+                    {
                         EntName_GetMessageName(hWnd, wParam, lParam);
+                    }
                     return (LRESULT)SDlgDefDialogProc(hWnd, Msg, (HDC)wParam, (HWND)lParam);
                 }
                 goto LABEL_11;
@@ -47,7 +51,9 @@ LRESULT __stdcall EntName_WndProc(HWND hWnd, UINT Msg, WPARAM wParam, LPARAM lPa
             return 0;
     }
     if (Msg != 513)
+    {
         return (LRESULT)SDlgDefDialogProc(hWnd, Msg, (HDC)wParam, (HWND)lParam);
+    }
     v5 = GetDlgItem(hWnd, 1056);
     if (local_GetBottomRect(hWnd, v5, (unsigned short)lParam, (unsigned int)lParam >> 16))
     {
@@ -89,9 +95,13 @@ void __fastcall EntName_LoadFocusChkName(HWND hWnd)
 
     v2 = GetParent(hWnd);
     if (SelHero_GetHeroIsGood() == 1)
+    {
         LoadStringA(ghUiInst, 0x20u, Buffer, 31);
+    }
     else
+    {
         LoadStringA(ghUiInst, 0x1Fu, Buffer, 31);
+    }
     SelHero_SetStringWithMsg(v2, Buffer);
     v3 = GetWindowLongA(v2, -21);
     SetWindowLongA(hWnd, -21, v3);
@@ -104,7 +114,7 @@ void __fastcall EntName_LoadFocusChkName(HWND hWnd)
     SendMessageA(v4, 0x401u, 0xFu, 0);
     if (SelHero_GetHeroIsGood() == 1)
     {
-        SendMessageA(v4, 0x404u, 0, (LPARAM)" ,<>%&\\\"?*#/");
+        SendMessageA(v4, 0x404u, 0, (LPARAM) " ,<>%&\\\"?*#/");
     }
 }
 
@@ -133,7 +143,9 @@ void __fastcall EntName_GetMessageName(HWND hWnd, unsigned int a2, int a3)
     if (v3)
     {
         if (v3 == 2)
+        {
             Doom_ParseWndProc6(hWnd, entname_msgtbl3, AF_MED);
+        }
     }
     else
     {

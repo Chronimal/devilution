@@ -78,9 +78,13 @@ static BYTE* CaptureEnc(BYTE* src, BYTE* dst, int width)
         while (rlePixel == *src)
         {
             if (rleLength >= 63)
+            {
                 break;
+            }
             if (!width)
+            {
                 break;
+            }
             rleLength++;
 
             width--;
@@ -215,7 +219,9 @@ void CaptureScreen()
         CloseHandle(hObject);
 
         if (!success)
+        {
             DeleteFile(FileName);
+        }
 
         Sleep(300);
         lpDDPalette->SetEntries(0, 0, 256, palette);

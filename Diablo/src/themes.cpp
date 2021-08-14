@@ -63,7 +63,9 @@ BOOL TFit_Shrine(int i)
                 xp = 0;
                 yp++;
                 if (yp == MAXDUNY)
+                {
                     return FALSE;
+                }
             }
         }
     }
@@ -174,15 +176,25 @@ BOOL CheckThemeObj3(int xp, int yp, int t, int f)
     for (i = 0; i < 9; i++)
     {
         if (xp + trm3x[i] < 0 || yp + trm3y[i] < 0)
+        {
             return FALSE;
+        }
         if (nSolidTable[dPiece[xp + trm3x[i]][yp + trm3y[i]]])
+        {
             return FALSE;
+        }
         if (dTransVal[xp + trm3x[i]][yp + trm3y[i]] != themes[t].ttval)
+        {
             return FALSE;
+        }
         if (dObject[xp + trm3x[i]][yp + trm3y[i]])
+        {
             return FALSE;
+        }
         if (f != -1 && random_(0, f) == 0)
+        {
             return FALSE;
+        }
     }
 
     return TRUE;
@@ -376,7 +388,9 @@ BOOL CheckThemeRoom(int tv)
     for (i = 0; i < numtrigs; i++)
     {
         if (dTransVal[trigs[i]._tx][trigs[i]._ty] == tv)
+        {
             return FALSE;
+        }
     }
 
     tarea = 0;
@@ -385,31 +399,47 @@ BOOL CheckThemeRoom(int tv)
         for (i = 0; i < MAXDUNX; i++)
         {
             if (dTransVal[i][j] != tv)
+            {
                 continue;
+            }
             if (dFlags[i][j] & BFLAG_POPULATED)
+            {
                 return FALSE;
+            }
 
             tarea++;
         }
     }
 
     if (leveltype == DTYPE_CATHEDRAL && (tarea < 9 || tarea > 100))
+    {
         return FALSE;
+    }
 
     for (j = 0; j < MAXDUNY; j++)
     {
         for (i = 0; i < MAXDUNX; i++)
         {
             if (dTransVal[i][j] != tv || nSolidTable[dPiece[i][j]])
+            {
                 continue;
+            }
             if (dTransVal[i - 1][j] != tv && !nSolidTable[dPiece[i - 1][j]])
+            {
                 return FALSE;
+            }
             if (dTransVal[i + 1][j] != tv && !nSolidTable[dPiece[i + 1][j]])
+            {
                 return FALSE;
+            }
             if (dTransVal[i][j - 1] != tv && !nSolidTable[dPiece[i][j - 1]])
+            {
                 return FALSE;
+            }
             if (dTransVal[i][j + 1] != tv && !nSolidTable[dPiece[i][j + 1]])
+            {
                 return FALSE;
+            }
         }
     }
 
@@ -433,12 +463,16 @@ void InitThemes()
     weaponFlag = TRUE;
 
     if (currlevel == 16)
+    {
         return;
+    }
 
     if (leveltype == DTYPE_CATHEDRAL)
     {
         for (i = 0; i < sizeof(ThemeGoodIn) / sizeof(ThemeGoodIn[0]); i++)
+        {
             ThemeGoodIn[i] = FALSE;
+        }
 
         for (i = 0; i < 256 && numthemes < MAXTHEMES; i++)
         {
@@ -460,7 +494,9 @@ void InitThemes()
     if (leveltype == DTYPE_CATACOMBS || leveltype == DTYPE_CAVES || leveltype == DTYPE_HELL)
     {
         for (i = 0; i < themeCount; i++)
+        {
             themes[i].ttype = THEME_NONE;
+        }
         if (QuestStatus(Q_ZHAR))
         {
             for (j = 0; j < themeCount; j++)
@@ -649,7 +685,9 @@ void Theme_MonstPit(int t)
             --r;
         }
         if (r <= 0)
+        {
             continue;
+        }
         ixp++;
         if (ixp == MAXDUNX)
         {

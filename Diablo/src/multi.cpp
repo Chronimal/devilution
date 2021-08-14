@@ -113,10 +113,14 @@ static BYTE* multi_recv_packet(TBuffer* pBuf, BYTE* body, int* size)
         while (TRUE)
         {
             if (*src_ptr == 0)
+            {
                 break;
+            }
             chunk_size = *src_ptr;
             if (chunk_size > *size)
+            {
                 break;
+            }
             src_ptr++;
             memcpy(body, src_ptr, chunk_size);
             body += chunk_size;
@@ -160,7 +164,9 @@ static void multi_send_packet(void* packet, BYTE dwSize)
     pkt.hdr.wLen = dwSize + sizeof(pkt.hdr);
     memcpy(pkt.body, packet, dwSize);
     if (!SNetSendMessage(myplr, &pkt.hdr, pkt.hdr.wLen))
+    {
         nthread_terminate_game("SNetSendMessage0");
+    }
 }
 
 void NetSendLoPri(BYTE* pbMsg, BYTE bLen)
@@ -196,7 +202,9 @@ void NetSendHiPri(BYTE* pbMsg, BYTE bLen)
         len = gdwNormalMsgSize - size;
         pkt.hdr.wLen = len;
         if (!SNetSendMessage(-2, &pkt.hdr, len))
+        {
             nthread_terminate_game("SNetSendMessage");
+        }
     }
 }
 
@@ -230,7 +238,9 @@ static void multi_mon_seeds()
     sgdwGameLoops++;
     l = _rotr(sgdwGameLoops, 8);
     for (i = 0; i < MAXMONSTERS; i++)
+    {
         monster[i]._mAISeed = l + i;
+    }
 }
 
 static void multi_handle_turn_upper_bit(int pnum)
@@ -240,7 +250,9 @@ static void multi_handle_turn_upper_bit(int pnum)
     for (i = 0; i < MAX_PLRS; i++)
     {
         if (player_state[i] & PS_CONNECTED && i != pnum)
+        {
             break;
+        }
     }
 
     if (myplr == i)
@@ -258,12 +270,16 @@ static void multi_parse_turn(int pnum, int turn)
     DWORD absTurns;
 
     if (turn >> 31)
+    {
         multi_handle_turn_upper_bit(pnum);
+    }
     absTurns = turn & 0x7FFFFFFF;
     if (sgbSentThisCycle < gdwTurnsInTransit + absTurns)
     {
         if (absTurns >= 0x7FFFFFFF)
+        {
             absTurns &= 0xFFFF;
+        }
         sgbSentThisCycle = absTurns + gdwTurnsInTransit;
         sgdwGameLoops = 4 * absTurns * sgbNetUpdateRate;
     }
@@ -278,7 +294,9 @@ void multi_msg_countdown()
         if (player_state[i] & PS_TURN_ARRIVED)
         {
             if (gdwMsgLenTbl[i] == 4)
+            {
                 multi_parse_turn(i, *(DWORD*)glpMsgTbl[i]);
+            }
         }
     }
 }
@@ -324,9 +342,13 @@ static void multi_clear_left_tbl()
         if (sgbPlayerLeftGameTbl[i])
         {
             if (gbBufferMsgs == 1)
+            {
                 msg_send_drop_pkt(i, sgdwPlayerLeftReasonTbl[i]);
+            }
             else
+            {
                 multi_player_left_msg(i, 1);
+            }
 
             sgbPlayerLeftGameTbl[i] = FALSE;
             sgdwPlayerLeftReasonTbl[i] = 0;
@@ -486,7 +508,9 @@ int multi_handle_delta()
         {
             gbShouldValidatePackage = FALSE;
             if (!multi_check_pkt_valid(&sgHiPriBuf))
+            {
                 NetSendHiPri(0, 0);
+            }
         }
     }
     multi_mon_seeds();
@@ -538,13 +562,21 @@ void multi_process_network_packets()
         multi_clear_left_tbl();
         pkt = (TPktHdr*)data;
         if (dwMsgSize < sizeof(TPktHdr))
+        {
             continue;
+        }
         if (dwID >= MAX_PLRS)
+        {
             continue;
+        }
         if (pkt->wCheck != 'ip')
+        {
             continue;
+        }
         if (pkt->wLen != dwMsgSize)
+        {
             continue;
+        }
         plr[dwID]._pownerx = pkt->px;
         plr[dwID]._pownery = pkt->py;
         if (dwID != myplr)
@@ -597,7 +629,9 @@ void multi_process_network_packets()
         multi_handle_all_packets(dwID, (BYTE*)(pkt + 1), dwMsgSize - sizeof(TPktHdr));
     }
     if (DERROR() != STORM_ERROR_NO_MESSAGES_WAITING)
+    {
         nthread_terminate_game("SNetReceiveMsg");
+    }
 }
 
 void multi_send_zero_packet(int pnum, BYTE bCmd, BYTE* pbSrc, DWORD dwLen)
@@ -683,13 +717,21 @@ static void multi_send_pinfo(int pnum, char cmd)
 static int InitLevelType(int l)
 {
     if (l == 0)
+    {
         return DTYPE_TOWN;
+    }
     if (l >= 1 && l <= 4)
+    {
         return DTYPE_CATHEDRAL;
+    }
     if (l >= 5 && l <= 8)
+    {
         return DTYPE_CATACOMBS;
+    }
     if (l >= 9 && l <= 12)
+    {
         return DTYPE_CAVES;
+    }
 
 #ifdef HELLFIRE
     if (l >= 13 && l <= 16)
@@ -785,16 +827,22 @@ static void __stdcall multi_handle_events(_SNETEVENT* pEvt)
 
             LeftReason = 0;
             if (pEvt->data && pEvt->databytes >= sizeof(DWORD))
+            {
                 LeftReason = *(DWORD*)pEvt->data;
+            }
             sgdwPlayerLeftReasonTbl[pEvt->playerid] = LeftReason;
             if (LeftReason == LEAVE_ENDING)
+            {
                 gbSomebodyWonGameKludge = TRUE;
+            }
 
             sgbSendDeltaTbl[pEvt->playerid] = FALSE;
             dthread_remove_player(pEvt->playerid);
 
             if (gbDeltaSender == pEvt->playerid)
+            {
                 gbDeltaSender = MAX_PLRS;
+            }
             break;
         case EVENT_TYPE_PLAYER_MESSAGE:
             ErrorPlrMsg((char*)pEvt->data);
@@ -809,9 +857,13 @@ static void multi_event_handler(BOOL add)
     (int, SEVTHANDLER);
 
     if (add)
+    {
         fn = SNetRegisterEventHandler;
+    }
     else
+    {
         fn = SNetUnregisterEventHandler;
+    }
 
     for (i = 0; i < 3; i++)
     {
@@ -839,7 +891,9 @@ void NetClose()
     msgcmd_cmd_cleanup();
 #endif
     if (gbMaxPlayers > 1)
+    {
         Sleep(2000);
+    }
 }
 
 BOOL NetInit(BOOL bSinglePlayer, BOOL* pfExitProgram)
@@ -905,12 +959,16 @@ BOOL NetInit(BOOL bSinglePlayer, BOOL* pfExitProgram)
         if (bSinglePlayer)
         {
             if (!multi_init_single(&ProgramData, &plrdata, &UiData))
+            {
                 return FALSE;
+            }
         }
         else
         {
             if (!multi_init_multi(&ProgramData, &plrdata, &UiData, pfExitProgram))
+            {
                 return FALSE;
+            }
         }
 #ifdef _DEBUG
         gdwHistTicks = GetTickCount();
@@ -937,7 +995,9 @@ BOOL NetInit(BOOL bSinglePlayer, BOOL* pfExitProgram)
         plr[myplr].plractive = TRUE;
         gbActivePlayers = 1;
         if (sgbPlayerTurnBitTbl[myplr] == FALSE || msg_wait_resync())
+        {
             break;
+        }
         NetClose();
         gbSelectProvider = FALSE;
     }
@@ -950,9 +1010,13 @@ BOOL NetInit(BOOL bSinglePlayer, BOOL* pfExitProgram)
         gnLevelTypeTbl[i] = InitLevelType(i);
     }
     if (!SNetGetGameInfo(GAMEINFO_NAME, szPlayerName, 128, &len))
+    {
         nthread_terminate_game("SNetGetGameInfo1");
+    }
     if (!SNetGetGameInfo(GAMEINFO_PASSWORD, szPlayerDescript, 128, &len))
+    {
         nthread_terminate_game("SNetGetGameInfo2");
+    }
 
     return TRUE;
 }
@@ -996,13 +1060,17 @@ BOOL multi_init_multi(_SNETPROGRAMDATA* client_info, _SNETPLAYERDATA* user_info,
             }
 #ifndef HELLFIRE
             if (type == 'BNET')
+            {
                 plr[0].pBattleNet = 1;
+            }
 #endif
         }
 
         multi_event_handler(TRUE);
         if (UiSelectGame(1, client_info, user_info, ui_info, &fileinfo, &playerId))
+        {
             break;
+        }
 
         gbSelectProvider = TRUE;
     }
@@ -1020,7 +1088,9 @@ BOOL multi_init_multi(_SNETPROGRAMDATA* client_info, _SNETPLAYERDATA* user_info,
 
 #ifndef HELLFIRE
         if (type == 'BNET')
+        {
             plr[myplr].pBattleNet = 1;
+        }
 #endif
 
         return TRUE;

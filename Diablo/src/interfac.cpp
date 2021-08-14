@@ -338,9 +338,13 @@ BOOL IncProgress()
     interface_msg_pump();
     sgdwProgress += 15;
     if ((DWORD)sgdwProgress > 534)
+    {
         sgdwProgress = 534;
+    }
     if (sgpBackCel)
+    {
         DrawCutscene();
+    }
     return (DWORD)sgdwProgress >= 534;
 }
 

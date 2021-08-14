@@ -26,7 +26,9 @@ void mainmenu_refresh_music()
     {
         menu_music_track_id++;
         if (menu_music_track_id == NUM_MUSIC)
+        {
             menu_music_track_id = TMUSIC_TOWN;
+        }
     } while (menu_music_track_id == TMUSIC_TOWN || menu_music_track_id == TMUSIC_L1);
 #endif
 }
@@ -129,7 +131,9 @@ static void mainmenu_play_intro()
 void __stdcall mainmenu_change_name(int arg1, int arg2, int arg3, int arg4, char* name_1, char* name_2)
 {
     if (UiValidPlayerName(name_2))
+    {
         pfile_rename_hero(name_1, name_2);
+    }
 }
 
 BOOL __stdcall mainmenu_select_hero_dialog(
@@ -161,9 +165,13 @@ BOOL __stdcall mainmenu_select_hero_dialog(
 #endif // HELLFIRE
 
         if (dlgresult == SELHERO_CONTINUE)
+        {
             gbLoadGame = TRUE;
+        }
         else
+        {
             gbLoadGame = FALSE;
+        }
     }
     else if (!UiSelHeroMultDialog(pfile_ui_set_hero_infos, pfile_ui_save_create, pfile_delete_save, pfile_ui_set_class_stats, &dlgresult, &hero_is_created, gszHero))
     {
@@ -180,13 +188,19 @@ BOOL __stdcall mainmenu_select_hero_dialog(
     {
 #ifndef HELLFIRE
         if (mode == 'BNET')
+        {
             *multi = hero_is_created || !plr[myplr].pBattleNet;
+        }
         else
+        {
             *multi = hero_is_created;
+        }
 #endif
     }
     if (cname && clen)
+    {
         SStrCopy(cname, gszHero, clen);
+    }
 
     return TRUE;
 }

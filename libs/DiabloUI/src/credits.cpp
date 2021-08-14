@@ -32,7 +32,9 @@ LRESULT __stdcall credits_WndProc(HWND hWnd, UINT Msg, WPARAM wParam, LPARAM lPa
             return (LRESULT)SDlgDefDialogProc(hWnd, Msg, (HDC)wParam, (HWND)lParam);
         }
         if (Msg == 513 || Msg == 516)
+        {
             goto LABEL_12;
+        }
         if (Msg != 528)
         {
             if (Msg == 2024)
@@ -46,17 +48,23 @@ LRESULT __stdcall credits_WndProc(HWND hWnd, UINT Msg, WPARAM wParam, LPARAM lPa
             return (LRESULT)SDlgDefDialogProc(hWnd, Msg, (HDC)wParam, (HWND)lParam);
         }
         if ((WORD)wParam != 513 && (WORD)wParam != 516)
+        {
             return (LRESULT)SDlgDefDialogProc(hWnd, Msg, (HDC)wParam, (HWND)lParam);
+        }
     LABEL_25:
         Title_KillAndFadeDlg(hWnd);
         return (LRESULT)SDlgDefDialogProc(hWnd, Msg, (HDC)wParam, (HWND)lParam);
     }
     if (Msg == 273)
+    {
         goto LABEL_25;
+    }
     if (Msg != 2)
     {
         if (Msg == 135)
+        {
             return 4;
+        }
         if (Msg != 256)
         {
             if (Msg > 0x103)
@@ -76,7 +84,9 @@ LRESULT __stdcall credits_WndProc(HWND hWnd, UINT Msg, WPARAM wParam, LPARAM lPa
             return (LRESULT)SDlgDefDialogProc(hWnd, Msg, (HDC)wParam, (HWND)lParam);
         }
         if (wParam != 32)
+        {
             return 0;
+        }
     LABEL_12:
         Title_KillAndFadeDlg(hWnd);
         return 0;
@@ -126,9 +136,13 @@ void __fastcall credits_LoadImgCreditTxt(HWND hWnd, LPARAM lParam)
     HWND v13;            // [esp+1Ch] [ebp-8h]
 
     if (lParam)
+    {
         v2 = 1000 / lParam;
+    }
     else
+    {
         v2 = 50;
+    }
     SDlgSetTimer(hWnd, 1, v2, 0);
     v3 = FindResourceA(ghUiInst, "IDR_CREDITS", "TEXT_FILES");
     credittext_rsrc = LoadResource(ghUiInst, v3);
@@ -155,7 +169,9 @@ void __fastcall credits_LoadImgCreditTxt(HWND hWnd, LPARAM lParam)
     credits_CalcPosROP3(hWnd);
     v9 = CreateFontA(-17, 0, 0, 0, FW_BOLD, 0, 0, 0, 0, 0, 0, 0, VARIABLE_PITCH | (FF_SCRIPT << 2), "Times New Roman");
     if (!v9 || (v11 = SGdiImportFont(v9, (int)&creditsobj), DeleteObject(v9), !v11))
+    {
         Title_KillAndFadeDlg(hWnd);
+    }
 }
 // 100296E8: using guessed type int credittext_size;
 // 100296FC: using guessed type int credit_vertical_pos1;
@@ -172,9 +188,7 @@ void __fastcall credits_CalcPosROP3(HWND hWnd)
     GetWindowRect(hWnda, &Rect);
     ScreenToClient(hWnd, (LPPOINT)&Rect);
     ScreenToClient(hWnd, (LPPOINT)&Rect.right);
-    SBltROP3(
-        (char*)credit_back_img + 30 * credit_horz_pos, (void*)(Rect.left + *v2 + Rect.top * v2[1]), credit_horz_pos,
-        Rect.bottom - Rect.top, credit_horz_pos, v2[1], 0, SRCCOPY);
+    SBltROP3((char*)credit_back_img + 30 * credit_horz_pos, (void*)(Rect.left + *v2 + Rect.top * v2[1]), credit_horz_pos, Rect.bottom - Rect.top, credit_horz_pos, v2[1], 0, SRCCOPY);
     --credit_vertical_pos2;
     credits_PrintCredLines(hWnd);
     InvalidateRect(hWnda, 0, 0);
@@ -204,11 +218,15 @@ void __fastcall credits_PrintCredLines(HWND hWnd)
         }
         v4 = credits_GetCredLineBreak(v1);
         if (v4 == -1)
+        {
             break;
+        }
         if (i >= 0)
         {
             if (i > credit_vertical_pos1 - 30)
+            {
                 break;
+            }
             if (v4)
             {
                 SGdiTextOut(credit_back_img, v3 + 2, i + 2, 0x1000000, v1, v4);
@@ -218,7 +236,9 @@ void __fastcall credits_PrintCredLines(HWND hWnd)
         i += 22;
     }
     if (i < 0)
+    {
         Title_KillAndFadeDlg(hWnd);
+    }
 }
 // 100103A6: using guessed type int __stdcall SGdiSetPitch(DWORD);
 // 100103AC: using guessed type int __stdcall SGdiSelectObject(DWORD);
@@ -237,7 +257,9 @@ int __fastcall credits_GetCredLineBreak(char* str)
         ++result;
         ++str;
         if (result > credit_line_count)
+        {
             return -1;
+        }
     }
     return result;
 }

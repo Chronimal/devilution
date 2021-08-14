@@ -12,7 +12,9 @@ static void WGetFileArchive(HANDLE hsFile, DWORD* retries, const char* FileName)
     HANDLE archive;
 
     if (*retries >= 5)
+    {
         FileErrDlg(FileName);
+    }
 
     if (hsFile && SFileGetFileArchive(hsFile, &archive) && archive != diabdat_mpq)
     {
@@ -20,7 +22,9 @@ static void WGetFileArchive(HANDLE hsFile, DWORD* retries, const char* FileName)
         (*retries)++;
     }
     else if (!InsertCDDlg())
+    {
         FileErrDlg(FileName);
+    }
 }
 
 void WCloseFile(HANDLE file)
@@ -34,7 +38,9 @@ LONG WGetFileSize(HANDLE hsFile, DWORD* lpFileSizeHigh)
     LONG ret;
 
     while ((ret = SFileGetFileSize(hsFile, lpFileSizeHigh)) == 0)
+    {
         WGetFileArchive(hsFile, &retry, NULL);
+    }
 
     return ret;
 }
@@ -46,9 +52,13 @@ BOOL WOpenFile(const char* FileName, HANDLE* phsFile, BOOL mayNotExist)
     while (1)
     {
         if (SFileOpenFile(FileName, phsFile))
+        {
             return TRUE;
+        }
         if (mayNotExist && DERROR() == ERROR_FILE_NOT_FOUND)
+        {
             break;
+        }
         WGetFileArchive(NULL, &retry, FileName);
     }
     return FALSE;
@@ -76,7 +86,9 @@ int WSetFilePointer(HANDLE file1, int offset, HANDLE file2, int whence)
     {
         result = SFileSetFilePointer(file1, offset, file2, whence);
         if (result != -1)
+        {
             break;
+        }
         WGetFileArchive(file1, &retry, NULL);
     }
     return result;
@@ -88,9 +100,13 @@ static void FillMemFile(MEMFILE* pMemFile)
     WSetFilePointer(pMemFile->file, pMemFile->offset, NULL, FILE_BEGIN);
     to_read = pMemFile->end - pMemFile->offset;
     if (pMemFile->buf_len < to_read)
+    {
         to_read = pMemFile->buf_len;
+    }
     if (to_read)
+    {
         WReadFile(pMemFile->file, pMemFile->buf, to_read);
+    }
     pMemFile->dist = 0;
     pMemFile->bytes_to_read = to_read;
 }
@@ -106,12 +122,18 @@ static BOOL ReadMemFile(MEMFILE* pMemFile, void* lpBuf, size_t length)
     {
         size_t to_copy;
         if (!pMemFile->bytes_to_read)
+        {
             FillMemFile(pMemFile);
+        }
         to_copy = pMemFile->bytes_to_read;
         if (length < to_copy)
+        {
             to_copy = length;
+        }
         if (!to_copy)
+        {
             return FALSE;
+        }
         memcpy(lpBuf, &pMemFile->buf[pMemFile->dist], to_copy);
         pMemFile->offset += to_copy;
         pMemFile->dist += to_copy;
@@ -130,7 +152,9 @@ static int SeekMemFile(MEMFILE* pMemFile, ULONG lDist, DWORD dwMethod)
         pMemFile->dist += lDist;
     }
     else
+    {
         pMemFile->bytes_to_read = 0;
+    }
     pMemFile->offset += lDist;
     return pMemFile->offset;
 }
@@ -142,11 +166,17 @@ static BOOL ReadWaveSection(MEMFILE* pMemFile, DWORD id, CKINFO* chunk)
     while (1)
     {
         if (!ReadMemFile(pMemFile, hdr, sizeof(hdr)))
+        {
             return FALSE;
+        }
         if (hdr[0] == id)
+        {
             break;
+        }
         if (SeekMemFile(pMemFile, hdr[1], FILE_CURRENT) == -1)
+        {
             return FALSE;
+        }
     }
 
     chunk->dwSize = hdr[1];
@@ -161,17 +191,29 @@ static BOOL ReadWaveFile(MEMFILE* pMemFile, WAVEFORMATEX* pwfx, CKINFO* chunk)
     PCMWAVEFORMAT wf;
 
     if (!ReadMemFile(pMemFile, &hdr, 12))
+    {
         return FALSE;
+    }
     if (hdr.ckid != FOURCC_RIFF || hdr.fccType != MAKEFOURCC('W', 'A', 'V', 'E'))
+    {
         return FALSE;
+    }
     if (!ReadWaveSection(pMemFile, MAKEFOURCC('f', 'm', 't', ' '), &fmt))
+    {
         return FALSE;
+    }
     if (fmt.dwSize < sizeof(PCMWAVEFORMAT))
+    {
         return FALSE;
+    }
     if (!ReadMemFile(pMemFile, &wf, sizeof(wf)))
+    {
         return FALSE;
+    }
     if (SeekMemFile(pMemFile, fmt.dwSize - sizeof(wf), FILE_CURRENT) == -1)
+    {
         return FALSE;
+    }
 
     pwfx->cbSize = 0;
     pwfx->wFormatTag = wf.wf.wFormatTag;
@@ -181,7 +223,9 @@ static BOOL ReadWaveFile(MEMFILE* pMemFile, WAVEFORMATEX* pwfx, CKINFO* chunk)
     pwfx->nBlockAlign = wf.wf.nBlockAlign;
     pwfx->wBitsPerSample = wf.wBitsPerSample;
     if (chunk == NULL)
+    {
         return TRUE;
+    }
     return ReadWaveSection(pMemFile, MAKEFOURCC('d', 'a', 't', 'a'), chunk);
 }
 
@@ -204,10 +248,14 @@ void AllocateMemFile(HANDLE hsFile, MEMFILE* pMemFile, DWORD dwPos)
     pMemFile->end = WGetFileSize(hsFile, NULL);
     length = 4096;
     if (dwPos > length)
+    {
         length = dwPos;
+    }
     pMemFile->buf_len = length;
     if (length >= pMemFile->end)
+    {
         length = pMemFile->end;
+    }
     pMemFile->buf_len = length;
     pMemFile->buf = DiabloAllocPtr(length);
     pMemFile->file = hsFile;

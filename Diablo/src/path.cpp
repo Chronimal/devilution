@@ -74,21 +74,27 @@ int FindPath(BOOL (*PosOk)(int, int, int), int PosOkArg, int sx, int sy, int dx,
             while (current->Parent)
             {
                 if (path_length >= MAX_PATH_LENGTH)
+                {
                     break;
+                }
                 pnode_vals[path_length++] = path_directions[3 * (current->y - current->Parent->y) - current->Parent->x + 4 + current->x];
                 current = current->Parent;
             }
             if (path_length != MAX_PATH_LENGTH)
             {
                 for (i = 0; i < path_length; i++)
+                {
                     path[i] = pnode_vals[path_length - i - 1];
+                }
                 return i;
             }
             return 0;
         }
         // ran out of nodes, abort!
         if (!path_get_path(PosOk, PosOkArg, next_node, dx, dy))
+        {
             return 0;
+        }
     }
     // frontier is empty, no path!
     return 0;
@@ -119,7 +125,9 @@ int path_get_h_cost(int sx, int sy, int dx, int dy)
 int path_check_equal(PATHNODE* pPath, int dx, int dy)
 {
     if (pPath->x == dx || pPath->y == dy)
+    {
         return 2;
+    }
 
     return 3;
 }
@@ -195,7 +203,9 @@ BOOL path_get_path(BOOL (*PosOk)(int, int, int), int PosOkArg, PATHNODE* pPath, 
         if (ok && path_solid_pieces(pPath, dx, dy) || !ok && dx == x && dy == y)
         {
             if (!path_parent_path(pPath, dx, dy, x, y))
+            {
                 return FALSE;
+            }
         }
     }
 
@@ -223,7 +233,9 @@ BOOL path_parent_path(PATHNODE* pPath, int dx, int dy, int sx, int sy)
         for (i = 0; i < 8; i++)
         {
             if (pPath->Child[i] == NULL)
+            {
                 break;
+            }
         }
         pPath->Child[i] = dxdy;
         if (next_g < dxdy->g)
@@ -246,7 +258,9 @@ BOOL path_parent_path(PATHNODE* pPath, int dx, int dy, int sx, int sy)
             for (i = 0; i < 8; i++)
             {
                 if (pPath->Child[i] == NULL)
+                {
                     break;
+                }
             }
             pPath->Child[i] = dxdy;
             if (next_g < dxdy->g && path_solid_pieces(pPath, dx, dy))
@@ -264,7 +278,9 @@ BOOL path_parent_path(PATHNODE* pPath, int dx, int dy, int sx, int sy)
             // case 3: (dx,dy) is totally new
             dxdy = path_new_step();
             if (dxdy == NULL)
+            {
                 return FALSE;
+            }
             dxdy->Parent = pPath;
             dxdy->g = next_g;
             dxdy->h = path_get_h_cost(dx, dy, sx, sy);
@@ -277,7 +293,9 @@ BOOL path_parent_path(PATHNODE* pPath, int dx, int dy, int sx, int sy)
             for (i = 0; i < 8; i++)
             {
                 if (pPath->Child[i] == NULL)
+                {
                     break;
+                }
             }
             pPath->Child[i] = dxdy;
         }
@@ -294,7 +312,9 @@ PATHNODE* path_get_node1(int dx, int dy)
     while (result != NULL)
     {
         if (result->x == dx && result->y == dy)
+        {
             return result;
+        }
         result = result->NextNode;
     }
     return NULL;
@@ -309,7 +329,9 @@ PATHNODE* path_get_node2(int dx, int dy)
     while (result != NULL)
     {
         if (result->x == dx && result->y == dy)
+        {
             return result;
+        }
         result = result->NextNode;
     }
     return NULL;
@@ -360,7 +382,9 @@ void path_set_coords(PATHNODE* pPath)
         {
             PathAct = PathOld->Child[i];
             if (PathAct == NULL)
+            {
                 break;
+            }
 
             if (PathOld->g + path_check_equal(PathOld, PathAct->x, PathAct->y) < PathAct->g)
             {
@@ -403,7 +427,9 @@ PATHNODE* path_new_step()
     PATHNODE* new_node;
 
     if (gdwCurNodes == MAXPATHNODES)
+    {
         return NULL;
+    }
 
     new_node = &path_nodes[gdwCurNodes];
     gdwCurNodes++;

@@ -155,9 +155,13 @@ int __cdecl artfont_GetFontMaxHeight()
     int result; // eax
 
     if (sgpCurrFont && sgpCurrFont->active)
+    {
         result = sgpCurrFont->fontbin[1];
+    }
     else
+    {
         result = 0;
+    }
     return result;
 }
 
@@ -167,9 +171,13 @@ int __cdecl artfont_GetFontDefWidth()
     int result; // eax
 
     if (sgpCurrFont && sgpCurrFont->active)
+    {
         result = sgpCurrFont->fontbin[0];
+    }
     else
+    {
         result = 0;
+    }
     return result;
 }
 
@@ -183,14 +191,20 @@ int __fastcall artfont_GetFontWidth(char* str)
 
     result = 0;
     if (!sgpCurrFont || !sgpCurrFont->active)
+    {
         return 0;
+    }
     for (i = *str; *str; i = *str)
     {
         v3 = sgpCurrFont->fontbin[i + 2];
         if (v3)
+        {
             v4 = v3;
+        }
         else
+        {
             v4 = sgpCurrFont->fontbin[0];
+        }
         result += v4;
         ++str;
     }
@@ -213,19 +227,29 @@ int __fastcall artfont_GetFontBreak(char* str)
 
     result = 0;
     if (!sgpCurrFont || !sgpCurrFont->active)
+    {
         return 0;
+    }
     while (1)
     {
         v3 = *str;
         if (!*str)
+        {
             break;
+        }
         if (v3 == '\n')
+        {
             break;
+        }
         if (v3 == ' ')
+        {
             break;
+        }
         v2 = sgpCurrFont->fontbin[v3 + 2];
         if (!v2)
+        {
             break;
+        }
         result += v2;
         ++str;
     }
@@ -236,7 +260,9 @@ int __fastcall artfont_GetFontBreak(char* str)
 void __cdecl artfont_delete_operator(void* ptr)
 {
     if (ptr)
+    {
         SMemFree(ptr, "delete", -1, 0);
+    }
 }
 
 // ref: 0x100013CD
@@ -261,9 +287,13 @@ void __fastcall artfont_PrintFontStr(char* str, DWORD** pSurface, int sx, int sy
                 if (sgpCurrFont->active)
                 {
                     if (sx < 0)
+                    {
                         sx = 0;
+                    }
                     if (sy < 0)
+                    {
                         sy = 0;
+                    }
                     v6 = *str;
                     if (*str)
                     {
@@ -271,9 +301,13 @@ void __fastcall artfont_PrintFontStr(char* str, DWORD** pSurface, int sx, int sy
                         {
                             hTrans = (HANDLE)(sy + v5->fontbin[1]);
                             if (sy + v5->fontbin[1] > (signed int)pSurface[2])
+                            {
                                 return;
+                            }
                             if (v6 == '\n')
+                            {
                                 break;
+                            }
                             v7 = v6;
                             v8 = v5->fontbin[v6 + 2];
                             if (!v8)
@@ -307,7 +341,9 @@ void __fastcall artfont_PrintFontStr(char* str, DWORD** pSurface, int sx, int sy
                         LABEL_23:
                             v6 = *str;
                             if (!*str)
+                            {
                                 return;
+                            }
                         }
                         sx = 0;
                         sy += v5->fontbin[1];

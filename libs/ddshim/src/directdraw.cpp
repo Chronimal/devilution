@@ -27,7 +27,7 @@ class ScopedHDC
 {
 public:
     ScopedHDC(const ScopedHDC&) = delete;
-    ScopedHDC operator= (const ScopedHDC&) = delete;
+    ScopedHDC operator=(const ScopedHDC&) = delete;
 
     explicit ScopedHDC(HWND hwnd)
         : hwnd_{hwnd}
@@ -292,7 +292,7 @@ HRESULT DirectDraw::WaitForVerticalBlank(DWORD flags, HANDLE) noexcept
         {
             DDS_THROW(DDERR_UNSUPPORTED);
         }
-        D3DKMT_WAITFORVERTICALBLANKEVENT wb{ .hAdapter = adapter_.Get(), .VidPnSourceId = vidPnSourceId_ };
+        D3DKMT_WAITFORVERTICALBLANKEVENT wb{.hAdapter = adapter_.Get(), .VidPnSourceId = vidPnSourceId_};
         [[maybe_unused]] auto status = D3DKMTWaitForVerticalBlankEvent(&wb);
         _ASSERT(status == 0);
     }
@@ -463,7 +463,7 @@ void DirectDraw::onMouseMove(HWND hwnd, WPARAM /* wParam */, LPARAM /* lParam */
     if (!inClient)
     {
         inClient = true;
-        TRACKMOUSEEVENT tme{ .cbSize = sizeof(tme) };
+        TRACKMOUSEEVENT tme{.cbSize = sizeof(tme)};
         tme.dwFlags = TME_LEAVE;
         tme.hwndTrack = hwnd;
         TrackMouseEvent(&tme);

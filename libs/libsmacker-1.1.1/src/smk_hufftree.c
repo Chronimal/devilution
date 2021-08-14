@@ -44,15 +44,13 @@ struct smk_huff16_t
 
 /*********************** 8-BIT HUFF-TREE FUNCTIONS ***********************/
 /** safe build with built-in error jump */
-#define smk_huff8_build_rec(bs, p)                                                                                     \
-    {                                                                                                                  \
-        if (!(p = _smk_huff8_build_rec(bs)))                                                                           \
-        {                                                                                                              \
-            fprintf(                                                                                                   \
-                stderr, "libsmacker::smk_huff8_build_rec(" #bs ", " #p ") - ERROR (file: %s, line: %lu)\n", __FILE__,  \
-                (unsigned long)__LINE__);                                                                              \
-            goto error;                                                                                                \
-        }                                                                                                              \
+#define smk_huff8_build_rec(bs, p)                                                                                                                                                                     \
+    {                                                                                                                                                                                                  \
+        if (!(p = _smk_huff8_build_rec(bs)))                                                                                                                                                           \
+        {                                                                                                                                                                                              \
+            fprintf(stderr, "libsmacker::smk_huff8_build_rec(" #bs ", " #p ") - ERROR (file: %s, line: %lu)\n", __FILE__, (unsigned long)__LINE__);                                                    \
+            goto error;                                                                                                                                                                                \
+        }                                                                                                                                                                                              \
     }
 /** Recursive tree-building function. */
 static struct smk_huff8_t* _smk_huff8_build_rec(struct smk_bit_t* bs)
@@ -193,24 +191,16 @@ error:;
 
 /*********************** 16-BIT HUFF-TREE FUNCTIONS ***********************/
 /* safe bigtree build with built-in error jump */
-#define smk_huff16_build_rec(bs, cache, low8, hi8, p)                                                                  \
-    {                                                                                                                  \
-        if (!(p = _smk_huff16_build_rec(bs, cache, low8, hi8)))                                                        \
-        {                                                                                                              \
-            fprintf(                                                                                                   \
-                stderr,                                                                                                \
-                "libsmacker::smk_huff16_build_rec(" #bs ", " #cache ", " #low8 ", " #hi8 ", " #p                       \
-                ") - ERROR (file: %s, line: %lu)\n",                                                                   \
-                __FILE__, (unsigned long)__LINE__);                                                                    \
-            goto error;                                                                                                \
-        }                                                                                                              \
+#define smk_huff16_build_rec(bs, cache, low8, hi8, p)                                                                                                                                                  \
+    {                                                                                                                                                                                                  \
+        if (!(p = _smk_huff16_build_rec(bs, cache, low8, hi8)))                                                                                                                                        \
+        {                                                                                                                                                                                              \
+            fprintf(stderr, "libsmacker::smk_huff16_build_rec(" #bs ", " #cache ", " #low8 ", " #hi8 ", " #p ") - ERROR (file: %s, line: %lu)\n", __FILE__, (unsigned long)__LINE__);                  \
+            goto error;                                                                                                                                                                                \
+        }                                                                                                                                                                                              \
     }
 /* Recursively builds a Big tree. */
-static struct smk_huff8_t* _smk_huff16_build_rec(
-    struct smk_bit_t* bs,
-    const unsigned short cache[3],
-    const struct smk_huff8_t* low8,
-    const struct smk_huff8_t* hi8)
+static struct smk_huff8_t* _smk_huff16_build_rec(struct smk_bit_t* bs, const unsigned short cache[3], const struct smk_huff8_t* low8, const struct smk_huff8_t* hi8)
 {
     struct smk_huff8_t* ret = NULL;
 
@@ -426,7 +416,9 @@ void smk_huff16_free(struct smk_huff16_t* big)
 
     /* free the subtree */
     if (big->t)
+    {
         smk_huff8_free(big->t);
+    }
 
     /* free the bigtree */
     smk_free(big);

@@ -148,7 +148,6 @@ void DeviceResources::createWindowSizeDependentResources(const SIZE& windowSize)
                                                windowSize_.cy,
                                                dxgiFormat_,
                                                0);
-        // clang-format on
         if (hr == DXGI_ERROR_DEVICE_REMOVED || hr == DXGI_ERROR_DEVICE_RESET)
         {
             // If the device was removed for any reason, a new device and swap chain will need to be created.

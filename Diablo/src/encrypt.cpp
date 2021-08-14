@@ -120,7 +120,9 @@ int PkwareCompress(BYTE* srcData, int size)
 
     destSize = 2 * size;
     if (destSize < 2 * 4096)
+    {
         destSize = 2 * 4096;
+    }
 
     destData = (BYTE*)DiabloAllocPtr(destSize);
 

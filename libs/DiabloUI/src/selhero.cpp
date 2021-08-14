@@ -174,9 +174,13 @@ BOOL __fastcall SelHero_IsNameReserved(const char* name)
         _strlwr(Buffer);
         result = (BOOL)strstr(SrcStr, Buffer);
         if (result)
+        {
             break;
+        }
         if ((signed int)++v1 > 26)
+        {
             return result;
+        }
     }
     return 1;
 }
@@ -185,7 +189,9 @@ BOOL __fastcall SelHero_IsNameReserved(const char* name)
 void __fastcall SelHero_SetLastNamePos(char* name)
 {
     while (*name)
+    {
         --*name++;
+    }
 }
 
 // ref: 0x1000BB34
@@ -194,14 +200,20 @@ BOOL __fastcall SelHero_NameHasChar(const char* name, const char* illegalchrs)
     char v5; // al
 
     if (strpbrk(name, ",<>%&\\\"?*#/:") || strpbrk(name, illegalchrs))
+    {
         return 1;
+    }
     while (1)
     {
         v5 = *name;
         if (!*name)
+        {
             break;
+        }
         if ((unsigned char)v5 < 0x20u || (unsigned char)v5 > 0x7Eu && (unsigned char)v5 < 0xC0u)
+        {
             return 1;
+        }
         ++name;
     }
     return 0;
@@ -214,9 +226,13 @@ BOOL __fastcall UiValidPlayerName(const char* name)
 
     v2 = 1;
     if (!strlen(name))
+    {
         v2 = 0;
+    }
     if (selhero_is_good == 1 && (SelHero_IsNameReserved(name) || SelHero_NameHasChar(name, " ")))
+    {
         v2 = 0;
+    }
     return v2;
 }
 
@@ -231,7 +247,7 @@ BOOL __stdcall UiSelHeroMultDialog(
     char* name)
 {
     HWND v7; // eax
-    int v8; // eax
+    int v8;  // eax
 
     artfont_LoadAllFonts();
     selhero_fninfo = fninfo;
@@ -244,11 +260,17 @@ BOOL __stdcall UiSelHeroMultDialog(
     v7 = SDrawGetFrameWindow(NULL);
     v8 = SDlgDialogBoxParam(ghUiInst, "SELHERO_DIALOG", v7, SelHero_WndProc, 0);
     if (dlgresult)
+    {
         *dlgresult = v8;
+    }
     if (name)
+    {
         strcpy(name, selhero_heronamestr);
+    }
     if (hero_is_created)
+    {
         *hero_is_created = selhero_is_created;
+    }
     return 1;
 }
 // 10010382: using guessed type DWORD __stdcall SDrawGetFrameWindow();
@@ -314,7 +336,9 @@ LRESULT __stdcall SelHero_WndProc(HWND hWnd, UINT Msg, WPARAM wParam, LPARAM lPa
         return (LRESULT)SDlgDefDialogProc(hWnd, Msg, (HDC)wParam, (HWND)lParam);
     }
     if (Msg <= 0x103)
+    {
         return (LRESULT)SDlgDefDialogProc(hWnd, Msg, (HDC)wParam, (HWND)lParam);
+    }
     if (Msg <= 0x105)
     {
         v4 = (HWND)SDrawGetFrameWindow(NULL);
@@ -329,14 +353,18 @@ LRESULT __stdcall SelHero_WndProc(HWND hWnd, UINT Msg, WPARAM wParam, LPARAM lPa
             return 0;
         case 0x7E8u:
             if (!Fade_CheckRange5())
+            {
                 Fade_SetFadeTimer(hWnd);
+            }
             return 0;
         case 0xBD0u:
             SelHero_DoHeroSelList(hWnd);
             return 0;
     }
     if (Msg != 3025)
+    {
         return (LRESULT)SDlgDefDialogProc(hWnd, Msg, (HDC)wParam, (HWND)lParam);
+    }
     SelHero_DoHeroSelClass(hWnd);
     return 0;
 }
@@ -352,9 +380,13 @@ void __fastcall SelHero_DoStuffWithStrings(HWND hWnd)
     char Buffer[32];    // [esp+9Ch] [ebp-24h]
 
     if (SelHero_GetHeroIsGood() == 1)
+    {
         LoadStringA(ghUiInst, 0x23u, Buffer, 31);
+    }
     else
+    {
         LoadStringA(ghUiInst, 0x22u, Buffer, 31);
+    }
     LoadStringA(ghUiInst, 7u, string64, 63);
     wsprintfA(dialogstr, string64, selhero_heronamestr);
     if (SelYesNo_YesNoDialog(hWnd, dialogstr, Buffer, 1) != 2)
@@ -411,14 +443,20 @@ _uiheroinfo* __fastcall SelHero_GetNextHeroFromStr(_uiheroinfo* pInfo, char* nam
             if (!pInfo)
             {
                 if (!v4)
+                {
                     return v2;
+                }
                 break;
             }
         }
         if (v3)
+        {
             v3->next = v4->next;
+        }
         else
+        {
             v2 = v4->next;
+        }
         SelHero_FreeSomeMemory(v4);
     }
     return v2;
@@ -428,7 +466,9 @@ _uiheroinfo* __fastcall SelHero_GetNextHeroFromStr(_uiheroinfo* pInfo, char* nam
 void __fastcall SelHero_FreeSomeMemory(void* ptr)
 {
     if (ptr)
+    {
         SMemFree(ptr, "C:\\Src\\Diablo\\DiabloUI\\SelHero.cpp", 131, 0);
+    }
 }
 
 // ref: 0x1000BF4A
@@ -437,7 +477,9 @@ _uiheroinfo* __fastcall SelHero_GetHeroSlotFromName(_uiheroinfo* pInfo, const ch
     _uiheroinfo* i; // esi
 
     for (i = pInfo; i && _strcmpi(i->name, name); i = i->next)
+    {
         ;
+    }
     return i;
 }
 
@@ -493,9 +535,13 @@ void __fastcall SelHero_DoHeroSelClass(HWND hWnd)
     {
         LoadStringA(ghUiInst, 0x1Eu, Buffer, 31);
         if (!strcmp(Buffer, sgpHeroInfo->name))
+        {
             SelHero_DoHeroEndFade(hWnd, 4);
+        }
         else
+        {
             PostMessageA(hWnd, 0xBD0u, 0, 0);
+        }
     }
     else
     {
@@ -503,9 +549,13 @@ void __fastcall SelHero_DoHeroSelClass(HWND hWnd)
         if (v3)
         {
             if (v3 == 1)
+            {
                 heroinfo_create.heroclass = 2;
+            }
             else
+            {
                 heroinfo_create.heroclass = 0;
+            }
         }
         else
         {
@@ -524,9 +574,13 @@ void __fastcall SelHero_DoEnterName(HWND hWnd)
     {
         namestr[15] = 0;
         if (SelHero_CreateHero(hWnd, namestr))
+        {
             PostMessageA(hWnd, 0xBD6u, 0, 0);
+        }
         else
+        {
             PostMessageA(hWnd, 0xBD2u, 0, 0);
+        }
     }
     else
     {
@@ -543,9 +597,13 @@ BOOL __fastcall SelHero_CreateHero(HWND hWnd, char* name)
     char Buffer[32];     // [esp+11Ch] [ebp-28h]
 
     if (SelHero_GetHeroIsGood() == 1)
+    {
         LoadStringA(ghUiInst, 0x20u, Buffer, 31);
+    }
     else
+    {
         LoadStringA(ghUiInst, 0x1Fu, Buffer, 31);
+    }
     if (!UiValidPlayerName(name))
     {
         LoadStringA(ghUiInst, 0xFu, v5, 127);
@@ -558,7 +616,9 @@ BOOL __fastcall SelHero_CreateHero(HWND hWnd, char* name)
         LoadStringA(ghUiInst, 8u, v5, 127);
         wsprintfA(dialogstr, v5, v2->name);
         if (SelYesNo_YesNoDialog(hWnd, dialogstr, Buffer, 1) == 2)
+        {
             return 0;
+        }
     }
     strcpy(heroinfo_create.name, name);
     heroinfo_create.hassaved = 0;
@@ -619,7 +679,9 @@ void __fastcall SelHero_DoSelDiff(HWND hWnd)
         Connect_SetDiffString(&gameData, selhero_heronamestr, v7, v6, 128);
         v4 = UiAuthCallback(2, selhero_heronamestr, v7, 0, v6, Buffer, 256);
         if (v4)
+        {
             goto LABEL_3;
+        }
         SelYesNo_SelOkDialog(hWnd, Buffer, 0, 1);
         PostMessageA(hWnd, 0xBD4u, 0, 0);
     }
@@ -747,9 +809,13 @@ void __fastcall SelHero_SelectHeroRegion(HWND hWnd)
         OkCancel_DoOkDialog(hWnd, Buffer, 1);
     }
     if (v3 == sgpHeroInfo)
+    {
         PostMessageA(hWnd, 0xBD1u, 0, 0);
+    }
     else
+    {
         PostMessageA(hWnd, 0xBD0u, 0, 0);
+    }
 }
 // 1002A428: using guessed type int selhero_numheroesleft;
 
@@ -780,7 +846,7 @@ BOOL __stdcall UiSelHeroSingDialog(
     int* difficulty)
 {
     HWND v7; // eax
-    int v8; // edi
+    int v8;  // edi
 
     artfont_LoadAllFonts();
     selhero_fninfo = fninfo;
@@ -792,13 +858,21 @@ BOOL __stdcall UiSelHeroSingDialog(
     v7 = SDrawGetFrameWindow(NULL);
     v8 = SDlgDialogBoxParam(ghUiInst, "SELHERO_DIALOG", v7, SelHero_WndProc, 0);
     if (dlgresult)
+    {
         *dlgresult = v8;
+    }
     if (name)
+    {
         strcpy(name, selhero_heronamestr);
+    }
     if (difficulty)
+    {
         *difficulty = selhero_difficulty;
+    }
     if (v8 != 4)
+    {
         artfont_FreeAllFonts();
+    }
     return 1;
 }
 // 10010382: using guessed type DWORD __stdcall SDrawGetFrameWindow();

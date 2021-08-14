@@ -212,15 +212,25 @@ void FillSolidBlockTbls()
     {
         bv = *pTmp++;
         if (bv & 1)
+        {
             nSolidTable[i] = TRUE;
+        }
         if (bv & 2)
+        {
             nBlockTable[i] = TRUE;
+        }
         if (bv & 4)
+        {
             nMissileTable[i] = TRUE;
+        }
         if (bv & 8)
+        {
             nTransTable[i] = TRUE;
+        }
         if (bv & 0x80)
+        {
             nTrapTable[i] = TRUE;
+        }
         block_lvid[i] = (bv & 0x70) >> 4; /* beta: (bv >> 4) & 7 */
     }
 
@@ -288,9 +298,13 @@ void MakeSpeedCels()
     }
 
     if (leveltype != DTYPE_HELL)
+    {
         blocks = 10;
+    }
     else
+    {
         blocks = 12;
+    }
 
     for (y = 0; y < MAXDUNY; y++)
     {
@@ -353,7 +367,9 @@ void MakeSpeedCels()
         {
 #ifndef HELLFIRE
             if (i == 0)
+            {
                 level_frame_count[0] = 0;
+            }
 #endif
             z = i;
             blood_flag = TRUE;
@@ -391,7 +407,9 @@ void MakeSpeedCels()
                     {
                         pix = *src++;
                         if (pix && pix < 32)
+                        {
                             blood_flag = FALSE;
+                        }
                     }
 #endif
                 }
@@ -451,7 +469,9 @@ void MakeSpeedCels()
                                 {
                                     pix = *src++;
                                     if (pix && pix < 32)
+                                    {
                                         blood_flag = FALSE;
+                                    }
                                     width--;
                                 }
                             }
@@ -465,7 +485,9 @@ void MakeSpeedCels()
 #endif
                 }
                 if (!blood_flag)
+                {
                     level_frame_count[i] = 0;
+                }
             }
         }
     }
@@ -493,14 +515,20 @@ void MakeSpeedCels()
 
     total_frames--;
     if (total_frames > 128)
+    {
         total_frames = 128;
+    }
 
     frameidx = 0;
 
     if (light4flag)
+    {
         blk_cnt = 3;
+    }
     else
+    {
         blk_cnt = 15;
+    }
 
     for (i = 0; i < total_frames; i++)
     {
@@ -654,7 +682,9 @@ void MakeSpeedCels()
 int IsometricCoord(int x, int y)
 {
     if (x < MAXDUNY - y)
+    {
         return (y + y * y + x * (x + 2 * y + 3)) / 2;
+    }
 
     x = MAXDUNX - x - 1;
     y = MAXDUNY - y - 1;
@@ -701,16 +731,24 @@ void SetDungeonMicros()
             {
                 lv--;
                 if (leveltype != DTYPE_HELL)
+                {
                     pPiece = (WORD*)&pLevelPieces[20 * lv];
+                }
                 else
+                {
                     pPiece = (WORD*)&pLevelPieces[32 * lv];
+                }
                 for (i = 0; i < blocks; i++)
+                {
                     pMap->mt[i] = pPiece[(i & 1) + blocks - 2 - (i & 0xE)];
+                }
             }
             else
             {
                 for (i = 0; i < blocks; i++)
+                {
                     pMap->mt[i] = 0;
+                }
             }
         }
     }
@@ -1119,23 +1157,35 @@ void DRLG_PlaceThemeRooms(int minSize, int maxSize, int floor, int freq, int rnd
                     max = maxSize - 2;
                     rv2 = min + random_(0, random_(0, themeW - min + 1));
                     if (rv2 >= min && rv2 <= max)
+                    {
                         themeW = rv2;
+                    }
                     else
+                    {
                         themeW = min;
+                    }
                     rv2 = min + random_(0, random_(0, themeH - min + 1));
                     if (rv2 >= min && rv2 <= max)
+                    {
                         themeH = rv2;
+                    }
                     else
+                    {
                         themeH = min;
+                    }
                 }
                 themeLoc[themeCount].x = i + 1;
                 themeLoc[themeCount].y = j + 1;
                 themeLoc[themeCount].width = themeW;
                 themeLoc[themeCount].height = themeH;
                 if (leveltype == DTYPE_CAVES)
+                {
                     DRLG_RectTrans(2 * i + 20, 2 * j + 20, 2 * (i + themeW) + 15, 2 * (j + themeH) + 15);
+                }
                 else
+                {
                     DRLG_MRectTrans(i + 1, j + 1, i + themeW, j + themeH);
+                }
                 themeLoc[themeCount].ttval = TransVal - 1;
                 DRLG_CreateThemeRoom(themeCount);
                 themeCount++;
@@ -1173,7 +1223,9 @@ BOOL SkipThemeRoom(int x, int y)
     for (i = 0; i < themeCount; i++)
     {
         if (x >= themeLoc[i].x - 2 && x <= themeLoc[i].x + themeLoc[i].width + 2 && y >= themeLoc[i].y - 2 && y <= themeLoc[i].y + themeLoc[i].height + 2)
+        {
             return FALSE;
+        }
     }
 
     return TRUE;

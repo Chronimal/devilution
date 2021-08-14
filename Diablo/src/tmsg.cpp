@@ -13,10 +13,14 @@ int tmsg_get(BYTE* pbMsg, DWORD dwMaxLen)
     TMsg* head;
 
     if (!sgpTimedMsgHead)
+    {
         return 0;
+    }
 
     if ((int)(sgpTimedMsgHead->hdr.dwTime - GetTickCount()) >= 0)
+    {
         return 0;
+    }
     head = sgpTimedMsgHead;
     sgpTimedMsgHead = head->hdr.pNext;
     len = head->hdr.bLen;

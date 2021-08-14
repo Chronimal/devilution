@@ -83,15 +83,7 @@ BOOL __cdecl Connect_LoadGFXAndStuff()
 // 100295C0: using guessed type int heroport_frames;
 
 // ref: 0x10003009
-BOOL __stdcall UiArtCallback(
-    int game_type,
-    unsigned int art_code,
-    PALETTEENTRY* pPalette,
-    BYTE* pBuffer,
-    DWORD dwBuffersize,
-    DWORD* pdwWidth,
-    DWORD* pdwHeight,
-    DWORD* pdwBpp)
+BOOL __stdcall UiArtCallback(int game_type, unsigned int art_code, PALETTEENTRY* pPalette, BYTE* pBuffer, DWORD dwBuffersize, DWORD* pdwWidth, DWORD* pdwHeight, DWORD* pdwBpp)
 {
     BOOL result;                // eax
     char pszFileName[MAX_PATH]; // [esp+8h] [ebp-104h]
@@ -332,7 +324,9 @@ BOOL __stdcall UiGetDataCallback(int game_type, int data_code, void* a3, int a4,
             case 1:
                 v5 = 16;
                 if (!a3)
+                {
                     goto LABEL_24;
+                }
                 if ((unsigned int)a4 >= 0x10)
                 {
                     memcpy(a3, connect_subnet_ip, 0x10u);
@@ -343,27 +337,39 @@ BOOL __stdcall UiGetDataCallback(int game_type, int data_code, void* a3, int a4,
                 v6 = (DWORD*)a3;
                 v5 = 4;
                 if (!a3)
+                {
                     goto LABEL_24;
+                }
                 if ((unsigned int)a4 < 4)
+                {
                     return 0;
+                }
                 v7 = LoadCursorA(ghUiInst, "DIABLO_LINKCURSOR");
                 break;
             case 3:
                 v6 = (DWORD*)a3;
                 v5 = 4;
                 if (!a3)
+                {
                     goto LABEL_24;
+                }
                 if ((unsigned int)a4 < 4)
+                {
                     return 0;
+                }
                 v7 = LoadCursorA(ghUiInst, "DIABLO_ARROWCURSOR");
                 break;
             case 4:
                 v6 = (DWORD*)a3;
                 v5 = 4;
                 if (!a3)
+                {
                     goto LABEL_24;
+                }
                 if ((unsigned int)a4 < 4)
+                {
                     return 0;
+                }
                 v7 = LoadCursorA(ghUiInst, "DIABLOIBEAM");
                 break;
             default:
@@ -371,7 +377,9 @@ BOOL __stdcall UiGetDataCallback(int game_type, int data_code, void* a3, int a4,
         }
         *v6 = (DWORD)v7;
         if (v7)
+        {
             goto LABEL_24;
+        }
         return 0;
     }
     v5 = 4;
@@ -386,7 +394,9 @@ BOOL __stdcall UiGetDataCallback(int game_type, int data_code, void* a3, int a4,
     }
 LABEL_24:
     if (a5)
+    {
         *(DWORD*)a5 = v5;
+    }
     return v5 != 0;
 }
 
@@ -396,7 +406,9 @@ BOOL __stdcall UiSoundCallback(int a1, int type, int a3)
     if (type)
     {
         if (type == 1)
+        {
             TitleSnd_PlaySelectSound();
+        }
     }
     else
     {
@@ -424,13 +436,17 @@ BOOL __stdcall UiAuthCallback(int a1, char* a2, char* a3, char a4, char* a5, LPS
 
     *(DWORD*)&GameData.bDiff = 0;
     if (cchBufferMax)
+    {
         *lpBuffer = 0;
+    }
     v7 = strlen(a3) + 1;
     v8 = strlen(a5) + 1;
     if (v7 > 0x100 || v8 > 0x100)
     {
         if (lpBuffer)
+        {
             LoadStringA(ghUiInst, 0x413u, lpBuffer, cchBufferMax);
+        }
         return 0;
     }
     memcpy(a1a, a3, v7);
@@ -446,12 +462,18 @@ BOOL __stdcall UiAuthCallback(int a1, char* a2, char* a3, char a4, char* a5, LPS
                 {
                     LoadStringA(ghUiInst, v9 + 4, Buffer, 256);
                     if (strstr(v17, Buffer))
+                    {
                         break;
+                    }
                     if (++v9 >= 3)
+                    {
                         goto LABEL_16;
+                    }
                 }
                 if (heroinfo.heroclass != v9)
+                {
                     goto LABEL_20;
+                }
                 *(DWORD*)&GameData.bDiff = 1;
             LABEL_16:
                 LoadStringA(ghUiInst, 0x408u, Buffer, 256);
@@ -461,10 +483,14 @@ BOOL __stdcall UiAuthCallback(int a1, char* a2, char* a3, char a4, char* a5, LPS
                     v11 = strlen(Buffer);
                     v12 = atoi(&v10[v11]);
                     if (heroinfo.level >= v12)
+                    {
                         return 1;
+                    }
                 }
                 if (*(DWORD*)&GameData.bDiff)
+                {
                     return 1;
+                }
             LABEL_20:
                 if (lpBuffer)
                 {
@@ -491,34 +517,32 @@ BOOL __stdcall UiAuthCallback(int a1, char* a2, char* a3, char a4, char* a5, LPS
                 if (heroinfo.level < 20u)
                 {
                     if (lpBuffer)
+                    {
                         LoadStringA(ghUiInst, 0x411u, lpBuffer, cchBufferMax);
+                    }
                     return 0;
                 }
             }
             else if (GameData.bDiff == 2 && heroinfo.level < 30u)
             {
                 if (lpBuffer)
+                {
                     LoadStringA(ghUiInst, 0x412u, lpBuffer, cchBufferMax);
+                }
                 return 0;
             }
         }
         return 1;
     }
     if (lpBuffer)
+    {
         LoadStringA(ghUiInst, 0x414u, lpBuffer, cchBufferMax);
+    }
     return 0;
 }
 
 // ref: 0x10003710
-BOOL __stdcall UiDrawDescCallback(
-    int game_type,
-    COLORREF color,
-    LPCSTR lpString,
-    char* a4,
-    int a5,
-    UINT align,
-    time_t a7,
-    HDC* a8)
+BOOL __stdcall UiDrawDescCallback(int game_type, COLORREF color, LPCSTR lpString, char* a4, int a5, UINT align, time_t a7, HDC* a8)
 {
     HDC* v8;                  // ebx
     HDC v9;                   // esi
@@ -561,14 +585,18 @@ BOOL __stdcall UiDrawDescCallback(
     v10 = (unsigned char)(intptr_t)v9 & 1;
     v11 = strlen(a4) + 1;
     if (v11 > 0x100)
+    {
         return 0;
+    }
     memcpy(a1, a4, v11);
     if (color == 1)
     {
         a8 = 0;
         a4 = 0;
         if (!Connect_DiffFromString(a1, &gamedata, (int)&a8, (int)&a4))
+        {
             return 0;
+        }
         color = SetTextColor(v8[6], 0xFFFFFFu);
         v38 = SetBkColor(v8[6], v10 != 0 ? 0x808080 : 0);
         if (align & 1)
@@ -580,7 +608,9 @@ BOOL __stdcall UiDrawDescCallback(
         {
             v14 = a8 && a4;
             if (gamedata.bDiff < 3u)
+            {
                 LoadStringA(ghUiInst, gamedata.bDiff + 1003, Buffer, 128);
+            }
             if (align & 2 && v14)
             {
                 GetTextMetricsA(v8[6], &tm);
@@ -612,9 +642,13 @@ BOOL __stdcall UiDrawDescCallback(
                         LoadStringA(ghUiInst, (v18->tm_hour > 12) + 1034, (LPSTR)&rc.top, 10);
                         v20 = v19->tm_hour;
                         if (v20 > 12)
+                        {
                             v19->tm_hour = v20 - 12;
+                        }
                         if (!v19->tm_hour)
+                        {
                             v19->tm_hour = 12;
+                        }
                         sprintf(String, &heroinfo.name[8], v31, v19->tm_hour, v19->tm_min, &rc.top);
                         MoveToEx(v8[6], (int)v8[7], (int)v8[8] + 2 * (DWORD)lpStringa, 0);
                         v21 = strlen(String);
@@ -659,9 +693,7 @@ BOOL __stdcall UiDrawDescCallback(
         LABEL_46:
             SetRect(&rc, 0, 0, special_data[0] - 1, special_frames - 1);
             OffsetRect(&rc, 0, special_frames * v24);
-            SDlgBltToWindowI(
-                (HWND)v8[5], 0, (char*)v8[7], (int)v8[8] + (DWORD)a4, connect_data3, &rc, (SIZE*)special_data, -1, 0,
-                SRCCOPY);
+            SDlgBltToWindowI((HWND)v8[5], 0, (char*)v8[7], (int)v8[8] + (DWORD)a4, connect_data3, &rc, (SIZE*)special_data, -1, 0, SRCCOPY);
             goto LABEL_55;
         }
         if (a5 & 2)
@@ -697,28 +729,23 @@ BOOL __stdcall UiDrawDescCallback(
         if (heroinfo.spawned)
         {
             if (connect_data2)
-                SBltROP3(
-                    connect_data4, connect_data2, heroport_data[0], connect_draw_height, heroport_data[0],
-                    heroport_data[0], 0, SRCCOPY);
+            {
+                SBltROP3(connect_data4, connect_data2, heroport_data[0], connect_draw_height, heroport_data[0], heroport_data[0], 0, SRCCOPY);
+            }
         }
         else
         {
             SBltROP3(
-                connect_data4, &connect_data1[heroport_frames * (heroinfo.heroclass + 3 * heroinfo.herorank)],
-                heroport_data[0], connect_draw_height, heroport_data[0], heroport_data[0], 0, SRCCOPY);
+                connect_data4, &connect_data1[heroport_frames * (heroinfo.heroclass + 3 * heroinfo.herorank)], heroport_data[0], connect_draw_height, heroport_data[0], heroport_data[0], 0, SRCCOPY);
         }
         v26 = heroinfo.level / 10;
         if (v26)
-            STransBlt(
-                (char*)connect_data4 + 4 * heroport_data[0] + heroport_data[0] + 14, 0, 0, heroport_data[0],
-                connect_trans[v26]);
-        STransBlt(
-            (char*)connect_data4 + 4 * (heroport_data[0] + 4) + heroport_data[0] + 4, 0, 0, heroport_data[0],
-            connect_trans[heroinfo.level % 10]);
+        {
+            STransBlt((char*)connect_data4 + 4 * heroport_data[0] + heroport_data[0] + 14, 0, 0, heroport_data[0], connect_trans[v26]);
+        }
+        STransBlt((char*)connect_data4 + 4 * (heroport_data[0] + 4) + heroport_data[0] + 4, 0, 0, heroport_data[0], connect_trans[heroinfo.level % 10]);
         SetRect(&rc, 0, 0, heroport_data[0] - 1, connect_draw_height - 1);
-        SDlgBltToWindowI(
-            (HWND)v8[5], 0, (char*)v8[7], (int)v8[8] + (DWORD)a4, connect_data4, &rc, (SIZE*)heroport_data, -1, 0,
-            SRCCOPY);
+        SDlgBltToWindowI((HWND)v8[5], 0, (char*)v8[7], (int)v8[8] + (DWORD)a4, connect_data4, &rc, (SIZE*)heroport_data, -1, 0, SRCCOPY);
     }
 LABEL_55:
     if (!connect_color_text)
@@ -749,29 +776,53 @@ int __fastcall Connect_GetRankFromLevel(char* str)
 
     strcpy(a1, str);
     if (!Connect_GetHeroInfoConc(a1, &a2) || a2.level == 1)
+    {
         return 0;
+    }
     if ((signed int)a2.level < 4)
+    {
         return 1;
+    }
     if ((signed int)a2.level < 6)
+    {
         return 2;
+    }
     if ((signed int)a2.level < 8)
+    {
         return 3;
+    }
     if ((signed int)a2.level < 10)
+    {
         return 4;
+    }
     if ((signed int)a2.level < 13)
+    {
         return 5;
+    }
     if ((signed int)a2.level < 17)
+    {
         return 6;
+    }
     if ((signed int)a2.level < 20)
+    {
         return 7;
+    }
     if ((signed int)a2.level < 25)
+    {
         return 8;
+    }
     if ((signed int)a2.level < 30)
+    {
         return 9;
+    }
     if ((signed int)a2.level < 35)
+    {
         return 10;
+    }
     if ((signed int)a2.level < 40)
+    {
         return 11;
+    }
     return ((signed int)a2.level >= 48) + 12;
 }
 
@@ -784,24 +835,32 @@ BOOL __fastcall Connect_DiffFromString(char* str, _gamedata* gamedata, int a3, i
     char* v10;        // eax
 
     if (!*str)
+    {
         return 0;
+    }
     v6 = atoi(str);
     gamedata->bDiff = v6;
     if (v6 >= 3u)
+    {
         return 0;
+    }
     v8 = strchr(str, 13);
     if (v8)
     {
         *v8 = 0;
         v9 = v8 + 1;
         if (a3)
+        {
             *(DWORD*)a3 = (DWORD)v9;
+        }
         v10 = (char*)strchr(v9, 13);
         if (v10)
         {
             *v10 = 0;
             if (a4)
+            {
                 *(DWORD*)a4 = (DWORD)v10 + 1;
+            }
         }
     }
     return 1;
@@ -822,9 +881,13 @@ void __fastcall Connect_SetDiffString(_gamedata* gamedata, const char* str1, cha
     v10 = (signed int)(size - v8) < 0;
     v12 = gamedata->bDiff;
     if (v10 | v9)
+    {
         _itoa(v12, str3, 10);
+    }
     else
+    {
         sprintf(str3, "%d\r%s\r%s", v12, str1, str2);
+    }
 }
 
 // ref: 0x10003E61
@@ -847,29 +910,45 @@ BOOL __fastcall Connect_GetHeroInfoConc(const char* a1, _uiheroinfo* pInfo)
 
     memset(pInfo, 0, 0x2Cu);
     if (!*a1)
+    {
         return 0;
+    }
     v4 = *(DWORD*)a1;
     if (*(DWORD*)a1 != 'DRTL' && v4 != 'DSHR' && v4 != 'DTST')
+    {
         return 0;
+    }
     if (sscanf(a1 + 4, "%d %d %d %d %d %d %d %d %d", &v13, &v12, &v11, &v18, &v17, &v16, &v15, &v10, &v14) != 9)
+    {
         return 0;
+    }
     v5 = *(DWORD*)a1;
     v6 = v14;
     if (v5 == 'DRTL')
     {
         if (v14)
+        {
             return 0;
+        }
     }
     if (v5 == 'DSHR' && !v14)
+    {
         return 0;
+    }
     v7 = v13;
     if (!v13)
+    {
         return 0;
+    }
     if (v13 > 0x63)
+    {
         return 0;
+    }
     v8 = v12;
     if (v12 >= 3 || v11 > 3 || v18 < 0 || v17 < 0 || v16 < 0 || v15 < 0)
+    {
         return 0;
+    }
     pInfo->herorank = v11;
     pInfo->level = v7;
     pInfo->strength = (unsigned char)v18;
@@ -886,9 +965,7 @@ BOOL __fastcall Connect_GetHeroInfoConc(const char* a1, _uiheroinfo* pInfo)
 void __fastcall Connect_MakeDescString(_uiheroinfo* a1, char* name, size_t size)
 {
     *(DWORD*)name = (DWORD)connect_charname;
-    _snprintf(
-        name + 4, size, " %d %d %d %d %d %d %d %d %d", a1->level, a1->heroclass, a1->herorank, a1->strength, a1->magic,
-        a1->dexterity, a1->vitality, a1->gold, a1->spawned);
+    _snprintf(name + 4, size, " %d %d %d %d %d %d %d %d %d", a1->level, a1->heroclass, a1->herorank, a1->strength, a1->magic, a1->dexterity, a1->vitality, a1->gold, a1->spawned);
 }
 
 // ref: 0x10003FB7
@@ -917,7 +994,11 @@ void __stdcall UiSetupPlayerInfo(char* infostr, _uiheroinfo* pInfo, DWORD type)
 void __fastcall Connect_CopyPlrDescStrings(char* str1, int size1, char* str2, int size2)
 {
     if (str1)
+    {
         SStrCopy(str1, connect_plrinfostr, size1);
+    }
     if (str2)
+    {
         SStrCopy(str2, connect_categorystr, size2);
+    }
 }

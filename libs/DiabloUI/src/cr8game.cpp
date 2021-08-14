@@ -101,7 +101,9 @@ LRESULT __stdcall cr8game_WndProc(HWND hWnd, UINT Msg, WPARAM wParam, LPARAM lPa
         cr8game_FreeCreaStuff();
         cr8game_FreeMainMem(hWnd);
         if (cr8game_hobject)
+        {
             DeleteObject(cr8game_hobject);
+        }
         cr8_sendmsg1 = 0;
         cr8_sendmsg2 = 0;
         return (LRESULT)SDlgDefDialogProc(hWnd, v4, (HDC)wParam, (HWND)lParam);
@@ -136,8 +138,7 @@ LRESULT __stdcall cr8game_WndProc(HWND hWnd, UINT Msg, WPARAM wParam, LPARAM lPa
                 if (SendMessageA(cr8_sendmsg2, 0xEu, 0, 0))
                 {
                     SendMessageA(cr8_sendmsg2, 0xDu, 0x20u, (LPARAM)cr8_gamename);
-                    if (SelHero_IsNameReserved(cr8_gamename) || SelHero_NameHasChar(cr8_gamename, &nullcharacter) ||
-                        !cr8game_CheckValidGameName(cr8_gamename))
+                    if (SelHero_IsNameReserved(cr8_gamename) || SelHero_NameHasChar(cr8_gamename, &nullcharacter) || !cr8game_CheckValidGameName(cr8_gamename))
                     {
                         LoadStringA(ghUiInst, 0x404u, Buffer, 256);
                         OkCancel_DoOkDialog(hWnd, Buffer, 1);
@@ -147,11 +148,15 @@ LRESULT __stdcall cr8game_WndProc(HWND hWnd, UINT Msg, WPARAM wParam, LPARAM lPa
                     {
                         cr8_gamepassword[0] = 0;
                         if (SendMessageA(cr8_sendmsg1, 0xEu, 0, 0))
+                        {
                             SendMessageA(cr8_sendmsg1, 0xDu, 0x20u, (LPARAM)cr8_gamepassword);
+                        }
                         cr8_gamedata.bDiff = cr8_dword_1002966C;
                         TitleSnd_PlaySelectSound();
                         if (cr8game_GetSnetCreaGame(hWnd))
+                        {
                             SDlgEndDialog(hWnd, (void*)HANDLE_FLAG_INHERIT);
+                        }
                     }
                 }
                 else
@@ -168,7 +173,9 @@ LRESULT __stdcall cr8game_WndProc(HWND hWnd, UINT Msg, WPARAM wParam, LPARAM lPa
                     {
                         a2 = (unsigned short)wParam - 1032;
                         if (HIWORD(wParam) == 6)
+                        {
                             SetFocus(cr8_sendmsg2);
+                        }
                         if (cr8_dword_1002966C != (unsigned short)wParam - 1032)
                         {
                             if (cr8_dword_1002966C != -1)
@@ -256,7 +263,9 @@ void __fastcall cr8game_FreeMainMem(HWND hWnd)
         {
             v6 = *v4;
             if (*v4)
+            {
                 SMemFree(v6, "C:\\Src\\Diablo\\DiabloUI\\cr8game.cpp", 160, 0);
+            }
             SMemFree(v4, "C:\\Src\\Diablo\\DiabloUI\\cr8game.cpp", 162, 0);
         }
         ++v2;
@@ -301,9 +310,7 @@ void __fastcall cr8game_DoAROP3Blit(HWND hWnd, int frame, int size)
     {
         if (cr8_diffbtns_ptr)
         {
-            SBltROP3(
-                (void*)*v5, &cr8_diffbtns_ptr[cr8diffbtns_size[0] * v5[2] * (size + 2 * frame)], v5[1], v5[2], v5[1],
-                cr8diffbtns_size[0], 0, SRCCOPY);
+            SBltROP3((void*)*v5, &cr8_diffbtns_ptr[cr8diffbtns_size[0] * v5[2] * (size + 2 * frame)], v5[1], v5[2], v5[1], cr8diffbtns_size[0], 0, SRCCOPY);
             InvalidateRect(hWnd, 0, 0);
         }
     }
@@ -362,7 +369,9 @@ int __fastcall cr8game_CheckValidGameName(char* name)
         {
             v2 = v5[v1++ + 1];
             if (v2 != 32)
+            {
                 goto LABEL_5;
+            }
         }
     LABEL_9:
         result = 0;
@@ -374,7 +383,9 @@ int __fastcall cr8game_CheckValidGameName(char* name)
         while (v5[--v3] == 32)
         {
             if (v3 <= v1)
+            {
                 goto LABEL_9;
+            }
         }
         v5[v3 + 1] = 0;
         strcpy(name, &v5[v1]);

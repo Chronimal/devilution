@@ -1046,13 +1046,16 @@ void NextPlrLevel(int pnum)
     }
 
     if (plr[pnum]._pClass == PC_WARRIOR)
+    {
         mana = 64;
 #ifdef HELLFIRE
-    else if (plr[pnum]._pClass == PC_BARBARIAN)
-        mana = 0;
+        else if (plr[pnum]._pClass == PC_BARBARIAN) mana = 0;
 #endif
+    }
     else
+    {
         mana = 128;
+    }
 
     if (gbMaxPlayers == 1)
     {
@@ -1169,7 +1172,9 @@ void AddPlrMonstExper(int lvl, int exp, char pmask)
     {
         e = exp / totplrs;
         if (pmask & (1 << myplr))
+        {
             AddPlrExperience(myplr, lvl, e);
+        }
     }
 }
 
@@ -1249,7 +1254,9 @@ void InitPlayer(int pnum, BOOL FirstTime)
             plr[pnum]._ptargx = plr[pnum]._px;
             plr[pnum]._ptargy = plr[pnum]._py;
             for (i = 0; i < 8 && !PosOkPlayer(pnum, plrxoff2[i] + plr[pnum]._px, plryoff2[i] + plr[pnum]._py); i++)
+            {
                 ;
+            }
             plr[pnum]._px += plrxoff2[i];
             plr[pnum]._py += plryoff2[i];
         }
@@ -1615,7 +1622,9 @@ void PM_ChangeLightOff(int pnum)
     offy = l->_yoff + (l->_ly << 3);
 
     if (abs(lx - offx) < 3 && abs(ly - offy) < 3)
+    {
         return;
+    }
 
     ChangeLightOff(plr[pnum]._plid, x, y);
 }
@@ -2023,7 +2032,9 @@ void StartPlrBlock(int pnum, int dir)
 void StartSpell(int pnum, int d, int cx, int cy)
 {
     if ((DWORD)pnum >= MAX_PLRS)
+    {
         app_fatal("StartSpell: illegal player %d", pnum);
+    }
 
     if (plr[pnum]._pInvincible && plr[pnum]._pHitPoints == 0 && pnum == myplr)
     {
@@ -2113,15 +2124,29 @@ void RemovePlrFromMap(int pnum)
     pn = -(pnum + 1);
 
     for (y = 1; y < MAXDUNY; y++)
+    {
         for (x = 1; x < MAXDUNX; x++)
+        {
             if (dPlayer[x][y - 1] == pn || dPlayer[x - 1][y] == pn)
+            {
                 if (dFlags[x][y] & BFLAG_PLAYERLR)
+                {
                     dFlags[x][y] &= ~BFLAG_PLAYERLR;
+                }
+            }
+        }
+    }
 
     for (y = 0; y < MAXDUNY; y++)
+    {
         for (x = 0; x < MAXDUNX; x++)
+        {
             if (dPlayer[x][y] == pp || dPlayer[x][y] == pn)
+            {
                 dPlayer[x][y] = 0;
+            }
+        }
+    }
 }
 
 void StartPlrHit(int pnum, int dam, BOOL forcehit)
@@ -2233,7 +2258,9 @@ static void PlrDeadItem(int pnum, ItemStruct* itm, int xx, int yy)
     int i, j, k;
 
     if (itm->_itype == ITYPE_NONE)
+    {
         return;
+    }
 
     if ((DWORD)pnum >= MAX_PLRS)
     {
@@ -4599,9 +4626,13 @@ void ValidatePlayer()
         app_fatal("ValidatePlayer: illegal player %d", myplr);
     }
     if (plr[myplr]._pLevel > MAXCHARLEVEL - 1)
+    {
         plr[myplr]._pLevel = MAXCHARLEVEL - 1;
+    }
     if (plr[myplr]._pExperience > plr[myplr]._pNextExper)
+    {
         plr[myplr]._pExperience = plr[myplr]._pNextExper;
+    }
 
     gt = 0;
     for (i = 0; i < plr[myplr]._pNumInv; i++)
@@ -4622,7 +4653,9 @@ void ValidatePlayer()
         }
     }
     if (gt != plr[myplr]._pGold)
+    {
         plr[myplr]._pGold = gt;
+    }
 
     pc = plr[myplr]._pClass;
     if (plr[myplr]._pBaseStr > MaxStats[pc][ATTRIB_STR])
@@ -4648,7 +4681,9 @@ void ValidatePlayer()
         {
             msk |= SPELLBIT(b);
             if (plr[myplr]._pSplLvl[b] > MAX_SPELL_LEVEL)
+            {
                 plr[myplr]._pSplLvl[b] = MAX_SPELL_LEVEL;
+            }
         }
     }
 
@@ -4904,7 +4939,9 @@ BOOL PosOkPlayer(int pnum, int x, int y)
     }
 
     if (!PosOK)
+    {
         return FALSE;
+    }
 #endif
     return TRUE;
 }
@@ -5052,7 +5089,9 @@ void CheckPlrSpell()
     }
 
     if (pcurs != CURSOR_HAND)
+    {
         return;
+    }
 
     if (((MouseY >= PANEL_TOP) || (chrflag && MouseX < SPANEL_WIDTH) || (invflag && MouseX > RIGHT_PANEL)) &&
         ((MouseY >= PANEL_TOP) || (rspell != SPL_HEAL && rspell != SPL_IDENTIFY && rspell != SPL_REPAIR && rspell != SPL_INFRA && rspell != SPL_RECHARGE)))
@@ -5168,15 +5207,25 @@ void SyncPlrAnim(int pnum)
             break;
         case PM_SPELL:
             if (pnum == myplr)
+            {
                 sType = spelldata[plr[pnum]._pSpell].sType;
+            }
             else
+            {
                 sType = STYPE_FIRE;
+            }
             if (sType == STYPE_FIRE)
+            {
                 plr[pnum]._pAnimData = plr[pnum]._pFAnim[dir];
+            }
             if (sType == STYPE_LIGHTNING)
+            {
                 plr[pnum]._pAnimData = plr[pnum]._pLAnim[dir];
+            }
             if (sType == STYPE_MAGIC)
+            {
                 plr[pnum]._pAnimData = plr[pnum]._pTAnim[dir];
+            }
             break;
         case PM_GOTHIT:
             plr[pnum]._pAnimData = plr[pnum]._pHAnim[dir];

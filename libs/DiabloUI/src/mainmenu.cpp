@@ -9,14 +9,10 @@ void __cdecl MainMenu_cpp_init()
 // 1002A0D4: using guessed type int mainmenu_cpp_float;
 
 // ref: 0x1000816F
-BOOL __stdcall UiMainMenuDialog(
-    const char* name,
-    int* pdwResult,
-    void(__stdcall* fnSound)(const char* file),
-    int attractTimeOut)
+BOOL __stdcall UiMainMenuDialog(const char* name, int* pdwResult, void(__stdcall* fnSound)(const char* file), int attractTimeOut)
 {
     HWND v4; // eax
-    int v5; // esi
+    int v5;  // esi
 
     menu_item_timer = attractTimeOut;
     TitleSnd_SetSoundFunction(fnSound);
@@ -169,7 +165,9 @@ void __fastcall MainMenu_LoadMenuGFX(HWND hWnd)
         v4 = DiabloUI_GetSpawned() == 0;
         v5 = "ui_art\\swmmenu.pcx";
         if (v4)
+        {
             v5 = "ui_art\\mainmenu.pcx";
+        }
         local_LoadArtWithPal(hWnd, 0, &nullcharacter, -1, 1, v5, (BYTE**)v2, v2 + 1, 0);
         Fade_NoInputAndArt(hWnd, 1);
     }
@@ -201,7 +199,9 @@ void __fastcall MainMenu_DoOptions(HWND hWnd, int option, int PlaySelect)
     }
     Fade_Range5SetZero();
     if (PlaySelect)
+    {
         TitleSnd_PlaySelectSound();
+    }
     Fade_UpdatePaletteRange(10);
     SDlgEndDialog(hWnd, (HANDLE)option);
 }

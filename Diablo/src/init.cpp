@@ -116,10 +116,14 @@ static HWND init_find_mom_parent()
     {
         handle = i;
         if (!i)
+        {
             break;
+        }
         GetClassName(i, ClassName, 255);
         if (!_strcmpi(ClassName, "MOM Parent"))
+        {
             break;
+        }
     }
     return handle;
 }
@@ -282,7 +286,9 @@ static BOOL init_read_test_file(char* pszPath, const char* pszArchive, int dwPri
     {
         pszRoot = pszDrive;
         while (*pszDrive++ != '\0')
+        {
             ;
+        }
         if (GetDriveType(pszRoot) == DRIVE_CDROM)
         {
             strcpy(pszPath, pszRoot);
@@ -382,9 +388,11 @@ static void init_get_file_info()
             if (GetFileVersionInfo(diablo_exe_path, 0, dwLen, pBlock))
             {
                 if (VerQueryValue(pBlock, "\\", (LPVOID*)&lpBuffer, &uBytes))
+                {
                     sprintf(
                         gszVersionNumber, "version %d.%d.%d.%d", lpBuffer->dwProductVersionMS >> 16, lpBuffer->dwProductVersionMS & 0xFFFF, lpBuffer->dwProductVersionLS >> 16,
                         lpBuffer->dwProductVersionLS & 0xFFFF);
+                }
             }
             mem_free_dbg(pBlock);
         }
@@ -426,57 +434,59 @@ static void init_archives()
     }
 #endif
     if (!WOpenFile("ui_art\\title.pcx", &fh, TRUE))
+    {
 #ifdef SPAWN
         FileErrDlg("Main program archive: spawn.mpq");
 #else
         FileErrDlg("Main program archive: diabdat.mpq");
+    }
 #endif
-    WCloseFile(fh);
+        WCloseFile(fh);
 #ifdef SPAWN
-    patch_rt_mpq = init_test_access(patch_rt_mpq_path, "\\patch_sh.mpq", "DiabloSpawn", 2000, FS_PC);
+        patch_rt_mpq = init_test_access(patch_rt_mpq_path, "\\patch_sh.mpq", "DiabloSpawn", 2000, FS_PC);
 #else
     patch_rt_mpq = init_test_access(patch_rt_mpq_path, "\\patch_rt.mpq", "DiabloInstall", 2000, FS_PC);
 #endif
 #ifdef HELLFIRE
-    hellfire_mpq = init_test_access(hellfire_mpq_path, "\\hellfire.mpq", "DiabloInstall", 8000, FS_PC);
-    hfmonk_mpq = init_test_access(hfmonk_mpq_path, "\\hfmonk.mpq", "DiabloInstall", 8100, FS_PC);
-    hfbard_mpq = init_test_access(hfbard_mpq_path, "\\hfbard.mpq", "DiabloInstall", 8110, FS_PC);
-    hfbarb_mpq = init_test_access(hfbarb_mpq_path, "\\hfbarb.mpq", "DiabloInstall", 8120, FS_PC);
-    hfmusic_mpq = init_test_access(hfmusic_mpq_path, "\\hfmusic.mpq", "DiabloInstall", 8200, FS_PC);
-    hfvoice_mpq = init_test_access(hfvoice_mpq_path, "\\hfvoice.mpq", "DiabloInstall", 8500, FS_PC);
-    hfopt1_mpq = init_test_access(hfopt1_mpq_path, "\\hfopt1.mpq", "DiabloInstall", 8600, FS_PC);
-    hfopt2_mpq = init_test_access(hfopt2_mpq_path, "\\hfopt2.mpq", "DiabloInstall", 8610, FS_PC);
+        hellfire_mpq = init_test_access(hellfire_mpq_path, "\\hellfire.mpq", "DiabloInstall", 8000, FS_PC);
+        hfmonk_mpq = init_test_access(hfmonk_mpq_path, "\\hfmonk.mpq", "DiabloInstall", 8100, FS_PC);
+        hfbard_mpq = init_test_access(hfbard_mpq_path, "\\hfbard.mpq", "DiabloInstall", 8110, FS_PC);
+        hfbarb_mpq = init_test_access(hfbarb_mpq_path, "\\hfbarb.mpq", "DiabloInstall", 8120, FS_PC);
+        hfmusic_mpq = init_test_access(hfmusic_mpq_path, "\\hfmusic.mpq", "DiabloInstall", 8200, FS_PC);
+        hfvoice_mpq = init_test_access(hfvoice_mpq_path, "\\hfvoice.mpq", "DiabloInstall", 8500, FS_PC);
+        hfopt1_mpq = init_test_access(hfopt1_mpq_path, "\\hfopt1.mpq", "DiabloInstall", 8600, FS_PC);
+        hfopt2_mpq = init_test_access(hfopt2_mpq_path, "\\hfopt2.mpq", "DiabloInstall", 8610, FS_PC);
 #endif
-}
-
-void init_create_window(int nCmdShow)
-{
-    init_kill_mom_parent();
-    pfile_init_save_directory();
-
-    WNDCLASSEXA wcex{};
-    wcex.hInstance = ghInst;
-    wcex.cbSize = sizeof(wcex);
-    wcex.lpfnWndProc = WindowProc;
-    wcex.lpszClassName = GAME_NAME;
-    wcex.style = CS_HREDRAW | CS_VREDRAW;
-    wcex.hCursor = LoadCursor(NULL, IDC_ARROW);
-    wcex.hbrBackground = (HBRUSH)GetStockObject(BLACK_BRUSH);
-    wcex.hIcon = LoadIcon(ghInst, MAKEINTRESOURCE(IDI_ICON1));
-    wcex.hIconSm = (HICON)LoadImage(ghInst, MAKEINTRESOURCE(IDI_ICON1), IMAGE_ICON, 16, 16, LR_DEFAULTCOLOR);
-    if (!RegisterClassEx(&wcex))
-    {
-        app_fatal("Unable to register window class");
     }
 
-    RECT rect{.right = SCREEN_WIDTH, .bottom = SCREEN_HEIGHT};
-    constexpr DWORD exStyle = WS_EX_OVERLAPPEDWINDOW | WS_EX_APPWINDOW;
-    constexpr DWORD style = WS_OVERLAPPEDWINDOW;
-    AdjustWindowRectEx(&rect, style, FALSE, exStyle);
-    LONG height = rect.bottom - rect.top;
-    LONG width = rect.right - rect.left;
+    void init_create_window(int nCmdShow)
+    {
+        init_kill_mom_parent();
+        pfile_init_save_directory();
 
-    // clang-format off
+        WNDCLASSEXA wcex{};
+        wcex.hInstance = ghInst;
+        wcex.cbSize = sizeof(wcex);
+        wcex.lpfnWndProc = WindowProc;
+        wcex.lpszClassName = GAME_NAME;
+        wcex.style = CS_HREDRAW | CS_VREDRAW;
+        wcex.hCursor = LoadCursor(NULL, IDC_ARROW);
+        wcex.hbrBackground = (HBRUSH)GetStockObject(BLACK_BRUSH);
+        wcex.hIcon = LoadIcon(ghInst, MAKEINTRESOURCE(IDI_ICON1));
+        wcex.hIconSm = (HICON)LoadImage(ghInst, MAKEINTRESOURCE(IDI_ICON1), IMAGE_ICON, 16, 16, LR_DEFAULTCOLOR);
+        if (!RegisterClassEx(&wcex))
+        {
+            app_fatal("Unable to register window class");
+        }
+
+        RECT rect{.right = SCREEN_WIDTH, .bottom = SCREEN_HEIGHT};
+        constexpr DWORD exStyle = WS_EX_OVERLAPPEDWINDOW | WS_EX_APPWINDOW;
+        constexpr DWORD style = WS_OVERLAPPEDWINDOW;
+        AdjustWindowRectEx(&rect, style, FALSE, exStyle);
+        LONG height = rect.bottom - rect.top;
+        LONG width = rect.right - rect.left;
+
+        // clang-format off
     HWND hWnd = CreateWindowEx(exStyle,
                                GAME_NAME,
                                APP_NAME,
@@ -489,90 +499,90 @@ void init_create_window(int nCmdShow)
                                nullptr,
                                ghInst,
                                nullptr);
-    // clang-format on
-    if (hWnd == nullptr)
-    {
-        app_fatal("Unable to create main window");
+        // clang-format on
+        if (hWnd == nullptr)
+        {
+            app_fatal("Unable to create main window");
+        }
+
+        GetClientRect(hWnd, &rect);
+        if ((rect.right - rect.left) != SCREEN_WIDTH || (rect.bottom - rect.top) != SCREEN_HEIGHT)
+        {
+            app_fatal("Unexpected client rectangle dimension");
+        }
+
+        ShowWindow(hWnd, SW_SHOWNORMAL); // nCmdShow used only in beta: ShowWindow(hWnd, nCmdShow)
+        UpdateWindow(hWnd);
+
+        init_await_mom_parent_exit();
+        dx_init(hWnd);
+        BlackPalette();
+        snd_init(hWnd);
+        init_archives();
     }
 
-    GetClientRect(hWnd, &rect);
-    if ((rect.right - rect.left) != SCREEN_WIDTH || (rect.bottom - rect.top) != SCREEN_HEIGHT)
+    static void init_activate_window(HWND hWnd, BOOL bActive)
     {
-        app_fatal("Unexpected client rectangle dimension");
-    }
+        gbActive = bActive;
+        UiAppActivate(bActive);
 
-    ShowWindow(hWnd, SW_SHOWNORMAL); // nCmdShow used only in beta: ShowWindow(hWnd, nCmdShow)
-    UpdateWindow(hWnd);
-
-    init_await_mom_parent_exit();
-    dx_init(hWnd);
-    BlackPalette();
-    snd_init(hWnd);
-    init_archives();
-}
-
-static void init_activate_window(HWND hWnd, BOOL bActive)
-{
-    gbActive = bActive;
-    UiAppActivate(bActive);
-
-    if (gbActive)
-    {
-        force_redraw = 255;
-        ResetPal();
-    }
-}
-
-LRESULT __stdcall MainWndProc(HWND hWnd, UINT Msg, WPARAM wParam, LPARAM lParam)
-{
-    switch (Msg)
-    {
-        case WM_ERASEBKGND:
-            return 0;
-        case WM_CREATE:
-            ghMainWnd = hWnd;
-            break;
-        case WM_DESTROY:
-            init_cleanup(TRUE);
-            ghMainWnd = NULL;
-            PostQuitMessage(0);
-            break;
-        case WM_PAINT:
+        if (gbActive)
+        {
             force_redraw = 255;
-            break;
-        case WM_CLOSE:
-            return 0;
-        case WM_ACTIVATEAPP:
-            init_activate_window(hWnd, wParam);
-            break;
-        case WM_QUERYNEWPALETTE:
-            SDrawRealizePalette();
-            return 1;
-        case WM_PALETTECHANGED:
-            if ((HWND)wParam != hWnd)
-            {
-                SDrawRealizePalette();
-            }
-            break;
+            ResetPal();
+        }
     }
 
-    return DefWindowProc(hWnd, Msg, wParam, lParam);
-}
-
-LRESULT __stdcall WindowProc(HWND hWnd, UINT Msg, WPARAM wParam, LPARAM lParam)
-{
-    if (CurrentProc)
+    LRESULT __stdcall MainWndProc(HWND hWnd, UINT Msg, WPARAM wParam, LPARAM lParam)
     {
-        return CurrentProc(hWnd, Msg, wParam, lParam);
+        switch (Msg)
+        {
+            case WM_ERASEBKGND:
+                return 0;
+            case WM_CREATE:
+                ghMainWnd = hWnd;
+                break;
+            case WM_DESTROY:
+                init_cleanup(TRUE);
+                ghMainWnd = NULL;
+                PostQuitMessage(0);
+                break;
+            case WM_PAINT:
+                force_redraw = 255;
+                break;
+            case WM_CLOSE:
+                return 0;
+            case WM_ACTIVATEAPP:
+                init_activate_window(hWnd, wParam);
+                break;
+            case WM_QUERYNEWPALETTE:
+                SDrawRealizePalette();
+                return 1;
+            case WM_PALETTECHANGED:
+                if ((HWND)wParam != hWnd)
+                {
+                    SDrawRealizePalette();
+                }
+                break;
+        }
+
+        return DefWindowProc(hWnd, Msg, wParam, lParam);
     }
-    return MainWndProc(hWnd, Msg, wParam, lParam);
-}
 
-WNDPROC SetWindowProc(WNDPROC NewProc)
-{
-    WNDPROC OldProc;
+    LRESULT __stdcall WindowProc(HWND hWnd, UINT Msg, WPARAM wParam, LPARAM lParam)
+    {
+        if (CurrentProc)
+        {
+            return CurrentProc(hWnd, Msg, wParam, lParam);
+        }
+        return MainWndProc(hWnd, Msg, wParam, lParam);
+    }
 
-    OldProc = CurrentProc;
-    CurrentProc = NewProc;
-    return OldProc;
-}
+    WNDPROC SetWindowProc(WNDPROC NewProc)
+    {
+        WNDPROC OldProc;
+
+        OldProc = CurrentProc;
+        CurrentProc = NewProc;
+        return OldProc;
+    }

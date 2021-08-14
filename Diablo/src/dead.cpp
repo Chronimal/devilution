@@ -16,7 +16,9 @@ void InitDead()
     int mtypes[MAXMONSTERS];
 
     for (i = 0; i < MAXMONSTERS; i++)
+    {
         mtypes[i] = 0;
+    }
 
     nd = 0;
 
@@ -25,7 +27,9 @@ void InitDead()
         if (mtypes[Monsters[i].mtype] == 0)
         {
             for (d = 0; d < 8; d++)
+            {
                 dead[nd]._deadData[d] = Monsters[i].Anims[MA_DEATH].Data[d];
+            }
             dead[nd]._deadFrame = Monsters[i].Anims[MA_DEATH].Frames;
             dead[nd]._deadWidth = Monsters[i].width;
             dead[nd]._deadWidth2 = Monsters[i].width2;
@@ -37,7 +41,9 @@ void InitDead()
     }
 
     for (d = 0; d < 8; d++)
+    {
         dead[nd]._deadData[d] = misfiledata[MFILE_BLODBUR].mAnimData[0];
+    }
     dead[nd]._deadFrame = 8;
     dead[nd]._deadWidth = 128;
     dead[nd]._deadWidth2 = 32;
@@ -46,7 +52,9 @@ void InitDead()
     nd++;
 
     for (d = 0; d < 8; d++)
+    {
         dead[nd]._deadData[d] = misfiledata[MFILE_SHATTER1].mAnimData[0];
+    }
     dead[nd]._deadFrame = 12;
     dead[nd]._deadWidth = 128;
     dead[nd]._deadWidth2 = 32;
@@ -60,7 +68,9 @@ void InitDead()
         if (monster[mi]._uniqtype != 0)
         {
             for (d = 0; d < 8; d++)
+            {
                 dead[nd]._deadData[d] = monster[mi].MType->Anims[MA_DEATH].Data[d];
+            }
             dead[nd]._deadFrame = monster[mi].MType->Anims[MA_DEATH].Frames;
             dead[nd]._deadWidth = monster[mi].MType->width;
             dead[nd]._deadWidth2 = monster[mi].MType->width2;
@@ -93,7 +103,9 @@ void SetDead()
                 for (dy = 0; dy < MAXDUNY; dy++)
                 {
                     if ((dDead[dx][dy] & 0x1F) == monster[mi]._udeadval)
+                    {
                         ChangeLightXY(monster[mi].mlid, dx, dy);
+                    }
                 }
             }
         }

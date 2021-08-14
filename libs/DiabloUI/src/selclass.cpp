@@ -15,7 +15,9 @@ LRESULT __stdcall SelClass_WndProc(HWND hWnd, UINT Msg, WPARAM wParam, LPARAM lP
         return (LRESULT)SDlgDefDialogProc(hWnd, Msg, (HDC)wParam, (HWND)lParam);
     }
     if (Msg <= 0x103)
+    {
         return (LRESULT)SDlgDefDialogProc(hWnd, Msg, (HDC)wParam, (HWND)lParam);
+    }
     if (Msg <= 0x105)
     {
         v9 = (HWND)SDrawGetFrameWindow(NULL);
@@ -65,9 +67,13 @@ LRESULT __stdcall SelClass_WndProc(HWND hWnd, UINT Msg, WPARAM wParam, LPARAM lP
         {
             v5 = 1;
             if (HIWORD(wParam) == 5 || (WORD)wParam == 1)
+            {
                 goto LABEL_19;
+            }
             if ((WORD)wParam != 2)
+            {
                 return (LRESULT)SDlgDefDialogProc(hWnd, Msg, (HDC)wParam, (HWND)lParam);
+            }
             goto LABEL_21;
         }
         Focus_CheckPlayMove(lParam);
@@ -102,9 +108,13 @@ void __fastcall SelClass_LoadClassFocus(HWND hWnd)
     v1 = hWnd;
     v2 = GetParent(hWnd);
     if (SelHero_GetHeroIsGood() == 1)
+    {
         LoadStringA(ghUiInst, 0x20u, Buffer, 31);
+    }
     else
+    {
         LoadStringA(ghUiInst, 0x1Fu, Buffer, 31);
+    }
     SelHero_SetStringWithMsg(v2, Buffer);
     v3 = GetWindowLongA(v2, -21);
     SetWindowLongA(v1, -21, v3);

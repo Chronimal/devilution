@@ -85,7 +85,9 @@ BOOL __cdecl Fade_CheckRange5()
     if (sgbIsFading)
     {
         if (sgbFadeRange <= 5)
+        {
             result = 1;
+        }
     }
     return result;
 }
@@ -95,7 +97,9 @@ BOOL __cdecl Fade_CheckRange5()
 void __cdecl Fade_Range5SetZero()
 {
     if (Fade_CheckRange5())
+    {
         sgbIsFading = 0;
+    }
 }
 // 10029C70: using guessed type int sgbIsFading;
 
@@ -107,7 +111,9 @@ void __fastcall Fade_NoInputAndArt(HWND hWnd, BOOL bShowCurs)
     v3 = GetParent(hWnd);
     local_DisableKeyWaitMouse(v3);
     if (bShowCurs)
+    {
         local_SetCursorArt();
+    }
     sgbIsFading = 0;
     sgbFadeRange = 0;
 }

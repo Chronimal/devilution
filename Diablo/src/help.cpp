@@ -463,7 +463,9 @@ static void DrawHelpLine(int x, int y, char* text, char color)
         if (c)
         {
             if (width <= 577)
+            {
                 PrintChar(off, c, color);
+            }
         }
         off += fontkern[c] + 1;
     }
@@ -594,11 +596,15 @@ void DisplayHelp()
 void HelpScrollUp()
 {
     if (help_select_line > 0)
+    {
         help_select_line--;
+    }
 }
 
 void HelpScrollDown()
 {
     if (help_select_line < HelpTop)
+    {
         help_select_line++;
+    }
 }

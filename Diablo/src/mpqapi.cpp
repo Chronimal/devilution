@@ -61,7 +61,9 @@ static BOOL mpqapi_reg_load_modification_time(char* dst, int size)
     }
 
     if (nbytes_read != size)
+    {
         return FALSE;
+    }
 
     for (; size >= 8u; size -= 8)
     {
@@ -105,12 +107,18 @@ BOOL mpqapi_set_hidden(const char* pszArchive, BOOL hidden)
 
     dwFileAttributes = GetFileAttributes(pszArchive);
     if (dwFileAttributes == INVALID_FILE_ATTRIBUTES)
+    {
         return GetLastError() == ERROR_FILE_NOT_FOUND;
+    }
     dwFileAttributesToSet = hidden ? FILE_ATTRIBUTE_SYSTEM | FILE_ATTRIBUTE_HIDDEN : 0;
     if (dwFileAttributes == dwFileAttributesToSet)
+    {
         return TRUE;
+    }
     else
+    {
         return SetFileAttributes(pszArchive, dwFileAttributesToSet);
+    }
 }
 
 void mpqapi_store_default_time(DWORD dwChar)
@@ -176,16 +184,26 @@ static _BLOCKENTRY* mpqapi_new_block(int* block_index)
     for (DWORD i = 0; i < INDEX_ENTRIES; i++, blockEntry++)
     {
         if (blockEntry->offset != 0)
+        {
             continue;
+        }
         if (blockEntry->sizealloc != 0)
+        {
             continue;
+        }
         if (blockEntry->flags != 0)
+        {
             continue;
+        }
         if (blockEntry->sizefile != 0)
+        {
             continue;
+        }
 
         if (block_index)
+        {
             *block_index = i;
+        }
 
         return blockEntry;
     }
@@ -249,13 +267,21 @@ static int mpqapi_find_free_block(int size, int* block_size)
     for (int i = INDEX_ENTRIES; i--; pBlockTbl++)
     {
         if (pBlockTbl->offset == 0)
+        {
             continue;
+        }
         if (pBlockTbl->flags != 0)
+        {
             continue;
+        }
         if (pBlockTbl->sizefile != 0)
+        {
             continue;
+        }
         if ((DWORD)pBlockTbl->sizealloc < size)
+        {
             continue;
+        }
 
         result = pBlockTbl->offset;
         *block_size = size;
@@ -263,7 +289,9 @@ static int mpqapi_find_free_block(int size, int* block_size)
         pBlockTbl->sizealloc -= size;
 
         if (pBlockTbl->sizealloc == 0)
+        {
             memset(pBlockTbl, 0, sizeof(*pBlockTbl));
+        }
 
         return result;
     }
@@ -282,15 +310,25 @@ static int mpqapi_get_hash_index(int index, int hash_a, int hash_b, int locale)
     for (idx = index & 0x7FF; sgpHashTbl[idx].block != -1; idx = (idx + 1) & 0x7FF)
     {
         if (i-- == 0)
+        {
             break;
+        }
         if (sgpHashTbl[idx].hashcheck[0] != hash_a)
+        {
             continue;
+        }
         if (sgpHashTbl[idx].hashcheck[1] != hash_b)
+        {
             continue;
+        }
         if (sgpHashTbl[idx].lcid != locale)
+        {
             continue;
+        }
         if (sgpHashTbl[idx].block == -2)
+        {
             continue;
+        }
 
         return idx;
     }
@@ -315,9 +353,13 @@ static BOOL WriteMPQHeader()
     fhdr.blockcount = INDEX_ENTRIES;
 
     if (SetFilePointer(sghArchive, 0, NULL, FILE_BEGIN) == -1)
+    {
         return FALSE;
+    }
     if (!WriteFile(sghArchive, &fhdr, sizeof(fhdr), &NumberOfBytesWritten, 0))
+    {
         return FALSE;
+    }
 
     return NumberOfBytesWritten == 104;
 }
@@ -328,7 +370,9 @@ static BOOL mpqapi_write_block_table()
     DWORD NumberOfBytesWritten;
 
     if (SetFilePointer(sghArchive, 104, NULL, FILE_BEGIN) == -1)
+    {
         return FALSE;
+    }
 
     Encrypt((DWORD*)sgpBlockTbl, BLOCK_TABLE_SIZE, Hash("(block table)", 3));
     success = WriteFile(sghArchive, sgpBlockTbl, BLOCK_TABLE_SIZE, &NumberOfBytesWritten, 0);
@@ -342,7 +386,9 @@ static BOOL mpqapi_write_hash_table()
     DWORD NumberOfBytesWritten;
 
     if (SetFilePointer(sghArchive, 32872, NULL, FILE_BEGIN) == -1)
+    {
         return FALSE;
+    }
 
     Encrypt((DWORD*)sgpHashTbl, HASH_TABLE_SIZE, Hash("(hash table)", 3));
     success = WriteFile(sghArchive, sgpHashTbl, HASH_TABLE_SIZE, &NumberOfBytesWritten, 0);
@@ -353,7 +399,9 @@ static BOOL mpqapi_write_hash_table()
 static BOOL mpqapi_can_seek()
 {
     if (SetFilePointer(sghArchive, sgdwMpqOffset, NULL, FILE_BEGIN) == -1)
+    {
         return FALSE;
+    }
     return SetEndOfFile(sghArchive);
 }
 
@@ -371,9 +419,13 @@ static BOOL ParseMPQHeader(_FILEHEADER* pHdr, DWORD* pdwNextFileStart)
     {
 
         if (SetFilePointer(sghArchive, 0, NULL, FILE_BEGIN) == -1)
+        {
             return FALSE;
+        }
         if (!SetEndOfFile(sghArchive))
+        {
             return FALSE;
+        }
 
         memset(pHdr, 0, sizeof(*pHdr));
         pHdr->signature = '\x1AQPM';
@@ -434,19 +486,27 @@ static _BLOCKENTRY* mpqapi_add_file(const char* pszName, _BLOCKENTRY* pBlk, int 
     h2 = Hash(pszName, 1);
     h3 = Hash(pszName, 2);
     if (mpqapi_get_hash_index(h1, h2, h3, 0) != -1)
+    {
         app_fatal("Hash collision between \"%s\" and existing file\n", pszName);
+    }
     hIdx = h1 & 0x7FF;
     i = INDEX_ENTRIES;
     while (i--)
     {
         if (sgpHashTbl[hIdx].block == -1 || sgpHashTbl[hIdx].block == -2)
+        {
             break;
+        }
         hIdx = (hIdx + 1) & 0x7FF;
     }
     if (i < 0)
+    {
         app_fatal("Out of hash space");
+    }
     if (!pBlk)
+    {
         pBlk = mpqapi_new_block(&block_index);
+    }
 
     sgpHashTbl[hIdx].hashcheck[0] = h2;
     sgpHashTbl[hIdx].hashcheck[1] = h3;
@@ -478,7 +538,9 @@ static BOOL mpqapi_write_file_contents(const char* pszName, const BYTE* pbData, 
     pBlk->sizefile = dwLen;
     pBlk->flags = 0x80000100;
     if (SetFilePointer(sghArchive, pBlk->offset, NULL, FILE_BEGIN) == (DWORD)-1)
+    {
         return FALSE;
+    }
     j = 0;
     destsize = 0;
     sectoroffsettable = NULL;
@@ -486,10 +548,14 @@ static BOOL mpqapi_write_file_contents(const char* pszName, const BYTE* pbData, 
     {
         DWORD len;
         for (i = 0; i < 4096; i++)
+        {
             mpq_buf[i] -= 86;
+        }
         len = dwLen;
         if (dwLen >= 4096)
+        {
             len = 4096;
+        }
         memcpy(mpq_buf, pbData, len);
         pbData += len;
         len = PkwareCompress(mpq_buf, len);
@@ -511,9 +577,13 @@ static BOOL mpqapi_write_file_contents(const char* pszName, const BYTE* pbData, 
         }
         j++;
         if (dwLen > 4096)
+        {
             dwLen -= 4096;
+        }
         else
+        {
             dwLen = 0;
+        }
         destsize += len;
     }
 
@@ -546,7 +616,9 @@ static BOOL mpqapi_write_file_contents(const char* pszName, const BYTE* pbData, 
     return TRUE;
 on_error:
     if (sectoroffsettable)
+    {
         mem_free_dbg(sectoroffsettable);
+    }
     return FALSE;
 }
 
@@ -631,7 +703,9 @@ BOOL OpenMPQ(const char* pszArchive, BOOL hidden, DWORD dwChar)
     {
         sghArchive = CreateFile(pszArchive, GENERIC_READ | GENERIC_WRITE, 0, NULL, CREATE_ALWAYS, dwFlagsAndAttributes | (hidden ? FILE_ATTRIBUTE_SYSTEM | FILE_ATTRIBUTE_HIDDEN : 0), NULL);
         if (sghArchive == INVALID_HANDLE_VALUE)
+        {
             return FALSE;
+        }
         save_archive_open = TRUE;
         save_archive_modified = TRUE;
     }
@@ -647,9 +721,13 @@ BOOL OpenMPQ(const char* pszArchive, BOOL hidden, DWORD dwChar)
         if (fhdr.blockcount)
         {
             if (SetFilePointer(sghArchive, 104, NULL, FILE_BEGIN) == -1)
+            {
                 goto on_error;
+            }
             if (!ReadFile(sghArchive, sgpBlockTbl, BLOCK_TABLE_SIZE, &dwTemp, NULL))
+            {
                 goto on_error;
+            }
             key = Hash("(block table)", 3);
             Decrypt((DWORD*)sgpBlockTbl, BLOCK_TABLE_SIZE, key);
         }
@@ -658,9 +736,13 @@ BOOL OpenMPQ(const char* pszArchive, BOOL hidden, DWORD dwChar)
         if (fhdr.hashcount)
         {
             if (SetFilePointer(sghArchive, 32872, NULL, FILE_BEGIN) == -1)
+            {
                 goto on_error;
+            }
             if (!ReadFile(sghArchive, sgpHashTbl, HASH_TABLE_SIZE, &dwTemp, NULL))
+            {
                 goto on_error;
+            }
             key = Hash("(hash table)", 3);
             Decrypt((DWORD*)sgpHashTbl, HASH_TABLE_SIZE, key);
         }
@@ -676,18 +758,26 @@ BOOL mpqapi_flush_and_close(const char* pszArchive, BOOL bFree, DWORD dwChar)
 {
     BOOL ret = FALSE;
     if (sghArchive == INVALID_HANDLE_VALUE)
+    {
         ret = TRUE;
+    }
     else
     {
         ret = FALSE;
         if (!save_archive_modified)
+        {
             ret = TRUE;
+        }
         else if (mpqapi_can_seek() && WriteMPQHeader() && mpqapi_write_block_table())
         {
             if (mpqapi_write_hash_table())
+            {
                 ret = TRUE;
+            }
             else
+            {
                 ret = FALSE;
+            }
         }
     }
     CloseMPQ(pszArchive, bFree, dwChar);

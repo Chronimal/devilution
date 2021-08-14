@@ -62,9 +62,13 @@ LRESULT __stdcall SelYesNo_WndProc(HWND hWnd, UINT Msg, WPARAM wParam, LPARAM lP
                         v9 = GetWindowLongA(v8, -12);
                         v10 = hWnd;
                         if (v9 == 1109)
+                        {
                             v7 = 1;
+                        }
                         else
+                        {
                             v7 = 2;
+                        }
                     }
                     else
                     {
@@ -87,7 +91,9 @@ LRESULT __stdcall SelYesNo_WndProc(HWND hWnd, UINT Msg, WPARAM wParam, LPARAM lP
                 {
                     v5 = GetDlgItem(hWnd, 1109);
                     if (!v5)
+                    {
                         v5 = GetDlgItem(hWnd, 2);
+                    }
                     SetFocus(v5);
                 }
                 return 0;
@@ -108,7 +114,9 @@ void __fastcall SelYesNo_RemoveYNDialog(HWND hWnd)
     v2 = (void**)GetWindowLongA(hWnd, -21);
     local_FreeMemPtr(v2);
     if (yesno_remove_focus)
+    {
         Focus_DeleteSpinners();
+    }
     Doom_DeleteFreeProcs(v1, yesno_msgtbl1);
     Doom_DeleteFreeProcs(v1, yesno_msgtbl2);
     if (yesno_hero_name)
@@ -131,7 +139,9 @@ void __fastcall SelYesNo_LoadSelYN_GFX(HWND hWnd)
 
     v2 = GetParent(hWnd);
     if (yesno_hero_name)
+    {
         SelHero_SetStringWithMsg(v2, yesno_hero_name);
+    }
     v3 = local_AllocWndLongData();
     v4 = v3;
     if (v3)
@@ -140,9 +150,13 @@ void __fastcall SelYesNo_LoadSelYN_GFX(HWND hWnd)
         if (yesno_is_popup)
         {
             if (DiabloUI_GetSpawned())
+            {
                 v5 = "ui_art\\swmmpop.pcx";
+            }
             else
+            {
                 v5 = "ui_art\\mmpopup.pcx";
+            }
         }
         else
         {
@@ -156,9 +170,13 @@ void __fastcall SelYesNo_LoadSelYN_GFX(HWND hWnd)
     Doom_ParseWndProc3(hWnd, yesno_msgtbl2, AF_MEDGRAY);
     Doom_ParseWndProcs(hWnd, yesno_msgtbl1, AF_BIG, 1);
     if (yesno_remove_focus)
+    {
         Focus_LoadSpinner("ui_art\\focus.pcx");
+    }
     else
+    {
         Focus_ResetSpinToZero();
+    }
     SDlgSetTimer(hWnd, 1, 55, 0);
     local_DoUiWndProc2(hWnd, (DWORD*)yesno_msgtbl1);
 }
@@ -175,7 +193,9 @@ void __fastcall SelYesNo_DoSelectYesNo(HWND hWnd, int option)
     if (option == 2)
     {
         if (!YesNoFunc)
+        {
             goto LABEL_6;
+        }
         YesNoFunc();
     }
     if (option == 1)

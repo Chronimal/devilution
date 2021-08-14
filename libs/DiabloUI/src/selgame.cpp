@@ -41,13 +41,7 @@ int SelGame_1000B67E()
 // 1002A404: using guessed type int dword_1002A404;
 
 // ref: 0x1000B684
-int __stdcall UiSelectGame(
-    int a1,
-    _SNETPROGRAMDATA* client_info,
-    _SNETPLAYERDATA* user_info,
-    _SNETUIDATA* ui_info,
-    _SNETVERSIONDATA* file_info,
-    int* playerid)
+int __stdcall UiSelectGame(int a1, _SNETPROGRAMDATA* client_info, _SNETPLAYERDATA* user_info, _SNETUIDATA* ui_info, _SNETVERSIONDATA* file_info, int* playerid)
 {
     return 0;
 }
