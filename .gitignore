@@ -49,6 +49,9 @@ comparer-config.toml
 # User-specific files (MonoDevelop/Xamarin Studio)
 *.userprefs
 
+# CMake build cache
+[Bb]uild/
+
 # Build results
 [Dd]ebug/
 [Dd]ebugPublic/
