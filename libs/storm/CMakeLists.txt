@@ -17,16 +17,16 @@ set(DEFINITION_FILES
 source_group("Definition Files" FILES ${DEFINITION_FILES})
 source_group("Interface Header Files" FILES ${INTERFACE_HEADER_FILES})
 
-add_library(libstorm SHARED
+add_library(storm SHARED
     ${INTERFACE_HEADER_FILES}
     ${SOURCE_FILES}
     ${DEFINITION_FILES}
 )
 
-target_include_directories(libstorm
+target_include_directories(storm
     PUBLIC
         $<INSTALL_INTERFACE:include>
         $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include>
 )
 
-target_compile_features(libstorm PRIVATE cxx_std_17)
+target_compile_features(storm PRIVATE cxx_std_17)

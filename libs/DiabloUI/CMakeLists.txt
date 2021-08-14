@@ -87,7 +87,7 @@ target_include_directories(DiabloUI
         ${CMAKE_CURRENT_SOURCE_DIR}/src
 )
 
-target_link_libraries(DiabloUI PRIVATE libstorm shared)
+target_link_libraries(DiabloUI PRIVATE storm shared)
 
 target_compile_features(DiabloUI PRIVATE cxx_std_20)
 
