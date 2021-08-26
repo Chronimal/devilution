@@ -757,7 +757,9 @@ int APIENTRY WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLi
     {
 #endif
         play_movie("gendata\\logo.smk", TRUE);
+#ifdef _DEBUG
     }
+#endif
 
 #ifndef SPAWN
     {
