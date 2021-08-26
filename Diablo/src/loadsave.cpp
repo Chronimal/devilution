@@ -864,7 +864,7 @@ void LoadLevel()
                 dDead[i][j] = BLoad();
             }
         }
-        SetDead();
+        SyncUniqDead();
     }
 
     nummonsters = WLoad();

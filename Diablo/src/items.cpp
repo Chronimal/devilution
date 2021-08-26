@@ -507,6 +507,8 @@ void InitItems()
     }
 
     uitemflag = FALSE;
+
+    // BUGFIX: item get records not reset when resetting items.
 }
 
 void CalcPlrItemVals(int p, BOOL Loadgfx)

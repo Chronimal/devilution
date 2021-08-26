@@ -52,6 +52,9 @@ comparer-config.toml
 # CMake build cache
 [Bb]uild/
 
+# Clang Tidy
+re-format/
+
 # Build results
 [Dd]ebug/
 [Dd]ebugPublic/

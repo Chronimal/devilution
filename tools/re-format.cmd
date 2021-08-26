@@ -5,7 +5,7 @@ cmake -T ClangCl ..
 msbuild Devilution.sln /t:Build /p:Configuration=Debug;Platform=Win32;RunCodeAnalysis=true
 
 pushd Diablo\Diablo.dir\Debug\Diablo.ClangTidy
-python ..\..\..\..\..\..\tools\run-clang-tidy.py -fix -checks=-*,readability-braces-around-statements
+python ..\..\..\..\..\tools\run-clang-tidy.py -fix -checks=-*,readability-braces-around-statements
 clang-format -i ..\..\..\..\..\Diablo\src\*.cpp
 popd
 
