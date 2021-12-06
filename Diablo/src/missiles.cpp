@@ -519,6 +519,7 @@ void PutMissile(int i)
 
     x = missile[i]._mix;
     y = missile[i]._miy;
+    // BUGFIX: should be `x < 0 || y < 0`, was `x <= 0 || y <= 0`.
     if (x <= 0 || y <= 0 || x >= MAXDUNX || y >= MAXDUNY)
     {
         missile[i]._miDelFlag = TRUE;
@@ -1382,31 +1383,31 @@ if (hper < hit)
             NetSendCmdDamage(TRUE, p, dam);
         }
         if (plr[pnum]._pClass == PC_WARRIOR)
-        {
-            PlaySfxLoc(PS_WARR69, plr[pnum]._px, plr[pnum]._py);
+        {                                                        // BUGFIX: should use p instead of pnum
+            PlaySfxLoc(PS_WARR69, plr[pnum]._px, plr[pnum]._py); // BUGFIX: should use p instead of pnum
 #ifndef SPAWN
         }
         else if (plr[pnum]._pClass == PC_ROGUE)
-        {
-            PlaySfxLoc(PS_ROGUE69, plr[pnum]._px, plr[pnum]._py);
+        {                                                         // BUGFIX: should use p instead of pnum
+            PlaySfxLoc(PS_ROGUE69, plr[pnum]._px, plr[pnum]._py); // BUGFIX: should use p instead of pnum
         }
         else if (plr[pnum]._pClass == PC_SORCERER)
-        {
-            PlaySfxLoc(PS_MAGE69, plr[pnum]._px, plr[pnum]._py);
+        {                                                        // BUGFIX: should use p instead of pnum
+            PlaySfxLoc(PS_MAGE69, plr[pnum]._px, plr[pnum]._py); // BUGFIX: should use p instead of pnum
 #endif
 #ifdef HELLFIRE
         }
         else if (plr[pnum]._pClass == PC_MONK)
-        {
-            PlaySfxLoc(PS_MONK69, plr[pnum]._px, plr[pnum]._py);
+        {                                                        // BUGFIX: should use p instead of pnum
+            PlaySfxLoc(PS_MONK69, plr[pnum]._px, plr[pnum]._py); // BUGFIX: should use p instead of pnum
         }
         else if (plr[pnum]._pClass == PC_BARD)
-        {
-            PlaySfxLoc(PS_ROGUE69, plr[pnum]._px, plr[pnum]._py);
+        {                                                         // BUGFIX: should use p instead of pnum
+            PlaySfxLoc(PS_ROGUE69, plr[pnum]._px, plr[pnum]._py); // BUGFIX: should use p instead of pnum
         }
         else if (plr[pnum]._pClass == PC_BARBARIAN)
-        {
-            PlaySfxLoc(PS_WARR69, plr[pnum]._px, plr[pnum]._py);
+        {                                                        // BUGFIX: should use p instead of pnum
+            PlaySfxLoc(PS_WARR69, plr[pnum]._px, plr[pnum]._py); // BUGFIX: should use p instead of pnum
 #endif
         }
         return TRUE;

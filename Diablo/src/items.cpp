@@ -513,7 +513,7 @@ void InitItems()
 
 void CalcPlrItemVals(int p, BOOL Loadgfx)
 {
-    int d;
+    int pvid, d;
 
     int mind = 0; // min damage
     int maxd = 0; // max damage
@@ -1596,16 +1596,18 @@ BOOL ItemSpaceOk(int i, int j)
     }
 
     if (dObject[i + 1][j + 1] > 0 && object[dObject[i + 1][j + 1] - 1]._oSelFlag != 0)
-    {
+    { /// BUGFIX: check for dObject OOB
         return FALSE;
     }
 
     if (dObject[i + 1][j + 1] < 0 && object[-(dObject[i + 1][j + 1] + 1)]._oSelFlag != 0)
-    {
+    { /// BUGFIX: check for dObject OOB
         return FALSE;
     }
 
-    if (dObject[i + 1][j] > 0 && dObject[i][j + 1] > 0 && object[dObject[i + 1][j] - 1]._oSelFlag != 0 && object[dObject[i][j + 1] - 1]._oSelFlag != 0)
+    if (dObject[i + 1][j] > 0    /// BUGFIX: check for dObject OOB
+        && dObject[i][j + 1] > 0 /// BUGFIX: check for dObject OOB
+        && object[dObject[i + 1][j] - 1]._oSelFlag != 0 && object[dObject[i][j + 1] - 1]._oSelFlag != 0)
     {
         return FALSE;
     }
@@ -6880,6 +6882,7 @@ void SpawnPremium(int lvl)
                             {
                                 if (dwTicks - itemrecord[i].dwTimestamp > 6000)
                                 {
+                                    // BUGFIX: loot actions for multiple quest items with same seed (e.g. blood stone) performed within less then 6 seconds will be ignored.
                                     NextItemRecord(i);
                                     i--;
                                 }

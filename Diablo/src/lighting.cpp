@@ -443,7 +443,7 @@ void DoVision(int nXPos, int nYPos, int nRadius, BOOL doautomap, BOOL visible)
     int j, k, v, x1adj, x2adj, y1adj, y2adj;
 
     if (nXPos >= 0 && nXPos <= MAXDUNX && nYPos >= 0 && nYPos <= MAXDUNY)
-    {
+    { // BUGFIX < MAXDUNX/MAXDUNY or OOB
         if (doautomap)
         {
             if (dFlags[nXPos][nYPos] >= 0)
@@ -557,7 +557,7 @@ void InitLightTable()
 void MakeLightTable()
 {
     int i, j, k, l, lights, shade, l1, l2, cnt, rem, div;
-    double fs;
+    double fs, fa;
     BYTE col, max;
     BYTE *tbl, *trn;
     BYTE blood[16];
@@ -790,7 +790,7 @@ void MakeLightTable()
     {
         for (j = 0; j < 16; j++)
         {
-            double fa = (sqrt((double)(16 - j))) / 128;
+            fa = (sqrt((double)(16 - j))) / 128;
             fa *= fa;
             for (i = 0; i < 128; i++)
             {
