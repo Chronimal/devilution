@@ -12,12 +12,12 @@ DDS_BEGIN_ANON_NS
 
 struct Viewport : public D3D11_VIEWPORT
 {
-    explicit Viewport(const XMFLOAT2& size) noexcept
+    explicit Viewport(float x, float y, float width, float height) noexcept
     {
-        TopLeftX = 0.0f;
-        TopLeftY = 0.0f;
-        Width = size.x;
-        Height = size.y;
+        TopLeftX = x;
+        TopLeftY = y;
+        Width = width;
+        Height = height;
         MinDepth = 0.0f;
         MaxDepth = 1.0f;
     }
@@ -86,7 +86,20 @@ void DirectDraw::render(ID3D11ShaderResourceView* canvasView, ID3D11ShaderResour
 
     deviceContext->ClearRenderTargetView(frameBufferView, backgroundColor);
 
-    Viewport viewport(deviceResources->getViewportSize());
+    XMFLOAT2 virtualSize{static_cast<float>(vdm_.width), static_cast<float>(vdm_.height)};
+    XMFLOAT2 screenSize{deviceResources->getViewportSize()};
+
+    auto aspectRatio = virtualSize.x / virtualSize.y;
+    auto width = screenSize.x;
+    auto height = width / aspectRatio;
+
+    if (height > screenSize.y)
+    {
+        height = screenSize.y;
+        width = height * aspectRatio;
+    }
+
+    Viewport viewport((screenSize.x / 2) - (width / 2), (screenSize.y / 2) - (height / 2), width, height);
     deviceContext->RSSetViewports(1, &viewport);
 
     auto renderTargetView = deviceResources->getRenderTargetView();
